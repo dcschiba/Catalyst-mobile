@@ -1,0 +1,19 @@
+{
+	"Name": "CompassHourTmpContour",
+	"Renderer": "Mesh",
+	"Attributes": {
+		"data_offset": -273.15,
+		"style": {
+			"default": {
+				"contour": [{
+					"base": 0,
+					"interval": 5.0,
+					"fractional_digits": 1,
+					"num": 250,
+					"strokeStyle": "rgba(50,50,100,0.8)",
+					"textColor": "rgba(20,20,80,0.9)"
+				}]
+			}
+		}
+	}
+}

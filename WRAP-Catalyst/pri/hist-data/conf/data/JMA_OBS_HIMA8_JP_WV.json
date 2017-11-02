@@ -1,0 +1,28 @@
+{
+    "Name" : "JMA_OBS_HIMA8_JP_WV",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "_TimeList" : "../../WRAP/wrap-pri/data/WX_Satellite/JMA_OBS_HIMA8_JP_WV/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_Satellite/JMA_OBS_HIMA8_JP_WV/%validtime%/%z%_%y%_%x%.png",
+        "_TimeList" : "https://wni-icdb.wni.com/sat/JMA_OBS_HIMA8_JP_WV/list",
+        "_File" : "https://wrapicdb:XsBqJdEc@wrapicdb:XsBqJdEc@wni-icdb.wni.com/sat/JMA_OBS_HIMA8_JP_WV_%validtime%/%z%_%y%_%x%.png",
+        "_TimeList" : "https://shoji:qwerty@satdb-test.wni.co.jp/buckets/JMA_OBS_HIMA8_JP_WV/keys/list",
+        "TimeList" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_Satellite/JMA_OBS_HIMA8_JP_WV/index.json",
+        "_File" : "https://satdb-test.wni.co.jp/buckets/JMA_OBS_HIMA8_JP_WV_%validtime%/keys/%z%_%y%_%x%.png",
+        "_File" : "https://shoji:qwerty@satdb-test.wni.co.jp/buckets/WNI_ANLSIS_SAT_WORLD_WV_%validtime%/keys/%z%_%y%_%x%.png",
+        "_File" : "https://wrapicdb:XsBqJdEc@wni-icdb.wni.com/sat/WNI_ANLSIS_SAT_WORLD_WV_%validtime%/%z%_%y%_%x%.png",
+        "API" : "satdb",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 6,
+            "YCoordinate" : -1,
+            "BoundingBox" : {
+                "West":119,
+                "South":21.5,
+                "East":152,
+                "North":48.5
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "Name" : "WindBarbs",
+    "Renderer" : "WindArrow",
+    "Attributes" : {
+        "style" : {
+            "default" : {
+                "color" : "rgba(20, 20, 20, 1.0)"
+            }
+        }
+    }
+}

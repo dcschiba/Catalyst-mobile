@@ -1,0 +1,16 @@
+{
+    "Name" : "SKY_JP_GASS_Scale",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "Index" : "SKY_JP_GASS_Scale",
+        "MaxZoom" : 5,
+        "BoundingBox" : {
+            "minx":120.00000000000001,
+            "miny":22.41487090357604,
+            "maxx":150.01109752095871,
+            "maxy":47.60000000000002
+        },
+        "Directory" : "./pri/wrap/data/GASS/JAPAN",
+        "UpdateInterval" : 1800
+    }
+}

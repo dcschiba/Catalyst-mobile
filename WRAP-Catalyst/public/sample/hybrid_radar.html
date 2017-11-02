@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Hybrid Radar Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <div style="color:black; position:absolute; left:20px; top:8px;">Hybrid Radar (Japan Korea Taiwan)</div>
+        <select id="validtime" style="position:absolute; width:110px; left:230px; top:6px; height:18px;"></select>
+        <label style="position:absolute; width:60px; height:18px; left:360px; top:6px;">
+            <input type="checkbox" id="WX_JP_Radar" checked><spawn style="position:absolute; top:2px; left:20px;">Japan</spawn>
+        </label>
+        <label style="position:absolute; width:60px; height:18px; left:430px; top:6px;">
+            <input type="checkbox" id="WX_KR_Radar" checked><spawn style="position:absolute; top:2px; left:20px;">Korea</spawn>
+        </label>
+        <label style="position:absolute; width:60px; height:18px; left:500px; top:6px;">
+            <input type="checkbox" id="WX_TW_Radar" checked><spawn style="position:absolute; top:2px; left:20px;">Taiwan</spawn>
+        </label>
+        <label style="position:absolute; width:60px; height:18px; left:590px; top:6px; color:blue;">
+            <input type="checkbox" id="hybrid"><spawn style="position:absolute; top:2px; left:20px;">Hybrid</spawn>
+        </label>
+        <label style="position:absolute; width:60px; height:18px; left:700px; top:6px; color:#6a6;">
+            <input type="checkbox" id="coverage" checked><spawn style="position:absolute; top:2px; left:20px;">coverage</spawn>
+        </label>
+        <a href="../doc/reference/sample_code/hybrid_radar.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <div id="title" style="position:absolute; top:36px; left:16px; padding:10px; font-size:16px;
+            border-radius:6px; background-color:rgba(255,255,255,0.5);"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 5;
+
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 8,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+            
+            var element = ["WX_JP_Radar","WX_KR_Radar","WX_TW_Radar"];
+            var data = [];
+            var layer = [];
+            
+            WRAP.DH.conf_path = "./pri/conf/data";      // ローカルの sample_data用コンフィグを用いる
+            
+            var time_controller = new WRAP.Geo.TimeController();
+            for ( var i = 0 ; i < element.length ; i++ ) {
+                data[i] = WRAP.DH.addObject(element[i]);    // データオブジェクト作成
+                layer[i] = new WRAP.Geo.Layer(element[i]);  // レイヤー作成
+                time_controller.addLayer(layer[i]);         // レーダーレイヤーをタイムコントローラに登録
+            }
+            WRAP.Geo.setLayer({upper_layers: layer});
+        
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.when(
+                $.getJSON(conf_dir + '/layer/Radar.json')
+            ).done(function(conf) {
+                for ( var i = 0 ; i < element.length ; i++ )
+                   layer[i].configure(data[i], conf);
+            });
+            
+            
+            function timeString(tm) {
+                return tm.substr(4,2)+"/"+tm.substr(6,2)+" "+tm.substr(9,2)+":"+tm.substr(11,2);
+            }
+        
+            // UI の内容から現在のレイヤーに表示コンテンツをセット
+            function updateContent() {
+                // レイヤー可視状態およびカバレッジ表示（スタイル）の設定
+                var coverage = $('#coverage').prop('checked');
+                for ( var i = 0 ; i < element.length ; i++ ) {
+                    layer[i].setVisible($('#'+element[i]).prop('checked'));
+                    layer[i].setStyle(coverage?'default':'clear_coverage');
+                }
+                
+                // レイヤーのマージ設定
+                if ( $('#hybrid').prop('checked') )
+                    layer[0].merge(layer.slice(1, layer.length));    // 他レイヤーをマージ = layer[0].merge(layer[1],layer[2]])
+                else
+                    layer[0].merge(null);                            // マージを解除
+                
+                // レイヤーコンテント設定
+                var vt = $("#validtime").val();
+                if ( vt ) {
+                    time_controller.setDisplayTime(vt);
+                    for ( var i = 0 ; i < element.length ; i++ ) {
+                        if ( data[i].query("validtime").value())
+                            layer[i].set({
+                                validtime:vt
+                            });
+                    }
+
+                    // タイトルの更新
+                    var dt = time_controller.displayTime();
+                    var title = "<span style='color:blue;'>DisplayTime : "+timeString(dt, true) + "</span>";
+                    for ( var i = 0 ; i < layer.length ; i++ ) {
+                        if ( layer[i].visible() ) {
+                            var content = layer[i].get();
+                            if ( content&&content.validtime ) {
+                                if ( title.length )
+                                    title += "<br/>";
+                                title += "<span>"+element[i] + " " + "VALID:" + timeString(content.validtime)+"</span>";
+                            }
+                        }
+                    }
+                    $('#title').html(title);
+                }
+            }
+
+            // 本サンプルでは element[0]のタイムリストを代表で使用
+            data[0].inspect(function(ref) {
+                var validtime = ref.query("validtime").value();
+                $("#validtime").html("");
+                if ( validtime && validtime.length ) {
+                    $("#validtime").prop('disabled', false);
+                    for ( var i = 0 ; i < validtime.length ; i++ ) {
+                         var vt = validtime[i];
+                         var t = timeString(vt);
+                         $("#validtime").append("<option value='"+vt+"'>"+t+"</option>");
+                    }
+                    $("#validtime").val(validtime[validtime.length-1]);
+                    updateContent();
+                }
+                else {
+                    $("#validtime").prop('disabled', true);
+                }
+            });
+            for ( var i = 1 ; i < element.length ; i++ ) {
+                data[1].inspect(function(ref) {
+                    updateContent();
+                });
+            }
+        
+            $(':checkbox').click(updateContent);
+            $('#validtime').change(updateContent);
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_US_PR_Radar",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_US_PR_Radar/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_US_PR_Radar/%validtime%/%z%/%x%/%y%.png",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 5,
+            "BoundingBox" : {
+                "West":-70.00000000000000,
+                "South":16.00117465407314,
+                "East":-62.00119161287849,
+                "North":21.00000000000000
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

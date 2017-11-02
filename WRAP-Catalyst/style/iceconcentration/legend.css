@@ -1,0 +1,18 @@
+.basediv {
+  overflow: hidden;
+}
+.legendtext{
+  float: left;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.legendgrad {
+  float: left;
+  height: 20px;
+  width: 100px;
+  background: -webkit-linear-gradient(left, rgba(20, 20, 250, 0), #1414FA, #14FAFA, #149614, #FAFA14, #FA1414); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(left, rgba(20, 20, 250, 0), #1414FA, #14FAFA, #149614, #FAFA14, #FA1414); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(left, rgba(20, 20, 250, 0), #1414FA, #14FAFA, #149614, #FAFA14, #FA1414); /* For Fx 3.6 to 15 */
+  background: linear-gradient(to right, rgba(20, 20, 250, 0), #1414FA, #14FAFA, #149614, #FAFA14, #FA1414); /* Standard syntax (must be last) */
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Grid Line Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <div style="color:black; position:absolute; left:20px; top:8px;">Grid Line Sample</div>
+        <label style="position:absolute; width:260px; height:18px; left:200px; top:6px;">
+            <input type="checkbox" id="show" checked><spawn id="label" style="position:absolute; top:2px; left:20px;">Show Grid</spawn>
+        </label>
+        <a href="../doc/reference/sample_code/gridline.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 5;
+
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 8,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+            
+            var layer = new WRAP.Geo.Layer("GridLine");
+
+            WRAP.Geo.setLayer({upper_layers: [layer]});
+
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.getJSON(conf_dir + '/layer/GridLine.json', function() {}).
+            success(function(conf) {
+                layer.configure(null, conf);
+            }).
+            error(function(jqXHR, textStatus, errorThrown) {
+                console.log("GridLine Layer configuration file load error : " + textStatus);
+            });
+            
+            $('#show').click(function() {
+                layer.setVisible($(this).prop('checked'));
+            });
+            
+        </script>
+    </body>
+</html>

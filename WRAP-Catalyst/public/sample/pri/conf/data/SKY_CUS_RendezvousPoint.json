@@ -1,0 +1,8 @@
+{
+    "Name" : "SKY_CUS_RendezvousPoint",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/RP/%customer%/%user%.json",
+        "UpdateInterval" : 600
+    }
+}

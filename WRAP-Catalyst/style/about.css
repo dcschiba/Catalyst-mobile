@@ -1,0 +1,13 @@
+.title {
+  border-left: #0b419a solid 3px;
+  margin: 0;
+  padding-left: 8px;
+}
+
+.titleArea {
+  padding-top: 20px;
+}
+
+.content {
+  padding: 10px;  
+}

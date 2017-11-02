@@ -1,0 +1,9 @@
+{
+    "Name" : "WX_JMA_Warn_Border",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "_File" : "./pri/data/WX_JMA_Warn/ALL.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/MAP_JMA_Warn_Area/ALL.json",
+        "UpdateInterval" : 3600
+    }
+}

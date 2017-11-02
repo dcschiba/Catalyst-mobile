@@ -1,0 +1,7 @@
+{
+    "Name" : "WX_WNI_JP_10Ten_Report_past",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "%past%.json"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "Name" : "Map_JapanBorder",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "https://pt-wrap01.wni.co.jp/Venus/sample/pri/data/Map_JapanBorder/%z%/%y%/%x%.json",
+        "DataGrid" : {
+            "MinZoom" : 3,
+            "MaxZoom" : 8,
+            "BoundingBox" : {
+                "West":120.0,
+                "South":20.0,
+                "East":150.0,
+                "North":50.0
+            }
+        }
+    }
+}

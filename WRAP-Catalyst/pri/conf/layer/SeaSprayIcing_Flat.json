@@ -1,0 +1,23 @@
+{
+	"Name": "SeaSprayIcing_Flat",
+	"Renderer": "Mesh",
+	"Attributes": {
+		"data_offset": 0,
+		"style": {
+            "default": {
+				"fill_type": "flat",
+				"palette_gradient": false,
+				"palette_step": 1,
+				"palette": [{
+						"value": 1,
+						"color": "rgba(255, 128, 0, 0.5)"
+					},
+					{
+						"value": 2,
+						"color": "rgba(255, 0, 0, 0.5)"
+					}
+				]
+			}
+		}
+	}
+}

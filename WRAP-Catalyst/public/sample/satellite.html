@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Global Satellite Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <div style="color:black; position:absolute; left:20px; top:8px;">Global Satellite</div>
+        <select id="element" style="position:absolute; width:240px; left:160px; top:6px; height:18px;"></select>
+        <select id="validtime" style="position:absolute; width:110px; left:410px; top:6px; height:18px;"></select>
+        <label style="position:absolute; width:260px; height:18px; left:540px; top:6px;">
+            <input type="checkbox" id="cloudtop" ><spawn id="label" style="position:absolute; top:2px; left:20px;">Cloud Top Tooltip</spawn>
+        </label>
+        <a href="../doc/reference/sample_code/satellite.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 5;
+
+            var conf_path = "./pri/conf";     // ローカルの sample_data用コンフィグを用いる
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 8,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+            
+            // map_canvasに対するマウス操作監視を登録
+            WRAP.Geo.setInteraction(map_canvas);
+            
+            var wv = 0, ir = 1, cldtop = 2, hima8 = 3
+            var data_id = [
+                "WNI_ANLSIS_SAT_WORLD_WV",
+                "WNI_ANLSIS_SAT_WORLD_IR",
+                "WNI_ANLSIS_SAT_WORLD_CLDTOP",
+                "JMA_OBS_HIMA8_JP_IR"
+            ];
+            var data = [];      // データオブジェクト
+            var layer = [];     // レイヤー
+            var current = -1;   // 現在選択中のエレメント・インデックス
+            
+            WRAP.DH.conf_path = conf_path+"/data";
+            for ( var i = 0 ; i < data_id.length ; i++ ) {
+                data[i] = WRAP.DH.addObject(data_id[i]);
+                
+                data[i].inspect(function(ref) {
+                    var index = data.indexOf(ref);
+                    if ( current == index )
+                        setValidtime();
+                });
+                layer[i] = new WRAP.Geo.Layer(data_id[i]);
+                layer[i].hide();
+            }
+            
+            WRAP.Geo.setLayer({upper_layers: layer});
+
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.getJSON(conf_dir + '/layer/Satellite.json', function() {}).
+            success(function(conf) {
+                layer[wv].configure(data[wv], conf);
+                layer[cldtop].configure(data[cldtop], conf);
+                layer[hima8].configure(data[hima8], conf);
+            }).
+            error(function(jqXHR, textStatus, errorThrown) {
+                console.log("Satellite Layer configuration file load error : " + textStatus);
+            });
+            $.getJSON(conf_dir + '/layer/SatelliteIR.json', function() {}).
+            success(function(conf) {
+                layer[ir].configure(data[ir], conf);
+            }).
+            error(function(jqXHR, textStatus, errorThrown) {
+                console.log("WNI_ANLSIS_SAT_WORLD_IR Layer configuration file load error : " + textStatus);
+            });
+            
+            // UI の内容から現在のレイヤーに表示コンテンツをセット
+            function updateContent() {
+                if ( current >=0 ) {
+                    var vt = $("#validtime").val();
+                    if ( vt ) {                     // Validtimeの設定
+                        layer[current].set({
+                            validtime:vt
+                        });
+                    }
+                }
+            }
+
+            // レーダーを選択 表示レイヤーを切り替え
+            function setElement(index) {
+                if ( current != index ) {
+                    if ( current >= 0 )
+                        layer[current].hide();
+                    current = index;
+                    setValidtime();
+                    updateContent();
+                    layer[current].show();
+                }
+                if ( index == cldtop ) {
+                    $('#cloudtop').prop('disabled', false);
+                    $('#label').css('color', 'black');
+                }
+                else {
+                    $('#cloudtop').prop('disabled', true);
+                    $('#label').css('color', 'gray');
+                }
+            }
+        
+            // マウス・インタラクション監視
+            WRAP.Geo.addEventHandler('touch', function(layer, feature, sp) {
+                if ( feature && feature.data ) {
+                    var msg = "clicked : "+feature.data;
+                    console.log(msg);
+                }
+            });
+            WRAP.Geo.addEventHandler('mouseover', function(layer, feature, sp) {
+                if ( feature && feature.data )
+                    console.log("mouseover : "+feature.data);
+            });
+            WRAP.Geo.addEventHandler('mouseout', function(layer, feature, sp) {
+                if ( feature && feature.data )
+                    console.log("mouseout : "+feature.data);
+            });
+                                                                                   
+            // ツールチップ
+            layer[cldtop].setTooltip(function(geo, data) {
+                if ( !$('#cloudtop').prop('checked') )
+                    return null;
+                                     
+                if ( geo ) {
+                    var prop = geo.properties;
+                    if ( prop ) {
+                        var v = val = prop.data[0];
+                        if ( v > 117 ) {
+                            // 160.57217 * (Val - 117) + 60.96	で、階調値をmに変換
+                            var v = 160.57217 * (val - 117) + 60.96;
+                            v *=3.281;	// mからftに変換
+                            return Math.round(v)+"ft";
+                        }
+                    }
+                                     
+                }
+                return "--ft";
+            });
+
+            // UIのセットアップ
+            for ( var i = 0 ; i < data_id.length ; i++ ) {
+                $('#element').append("<option value="+i+">"+data_id[i]+"</option>");
+            }
+        
+            // 選択要素の タイムリスト設定
+            function timeString(tm) {
+                return tm.substr(4,2)+"/"+tm.substr(6,2)+" "+tm.substr(9,2)+":"+tm.substr(11,2)+":"+tm.substr(13,2);
+            }
+        
+            function setValidtime() {
+                var validtime;
+                if ( current >= 0 ) {
+                    var tl = data[current].query("validtime").value();
+                    if ( tl && tl.length )
+                        validtime = tl;
+                }
+                $("#validtime").html("");
+                if ( validtime && validtime.length ) {
+                    $("#validtime").prop('disabled', false);
+                    for ( var i = 0 ; i < validtime.length ; i++ ) {
+                        var vt = validtime[i];
+                        var t = timeString(vt);
+                        $("#validtime").append("<option value='"+vt+"'>"+t+"</option>");
+                    }
+                    $("#validtime").val(validtime[0]);
+                    updateContent();
+                }
+                else {
+                    $("#validtime").prop('disabled', true);
+                }
+            }
+        
+            $('#element').change(function() {
+                setElement($(this).val());
+            });
+            
+            $('#validtime').change(function() {
+                updateContent();
+            });
+
+            // 初期状態設定
+            setElement(0);
+        </script>
+    </body>
+</html>

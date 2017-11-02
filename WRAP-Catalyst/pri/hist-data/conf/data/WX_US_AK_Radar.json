@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_US_AK_Radar",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_US_AK_Radar/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_US_AK_Radar/%validtime%/%z%/%x%/%y%.png",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 5,
+            "BoundingBox" : {
+                "West":-170.00000000000003,
+                "South":50.00481070174565,
+                "East":-129.99525761644381,
+                "North":70.00000000000003
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

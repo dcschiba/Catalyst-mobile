@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <title>WRAP Mercury Test Driver</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+
+        <script type="text/javascript" src="./js/WRAP.DH.js"></script>
+        <script type="text/javascript" src="./js/WRAP.DH/DataHandler/GeoJSON.js"></script>
+        <script type="text/javascript" src="./js/WRAP.DH/DataHandler/DataJSON.js"></script>
+        <script type="text/javascript" src="./js/WRAP.DH/DataHandler/GeoTiff.js"></script>
+        <script type="text/javascript" src="./js/WRAP.DH/DataHandler/LiveCamera.js"></script>
+        <script type="text/javascript" src="./js/WRAP.Geo.js"></script>
+        <script type="text/javascript" src="./js/WRAP.Geo/Renderer/GeoJSON.js"></script>
+        <script type="text/javascript" src="./js/WRAP.Geo/Renderer/DataJSON.js"></script>
+        <script type="text/javascript" src="./js/WRAP.Geo/Renderer/Mesh.js"></script>
+        <script type="text/javascript" src="./js/WRAP.Geo/Renderer/DistanceCalculator.js"></script>
+        <script type="text/javascript" src="./js/WRAP.Geo/Renderer/LiveCamera.js"></script>
+        <script type="text/javascript" src="./js/WRAP.Geo/Bridge/GoogleMaps.js"></script>
+        <script type="text/javascript" src="./js/WRAP.Geo/Interaction/Common.js"></script>
+        <script type="text/javascript" src="./js/WRAP.ASM.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="test.css" />
+    </head>
+    <body>
+        <!-- 画面上部 -->
+        <div class="nav">
+            <ul class="navbar">
+                <li class="navtab" id="menu"></li>
+                <li class="navtxt" id="open_doc">→ Documents</li>
+                <li class="navmsg" id="Message">α Version</li>
+            </ul>
+        </div>
+        
+        <!-- 画面コンテンツ部 -->
+        <div id="main">
+            <!-- 画面左側メニュー・パート -->
+            <div id="sidepane">
+                <div id="sidebar">
+                    <span class="info" id="center"></span><br/>
+                    <span class="info" id="zoom"></span><br/>
+                    <span class="info" id="xy"></span><br/>
+                    <span class="info" id="ll"></span><br/>
+                    <div class="subtitle" >
+                        <label for="chk_cp">地点情報データ（GeoJSON）</label>
+                    </div>
+                    <div class="sidebar_contents">
+                        <input type="checkbox" id="chk_00" value="00" ><label for="chk_00">ランデブーポイント</label><br/>
+                        <input type="checkbox" id="chk_01" value="01" ><label for="chk_01">Copilot</label><br/>
+                        <input type="checkbox" id="chk_02" value="02" ><label for="chk_02">マイクロネット</label><br/>
+                    </div>
+                    <div class="subtitle" >
+                        <label for="chk_rp">地理情報データ（GeoJSON）</label>
+                    </div>
+                    <div class="sidebar_contents">
+                        <input type="checkbox" id="chk_10" value="10" ><label for="chk_10">海岸線 (日本付近)</label><br/>
+                        <input type="checkbox" id="chk_11" value="11" ><label for="chk_11">海岸線 (世界2min)</label><br/>
+                        <input type="checkbox" id="chk_12" value="12" ><label for="chk_12">海岸線 (世界5min)</label><br/>
+                        <input type="checkbox" id="chk_13" value="13" ><label for="chk_13">日本行政界</label><br/>
+                    </div>
+                    <div class="subtitle" >
+                        <label for="chk_rd">GPVデータ（GeoTiff）</label>
+                    </div>
+                    <div class="sidebar_contents">
+                        <input type="checkbox" id="chk_20" value="20" ><label for="chk_20">GFS タイル</label><br/>
+                    </div>
+                    <div class="subtitle" >
+                        <label for="chk_lc">インタラクション・レイヤ</label>
+                    </div>
+                    <div class="sidebar_contents">
+                        <input type="checkbox" id="chk_30" value="30" ><label for="chk_30">ライブカメラ</label><br/>
+                        <input type="checkbox" id="chk_31" value="31" ><label for="chk_31">２点距離計算</label><br/>
+                        <input type="checkbox" id="chk_32" value="32" ><label for="chk_32">ポリゴン作画</label><br/>
+                    </div>
+                    <div style="height:100px;"></div>
+                    
+                </div>
+            </div>
+            
+            <!-- Google Maps 表示パート -->
+            <div id="map_canvas" style="width:100%; height:100%;"></div>
+            <div id="distance" style="position:absolute; width:180px; right:10px; height:200px; top:10px; background-color:rgba(255,255,255.0.5); z-index:10000;">
+                <label id="pos_s" style="color:red" ></label>
+                <label id="pos_e" style="color:blue" ></label>
+                <label id="dist" style="color:black" ></label>
+            </div>
+            <div id="drawing" style="position:absolute; width:180px; right:10px; top:10px; background-color:rgba(255,255,255.0.5); z-index:10000;">
+                <p><a id="delete_point" class="button" role="button" id="model_download_button" style="width:140px;">Delete Point</a></p>
+                <div id="path">Click to add point.</div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            // テスト用セットアップ
+            WRAP.DH.conf_path = "./pri/conf/data";  // ローカルの sample_data用コンフィグを用いる
+            WRAP.DH.Test = {                        // テスト用の設定
+                UI:true,
+                Camera:true,                        // カメラDBを使わず staticな sample_dataを使う
+            }
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            // Setup Google Maps
+            var map = new google.maps.Map(map_canvas, {
+                zoom: 6,
+                minZoom: 3,
+                center: new google.maps.LatLng(35.792621, 139.806513),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            
+            // User
+            WRAP.DH.setUser("WNI", "wni_root1");
+            
+            // Data
+            var copilot_data = WRAP.DH.addObject("SKY_CUS_CoPilot");
+            var rendezvous_point_data = WRAP.DH.addObject("SKY_CUS_RendezvousPoint");
+            var coastline_data = WRAP.DH.addObject("Map_CoastLine");
+            var coastline2_data = WRAP.DH.addObject("Map_CoastLine2");
+            var coastline5_data = WRAP.DH.addObject("Map_CoastLine5");
+            var japanboader_data = WRAP.DH.addObject("Map_JapanBoader");
+            var live_camera_data = WRAP.DH.addObject("WX_LiveCamera");
+            var micronet_data = WRAP.DH.addObject("Micronet");
+            var windspeed_data = WRAP.DH.addObject("Model_GFS");
+            
+            // Map
+            WRAP.Geo.setGoogleMaps(map);
+            
+            // Layers
+            var cp00_layer = new WRAP.Geo.Layer("CoPilot_00");
+            var rp_layer = new WRAP.Geo.Layer("RendezvousPoint");
+            var coastline_layer = new WRAP.Geo.Layer("CoastLine");
+            var coastline2_layer = new WRAP.Geo.Layer("CoastLine2");
+            var coastline5_layer = new WRAP.Geo.Layer("CoastLine5");
+            var japanboader_layer = new WRAP.Geo.Layer("JapanBoader");
+            var live_camera_layer = new WRAP.Geo.Layer("LiveCamera");
+            var distance_layer = new WRAP.Geo.Layer("DistanceCalculator");
+            var windspeed_layer = new WRAP.Geo.Layer("WindSpeed");
+            var micronet_layer = new WRAP.Geo.Layer("Micronet");
+        
+            distance_layer.updateDistance = function(lat_s, lon_s, lat_e, lon_e, dist) {
+                $('#pos_s').html(""+lat_s.toFixed(6)+", "+lon_s.toFixed(6));
+                $('#pos_e').html(""+lat_e.toFixed(6)+", "+lon_e.toFixed(6));
+                $('#dist').html("distance = "+dist.toFixed(6)+" m");
+            }
+
+            WRAP.Geo.setLayer({
+                interactive_layers : [
+                    distance_layer,
+                    live_camera_layer,
+                    cp00_layer,
+                    rp_layer,
+                    micronet_layer,
+                    japanboader_layer,
+                    coastline_layer,
+                    coastline2_layer,
+                    coastline5_layer
+                ],
+                upper_layers : [
+                    windspeed_layer,
+                ]
+            });
+
+            var conf_dir = "./pri/conf";
+            // Configure Layers
+            $.when(
+                $.getJSON(conf_dir + '/layer/RendezvousPoint.json'),
+                $.getJSON(conf_dir + '/layer/CoPilot_00.json'),
+                $.getJSON(conf_dir + '/layer/CoastLine.json'),
+                $.getJSON(conf_dir + '/layer/CoastLine.json'),
+                $.getJSON(conf_dir + '/layer/CoastLine.json'),
+                $.getJSON(conf_dir + '/layer/JapanBoader.json'),
+                $.getJSON(conf_dir + '/layer/WindSpeed.json'),
+                $.getJSON(conf_dir + '/layer/DistanceCalculator.json'),
+                $.getJSON(conf_dir + '/layer/Micronet.json'),
+                $.getJSON(conf_dir + '/layer/LiveCamera.json')
+            ).done(function() {
+                var i = 0;
+                rp_layer.configure(rendezvous_point_data, arguments[i++][0]);
+                cp00_layer.configure(copilot_data, arguments[i++][0]);
+                coastline_layer.configure(coastline_data, arguments[i++][0]);
+                coastline2_layer.configure(coastline2_data, arguments[i++][0]);
+                coastline5_layer.configure(coastline5_data, arguments[i++][0]);
+                japanboader_layer.configure(japanboader_data, arguments[i++][0]);
+                windspeed_layer.configure(windspeed_data, arguments[i++][0]);
+                distance_layer.configure(null, arguments[i++][0]);
+                micronet_layer.configure(micronet_data, arguments[i++][0]);
+                live_camera_layer.configure(live_camera_data, arguments[i++][0]);
+            });
+
+            MapInteraction.init(live_camera_data, map_canvas);
+            WRAP.Geo.pathChanged(function(points){
+                var pts = "";
+                for ( var i = 0 ; i < points.length ; i++ ) {
+                    var lat = points[i].latDegree();
+                    var lon = points[i].lonDegree();
+                    pts += (""+lat.toFixed(6)+", "+lon.toFixed(6))+"</br>";
+                }
+                $('#path').html(pts);
+            });
+            $('#delete_point').click(function() {
+                WRAP.Geo.deleteCurrentPathPoint();
+            });
+            
+            function timeString(tm, year) {
+                return (year?(tm.substr(0,4)+"/"):"")+tm.substr(4,2)+"/"+tm.substr(6,2)+" "+
+                       tm.substr(9,2)+":"+tm.substr(11,2);
+            }
+
+            function message(str) {
+                $('#Message').html(str);
+                console.log(str);
+            }
+        
+            function latlon(pt) {
+                return ""+pt.latDegree().toFixed(4)+", "+pt.lonDegree().toFixed(4);
+            }
+        
+            // Map状態監視
+            var l, t;
+            function infoMap(e) {
+                var onmap = (l = e) && e.target && e.target.clientHeight > 200;
+                if ( onmap ) {
+                    var r = e.target.getBoundingClientRect();
+                    var x = e.clientX-r.left, y = e.clientY-r.top;
+                    var pt = WRAP.Geo.getPoint(new WRAP.Geo.ScreenPoint(x,y));
+                    $('#center').html("map_center : "+latlon(WRAP.Geo.getCenterPoint()));
+                    $('#zoom').html("map_zoom : "+WRAP.Geo.getZoom());
+                    $('#xy').html("x,y : "+x+", "+y);
+                    $('#ll').html("lat,lon : "+latlon(pt));
+                }
+                if(t) clearTimeout(t);
+                t = setTimeout(function(){
+                    $('#xy')[onmap?'fadeIn':'fadeOut'](250);
+                    $('#ll')[onmap?'fadeIn':'fadeOut'](250);
+                },50);
+            }
+            map_canvas.addEventListener("mousemove", infoMap);
+            map_canvas.addEventListener("mouseout", function() {infoMap()});
+            google.maps.event.addListener(map, 'bounds_changed', function() {infoMap(l)});
+
+            // テストメニュー制御
+            var menu = false;
+            $('#menu').click(function(){
+                menu = !menu;
+                $('#sidepane').animate({left: menu?'0px':'-210px'});
+                $('#menu').html("<span class='arrow "+(menu?"l":"r")+"'/>　WRAP Mercury テストドライバ");
+            }).click();
+            
+            var last_cl = null;
+            
+            var updateLayers = function () {
+                var check_rp = $('#chk_00').prop("checked");
+                var check_cp = $('#chk_01').prop("checked");
+                var check_mn = $('#chk_02').prop("checked");
+                var check_lc = $('#chk_30').prop("checked");
+                var check_dc = $('#chk_31').prop("checked");
+                var check_10 = $('#chk_10').prop("checked");
+                var check_11 = $('#chk_11').prop("checked");
+                var check_12 = $('#chk_12').prop("checked");
+                var check_13 = $('#chk_13').prop("checked");
+                var check_ws = $('#chk_20').prop("checked");
+                var check_pd = $('#chk_32').prop("checked");
+                
+                if ( check_10 && last_cl != 10 ) {
+                    $('#chk_11').prop("checked", false);
+                    $('#chk_12').prop("checked", false);
+                    check_11 = check_12 = false;
+                    last_cl = 10;
+                }
+                else if ( check_11 && last_cl != 11 ) {
+                    $('#chk_10').prop("checked", false);
+                    $('#chk_12').prop("checked", false);
+                    check_10 = check_12 = false;
+                    last_cl = 11;
+                }
+                else if ( check_12 && last_cl != 12 ) {
+                    $('#chk_10').prop("checked", false);
+                    $('#chk_11').prop("checked", false);
+                    check_10 = check_11 = false;
+                    last_cl = 12;
+                }
+                else {
+                    last_cl = null;
+                }
+                
+                rp_layer.setVisible(check_rp);
+                cp00_layer.setVisible(check_cp);
+                micronet_layer.setVisible(check_mn);
+                coastline_layer.setVisible(check_10);
+                coastline2_layer.setVisible(check_11);
+                coastline5_layer.setVisible(check_12);
+                japanboader_layer.setVisible(check_13);
+                windspeed_layer.setVisible(check_ws);
+                live_camera_layer.setVisible(check_lc);
+                distance_layer.setVisible(check_dc);
+                
+                WRAP.Geo.enablePathEdit(check_pd);
+
+                $('#distance')[check_dc?'show':'hide']();
+                $('#drawing')[check_pd?'show':'hide']();
+            };
+
+            $("input[type=checkbox]").change(updateLayers);
+            updateLayers();
+
+            $("#open_doc").click(function() {
+                window.open('../doc/reference/index.html');
+            });
+
+            map_canvas.addEventListener("mousemove", infoMap);
+        </script>
+    </body>
+</html>

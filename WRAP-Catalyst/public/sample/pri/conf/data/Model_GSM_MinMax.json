@@ -1,0 +1,29 @@
+{
+    "Name" : "GSM",
+    "DataHandler" : "GeoTiff",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/GSM/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/GSM/data/%element%/%level%/%basetime%/%validtime%.tiff",
+        "DataGrid" : {
+            "Width" : 720,
+            "Height" : 361,
+            "LatBase" : 90.0,
+            "LonBase" : 0.0,
+            "LatInterval" : 0.5,
+            "LonInterval" : 0.5,
+            "element" : {
+                "TMP" : {
+                    "MinValue" : 268.15,
+                    "MaxValue" : 298.15
+                },
+                "UGRD" : {
+                    "MaxValue" : 20.58
+                },
+                "VGRD" : {
+                    "MaxValue" : 20.58
+                }
+            }
+        },
+        "UpdateInterval" : 3600
+    }
+}

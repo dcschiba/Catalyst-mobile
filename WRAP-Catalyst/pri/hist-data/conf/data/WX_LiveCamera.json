@@ -1,0 +1,11 @@
+{
+    "Name" : "WX_LiveCamera",
+    "DataHandler" : "LiveCamera",
+    "Attributes" : {
+        "CameraMaster" : "./pri/hist-data/%event_id%/wrap/data/WX_LiveCamera/camera_master.txt",
+        "CameraInfo" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_LiveCamera/%id%/info.json",
+        "ImageFileList" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_LiveCamera/%id%/index.json.%current_time%",
+        "ImageFile" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_LiveCamera/%id%/%time%.jpeg",
+        "UpdateInterval" : 60
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "Name" : "MSM",
+    "DataHandler" : "GeoTiff",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_JMA_JP_MSM/index.json.%current_time%",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_JMA_JP_MSM/%element%/%level%/%basetime%/%validtime%.tiff",
+
+        "DataGrid" : {
+            "Width" : 241,
+            "Height" : 253,
+            "LatBase" : 47.6,
+            "LonBase" : 120.0,
+            "LatInterval" : 0.1,
+            "LonInterval" : 0.125
+        },
+        "UpdateInterval" : 3600
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "Name" : "Fix",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "min_zoom" : 6,
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/fix/triangle_02.png"
+                    }
+                }
+            }
+            
+        
+    }
+

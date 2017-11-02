@@ -1,0 +1,10 @@
+{
+    "Name" : "LightningSample",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "_File" : "./pri/data/Lightning/kr_lighting_latest.json",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/wrap-pri/data/WX_KMA_Lightning_Latest/latest70min.json",
+        "_File" : "../../WRAP/wrap-pri/data/WX_JP_Lightning_Latest/latest70min.json",
+        "UpdateInterval" : 60
+    }
+}

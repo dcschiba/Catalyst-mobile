@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_TW_Radar",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/WX_TW_Radar/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/WX_TW_Radar/%validtime%/%z%/%x%/%y%.png",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 5,
+            "BoundingBox" : {
+                "West":117.30000000000003,
+                "South":19.69710540243941,
+                "East":124.79647158232984,
+                "North":27.20000000000001
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

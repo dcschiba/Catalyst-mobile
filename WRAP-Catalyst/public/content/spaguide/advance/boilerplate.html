@@ -1,0 +1,846 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>ボイラープレートを使用した開発の流れ | WRAP Application開発ガイド</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+        <link rel="stylesheet" href="../styles/website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../advance/async.html" />
+    
+    
+    <link rel="prev" href="../advance/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="3.1"
+        data-chapter-title="ボイラープレートを使用した開発の流れ"
+        data-filepath="advance/boilerplate.md"
+        data-basepath=".."
+        data-revision="Mon Jun 05 2017 22:48:27 GMT+0900 (東京 (標準時))"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        ガイドの紹介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="devenv/index.html">
+            
+                
+                    <a href="../devenv/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        開発環境構築
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="devenv/nodejs.html">
+            
+                
+                    <a href="../devenv/nodejs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Node.jsのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="devenv/vscode.html">
+            
+                
+                    <a href="../devenv/vscode.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Visual Studio Codeのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="devenv/git.html">
+            
+                
+                    <a href="../devenv/git.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        gitのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="devenv/boilerplate.html">
+            
+                
+                    <a href="../devenv/boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        ボイラープレートのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="devenv/about_boilerplate.html">
+            
+                
+                    <a href="../devenv/about_boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        ボイラープレートについて
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="basics/index.html">
+            
+                
+                    <a href="../basics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        React/Redux開発の基本
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="basics/architecture.html">
+            
+                
+                    <a href="../basics/architecture.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        アーキテクチャとデータフロー
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="basics/react_component.html">
+            
+                
+                    <a href="../basics/react_component.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        React Component
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="basics/action_creators.html">
+            
+                
+                    <a href="../basics/action_creators.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Action Creators
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="basics/reducers.html">
+            
+                
+                    <a href="../basics/reducers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Reducers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="basics/store.html">
+            
+                
+                    <a href="../basics/store.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Store
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="advance/index.html">
+            
+                
+                    <a href="../advance/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        WRAP Applicationの開発
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="3.1" data-path="advance/boilerplate.html">
+            
+                
+                    <a href="../advance/boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        ボイラープレートを使用した開発の流れ
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="advance/async.html">
+            
+                
+                    <a href="../advance/async.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        通信処理（非同期処理）
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="advance/router.html">
+            
+                
+                    <a href="../advance/router.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Router
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="advance/wrap_modules.html">
+            
+                
+                    <a href="../advance/wrap_modules.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        WRAP-modules
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="advance/unit_test.html">
+            
+                
+                    <a href="../advance/unit_test.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        単体テスト
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="advance/release.html">
+            
+                
+                    <a href="../advance/release.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        アプリのビルド/リリース
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="advance/rule.html">
+            
+                
+                    <a href="../advance/rule.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.7.</b>
+                        
+                        規約
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="tips/index.html">
+            
+                
+                    <a href="../tips/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Tips
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="tips/define.html">
+            
+                
+                    <a href="../tips/define.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Define
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >WRAP Application開発ガイド</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h3 id="&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x3092;&#x4F7F;&#x3063;&#x305F;&#x958B;&#x767A;&#x306E;&#x6D41;&#x308C;">&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x3092;&#x4F7F;&#x3063;&#x305F;&#x958B;&#x767A;&#x306E;&#x6D41;&#x308C;</h3>
+<p>&#x5F53;&#x30AC;&#x30A4;&#x30C9;&#x304C;&#x63D0;&#x4F9B;&#x3059;&#x308B;&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x306E;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x3092;&#x8AAC;&#x660E;&#x3057;&#x307E;&#x3059;&#x3002;&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x3092;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x3053;&#x3068;&#x306B;&#x3088;&#x308A;&#x3001;&#x5F53;&#x30AC;&#x30A4;&#x30C9;&#x304C;&#x63A8;&#x5968;&#x3059;&#x308B;&#x69CB;&#x6210;&#x3067;&#x76F4;&#x3061;&#x306B;SPA&#x306E;&#x958B;&#x767A;&#x306B;&#x53D6;&#x308A;&#x639B;&#x304B;&#x308B;&#x3053;&#x3068;&#x304C;&#x51FA;&#x6765;&#x307E;&#x3059;&#x3002;</p>
+<h4 id="&#x69CB;&#x6587;&#x30C1;&#x30A7;&#x30C3;&#x30AF;">&#x69CB;&#x6587;&#x30C1;&#x30A7;&#x30C3;&#x30AF;</h4>
+<p>&#x5F53;&#x30AC;&#x30A4;&#x30C9;&#x304C;&#x63D0;&#x4F9B;&#x3059;&#x308B;&#x958B;&#x767A;&#x74B0;&#x5883;&#x3067;&#x306F;&#x3001;WRAP&#x3067;&#x8A2D;&#x5B9A;&#x3057;&#x305F;&#x30B3;&#x30FC;&#x30C7;&#x30A3;&#x30F3;&#x30B0;&#x30EB;&#x30FC;&#x30EB;&#x306B;&#x5F93;&#x3063;&#x3066;ESLint&#x306B;&#x3088;&#x308B;&#x69CB;&#x6587;&#x30C1;&#x30A7;&#x30C3;&#x30AF;&#x304C;&#x884C;&#x308F;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>Atom&#x4E0A;&#x3067;&#x30BD;&#x30FC;&#x30B9;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x7DE8;&#x96C6;&#x3059;&#x308B;&#x3068;&#x3001;&#x30AA;&#x30F3;&#x30BF;&#x30A4;&#x30E0;&#x3067;&#x69CB;&#x6587;&#x30C1;&#x30A7;&#x30C3;&#x30AF;&#x304C;&#x884C;&#x308F;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30BD;&#x30FC;&#x30B9;&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x4E2D;&#x306B;&#x69CB;&#x6587;&#x306E;&#x9593;&#x9055;&#x3044;&#x3084;&#x3001;&#x898F;&#x7D04;&#x9055;&#x53CD;&#x304C;&#x5B58;&#x5728;&#x3059;&#x308B;&#x5834;&#x5408;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x3088;&#x3046;&#x306A;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="../assets/eslint_error.png" alt="Screen"></p>
+<p>&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x305F;&#x5834;&#x5408;&#x306F;&#x3001;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x306E;&#x5148;&#x982D;&#x306B;&#x3042;&#x308B;&#x30A8;&#x30E9;&#x30FC;&#x30CD;&#x30FC;&#x30E0;&#x3092;&#x691C;&#x7D22;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x3001;&#x8A73;&#x3057;&#x3044;&#x30A8;&#x30E9;&#x30FC;&#x5185;&#x5BB9;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x4E0A;&#x306E;&#x30B1;&#x30FC;&#x30B9;&#x3067;&#x306F;&quot;ESlint semi&quot;&#x3084;&quot;ESlint no-var&quot;&#x3068;&#x691C;&#x7D22;&#x3059;&#x308B;&#x3068;&#x3001;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x8A73;&#x7D30;&#x304C;&#x63B2;&#x8F09;&#x3055;&#x308C;&#x305F;&#x30B5;&#x30A4;&#x30C8;&#x3092;&#x63A2;&#x3059;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x307E;&#x305F;&#x3001;&#x30BD;&#x30FC;&#x30B9;&#x30B3;&#x30FC;&#x30C9;&#x5185;&#x306B;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x5B58;&#x5728;&#x3059;&#x308B;&#x72B6;&#x614B;&#x3067;&#x30B3;&#x30F3;&#x30D1;&#x30A4;&#x30EB;&#x3092;&#x884C;&#x3046;&#x3068;&#x3001;&#x4EE5;&#x4E0B;&#x306E;&#x3088;&#x3046;&#x306A;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x30B3;&#x30F3;&#x30D1;&#x30A4;&#x30EB;&#x30A8;&#x30E9;&#x30FC;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="../assets/compile_error.png" alt="Screen"></p>
+<p>&#x30B3;&#x30FC;&#x30C9;&#x5185;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x3092;&#x5168;&#x3066;&#x53D6;&#x308A;&#x9664;&#x304D;&#x3001;&#x518D;&#x5EA6;&#x30B3;&#x30F3;&#x30D1;&#x30A4;&#x30EB;&#x3092;&#x884C;&#x3063;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<h4 id="&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x306E;&#x8D77;&#x52D5;">&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x306E;&#x8D77;&#x52D5;</h4>
+<p>&#x30AC;&#x30A4;&#x30C9;&#x306B;&#x540C;&#x68B1;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;<code>boilerplate</code>&#x3092;&#x4F7F;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x306E;&#x540D;&#x524D;&#x306F;&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x540D;&#x306B;&#x5909;&#x66F4;&#x3057;&#x307E;&#x3059;&#x3002;&#x3053;&#x3053;&#x3067;&#x306F;counter&#x306B;&#x5909;&#x66F4;&#x3057;&#x305F;&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x3092;&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>cd counter
+npm install
+</code></pre><p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x958B;&#x767A;&#x30E2;&#x30FC;&#x30C9;&#x3067;&#x8D77;&#x52D5;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>npm run dev
+</code></pre><p>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306B;&#x30A2;&#x30AF;&#x30BB;&#x30B9;&#x3057;&#x307E;&#x3059;&#x3002;<br><code>http://localhost:3000</code></p>
+<p>&#x4EE5;&#x4E0B;&#x306E;&#x753B;&#x9762;&#x3092;&#x78BA;&#x8A8D;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x51FA;&#x6765;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="../assets/boilerplate.png" alt="Screen"></p>
+<h4 id="&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x3092;&#x4F7F;&#x7528;&#x3057;&#x305F;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x958B;&#x767A;&#x4F8B;">&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x3092;&#x4F7F;&#x7528;&#x3057;&#x305F;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x958B;&#x767A;&#x4F8B;</h4>
+<p>&#x305D;&#x308C;&#x3067;&#x306F;&#x5B9F;&#x969B;&#x306B;&#x3001;&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x3092;&#x4F7F;&#x7528;&#x3057;&#x305F;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x958B;&#x767A;&#x4F8B;&#x3092;&#x8AAC;&#x660E;&#x3057;&#x3066;&#x3044;&#x304D;&#x305F;&#x3044;&#x3068;&#x601D;&#x3044;&#x307E;&#x3059;&#x3002;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x3068;&#x304A;&#x308A;&#x3001;3&#x3064;&#x306E;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3067;&#x69CB;&#x6210;&#x3055;&#x308C;&#x305F;&#x7C21;&#x5358;&#x306A;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x3059;&#x3002;</p>
+<p><img src="../assets/boilerplate-app-1.png" alt="Screen"><br>IncreaseAndDecrease&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306E;&#x30D7;&#x30E9;&#x30B9;&#x3001;&#x3082;&#x3057;&#x304F;&#x306F;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x30DC;&#x30BF;&#x30F3;&#x3092;&#x62BC;&#x4E0B;&#x3059;&#x308B;&#x3053;&#x3068;&#x306B;&#x3088;&#x308A;&#x3001;Counter&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306E;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x304C;&#x5897;&#x6E1B;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x4EE5;&#x4E0B;&#x306E;&#x9806;&#x5E8F;&#x3067;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<ol>
+<li>&#x30D7;&#x30EC;&#x30BC;&#x30F3;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30CA;&#x30EB;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306E;&#x4F5C;&#x6210;  </li>
+<li>Action Creator&#x306E;&#x4F5C;&#x6210;</li>
+<li>Reducer&#x306E;&#x4F5C;&#x6210;</li>
+<li>&#x30B3;&#x30F3;&#x30C6;&#x30CA;&#x30FC;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306E;&#x4F5C;&#x6210;</li>
+</ol>
+<h5 id="1-&#x30D7;&#x30EC;&#x30BC;&#x30F3;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30CA;&#x30EB;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306E;&#x4F5C;&#x6210;">1. &#x30D7;&#x30EC;&#x30BC;&#x30F3;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30CA;&#x30EB;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306E;&#x4F5C;&#x6210;</h5>
+<p>&#x6700;&#x521D;&#x306B;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;UI&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;Counter&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3068;IncreaseAndDecrease&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3092;&#x30D7;&#x30EC;&#x30BC;&#x30F3;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30CA;&#x30EB;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3068;&#x3057;&#x3066;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6700;&#x521D;&#x306B;&#x3001;&#x4EE5;&#x4E0B;&#x306E;&#x3068;&#x304A;&#x308A;&#x3001;Counter&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/components/Counter.jsx</li>
+<li>style/counter.css</li>
+</ul>
+<p>Couter.jsx&#x306B;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3092;&#x8A18;&#x8FF0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> React, { PropTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> css <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../style/counter.css&apos;</span>;
+
+<span class="hljs-keyword">const</span> propTypes = { count: PropTypes.number };
+
+<span class="hljs-keyword">const</span> Counter = props =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{css.container}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{css.title}</span>&gt;</span>Counter<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">h3</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{css.count}</span>&gt;</span>{props.count}<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+)</span>;
+
+Counter.propTypes = propTypes;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Counter;
+</code></pre>
+<p>counter.css&#x306B;Counter&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x30B9;&#x30BF;&#x30A4;&#x30EB;&#x3092;&#x8A18;&#x8FF0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-css"><span class="hljs-class">.container</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value"> center</span></span>;
+}</span>
+
+<span class="hljs-class">.title</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span> auto</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">80px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> <span class="hljs-number">100</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ebd9d9</span></span></span>;
+}</span>
+
+<span class="hljs-class">.count</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span> auto</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">40px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> <span class="hljs-number">400</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#cc9a9a</span></span></span>;
+}</span>
+</code></pre>
+<p>Counter&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x304C;&#x6B63;&#x3057;&#x304F;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;&#x3053;&#x3068;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x307E;&#x3059;&#x3002;&#x89AA;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3068;&#x306A;&#x308B;&#x4EE5;&#x4E0B;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306B;Counter&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x307E;&#x3059;&#x3002;SampleContent&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306F;&#x30DC;&#x30A4;&#x30E9;&#x30FC;&#x30D7;&#x30EC;&#x30FC;&#x30C8;&#x306B;&#x4E8B;&#x524D;&#x306B;&#x6E96;&#x5099;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;
+&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30A8;&#x30F3;&#x30C8;&#x30EA;&#x30FC;&#x30DD;&#x30A4;&#x30F3;&#x30C8;&#x304B;&#x3089;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;&#x30B3;&#x30F3;&#x30C6;&#x30CA;&#x30FC;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3067;&#x3059;&#x3002;</p>
+<ul>
+<li>js/container/SampleContent.jsx</li>
+</ul>
+<p>&#x4FEE;&#x6B63;&#x524D;</p>
+<pre><code class="lang-js">&lt;div className={css.container}&gt;
+  // &#x4EE5;&#x4E0B;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x306F;&#x524A;&#x9664;
+  &lt;h1 className={css.title}&gt;Hello SPA&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre>
+<p>&#x4FEE;&#x6B63;&#x5F8C;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> Counter <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../components/Counter&apos;</span>;
+
+&lt;div className={css.container}&gt;
+  <span class="hljs-comment">// &#x4EE5;&#x4E0B;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8FFD;&#x52A0;</span>
+  &lt;Counter count={<span class="hljs-number">0</span>} /&gt;
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</span></code></pre>
+<p>&#x78BA;&#x8A8D;&#x3057;&#x307E;&#x3059;&#x3002;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x30EA;&#x30ED;&#x30FC;&#x30C9;&#x306F;&#x4E0D;&#x8981;&#x3067;&#x3059;&#x306E;&#x3067;&#x3001;UI&#x306E;&#x958B;&#x767A;&#x3092;&#x30B9;&#x30C8;&#x30EC;&#x30B9;&#x306A;&#x304F;&#x884C;&#x306A;&#x3046;&#x3053;&#x3068;&#x304C;&#x51FA;&#x6765;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="../assets/boilerplate-app-2.png" alt="Screen"></p>
+<p>&#x6B21;&#x306B;&#x3001;&#x4EE5;&#x4E0B;&#x306E;&#x3068;&#x304A;&#x308A;&#x3001;IncreaseAndDecrease&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/components/IncreaseAndDecrease.jsx</li>
+<li>style/increase-and-decrease.css</li>
+</ul>
+<p>IncreaseAndDecrease.jsx&#x306B;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3092;&#x8A18;&#x8FF0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> React, { PropTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> css <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../style/increase-and-decrease.css&apos;</span>;
+
+<span class="hljs-comment">/* eslint-disable react/no-unused-prop-types */</span>
+<span class="hljs-keyword">const</span> propTypes = { decrease: PropTypes.func.isRequired, increase: PropTypes.func.isRequired };
+
+<span class="hljs-keyword">const</span> IncreaseAndDecrease = props =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{css.container}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{css.btn}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{()</span> =&gt;</span> props.decrease(1)} &gt;-<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{css.btn}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{()</span> =&gt;</span> props.increase(1)} &gt;+<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+)</span>;
+
+IncreaseAndDecrease.propTypes = propTypes;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> IncreaseAndDecrease;
+
+);
+
+IncreaseAndDecrease.propTypes = propTypes;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> IncreaseAndDecrease;
+</code></pre>
+<p>increase-and-decrease.css&#x306B;IncreaseAndDecrease&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x30B9;&#x30BF;&#x30A4;&#x30EB;&#x3092;&#x8A18;&#x8FF0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-css"><span class="hljs-class">.container</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value"> center</span></span>;
+}</span>
+
+<span class="hljs-class">.btn</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">outline</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span> <span class="hljs-number">2rem</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">60px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">60px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">4rem</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">1.5rem</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#cc9a9a</span></span></span>;
+}</span>
+</code></pre>
+<p>IncreaseAndDecrease&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x304C;&#x6B63;&#x3057;&#x304F;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;&#x3053;&#x3068;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x307E;&#x3059;&#x3002;Counter&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3068;&#x540C;&#x69D8;&#x306B;SampleContent.jsx&#x306B;&#x8FFD;&#x52A0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x4FEE;&#x6B63;&#x5F8C;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> IncreaseAndDecrease <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../components/IncreaseAndDecrease&apos;</span>;
+
+&lt;div className={css.container}&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Counter</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">{0}</span> /&gt;</span>
+  // &#x4EE5;&#x4E0B;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8FFD;&#x52A0;
+  <span class="hljs-tag">&lt;<span class="hljs-title">IncreaseAndDecrease</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</span></code></pre>
+<p>&#x78BA;&#x8A8D;&#x3057;&#x307E;&#x3059;&#x3002;&#x540C;&#x3058;&#x304F;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x30EA;&#x30ED;&#x30FC;&#x30C9;&#x306F;&#x4E0D;&#x8981;&#x3067;&#x3059;&#x3002;</p>
+<p><img src="../assets/boilerplate-app-3.png" alt="Screen"></p>
+<h5 id="2-action-creator&#x306E;&#x4F5C;&#x6210;">2. Action Creator&#x306E;&#x4F5C;&#x6210;</h5>
+<p>&#x7D9A;&#x3044;&#x3066;&#x3001;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x304B;&#x3089;&#x547C;&#x3073;&#x51FA;&#x3059;Action Creator&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6700;&#x521D;&#x306B;&#x3001;&#x4E8B;&#x524D;&#x306B;&#x6E96;&#x5099;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x4EE5;&#x4E0B;&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306B;Action&#x306E;&#x30BF;&#x30A4;&#x30D7;&#x5024;&#x3092;&#x8A18;&#x8FF0;&#x3057;&#x307E;&#x3059;&#x3002;&#x30BF;&#x30A4;&#x30D7;&#x5024;&#x306F;&#x3001;Action Creator&#x304C;&#x4F5C;&#x6210;&#x3059;&#x308B;Action&#x3092;&#x3001;Reducer&#x304C;&#x3069;&#x306E;&#x3088;&#x3046;&#x306B;&#x51E6;&#x7406;&#x3059;&#x308B;&#x304B;&#x306E;&#x5224;&#x5B9A;&#x306B;&#x4F7F;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/constants/ActionTypes.js</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> INCREASE = <span class="hljs-string">&apos;INCREASE&apos;</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> DECREASE = <span class="hljs-string">&apos;DECREASE&apos;</span>;
+</code></pre>
+<p>&#x6B21;&#x306B;&#x3001;Action Creator&#x306B;&#x5FC5;&#x8981;&#x306A;&#x4EE5;&#x4E0B;&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/actions/index.js</li>
+</ul>
+<p>actions/index.js&#x306B;Action Creator&#x3092;&#x8A18;&#x8FF0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { createAction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-actions&apos;</span>;
+<span class="hljs-keyword">import</span> { INCREASE, DECREASE } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../constants/ActionTypes&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> increase = createAction(INCREASE, num =&gt; ({ amount: num }));
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> decrease = createAction(DECREASE, num =&gt; ({ amount: num }));
+</code></pre>
+<h5 id="3-reducer&#x306E;&#x4F5C;&#x6210;">3. Reducer&#x306E;&#x4F5C;&#x6210;</h5>
+<p>&#x7D9A;&#x3044;&#x3066;&#x3001;Action Creator&#x304C;&#x4F5C;&#x6210;&#x3059;&#x308B;Action&#x3092;&#x5143;&#x306B;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x3092;&#x5909;&#x66F4;&#x3059;&#x308B;Reducer&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>Counter&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x72B6;&#x614B;&#x306F;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x6570;&#x3067;&#x3059;&#x3002;&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x6570;&#x3092;&#x8A08;&#x7B97;&#x3059;&#x308B;Reducer&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x6570;&#x306E;&#x521D;&#x671F;&#x5024;&#x306F;0&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;Reducer&#x304C;&#x8FD4;&#x3059;&#x5024;&#x3092;Store&#x304C;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x3068;&#x3057;&#x3066;&#x7BA1;&#x7406;&#x3059;&#x308B;&#x3053;&#x3068;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>Counter&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x3092;&#x8A08;&#x7B97;&#x3059;&#x308B;Reducer&#x306E;&#x305F;&#x3081;&#x3001;Reducer&#x540D;&#x306F;counter&#x3068;&#x3057;&#x3001;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;counter.js&#x306B;Reducer&#x3092;&#x8A18;&#x8FF0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/reducer/counter.js</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { handleActions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-actions&apos;</span>;
+<span class="hljs-keyword">import</span> { INCREASE, DECREASE } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../constants/ActionTypes&apos;</span>;
+
+<span class="hljs-keyword">const</span> initialState = { number: <span class="hljs-number">0</span> };
+
+<span class="hljs-keyword">const</span> counter = handleActions({
+
+  [INCREASE]: (state, action) =&gt; (
+    { number: state.number + action.payload.amount }
+  ),
+
+  [DECREASE]: (state, action) =&gt; (
+   { number: state.number - action.payload.amount }
+  ),
+}, initialState);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> counter;
+</code></pre>
+<p>&#x8FFD;&#x52A0;&#x3057;&#x305F;Reducer&#x3092;&#x4EE5;&#x4E0B;&#x306B;&#x8A2D;&#x5B9A;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/reducer/index.js</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { combineReducers } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux&apos;</span>;
+<span class="hljs-keyword">import</span> counter <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./counter&apos;</span>;
+
+<span class="hljs-keyword">const</span> rootReducer = combineReducers({
+  counter,
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> rootReducer;
+</code></pre>
+<h5 id="4-&#x30B3;&#x30F3;&#x30C6;&#x30CA;&#x30FC;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306E;&#x4F5C;&#x6210;">4. &#x30B3;&#x30F3;&#x30C6;&#x30CA;&#x30FC;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306E;&#x4F5C;&#x6210;</h5>
+<p>&#x6700;&#x5F8C;&#x306B;&#x3001;&#x4EE5;&#x4E0B;&#x306E;&#x9023;&#x643A;&#x3092;&#x884C;&#x306A;&#x3046;&#x30B3;&#x30F3;&#x30C6;&#x30CA;&#x30FC;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>&#x30D7;&#x30EC;&#x30BC;&#x30F3;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30CA;&#x30EB;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3068;Action Creator&#x306E;&#x9023;&#x643A;</li>
+<li>Store&#x3067;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x308B;&#x72B6;&#x614B;&#x3092;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306B;&#x9023;&#x643A;</li>
+</ul>
+<p>&#x4E8B;&#x524D;&#x306B;&#x6E96;&#x5099;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x4EE5;&#x4E0B;&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x7DE8;&#x96C6;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/container/SampleContent.jsx</li>
+</ul>
+<p>&#x6700;&#x521D;&#x306B;&#x3001;Action Creator&#x3092;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x5185;&#x3067;&#x4F7F;&#x7528;&#x51FA;&#x6765;&#x308B;&#x3088;&#x3046;&#x306B;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x5148;&#x307B;&#x3069;&#x4F5C;&#x6210;&#x3057;&#x305F;Action Creator&#x3092;&#x30A4;&#x30F3;&#x30DD;&#x30FC;&#x30C8;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> CounterActions <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actions&apos;</span>;
+</code></pre>
+<p>&#x4E8B;&#x524D;&#x306B;&#x5B9A;&#x7FA9;&#x6E08;&#x307F;&#x306E;<code>mapDispatchToProps</code>&#x3092;&#x7DE8;&#x96C6;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    actions: bindActionCreators(CounterActions, dispatch),
+  };
+}
+</code></pre>
+<p>&#x3053;&#x308C;&#x3067;&#x3001;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x304B;&#x3089;Action Creator&#x304C;&#x547C;&#x3073;&#x51FA;&#x305B;&#x308B;&#x3088;&#x3046;&#x306B;&#x306A;&#x308A;&#x307E;&#x3057;&#x305F;&#x3002;</p>
+<p>&#x6B21;&#x306B;&#x3001;Store&#x304C;&#x7BA1;&#x7406;&#x3059;&#x308B;&#x72B6;&#x614B;&#x3092;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x5185;&#x3067;&#x4F7F;&#x7528;&#x51FA;&#x6765;&#x308B;&#x3088;&#x3046;&#x306B;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x4E8B;&#x524D;&#x306B;&#x5B9A;&#x7FA9;&#x6E08;&#x307F;&#x306E;<code>mapStateToProps</code>&#x3092;&#x7DE8;&#x96C6;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    number: state.counter.number,
+  };
+}
+</code></pre>
+<p>&#x3053;&#x308C;&#x3067;&#x3001;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x304B;&#x3089;Store&#x304C;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x308B;&#x72B6;&#x614B;&#x3092;&#x4F7F;&#x7528;&#x51FA;&#x6765;&#x308B;&#x3088;&#x3046;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#x307E;&#x305F;&#x3001;Store&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x66F4;&#x3059;&#x308B;&#x3068;React&#x304C;&#x81EA;&#x52D5;&#x7684;&#x306B;&#x518D;&#x30EC;&#x30F3;&#x30C0;&#x30EA;&#x30F3;&#x30B0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6700;&#x5F8C;&#x306B;&#x3001;&#x30D7;&#x30EC;&#x30BC;&#x30F3;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30CA;&#x30EB;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x3092;&#x4FEE;&#x6B63;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30D7;&#x30EC;&#x30BC;&#x30F3;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30CA;&#x30EB;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306B;&#x5148;&#x307B;&#x3069;&#x306E;Action Creator&#x3001;Store&#x306E;&#x5024;&#x3092;&#x8A2D;&#x5B9A;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js">render() {
+  <span class="hljs-keyword">const</span> { number, actions } = <span class="hljs-keyword">this</span>.props;
+   <span class="hljs-keyword">return</span> (
+     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{css.app}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Counter</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">{number}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">IncreaseAndDecrease</span>
+        <span class="hljs-attribute">increase</span>=<span class="hljs-value">{actions.increase}</span>
+        <span class="hljs-attribute">decrease</span>=<span class="hljs-value">{actions.decrease}</span>
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  )</span>;
+}
+</code></pre>
+<p>props&#x3067;&#x53D7;&#x3051;&#x53D6;&#x308B;&#x5024;&#x3092;&#x30C1;&#x30A7;&#x30C3;&#x30AF;&#x3059;&#x308B;&#x305F;&#x3081;&#x306E;&#x51E6;&#x7406;&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>import React, { Component, PropTypes } from &apos;react&apos;; // PropTypes&#x8FFD;&#x52A0;
+import { bindActionCreators } from &apos;redux&apos;;
+import { connect } from &apos;react-redux&apos;;
+</code></pre><pre><code>// &#x8FFD;&#x52A0;
+const propTypes = { number: PropTypes.number, actions: PropTypes.object };
+
+class SampleContent extends Component {
+  render() {
+    const { number, actions } = this.props;
+</code></pre><pre><code>// &#x8FFD;&#x52A0;
+SampleContent.propTypes = propTypes;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SampleContent);
+</code></pre><p>SampleContent.jsx&#x306E;&#x5168;&#x4F53;&#x306F;&#x4EE5;&#x4E0B;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> React, { Component, PropTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> { bindActionCreators } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux&apos;</span>;
+<span class="hljs-keyword">import</span> { connect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react-redux&apos;</span>;
+<span class="hljs-keyword">import</span> css <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../style/sample-content.css&apos;</span>;
+<span class="hljs-keyword">import</span> Counter <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../components/Counter&apos;</span>;
+<span class="hljs-keyword">import</span> IncreaseAndDecrease <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../components/IncreaseAndDecrease&apos;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> CounterActions <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actions&apos;</span>;
+
+<span class="hljs-keyword">const</span> propTypes = { number: PropTypes.number, actions: PropTypes.object };
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SampleContent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">const</span> { number, actions } = <span class="hljs-keyword">this</span>.props;
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{css.app}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Counter</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">{number}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">IncreaseAndDecrease</span>
+          <span class="hljs-attribute">increase</span>=<span class="hljs-value">{actions.increase}</span>
+          <span class="hljs-attribute">decrease</span>=<span class="hljs-value">{actions.decrease}</span>
+        /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    )</span>;
+  }
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapStateToProps</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    number: state.counter.number,
+  };
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapDispatchToProps</span>(<span class="hljs-params">dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    actions: bindActionCreators(CounterActions, dispatch),
+  };
+}
+
+SampleContent.propTypes = propTypes;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SampleContent);
+</code></pre>
+<p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x304C;&#x52D5;&#x4F5C;&#x3059;&#x308B;&#x3053;&#x3068;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x307E;&#x3059;&#x3002;<code>connect()</code>&#x306E;&#x5185;&#x5BB9;&#x3092;&#x5909;&#x66F4;&#x3057;&#x305F;&#x5834;&#x5408;&#x306F;&#x30EA;&#x30ED;&#x30FC;&#x30C9;&#x304C;&#x5FC5;&#x8981;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x306F;&#x30D7;&#x30E9;&#x30B9;&#x30DC;&#x30BF;&#x30F3;&#x3092;2&#x56DE;&#x62BC;&#x4E0B;&#x3057;&#x305F;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x753B;&#x9762;&#x3067;&#x3059;&#x3002;</p>
+<p><img src="../assets/boilerplate-app-4.png" alt="Screen"></p>
+<p>&#x958B;&#x767A;&#x30E2;&#x30FC;&#x30C9;&#x306E;&#x5834;&#x5408;&#x3001;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x5909;&#x5316;&#x306F;&#x5168;&#x3066;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x30ED;&#x30B0;&#x306B;&#x51FA;&#x529B;&#x3055;&#x308C;&#x307E;&#x3059;&#x306E;&#x3067;&#x3001;&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x306B;&#x5F79;&#x7ACB;&#x3061;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="../assets/boilerplate-app-5.png" alt="Screen"></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../advance/index.html" class="navigation navigation-prev " aria-label="Previous page: WRAP Applicationの開発"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../advance/async.html" class="navigation navigation-next " aria-label="Next page: 通信処理（非同期処理）"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

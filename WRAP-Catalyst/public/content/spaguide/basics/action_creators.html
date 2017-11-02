@@ -1,0 +1,655 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Action Creators | WRAP Application開発ガイド</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+        <link rel="stylesheet" href="../styles/website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../basics/reducers.html" />
+    
+    
+    <link rel="prev" href="../basics/react_component.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="2.3"
+        data-chapter-title="Action Creators"
+        data-filepath="basics/action_creators.md"
+        data-basepath=".."
+        data-revision="Mon Jun 05 2017 22:48:27 GMT+0900 (東京 (標準時))"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        ガイドの紹介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="devenv/index.html">
+            
+                
+                    <a href="../devenv/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        開発環境構築
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="devenv/nodejs.html">
+            
+                
+                    <a href="../devenv/nodejs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Node.jsのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="devenv/vscode.html">
+            
+                
+                    <a href="../devenv/vscode.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Visual Studio Codeのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="devenv/git.html">
+            
+                
+                    <a href="../devenv/git.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        gitのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="devenv/boilerplate.html">
+            
+                
+                    <a href="../devenv/boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        ボイラープレートのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="devenv/about_boilerplate.html">
+            
+                
+                    <a href="../devenv/about_boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        ボイラープレートについて
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="basics/index.html">
+            
+                
+                    <a href="../basics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        React/Redux開発の基本
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="basics/architecture.html">
+            
+                
+                    <a href="../basics/architecture.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        アーキテクチャとデータフロー
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="basics/react_component.html">
+            
+                
+                    <a href="../basics/react_component.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        React Component
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.3" data-path="basics/action_creators.html">
+            
+                
+                    <a href="../basics/action_creators.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Action Creators
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="basics/reducers.html">
+            
+                
+                    <a href="../basics/reducers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Reducers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="basics/store.html">
+            
+                
+                    <a href="../basics/store.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Store
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="advance/index.html">
+            
+                
+                    <a href="../advance/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        WRAP Applicationの開発
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="advance/boilerplate.html">
+            
+                
+                    <a href="../advance/boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        ボイラープレートを使用した開発の流れ
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="advance/async.html">
+            
+                
+                    <a href="../advance/async.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        通信処理（非同期処理）
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="advance/router.html">
+            
+                
+                    <a href="../advance/router.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Router
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="advance/wrap_modules.html">
+            
+                
+                    <a href="../advance/wrap_modules.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        WRAP-modules
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="advance/unit_test.html">
+            
+                
+                    <a href="../advance/unit_test.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        単体テスト
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="advance/release.html">
+            
+                
+                    <a href="../advance/release.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        アプリのビルド/リリース
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="advance/rule.html">
+            
+                
+                    <a href="../advance/rule.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.7.</b>
+                        
+                        規約
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="tips/index.html">
+            
+                
+                    <a href="../tips/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Tips
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="tips/define.html">
+            
+                
+                    <a href="../tips/define.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Define
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >WRAP Application開発ガイド</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h3 id="action-creators">Action Creators</h3>
+<p>Action Creators&#x306F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306B;&#x5FDC;&#x3058;&#x305F;Action&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;&#x4F5C;&#x6210;&#x3057;&#x305F;Action&#x306F;Store&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h4 id="action-creators&#x304C;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;">Action Creators&#x304C;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;</h4>
+<p>&#x4EE5;&#x4E0B;&#x306E;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x3092;&#x4F7F;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;&#x8A73;&#x7D30;&#x306B;&#x3064;&#x3044;&#x3066;&#x306F;&#x30EA;&#x30F3;&#x30AF;&#x5148;&#x3092;&#x53C2;&#x7167;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;</th>
+<th>Version</th>
+<th>&#x8AAC;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/acdlite/redux-actions" target="_blank">redux-actions</a></td>
+<td>~1.1.0</td>
+<td>Action Creator / Reducer&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;</td>
+</tr>
+</tbody>
+</table>
+<h4 id="action-creators&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;">Action Creators&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;</h4>
+<p>Action Creators&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306F;&#x4EE5;&#x4E0B;&#x306B;&#x5F93;&#x3063;&#x3066;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>&#x898F;&#x7D04;           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x914D;&#x7F6E;&#x5834;&#x6240;</td>
+<td>js/actions</td>
+</tr>
+<tr>
+<td>1&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306E;&#x5834;&#x5408;&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x540D;</td>
+<td>index.js</td>
+</tr>
+<tr>
+<td>&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x5206;&#x5272;&#x3057;&#x305F;&#x5834;&#x5408;&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x540D;</td>
+<td>Action Creator&#x3092;&#x5206;&#x985E;&#x3057;&#x305F;&#x30B0;&#x30EB;&#x30FC;&#x30D7;&#x540D; + .js</td>
+</tr>
+</tbody>
+</table>
+<h4 id="action&#x306E;&#x30BF;&#x30A4;&#x30D7;&#x5024;">Action&#x306E;&#x30BF;&#x30A4;&#x30D7;&#x5024;</h4>
+<p>Action Creator&#x304C;&#x4F5C;&#x6210;&#x3059;&#x308B;Action&#x306B;&#x306F;&#x3001;Action&#x306E;&#x7A2E;&#x985E;&#x3092;&#x793A;&#x3059;&#x30BF;&#x30A4;&#x30D7;&#x5024;&#x3092;&#x6307;&#x5B9A;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;&#x306A;&#x305C;&#x306A;&#x3089;&#x3001;Reducer&#x306F;Action&#x306E;&#x30BF;&#x30A4;&#x30D7;&#x5024;&#x3092;&#x5224;&#x5B9A;&#x3057;&#x3001;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x3092;&#x5909;&#x66F4;&#x3059;&#x308B;&#x305F;&#x3081;&#x3067;&#x3059;&#x3002;</p>
+<p>Action&#x306E;&#x30BF;&#x30A4;&#x30D7;&#x5024;&#x306F;&#x4EE5;&#x4E0B;&#x306B;&#x5F93;&#x3063;&#x3066;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>&#x898F;&#x7D04;           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x914D;&#x7F6E;&#x5834;&#x6240;</td>
+<td>js/constants</td>
+</tr>
+<tr>
+<td>&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x540D;</td>
+<td>ActionTypes.js</td>
+</tr>
+<tr>
+<td>&#x5024;</td>
+<td>&#x5B9A;&#x6570;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x4F5C;&#x6210;&#x4F8B;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ADD_TODO = <span class="hljs-string">&apos;ADD_TODO&apos;</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> COMPLETE_TODO = <span class="hljs-string">&apos;COMPLETE_TODO&apos;</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SET_VISIBILITY_FILTER = <span class="hljs-string">&apos;SET_VISIBILITY_FILTER&apos;</span>;
+</code></pre>
+<h4 id="action-creator&#x306E;&#x4F5C;&#x6210;">Action Creator&#x306E;&#x4F5C;&#x6210;</h4>
+<p>Action Creator&#x306F;&#x4EE5;&#x4E0B;&#x306B;&#x5F93;&#x3063;&#x3066;&#x3001;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x3092;<code>import</code>&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { createAction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-actions&apos;</span>;
+</code></pre>
+<p>&#x540C;&#x69D8;&#x306B;&#x3001;&#x4F5C;&#x6210;&#x6E08;&#x307F;&#x306E;Action&#x306E;&#x30BF;&#x30A4;&#x30D7;&#x5024;&#x3092;<code>import</code>&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../constants/ActionTypes&apos;</span>;
+</code></pre>
+<p>&#x6B21;&#x306B;&#x3001;&#x4EE5;&#x4E0B;&#x306B;&#x5F93;&#x3063;&#x3066;&#x3001;Action Creator&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x5F15;&#x6570;&#x306B;&#x3064;&#x3044;&#x3066;&#x306F;<a href="https://github.com/acdlite/redux-actions" target="_blank">redux-actions</a>&#x3092;&#x53C2;&#x7167;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<ul>
+<li>&#x540D;&#x524D;&#x306F;Action&#x306E;&#x5185;&#x5BB9;&#x304C;&#x308F;&#x304B;&#x308B;&#x3088;&#x3046;&#x306B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</li>
+<li>&#x7B2C;1&#x5F15;&#x6570;&#x306B;&#x306F;&#x4F5C;&#x6210;&#x6E08;&#x307F;&#x306E;&#x30BF;&#x30A4;&#x30D7;&#x5024;&#x3092;&#x6307;&#x5B9A;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> nextTodoId = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> addTodo = createAction(
+  ADD_TODO,
+  (text) =&gt; {
+    nextTodoId += <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> {
+      id: nextTodoId,
+      text,
+      completed: <span class="hljs-literal">false</span>,
+    };
+  },
+);
+</code></pre>
+<h4 id="&#x8907;&#x6570;&#x306E;action-creator">&#x8907;&#x6570;&#x306E;Action Creator</h4>
+<p>Action Creator&#x3092;&#x8907;&#x6570;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x3053;&#x3068;&#x306B;&#x3088;&#x308A;&#x3001;1&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x304C;&#x80A5;&#x5927;&#x5316;&#x3059;&#x308B;&#x5834;&#x5408;&#x306F;&#x3001;&#x610F;&#x5473;&#x306E;&#x3042;&#x308B;&#x5358;&#x4F4D;&#x3067;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x5206;&#x5272;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;<br><code>actions/todo.js</code></p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { createAction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-actions&apos;</span>;
+<span class="hljs-keyword">import</span> { ADD_TODO, COMPLETE_TODO } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../constants/ActionTypes&apos;</span>;
+
+<span class="hljs-keyword">let</span> nextTodoId = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> addTodo = createAction(
+  ADD_TODO,
+  (text) =&gt; {
+    nextTodoId += <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> {
+      id: nextTodoId,
+      text,
+      completed: <span class="hljs-literal">false</span>,
+    };
+  },
+);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> completeTodo = createAction(
+  COMPLETE_TODO,
+);
+</code></pre>
+<p><code>actions/visibilityFilter.js</code></p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { createAction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-actions&apos;</span>;
+<span class="hljs-keyword">import</span> { SET_VISIBILITY_FILTER } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../constants/ActionTypes&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> createAction(
+  SET_VISIBILITY_FILTER,
+);
+</code></pre>
+<h4 id="action-creators-&#x2192;-store">Action Creators &#x2192; Store</h4>
+<p>Action Creator&#x304C;&#x4F5C;&#x6210;&#x3057;&#x305F;Action&#x3092;Store&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;&#x3053;&#x308C;&#x306F;&#x3001;Action Creator&#x3068;Store&#x306E;<code>dispatch</code>&#x3092;&#x30D0;&#x30A4;&#x30F3;&#x30C9;&#x3055;&#x305B;&#x308B;&#x3053;&#x3068;&#x306B;&#x3088;&#x308A;&#x3001;&#x81EA;&#x52D5;&#x7684;&#x306B;&#x884C;&#x306A;&#x308F;&#x308C;&#x307E;&#x3059;&#x3002;&#x8A73;&#x7D30;&#x306F;<a href="react_component.html">React Component</a>&#x306E;<code>React Component &#x2192; Action Creators</code>&#x3092;&#x53C2;&#x7167;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../basics/react_component.html" class="navigation navigation-prev " aria-label="Previous page: React Component"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../basics/reducers.html" class="navigation navigation-next " aria-label="Next page: Reducers"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

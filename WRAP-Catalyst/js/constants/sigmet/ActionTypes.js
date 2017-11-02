@@ -1,0 +1,5 @@
+export const SIGMET_CLICK = 'SIGMET_CLICK';
+
+export const SIGMET_INITIALIZE = 'SIGMET_INITIALIZE';
+
+export const SIGMET_NOTREAD = 'SIGMET_NOTREAD';

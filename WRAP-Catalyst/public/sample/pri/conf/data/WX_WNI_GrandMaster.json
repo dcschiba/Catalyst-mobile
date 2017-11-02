@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_WNI_GrandMaster",
+    "DataHandler" : "GeoTiff",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/Venus/sample/pri/data/WX_WNI_GrandMaster/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/Venus/sample/pri/data/WX_WNI_GrandMaster/%element%/000/%basetime%/%validtime%.tiff",
+        "DataGrid" : {
+            "Width" : 360,
+            "Height" : 181,
+            "LatBase" : 90.0,
+            "LonBase" : 0.0,
+            "LatInterval" : 1.0,
+            "LonInterval" : 1.0,
+	        "MinValue" : -100,
+	        "MaxValue" : 100
+        },
+        "UpdateInterval" : 3600
+    }
+}

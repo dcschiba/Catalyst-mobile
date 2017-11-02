@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Venus Visibility Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.2.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.2.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <label style="position:absolute; width:160px; height:18px; left:10px; top:8px;">visiblility</spawn>
+        </label>
+        <label style="position:absolute; width:160px; height:18px; left:150px; top:8px;">level:</spawn>
+        </label>
+        <select id="slt_lv" style="position:absolute; width:50px; left:185px; top:4px; height:18px;">
+            <option value="000">000</option>
+            <option value="100">100</option>
+            <option value="150">150</option>
+            <option value="200">200</option>
+            <option value="250">250</option>
+            <option value="300">300</option>
+            <option value="400">400</option>
+            <option value="500">500</option>
+            <option value="600">600</option>
+            <option value="700">700</option>
+            <option value="850">850</option>
+            <option value="925">925</option>
+            <option value="1000">1000</option>
+        </select>
+        <label style="position:absolute; width:160px; height:18px; left:260px; top:8px;">basetime:</spawn>
+        </label>
+        <select id="slt_bt" style="position:absolute; width:100px; left:330px; top:4px; height:18px;"></select>
+        <label style="position:absolute; width:160px; height:18px; left:450px; top:8px;">validtime:</spawn>
+        </label>
+        <select id="slt_vt" style="position:absolute; width:100px; left:510px; top:4px; height:18px;"></select>
+        
+        <label style="position:absolute; width:160px; height:18px; left:650px; top:6px;">
+            <input type="checkbox" id="chk_bt"><spawn style="position:absolute; top:2px; left:20px;">show flat</spawn>
+        </label>
+        
+            
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+        
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 5;
+
+            var conf_path = "./pri/conf";     // ローカルの sample_data用コンフィグを用いる
+            WRAP.DH.conf_path = conf_path+"/data";
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 8,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+
+            // Model
+            var dh_data = WRAP.DH.addObject("Visibility");
+            
+            var layer = new WRAP.Geo.Layer("Visibility");
+         
+            // レイヤー登録
+            WRAP.Geo.setLayer({upper_layers:[layer]});
+
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.when(
+                $.getJSON(conf_dir + '/layer/Visibility.json')
+            ).done(function(conf) {
+                layer.configure(dh_data, conf);
+            });
+            layer.setStyle('flat');
+            
+
+            function timeString(tm, year) {
+                if ( !tm )
+                    return (year?"----/":"")+"--/-- --:--";
+                var ts = year?(tm.substr(0,4)+"/"):"";
+                return ts+tm.substr(4,2)+"/"+tm.substr(6,2)+" "+tm.substr(9,2)+":"+tm.substr(11,2);
+            }
+        
+            // モデルのタイムリスト取得＆UIセットアップ
+            var time_range = { tm:[] };
+            var tm_timelist;
+            
+            function updateModelContent() {
+                var time_index = parseInt($("#slt_vt").val());
+                var content = {
+                    element:'VIS',
+                    level:$("#slt_lv").val(),
+                    basetime:time_range.tm[time_index].basetime,
+                    validtime:time_range.tm[time_index].validtime
+                };
+                
+                layer.set(content);
+                layer.setVisible($('#chk_bt').prop('checked'));
+            }
+            
+            function updateModelTime() {
+                $("#slt_vt").html("");
+                var timelist = dh_data.query("timelist").value();
+                if ( !timelist && !timelist )
+                    return;
+                var b = $("#slt_bt").val();
+                var bt = timelist[b].basetime;
+                var num = timelist[b].validtime.length;
+                for ( var i = 0 ; i < num ; i++ ) {
+                    var tm = timelist[b].validtime[i];
+                    var ts = timeString(tm)+"Z";
+                    $("#slt_vt").append("<option value='"+i+"'>"+ts+"</option>");
+                    time_range.tm[i] = {basetime:bt, validtime:tm};
+                }
+            }
+            dh_data.inspect(function(ref) {
+                time_range.tm = [];
+                var timelist = ref.query("timelist").value();
+                if ( timelist && timelist.length ) {
+                    $("#slt_bt").html("");
+                    $("#slt_vt").html("");
+                    tm_timelist = timelist;
+                    for ( var i = 0 ; i < timelist.length ; i++ ) {
+                        var bt = timelist[i].basetime;
+                        var basetime = timeString(bt)+"Z";
+                        $("#slt_bt").append("<option value='"+i+"'>"+basetime+"</option>");
+                    }
+                    $("#slt_bt").val(timelist.length-1);
+                    updateModelTime();
+                    var vl = tm_timelist[tm_timelist.length-1].validtime;
+                    $("#slt_vt").val(vl.length-1);
+                    updateModelContent();
+                }
+            }, true);
+
+            $('#slt_lv').change(function() {
+                updateModelContent();
+            });
+                                
+            $('#slt_bt').change(function() {
+                updateModelTime();
+                var index = $('#slt_bt').val();
+                var vl = tm_timelist[index].validtime;
+                $("#slt_vt").val(vl.length-1);
+                updateModelContent();
+            });
+                                 
+            $('#slt_vt').change(function() {
+                updateModelContent();
+            });
+            $('#chk_bt').click(updateModelContent);
+            
+        </script>
+    </body>
+</html>

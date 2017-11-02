@@ -1,0 +1,17 @@
+{
+    "Name" : "Map_WorldCosatLine",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "%baseurl%/WRAP/wrap-pri/data/MAP_VMAP_CoastLine/%z%/%y%/%x%.json",
+        "DataGrid" : {
+            "MinZoom" : 3,
+            "MaxZoom" : 10,
+            "BoundingBox" : {
+                "West":-180.0,
+                "South":-90.0,
+                "East":180.0,
+                "North":90.0
+            }
+        }
+    }
+}

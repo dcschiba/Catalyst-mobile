@@ -1,0 +1,59 @@
+{
+    "Name" : "RendezvousPoint",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "features" : [
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "icon_type",
+                    "value" : "10"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "image",
+                      "width" : 32,
+                      "height" : 32,
+                      "offset_x" : -16,
+                      "offset_y" : -16,
+                      "url" : "img/heliport1.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "icon_type",
+                    "value" : "20"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "image",
+                      "width" : 32,
+                      "height" : 32,
+                      "offset_x" : -16,
+                      "offset_y" : -16,
+                      "url" : "img/hospital.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "icon_type",
+                    "value" : "30"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "image",
+                      "width" : 32,
+                      "height" : 32,
+                      "offset_x" : -16,
+                      "offset_y" : -16,
+                      "url" : "img/place.png"
+                    }
+                }
+            }
+        ]
+    }
+}

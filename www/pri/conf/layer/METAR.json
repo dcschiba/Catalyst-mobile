@@ -1,0 +1,67 @@
+{
+    "Name" : "METAR",
+    "Renderer" : "DataJSON",
+    "Attributes" : {
+        "features" : [
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "wind_speed_kt_color",
+                    "value" : "violet"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "point",
+                      "point_size" : 14,
+                      "sensor_size" : 14,
+                      "line_color" : "#000000",
+                      "point_color" : "#723057"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "wind_speed_kt_color",
+                    "value" : "red"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "point",
+                      "point_size" : 14,
+                      "sensor_size" : 14,
+                      "line_color" : "#000000",
+                      "point_color" : "#ff0000"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "wind_speed_kt_color",
+                    "value" : "yellow"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "point",
+                      "point_size" : 14,
+                      "sensor_size" : 14,
+                      "line_color" : "#000000",
+                      "point_color" : "#ffff22"
+                    }
+                }
+            },
+            {
+                "style" : {
+                    "default" : {
+                      "type" : "point",
+                      "point_size" : 14,
+                      "sensor_size" : 14,
+                      "line_color" : "#000000",
+                      "point_color" : "#228b22"
+                    }
+                }
+            }
+        ]
+    }
+}

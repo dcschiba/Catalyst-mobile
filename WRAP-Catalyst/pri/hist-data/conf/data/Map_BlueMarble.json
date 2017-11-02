@@ -1,0 +1,19 @@
+{
+    "Name" : "BlueMarble",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "_File" : "https://pt-wrap01.wni.co.jp/Earth/sample/pri/data/WRAPMap/BlueMarble/%z%/%y%/%x%.png",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/MAP_NASA_BlueMarble/%z%/%y%/%x%.png",
+        "DataGrid" : {
+            "MinZoom" : 2,
+            "MaxZoom" : 8,
+            "Projection" : "EQR",
+            "BoundingBox" : {
+                "West":-180,
+                "South":-90,
+                "East":180,
+                "North":90
+            }
+        }
+    }
+}

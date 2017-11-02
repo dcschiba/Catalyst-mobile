@@ -1,0 +1,9 @@
+{
+    "Name" : "WX_WNI_AnalogousTropicalStorm_2",
+    "DataHandler" : "IndexedGeoJSON",
+    "Attributes" : {
+        "Index" : "%baseurl%/WRAP/wrap-pri/data/WX_WNI_AnalogousTropicalStorm/index.json",
+        "File" : "%pdburl%/tc/JMA_TYPHN/T%id%",
+        "UpdateInterval" : 300
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "Name" : "JMA_OBS_RADAR_ECHTOP_JP",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/JMA_OBS_RADAR_ECHTOP_JP/list.json",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/JMA_OBS_RADAR_ECHTOP_JP/%validtime%/%z%_%y%_%x%.png",
+        "API" : "satdb",
+        "DataGrid" : {
+            "MinZoom" : 3,
+            "MaxZoom" : 9,
+            "YCoordinate" : -1,
+            "BoundingBox" : {
+                "West":118,
+                "South":20,
+                "East":150,
+                "North":48
+            }
+        },
+        "UpdateInterval" : 60
+    }
+}

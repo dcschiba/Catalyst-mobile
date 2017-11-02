@@ -1,0 +1,37 @@
+{
+    "Name" : "WX_MSC_IceBerg",
+    "DataHandler" : "GeoTiff",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/WRAP/wrap-pri/data/WX_MSC_IceBerg/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/wrap-pri/data/WX_MSC_IceBerg/%element%/%level%/%basetime%/%validtime%.tiff",
+        "_File" : "./pri/data/GSM/data/%element%/%level%/%basetime%/%validtime%.tiff",
+	"DataGrid" : {
+            "Width" : 360,
+            "Height" : 181,
+            "LatBase" : 90.0,
+            "LonBase" : 0.0,
+            "LatInterval" : 1.0,
+            "LonInterval" : 1.0
+        },
+        "__DataGrid" : {
+            "Width" : 720,
+            "Height" : 361,
+            "LatBase" : 90.0,
+            "LonBase" : 0.0,
+            "LatInterval" : 0.5,
+            "LonInterval" : 0.5,
+            "MinValue" : 0,
+            "MaxValue" : 100,
+            "_TileSize" : 128
+        },
+        "_DataGrid" : {
+            "Width" : 2880,
+            "Height" : 1265,
+            "LatBase" : 80.0,
+            "LonBase" : 0.0,
+            "LatInterval" : 0.125,
+            "LonInterval" : 0.125
+        },
+        "UpdateInterval" : 3600
+    }
+}

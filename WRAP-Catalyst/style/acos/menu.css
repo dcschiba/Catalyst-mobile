@@ -1,0 +1,10 @@
+.ctrlPanel {
+  padding: 5px;
+}
+.ckpaddleft {
+  padding-left:15px;
+}
+.hordiv {
+  display: table-cell;
+  vertical-align: middle;
+}

@@ -1,0 +1,9 @@
+export const FIX_CLICK = 'FIX_CLICK';
+
+export const FIX_COMPULSORY_CLICK = 'FIX_COMPULSORY_CLICK';
+
+export const FIXN_CLICK = 'FIXN_CLICK';
+
+export const FIX_RNAV_CLICK = 'FIX_RNAV_CLICK';
+
+export const FIX_INITIALIZE = 'FIX_INITIALIZE';

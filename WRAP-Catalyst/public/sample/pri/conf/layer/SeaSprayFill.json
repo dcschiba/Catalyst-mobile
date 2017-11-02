@@ -1,0 +1,39 @@
+{
+    "Name" : "SeaSprayFill",
+    "Renderer" : "Mesh",
+    "Attributes" : {
+        "data_offset" :0,
+        "style" : {
+            "flat" : {
+                "fill_type" : "flat",
+                "palette_gradient": false,
+                "palette_step": 1,
+                "palette" : [
+                     {
+                     "value" : 1,
+                     "color" : "rgba(255, 165, 0, 0.5)"
+                     },
+                     {
+                     "value" : 2,
+                     "color" : "rgba(230, 0, 0, 0.5)"
+                     }
+                 ]
+            },
+            "gradation" : {
+                "fill_type" : "gradation",
+                "palette_gradient": true,
+                "palette_step": 10,
+                "palette" : [
+                     {
+                     "value" : 10,
+                     "color" : "rgba(255, 165, 0, 0.5)"
+                     },
+                     {
+                     "value" : 20,
+                     "color" : "rgba(255, 0, 0, 0.5)"
+                     }
+                ]
+            }
+        }
+    }
+}

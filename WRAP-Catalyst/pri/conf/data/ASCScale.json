@@ -1,0 +1,18 @@
+{
+    "Name" : "ASCScale",
+    "DataHandler" : "GeoTiff",
+    "Attributes" : {
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/SKY_WNI_ASCScale/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/SKY_WNI_ASCScale/%element%/%level%/%basetime%/%validtime%.tiff",
+        "_File" : "./pri/data/ASCScale/tile/%element%/%level%/%basetime%/%validtime%/%z%/%y%/%x%.tiff",
+        "DataGrid" : {
+            "Width" : 720,
+            "Height" : 361,
+            "LatBase" : 90.0,
+            "LonBase" : 0.0,
+            "LatInterval" : 0.5,
+            "LonInterval" : 0.5
+        },
+        "UpdateInterval" : 3600
+    }
+}

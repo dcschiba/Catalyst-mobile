@@ -1,0 +1,21 @@
+{
+    "Name" : "GPVContour",
+    "Renderer" : "Mesh",
+    "Attributes" : {
+        "data_offset" : 0,
+        "style" : {
+            "default" : {
+                "contour": [
+                    {
+                        "base":90000,
+                        "interval": 200,
+                        "num": 250,
+                        "lineWidth": 2,
+                        "strokeStyle": "rgba(50,50,100,0.8)",
+                        "textColor": "rgba(20,20,80,0.9)"
+                    }
+                ]
+            }
+        }
+    }
+}

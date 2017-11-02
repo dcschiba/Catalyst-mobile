@@ -1,0 +1,8 @@
+{
+    "Name" : "Airport",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "./pri/data/Airport/Airport.json",
+        "UpdateInterval" : 3600
+    }
+}

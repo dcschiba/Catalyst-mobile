@@ -1,0 +1,35 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    140.3861365,
+                    35.7644226
+                ],
+                "type": "Point"
+            },
+            "properties": {
+              "airporttype" : "0",
+              "area1": "airport1",
+              "name": "成田空港"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    139.7839707,
+                    35.5488204
+                ],
+                "type": "Point"
+            },
+            "properties": {
+              "airporttype" : "cum1",
+              "area1": "airport2",
+              "name": "羽田空港"
+            },
+            "type": "Feature"
+        }
+    ],
+    "type": "FeatureCollection"
+}

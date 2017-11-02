@@ -1,0 +1,17 @@
+{
+    "Name" : "UKMET",
+    "DataHandler" : "GeoTiff",
+    "Attributes" : {
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_UKMO_UM/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_UKMO_UM/%element%/%level%/%basetime%/%validtime%.tiff",
+        "DataGrid" : {
+            "Width" : 288,
+            "Height" : 145,
+            "LatBase" : 90.0,
+            "LonBase" : 0.0,
+            "LatInterval" : 1.25,
+            "LonInterval" : 1.25
+        },
+        "UpdateInterval" : 3600
+    }
+}

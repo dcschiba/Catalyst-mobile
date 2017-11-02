@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Fix and FIR Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+ 
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0">
+        <label style="position:absolute; width:160px; height:18px; left:10px; top:8px;">Tiled Data Sample</label>
+        <label style="position:absolute; width:160px; height:18px; left:150px; top:6px;">
+            <input type="checkbox" id="chk_fix"checked><spawn style="position:absolute; top:2px; left:20px;">Fix</spawn>
+        </label>
+        <label style="position:absolute; width:160px; height:18px; left:200px; top:6px;">
+            <input type="checkbox" id="chk_fir"><spawn style="position:absolute; top:2px; left:20px;">FIR</spawn>
+        </label>
+<!--
+        <a href="../doc/reference/sample_code/fix_fir.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+-->        
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 8;
+
+            var conf_path = "./pri/conf";     // ローカルの sample_data用コンフィグを用いる
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+            
+            // Data
+            WRAP.DH.conf_path = conf_path+"/data";
+            var fix_data = WRAP.DH.addObject("MAP_ARINC_Fix");
+            var fir_data = WRAP.DH.addObject("MAP_ARINC_FIR");
+            
+            // Layers
+            var fix_layer = new WRAP.Geo.Layer("Fix");
+            var fir_layer = new WRAP.Geo.Layer("FIR");
+            WRAP.Geo.setLayer({
+                upper_layers : [
+                    fix_layer,
+                    fir_layer
+                ]
+            });
+
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.getJSON(conf_dir + '/layer/Fix.json', function() {}).
+                success(function(conf) {
+                    fix_layer.configure(fix_data, conf);
+                }).
+                error(function(jqXHR, textStatus, errorThrown) {
+                    console.log("Fix Layer configuration file load error : " + textStatus);
+                });
+            $.getJSON(conf_dir + '/layer/FIR.json', function() {}).
+                success(function(conf) {
+                    fir_layer.configure(fir_data, conf);
+                }).
+                error(function(jqXHR, textStatus, errorThrown) {
+                    console.log("FIR Layer configuration file load error : " + textStatus);
+                });
+                
+            // Tooltip
+            WRAP.Geo.setInteraction(map_canvas);
+            fix_layer.setTooltip(function(geo) {
+                var p = geo && geo.properties;
+                if ( p ) {
+                    return p.name || p.id || p.kind;
+                }
+            });
+            fir_layer.setTooltip(function(geo) {
+                var p = geo && geo.properties;
+                if ( p ) {
+                                 return p.name || p.id || p.kind;
+                }
+            });
+            
+            // チェックボックス状態による表示制御
+            function updateLayer() {
+                fix_layer.setVisible($('#chk_fix').prop('checked'));
+                fir_layer.setVisible($('#chk_fir').prop('checked'));
+            }
+            $('#chk_fix').click(updateLayer);
+            $('#chk_fir').click(updateLayer);
+            
+            updateLayer();
+        </script>
+    </body>
+</html>

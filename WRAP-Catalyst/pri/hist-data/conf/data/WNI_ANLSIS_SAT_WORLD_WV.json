@@ -1,0 +1,16 @@
+{
+    "Name" : "WNI_ANLSIS_SAT_WORLD_WV",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "_TimeList" : "https://wni-icdb.wni.com/sat/WNI_ANLSIS_SAT_WORLD_WV/list",
+        "TimeList": "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_Satellite//WNI_ANLSIS_SAT_WORLD_WV/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_Satellite/WNI_ANLSIS_SAT_WORLD_WV/%validtime%/%z%_%y%_%x%.png",
+        "API" : "satdb",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 6,
+            "YCoordinate" : -1
+        },
+        "UpdateInterval" : 300
+    }
+}

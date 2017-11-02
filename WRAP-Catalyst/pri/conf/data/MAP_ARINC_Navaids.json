@@ -1,0 +1,8 @@
+{
+    "Name" : "MAP_ARINC_Navaids",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "%baseurl%/WRAP/wrap-pri/data/MAP_ARINC_Navaids/ALL.json",
+        "UpdateInterval" : 3600
+    }
+}

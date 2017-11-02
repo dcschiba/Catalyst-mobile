@@ -1,0 +1,23 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    140.044055555556,
+                    35.6513333333333
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "carid": "91100334",
+                "event": "9",
+                "gps_num": "5",
+                "gps_q": "68",
+                "spd": 6.34,
+                "valid_time": "20161019T052638"
+            },
+            "type": "Feature"
+        }
+    ],
+    "type": "FeatureCollection"
+}

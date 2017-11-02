@@ -1,0 +1,263 @@
+{
+    "Name" : "WX_WNI_JP_10Ten_Report",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "features" : [
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "100"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/100.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "101"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/101.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "200"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/200.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "300"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/300.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "301"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/301.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "302"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/302.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "303"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/303.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "304"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/304.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "400"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/400.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "410"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/410.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "411"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/411.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "412"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/412.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "420"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/420.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "421"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/421.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "code",
+                "value" : "422"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 10,
+                        "height" : 10,
+                        "offset_x" : -5,
+                        "offset_y" : -5,
+                        "url" : "img/jp10ten/422.png"
+                    }
+                }
+            }
+        ]
+    }
+}

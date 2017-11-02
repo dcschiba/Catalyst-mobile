@@ -1,0 +1,7 @@
+.textArea {
+  word-break: break-all;
+}
+
+.textArea > table, td, th {
+border: 1px #808080 solid;
+}

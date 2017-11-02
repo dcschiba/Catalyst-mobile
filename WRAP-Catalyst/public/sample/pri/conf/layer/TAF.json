@@ -1,0 +1,19 @@
+{
+    "Name" : "TAF",
+    "Renderer" : "DataJSON",
+    "Attributes" : {
+        "features" : [
+            {
+                "style" : {
+                    "default" : {
+                        "type" : "point",
+                        "point_size" : 10,
+                        "sensor_size" : 13,
+                        "line_color" : "#000000",
+                        "point_color" : "#2288ff"
+                    }
+                }
+            }
+        ]
+    }
+}

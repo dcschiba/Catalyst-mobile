@@ -1,0 +1,16 @@
+{
+    "Name" : "WX_JP_Radar",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "Index" : "radar",
+        "MaxZoom" : 6,
+        "BoundingBox" : {
+            "minx" : 117.99999999999999,
+            "miny" : 19.99482396966169,
+            "maxx" : 149.99687754060801,
+            "maxy" : 48.00000000000001
+        },
+        "Directory" : "./pri/wrap/data/RADAR/Japan",
+        "UpdateInterval" : 300
+    }
+}

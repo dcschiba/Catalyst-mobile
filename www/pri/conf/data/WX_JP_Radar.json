@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_JP_Radar",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_JP_Radar/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_JP_Radar/%validtime%/%z%/%x%/%y%.png",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 5,
+            "BoundingBox" : {
+                "West":118.00000000000000,
+                "South":19.99482396966169,
+                "East":149.99687754060804,
+                "North":48.00000000000001
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

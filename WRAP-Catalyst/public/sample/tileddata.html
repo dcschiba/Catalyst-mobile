@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Tiled Map Data Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+ 
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Logger-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0">
+        <label style="position:absolute; width:160px; height:18px; left:10px; top:8px;">Tiled Map Data Sample</label>
+        <label style="position:absolute; width:160px; height:18px; left:190px; top:6px;">
+            <input type="checkbox" id="chk_wb"><spawn style="position:absolute; top:2px; left:20px;">World Border</spawn>
+        </label>
+        <label style="position:absolute; width:160px; height:18px; left:300px; top:6px;">
+            <input type="checkbox" id="chk_wc"><spawn style="position:absolute; top:2px; left:20px;">World Coastline</spawn>
+        </label>
+        <label style="position:absolute; width:260px; height:18px; left:430px; top:6px;">
+            <input type="checkbox" id="chk_jb" ><spawn style="position:absolute; top:0px; left:20px;">Japan Border（拡大時のみ）</spawn>
+        </label>
+        <a href="../doc/reference/sample_code/tileddata.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 4;
+
+            var conf_path = "./pri/conf";     // ローカルの sample_data用コンフィグを用いる
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+            
+            // Data
+            WRAP.DH.conf_path = conf_path+"/data";
+            var world_border_data = WRAP.DH.addObject("Map_WorldBorder");
+            var world_coastline_data = WRAP.DH.addObject("Map_WorldCoastLine");
+            var japan_border_data = WRAP.DH.addObject("Map_JapanBorder");
+            
+            // Layers
+            var world_border_layer = new WRAP.Geo.Layer("WorldBorder");
+            var world_coastline_layer = new WRAP.Geo.Layer("WorldCoastLine");
+            var japan_border_layer = new WRAP.Geo.Layer("JapanBorder");
+            WRAP.Geo.setLayer({
+                upper_layers : [
+                    world_coastline_layer,
+                    world_border_layer,
+                    japan_border_layer
+                ]
+            });
+
+             updateLayer();
+
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.getJSON(conf_dir + '/layer/WorldBorder.json', function() {}).
+                success(function(conf) {
+                    world_border_layer.configure(world_border_data, conf);
+                }).
+                error(function(jqXHR, textStatus, errorThrown) {
+                    console.log("WorldBorder Layer configuration file load error : " + textStatus);
+                });
+            $.getJSON(conf_dir + '/layer/WorldCoastLine.json', function() {}).
+                success(function(conf) {
+                    world_coastline_layer.configure(world_coastline_data, conf);
+                }).
+                error(function(jqXHR, textStatus, errorThrown) {
+                    console.log("WorldCoastLine Layer configuration file load error : " + textStatus);
+                });
+            $.getJSON(conf_dir + '/layer/JapanBorder.json', function() {}).
+                success(function(conf) {
+                    japan_border_layer.configure(japan_border_data, conf);
+                }).
+                error(function(jqXHR, textStatus, errorThrown) {
+                    console.log("Japanborder Layer configuration file load error : " + textStatus);
+                });
+                
+            // Tooltip
+            WRAP.Geo.setInteraction(map_canvas);
+            
+            // チェックボックス状態による表示制御
+            function updateLayer() {
+                world_border_layer.setVisible($('#chk_wb').prop('checked'));
+                world_coastline_layer.setVisible($('#chk_wc').prop('checked'));
+                japan_border_layer.setVisible($('#chk_jb').prop('checked'));
+            }
+            $('#chk_wb').click(updateLayer);
+            $('#chk_wc').click(updateLayer);
+            $('#chk_jb').click(updateLayer);
+            
+        </script>
+    </body>
+</html>

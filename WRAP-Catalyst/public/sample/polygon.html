@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Polygon Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <div style="color:black; position:absolute; left:20px; top:8px;">Polygon Sample</div>
+<!--
+        <a href="../doc/reference/sample_code/drawing.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+-->
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 6;
+
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 15,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map);
+            
+            // map_canvasに対するマウス操作監視を登録（Featureのドラッグを行う為）
+            WRAP.Geo.setInteraction(map_canvas);
+
+            // レイヤーの登録
+            var layer = new WRAP.Geo.Layer("Sample");
+            WRAP.Geo.setLayer({
+                upper_layers : [
+                    layer
+                ]
+            });
+        
+            var polygon1 = [[140.0,39.9], [135.7,37.5], [139.5,36.5],[140.0,39.9]];
+            var polygon2 = [[137.2,36.1], [139.7,39.0], [140.7,36.0],[137.2,36.1]];
+            
+
+            // ディスプレイリストの登録
+            var p1 = new WRAP.Geo.Feature.GeoLine({
+                path:polygon1,
+                strokeStyle:'rgba(0,0,120,0.5)',
+                fillStyle:'rgba(0,0,100,0.3)',
+                lineWidth:2
+            });
+            p1.data = 'polygon-1 (blue)'
+            var p2 = new WRAP.Geo.Feature.GeoLine({
+                path:polygon2,
+                strokeStyle:'rgba(0,50,0,0.9)',
+                fillStyle:'rgba(0,150,100,0.7)',
+                lineWidth:2
+            });
+            p2.data = 'polygon-2 (green)'
+            
+            layer.addFeature(p1);
+            layer.addFeature(p2);
+        
+            // マウス・インタラクション監視
+            WRAP.Geo.addEventHandler('touch', function(layer, feature, sp) {
+                if ( feature && feature.data ) {
+                    var msg = "clicked : "+feature.data;
+                    console.log(msg);
+                    alert(msg);
+                }
+            });
+            WRAP.Geo.addEventHandler('mouseover', function(layer, feature, sp) {
+                if ( feature && feature.data )
+                    console.log("mouseover : "+feature.data);
+            });
+            WRAP.Geo.addEventHandler('mouseout', function(layer, feature, sp) {
+                if ( feature && feature.data )
+                    console.log("mouseout : "+feature.data);
+            });
+            
+            // ツールチップ
+            layer.setTooltip(function(geo, data) {
+                return data;
+            });
+        </script>
+    </body>
+</html>

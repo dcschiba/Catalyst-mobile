@@ -1,0 +1,26 @@
+{
+	"Name": "WaveBlendHeightFlat",
+	"Renderer": "Mesh",
+	"Attributes": {
+		"style": {
+			"default": {
+				"fill_type": "flat",
+				"palette_gradient": false,
+				"palette_step": 0.001,
+				"palette": [{
+						"value": 0.0,
+						"color": "rgba(0,0,0,0)"
+					},
+					{
+						"value": 2.0,
+						"color": "#34B1F0"
+					},
+					{
+						"value": 4.0,
+						"color": "#1B34CB"
+					}
+				]
+			}
+		}
+	}
+}

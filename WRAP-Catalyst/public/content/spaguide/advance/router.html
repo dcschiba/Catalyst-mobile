@@ -1,0 +1,627 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Router | WRAP Application開発ガイド</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+        <link rel="stylesheet" href="../styles/website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../advance/wrap_modules.html" />
+    
+    
+    <link rel="prev" href="../advance/async.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="3.3"
+        data-chapter-title="Router"
+        data-filepath="advance/router.md"
+        data-basepath=".."
+        data-revision="Mon Jun 05 2017 22:48:27 GMT+0900 (東京 (標準時))"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        ガイドの紹介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="devenv/index.html">
+            
+                
+                    <a href="../devenv/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        開発環境構築
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="devenv/nodejs.html">
+            
+                
+                    <a href="../devenv/nodejs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Node.jsのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="devenv/vscode.html">
+            
+                
+                    <a href="../devenv/vscode.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Visual Studio Codeのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="devenv/git.html">
+            
+                
+                    <a href="../devenv/git.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        gitのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="devenv/boilerplate.html">
+            
+                
+                    <a href="../devenv/boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        ボイラープレートのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="devenv/about_boilerplate.html">
+            
+                
+                    <a href="../devenv/about_boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        ボイラープレートについて
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="basics/index.html">
+            
+                
+                    <a href="../basics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        React/Redux開発の基本
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="basics/architecture.html">
+            
+                
+                    <a href="../basics/architecture.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        アーキテクチャとデータフロー
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="basics/react_component.html">
+            
+                
+                    <a href="../basics/react_component.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        React Component
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="basics/action_creators.html">
+            
+                
+                    <a href="../basics/action_creators.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Action Creators
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="basics/reducers.html">
+            
+                
+                    <a href="../basics/reducers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Reducers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="basics/store.html">
+            
+                
+                    <a href="../basics/store.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Store
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="advance/index.html">
+            
+                
+                    <a href="../advance/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        WRAP Applicationの開発
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="advance/boilerplate.html">
+            
+                
+                    <a href="../advance/boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        ボイラープレートを使用した開発の流れ
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="advance/async.html">
+            
+                
+                    <a href="../advance/async.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        通信処理（非同期処理）
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.3" data-path="advance/router.html">
+            
+                
+                    <a href="../advance/router.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Router
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="advance/wrap_modules.html">
+            
+                
+                    <a href="../advance/wrap_modules.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        WRAP-modules
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="advance/unit_test.html">
+            
+                
+                    <a href="../advance/unit_test.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        単体テスト
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="advance/release.html">
+            
+                
+                    <a href="../advance/release.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        アプリのビルド/リリース
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="advance/rule.html">
+            
+                
+                    <a href="../advance/rule.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.7.</b>
+                        
+                        規約
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="tips/index.html">
+            
+                
+                    <a href="../tips/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Tips
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="tips/define.html">
+            
+                
+                    <a href="../tips/define.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Define
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >WRAP Application開発ガイド</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h3 id="router">Router</h3>
+<p>&#x901A;&#x5E38;&#x3001;SPA&#x306E;&#x753B;&#x9762;&#x9077;&#x79FB;&#x306B;&#x306F;Router&#x304C;&#x4F7F;&#x7528;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;&#x305D;&#x308C;&#x306B;&#x3088;&#x308A;&#x3001;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x30D6;&#x30C3;&#x30AF;&#x30DE;&#x30FC;&#x30AF;&#x3084;&#x623B;&#x308B;&#x3001;&#x9032;&#x3080;&#x6A5F;&#x80FD;&#x3092;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x51FA;&#x6765;&#x307E;&#x3059;&#x3002;&#x3053;&#x3053;&#x3067;&#x306F;&#x3001;Router&#x306E;&#x5B9F;&#x88C5;&#x65B9;&#x6CD5;&#x306B;&#x3064;&#x3044;&#x3066;&#x8AAC;&#x660E;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h4 id="&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;">&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</h4>
+<p>Router&#x306E;&#x8AAC;&#x660E;&#x306B;&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x4F7F;&#x7528;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;<br>&#x5B9F;&#x884C;&#x65B9;&#x6CD5;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x3068;&#x304A;&#x308A;&#x3067;&#x3059;&#x3002;</p>
+<pre><code>cd examples/router
+npm install
+npm run dev
+</code></pre><p>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306B;&#x30A2;&#x30AF;&#x30BB;&#x30B9;<br><code>http://localhost:3000</code></p>
+<h4 id="router&#x3067;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;">Router&#x3067;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;</h4>
+<p>&#x4EE5;&#x4E0B;&#x306E;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x3092;&#x4F7F;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;&#x8A73;&#x7D30;&#x306B;&#x3064;&#x3044;&#x3066;&#x306F;&#x30EA;&#x30F3;&#x30AF;&#x5148;&#x3092;&#x53C2;&#x7167;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;</th>
+<th>Version</th>
+<th>&#x8AAC;&#x660E;           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/rackt/react-router" target="_blank">react-router</a></td>
+<td>~3.0.0</td>
+<td>&#x30EB;&#x30FC;&#x30C6;&#x30A3;&#x30F3;&#x30B0;&#x30E9;&#x30A4;&#x30D6;&#x30E9;&#x30EA;</td>
+</tr>
+<tr>
+<td><a href="https://github.com/rackt/react-router-redux" target="_blank">react-router-redux</a></td>
+<td>~4.0.7</td>
+<td>react-router&#x306E;State&#x3092;redux&#x3067;&#x7BA1;&#x7406;&#x3057;&#x307E;&#x3059;</td>
+</tr>
+</tbody>
+</table>
+<h4 id="&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x5C65;&#x6B74;&#x7BA1;&#x7406;">&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x5C65;&#x6B74;&#x7BA1;&#x7406;</h4>
+<p>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x5C65;&#x6B74;&#x7BA1;&#x7406;&#x306B;&#x306F;&#x30CF;&#x30C3;&#x30B7;&#x30E5;&#x3068;&#x3001;&#x901A;&#x5E38;&#x306E;&#x30D1;&#x30B9;&#x3092;&#x9078;&#x629E;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;</th>
+<th>URL&#x4F8B;</th>
+<th>&#x4F5C;&#x6210;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x30CF;&#x30C3;&#x30B7;&#x30E5;</td>
+<td>example.com/#/some/path</td>
+<td>hashHistory</td>
+</tr>
+<tr>
+<td>&#x901A;&#x5E38;&#x306E;&#x30D1;&#x30B9;</td>
+<td>example.com/some/path</td>
+<td>browserHistory</td>
+</tr>
+</tbody>
+</table>
+<p>&#x901A;&#x5E38;&#x306E;&#x30D1;&#x30B9;&#x3092;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x5834;&#x5408;&#x3001;&#x3044;&#x305A;&#x308C;&#x306E;URL&#x306B;&#x30A2;&#x30AF;&#x30BB;&#x30B9;&#x3055;&#x308C;&#x305F;&#x969B;&#x3082;SPA&#x306E;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#xFF08;index.html/bundle.js&#xFF09;&#x304C;&#x8FD4;&#x5374;&#x3055;&#x308C;&#x308B;&#x3088;&#x3046;&#x306B;&#x3001;&#x30B5;&#x30FC;&#x30D0;&#x5074;&#x306B;&#x8A2D;&#x5B9A;&#x304C;&#x5FC5;&#x8981;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h4 id="router&#x306E;&#x4F5C;&#x6210;">Router&#x306E;&#x4F5C;&#x6210;</h4>
+<p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30A8;&#x30F3;&#x30C8;&#x30EA;&#x30FC;&#x30DD;&#x30A4;&#x30F3;&#x30C8;&#x306B;Router&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/index.jsx</li>
+</ul>
+<p>&#x203B;&#x300C;&#x901A;&#x5E38;&#x306E;&#x30D1;&#x30B9;&#x300D;&#x3092;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x5834;&#x5408;&#x3001;&#x300C;hashHistory&#x300D;&#x306E;&#x90E8;&#x5206;&#x306F;&#x300C;browserHistory&#x300D;&#x306B;&#x7F6E;&#x304D;&#x63DB;&#x3048;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> store = configureStore();
+<span class="hljs-keyword">const</span> history = syncHistoryWithStore(hashHistory, store);
+</code></pre>
+<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-title">Provider</span> <span class="hljs-attribute">store</span>=<span class="hljs-value">{store}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">MuiThemeProvider</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Router</span> <span class="hljs-attribute">history</span>=<span class="hljs-value">{history}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">&quot;/&quot;</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{App}</span>&gt;</span>
+          {/* &#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;&#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4; */}
+          <span class="hljs-tag">&lt;<span class="hljs-title">IndexRoute</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{One}</span> /&gt;</span>
+          {/* &#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4; */}
+          <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">&quot;one&quot;</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{One}</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">&quot;two&quot;</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{Two}</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">&quot;three&quot;</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{Three}</span> /&gt;</span>
+          {/* &#x5B58;&#x5728;&#x3057;&#x306A;&#x3044;&#x30D1;&#x30B9;&#x306E;&#x5834;&#x5408;&#x306B;&#x8868;&#x793A;&#x3059;&#x308B;&#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4; */}
+          <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">&quot;*&quot;</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{One}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">Route</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">Router</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">MuiThemeProvider</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">Provider</span>&gt;</span>,
+</code></pre>
+<p>Middleware&#x306B;router&#x3092;&#x767B;&#x9332;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/store/configureStore.js</li>
+</ul>
+<p>&#x203B;&#x300C;&#x901A;&#x5E38;&#x306E;&#x30D1;&#x30B9;&#x300D;&#x3092;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x5834;&#x5408;&#x3001;&#x300C;hashHistory&#x300D;&#x306E;&#x90E8;&#x5206;&#x306F;&#x300C;browserHistory&#x300D;&#x306B;&#x7F6E;&#x304D;&#x63DB;&#x3048;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { hashHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react-router&apos;</span>;
+<span class="hljs-keyword">import</span> { routerMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react-router-redux&apos;</span>;
+
+  <span class="hljs-keyword">const</span> store = createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(routerMiddleware(hashHistory), createLogger()),
+  );
+</code></pre>
+<h4 id="reducer&#x306E;&#x4F5C;&#x6210;">Reducer&#x306E;&#x4F5C;&#x6210;</h4>
+<p>Router&#x7528;&#x306E;Reducer&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>js/reducers/index.js</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { routerReducer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react-router-redux&apos;</span>;
+
+<span class="hljs-keyword">const</span> rootReducer = combineReducers({
+  routing: routerReducer,
+});
+</code></pre>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../advance/async.html" class="navigation navigation-prev " aria-label="Previous page: 通信処理（非同期処理）"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../advance/wrap_modules.html" class="navigation navigation-next " aria-label="Next page: WRAP-modules"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

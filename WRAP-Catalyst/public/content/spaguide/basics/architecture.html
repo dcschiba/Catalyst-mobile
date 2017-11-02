@@ -1,0 +1,620 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>アーキテクチャとデータフロー | WRAP Application開発ガイド</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+        <link rel="stylesheet" href="../styles/website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../basics/react_component.html" />
+    
+    
+    <link rel="prev" href="../basics/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="2.1"
+        data-chapter-title="アーキテクチャとデータフロー"
+        data-filepath="basics/architecture.md"
+        data-basepath=".."
+        data-revision="Mon Jun 05 2017 22:48:27 GMT+0900 (東京 (標準時))"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        ガイドの紹介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="devenv/index.html">
+            
+                
+                    <a href="../devenv/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        開発環境構築
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="devenv/nodejs.html">
+            
+                
+                    <a href="../devenv/nodejs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Node.jsのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="devenv/vscode.html">
+            
+                
+                    <a href="../devenv/vscode.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Visual Studio Codeのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="devenv/git.html">
+            
+                
+                    <a href="../devenv/git.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        gitのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="devenv/boilerplate.html">
+            
+                
+                    <a href="../devenv/boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        ボイラープレートのインストール
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="devenv/about_boilerplate.html">
+            
+                
+                    <a href="../devenv/about_boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        ボイラープレートについて
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="basics/index.html">
+            
+                
+                    <a href="../basics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        React/Redux開発の基本
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="2.1" data-path="basics/architecture.html">
+            
+                
+                    <a href="../basics/architecture.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        アーキテクチャとデータフロー
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="basics/react_component.html">
+            
+                
+                    <a href="../basics/react_component.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        React Component
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="basics/action_creators.html">
+            
+                
+                    <a href="../basics/action_creators.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Action Creators
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="basics/reducers.html">
+            
+                
+                    <a href="../basics/reducers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Reducers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="basics/store.html">
+            
+                
+                    <a href="../basics/store.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Store
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="advance/index.html">
+            
+                
+                    <a href="../advance/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        WRAP Applicationの開発
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="advance/boilerplate.html">
+            
+                
+                    <a href="../advance/boilerplate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        ボイラープレートを使用した開発の流れ
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="advance/async.html">
+            
+                
+                    <a href="../advance/async.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        通信処理（非同期処理）
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="advance/router.html">
+            
+                
+                    <a href="../advance/router.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Router
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="advance/wrap_modules.html">
+            
+                
+                    <a href="../advance/wrap_modules.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        WRAP-modules
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="advance/unit_test.html">
+            
+                
+                    <a href="../advance/unit_test.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        単体テスト
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="advance/release.html">
+            
+                
+                    <a href="../advance/release.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        アプリのビルド/リリース
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="advance/rule.html">
+            
+                
+                    <a href="../advance/rule.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.7.</b>
+                        
+                        規約
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="tips/index.html">
+            
+                
+                    <a href="../tips/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Tips
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="tips/define.html">
+            
+                
+                    <a href="../tips/define.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Define
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >WRAP Application開発ガイド</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h3 id="&#x30A2;&#x30FC;&#x30AD;&#x30C6;&#x30AF;&#x30C1;&#x30E3;&#x3068;&#x30C7;&#x30FC;&#x30BF;&#x30D5;&#x30ED;&#x30FC;">&#x30A2;&#x30FC;&#x30AD;&#x30C6;&#x30AF;&#x30C1;&#x30E3;&#x3068;&#x30C7;&#x30FC;&#x30BF;&#x30D5;&#x30ED;&#x30FC;</h3>
+<p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30A2;&#x30FC;&#x30AD;&#x30C6;&#x30AF;&#x30C1;&#x30E3;&#x3068;&#x30C7;&#x30FC;&#x30BF;&#x30D5;&#x30ED;&#x30FC;&#x306F;&#x4EE5;&#x4E0B;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;UI&#x306B;React&#x3001;&#x72B6;&#x614B;&#x7BA1;&#x7406;&#x306B;Redux&#x3092;&#x4F7F;&#x7528;&#x3057;&#x305F;&#x30A2;&#x30FC;&#x30AD;&#x30C6;&#x30AF;&#x30C1;&#x30E3;&#x3092;&#x63A1;&#x7528;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x30C7;&#x30FC;&#x30BF;&#x30D5;&#x30ED;&#x30FC;&#x306F;&#x3053;&#x308C;&#x307E;&#x3067;&#x306E;MV*&#x30D5;&#x30EC;&#x30FC;&#x30E0;&#x30EF;&#x30FC;&#x30AF;&#x3068;&#x7570;&#x306A;&#x308A;&#x3001;&#x30B7;&#x30F3;&#x30D7;&#x30EB;&#x306A;&#x4E00;&#x65B9;&#x5411;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x3061;&#x3089;&#x306E;&#x30A2;&#x30FC;&#x30AD;&#x30C6;&#x30AF;&#x30C1;&#x30E3;&#x306F;Facebook&#x304C;&#x63D0;&#x5531;&#x3057;&#x3066;&#x3044;&#x308B;Flux&#x30A2;&#x30FC;&#x30AD;&#x30C6;&#x30AF;&#x30C1;&#x30E3;&#x3092;&#x53C2;&#x8003;&#x306B;&#x3057;&#x3066;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;Flux&#x30A2;&#x30FC;&#x30AD;&#x30C6;&#x30AF;&#x30C1;&#x30E3;&#x304C;&#x521D;&#x3081;&#x3066;&#x306E;&#x65B9;&#x306F;<a href="https://facebook.github.io/flux/docs/overview.html" target="_blank">Flux Overview</a>&#x306A;&#x3069;&#x3067;Flux&#x30A2;&#x30FC;&#x30AD;&#x30C6;&#x30AF;&#x30C1;&#x30E3;&#x3092;&#x7406;&#x89E3;&#x3057;&#x3066;&#x3044;&#x308B;&#x3068;&#x3001;&#x5F53;&#x30AC;&#x30A4;&#x30C9;&#x306E;&#x7406;&#x89E3;&#x304C;&#x5BB9;&#x6613;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="../assets/redux-flow.png" alt="Screen"></p>
+<h4 id="&#x5F79;&#x5272;">&#x5F79;&#x5272;</h4>
+<p>&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x5F79;&#x5272;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x3068;&#x304A;&#x308A;&#x3067;&#x3059;&#x3002;</p>
+<ul>
+<li><h6 id="react-component">React Component</h6>
+<p>React Component&#x306F;UI&#x306E;&#x8868;&#x793A;&#x3001;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x53D7;&#x3051;&#x4ED8;&#x3051;&#x3092;&#x3057;&#x307E;&#x3059;&#x3002;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x53D7;&#x3051;&#x4ED8;&#x3051;&#x305F;&#x5834;&#x5408;&#x3001;Action Creators&#x306B;&#x901A;&#x77E5;&#x3057;&#x307E;&#x3059;&#x3002;&#x305D;&#x306E;&#x7D50;&#x679C;&#x3001;Store&#x304B;&#x3089;&#x8FD4;&#x3055;&#x308C;&#x305F;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x65B0;&#x3057;&#x3044;&#x72B6;&#x614B;&#x3067;UI&#x3092;&#x8868;&#x793A;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+</li>
+<li><h6 id="action-creators">Action Creators</h6>
+<p>Action Creators&#x306F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306B;&#x5FDC;&#x3058;&#x305F;Action&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;&#x4F5C;&#x6210;&#x3057;&#x305F;Action&#x306F;Store&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+</li>
+<li><h6 id="store">Store</h6>
+<p>Store&#x306F;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x3092;&#x7BA1;&#x7406;&#x3057;&#x307E;&#x3059;&#x3002;&#x53D7;&#x3051;&#x53D6;&#x3063;&#x305F;Action&#x3068;&#x73FE;&#x5728;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x308B;&#x72B6;&#x614B;&#x3092;Reducer&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;&#x305D;&#x306E;&#x7D50;&#x679C;&#x3001;Reducers&#x304B;&#x3089;&#x8FD4;&#x3055;&#x308C;&#x305F;&#x65B0;&#x3057;&#x3044;&#x72B6;&#x614B;&#x3092;&#x7BA1;&#x7406;&#x3059;&#x308B;&#x3068;&#x3068;&#x3082;&#x306B;&#x3001;&#x305D;&#x306E;&#x72B6;&#x614B;&#x3092;React Component&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+</li>
+<li><h6 id="reducers">Reducers</h6>
+<p>Reducers&#x306F;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x65B0;&#x3057;&#x3044;&#x72B6;&#x614B;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;&#x53D7;&#x3051;&#x53D6;&#x3063;&#x305F;Action&#x3068;&#x73FE;&#x5728;&#x306E;&#x72B6;&#x614B;&#x304B;&#x3089;&#x65B0;&#x3057;&#x3044;&#x72B6;&#x614B;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3001;Store&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+</li>
+</ul>
+<h4 id="&#x30C7;&#x30FC;&#x30BF;&#x30D5;&#x30ED;&#x30FC;">&#x30C7;&#x30FC;&#x30BF;&#x30D5;&#x30ED;&#x30FC;</h4>
+<p>&#x4EE5;&#x4E0B;&#x306E;&#x30B1;&#x30FC;&#x30B9;&#x3067;&#x30C7;&#x30FC;&#x30BF;&#x30D5;&#x30ED;&#x30FC;&#x3092;&#x8AAC;&#x660E;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x8D77;&#x52D5;&#x3057;&#x3001;&#x4E0B;&#x306E;&#x3088;&#x3046;&#x306B;&#x30BF;&#x30B9;&#x30AF;&#x3092;2&#x4EF6;&#x8FFD;&#x52A0;&#x3057;&#x305F;&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;
+<img src="../assets/data-flow-1.png" alt="Screen"></p>
+<p>&#x3053;&#x306E;&#x5834;&#x5408;&#x3001;Store&#x306B;&#x4FDD;&#x5B58;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js">{
+  todos: [
+    { id: <span class="hljs-number">0</span>, text: <span class="hljs-string">&quot;HTML&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> },
+    { id: <span class="hljs-number">1</span>, text: <span class="hljs-string">&quot;JavaScript&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> }
+  ],
+  visibilityFilter: <span class="hljs-string">&quot;SHOW_ALL&quot;</span>
+}
+</code></pre>
+<p>&#x3053;&#x306E;&#x72B6;&#x614B;&#x304B;&#x3089;&#x3001;&#x3055;&#x3089;&#x306B;1&#x4EF6;&#x306E;&#x30BF;&#x30B9;&#x30AF;&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h6 id="1-react-component">1. React Component</h6>
+<p>&#x65B0;&#x3057;&#x3044;&#x30BF;&#x30B9;&#x30AF;&#x304C;&#x5165;&#x529B;&#x3055;&#x308C;&#x3001;<code>+</code>&#x30DC;&#x30BF;&#x30F3;&#x304C;&#x62BC;&#x4E0B;&#x3055;&#x308C;&#x305F;&#x5834;&#x5408;&#x3001;&#x30BF;&#x30B9;&#x30AF;&#x8FFD;&#x52A0;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x304C;&#x767A;&#x751F;&#x3057;&#x305F;&#x3053;&#x3068;&#x3092;Action Creators&#x306B;&#x901A;&#x77E5;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="../assets/data-flow-2.png" alt="Screen"></p>
+<h6 id="2-action-creators">2. Action Creators</h6>
+<p>&#x901A;&#x77E5;&#x3092;&#x53D7;&#x3051;&#x305F;Action Creators&#x306F;&#x30BF;&#x30B9;&#x30AF;&#x8FFD;&#x52A0;&#x306E;Action&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3001;Store&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x5834;&#x5408;&#x3001;&#x4F5C;&#x6210;&#x3057;&#x305F;Action&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js">{
+  type: <span class="hljs-string">&quot;ADD_TODO&quot;</span>,
+  payload: {
+    id: <span class="hljs-number">2</span>,
+    text: <span class="hljs-string">&quot;CSS&#x306E;&#x5B66;&#x7FD2;&quot;</span>,
+  }
+}
+</code></pre>
+<h6 id="3-store">3. Store</h6>
+<p>&#x53D7;&#x3051;&#x53D6;&#x3063;&#x305F;Action&#x3068;&#x73FE;&#x5728;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x308B;&#x72B6;&#x614B;&#x3092;Reducer&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x5834;&#x5408;&#x3001;Reducer&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3059;&#x306E;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>Action</p>
+<pre><code class="lang-js">{
+  type: <span class="hljs-string">&quot;ADD_TODO&quot;</span>,
+  payload: {
+    id: <span class="hljs-number">2</span>,
+    text: <span class="hljs-string">&quot;CSS&#x306E;&#x5B66;&#x7FD2;&quot;</span>,
+  }
+}
+</code></pre>
+<p>&#x73FE;&#x5728;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x308B;&#x72B6;&#x614B;</p>
+<pre><code class="lang-js">{
+  todos: [
+    { id: <span class="hljs-number">0</span>, text: <span class="hljs-string">&quot;HTML&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> },
+    { id: <span class="hljs-number">1</span>, text: <span class="hljs-string">&quot;JavaScript&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> }
+  ],
+  visibilityFilter: <span class="hljs-string">&quot;SHOW_ALL&quot;</span>
+}
+</code></pre>
+<h6 id="4-reducers">4. Reducers</h6>
+<p>&#x53D7;&#x3051;&#x53D6;&#x3063;&#x305F;Action&#x3068;&#x73FE;&#x5728;&#x306E;&#x72B6;&#x614B;&#x304B;&#x3089;&#x3001;&#x65B0;&#x3057;&#x3044;&#x30BF;&#x30B9;&#x30AF;&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x305F;&#x4EE5;&#x4E0B;&#x306E;&#x72B6;&#x614B;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;&#x4F5C;&#x6210;&#x3057;&#x305F;&#x65B0;&#x3057;&#x3044;&#x72B6;&#x614B;&#x306F;Store&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x5834;&#x5408;&#x3001;&#x4F5C;&#x6210;&#x3057;&#x305F;&#x65B0;&#x3057;&#x3044;&#x72B6;&#x614B;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js">{
+  todos: [
+    { id: <span class="hljs-number">0</span>, text: <span class="hljs-string">&quot;HTML&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> },
+    { id: <span class="hljs-number">1</span>, text: <span class="hljs-string">&quot;JavaScript&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> },
+    <span class="hljs-comment">// &#x2193; Reducer&#x304C;&#x8FFD;&#x52A0;&#x3057;&#x305F;&#x30C7;&#x30FC;&#x30BF;</span>
+    { id: <span class="hljs-number">2</span>, text: <span class="hljs-string">&quot;CSS&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> }
+  ],
+  visibilityFilter: <span class="hljs-string">&quot;SHOW_ALL&quot;</span>
+}
+</code></pre>
+<h6 id="5-store">5. Store</h6>
+<p>&#x53D7;&#x3051;&#x53D6;&#x3063;&#x305F;&#x65B0;&#x3057;&#x3044;&#x72B6;&#x614B;&#x3092;&#x7BA1;&#x7406;&#x3059;&#x308B;&#x3068;&#x3068;&#x3082;&#x306B;&#x3001;React Component&#x306B;&#x305D;&#x306E;&#x72B6;&#x614B;&#x3092;&#x5F15;&#x304D;&#x6E21;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x5834;&#x5408;&#x3001;React Component&#x306B;&#x5F15;&#x304D;&#x6E21;&#x3059;&#x306E;&#x306F;&#x4EE5;&#x4E0B;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x65B0;&#x3057;&#x3044;&#x72B6;&#x614B;</p>
+<pre><code class="lang-js">{
+  todos: [
+    { id: <span class="hljs-number">0</span>, text: <span class="hljs-string">&quot;HTML&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> },
+    { id: <span class="hljs-number">1</span>, text: <span class="hljs-string">&quot;JavaScript&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> },
+    { id: <span class="hljs-number">2</span>, text: <span class="hljs-string">&quot;CSS&#x306E;&#x5B66;&#x7FD2;&quot;</span>, completed: <span class="hljs-literal">false</span> }
+  ],
+  visibilityFilter: <span class="hljs-string">&quot;SHOW_ALL&quot;</span>
+}
+</code></pre>
+<h6 id="6-react-component">6. React Component</h6>
+<p>&#x53D7;&#x3051;&#x53D6;&#x3063;&#x305F;&#x72B6;&#x614B;&#x3092;&#x3082;&#x3068;&#x306B;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x63CF;&#x753B;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><img src="../assets/data-flow-3.png" alt="Screen"></p>
+<p>&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x3092;&#x5909;&#x66F4;&#x3059;&#x308B;&#x306B;&#x306F;&#x3001;&#x5168;&#x3066;&#x3053;&#x306E;&#x30C7;&#x30FC;&#x30BF;&#x30D5;&#x30ED;&#x30FC;&#x306B;&#x5F93;&#x3063;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../basics/index.html" class="navigation navigation-prev " aria-label="Previous page: React/Redux開発の基本"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../basics/react_component.html" class="navigation navigation-next " aria-label="Next page: React Component"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

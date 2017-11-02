@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_US_HI_Radar",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_US_HI_Radar/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_US_HI_Radar/%validtime%/%z%/%x%/%y%.png",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 5,
+            "BoundingBox" : {
+                "West":-162.00000000000003,
+                "South":15.99818554192968,
+                "East":-151.99682505759694,
+                "North":24.00000000000001
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

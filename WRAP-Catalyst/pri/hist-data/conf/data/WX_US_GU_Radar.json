@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_US_GU_Radar",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_US_GU_Radar/index.json",
+        "File" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_US_GU_Radar/%validtime%/%z%/%x%/%y%.png",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 5,
+            "BoundingBox" : {
+                "West":142.00000000000003,
+                "South":10.30036347987301,
+                "East":147.29729999114161,
+                "North":16.00000000000000
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

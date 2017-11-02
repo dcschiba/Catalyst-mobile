@@ -1,0 +1,9 @@
+{
+    "Name" : "WX_LiveCamera",
+    "DataHandler" : "LiveCamera",
+    "Attributes" : {
+        "CameraMaster" : "./pri/wrap/data/LIVE_CAMERA/camera_master.txt",
+        "CameraServer" : "https://livecamdb.wni.co.jp",
+        "UpdateInterval" : 60
+    }
+}

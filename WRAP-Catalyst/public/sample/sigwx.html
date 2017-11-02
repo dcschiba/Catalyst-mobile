@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury SIGWX Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <label style="position:absolute; width:160px; height:18px; left:10px; top:8px;">SIGWX</label>
+        <select id="element" style="position:absolute; width:120px; left:80px; top:6px; height:18px;"></select>
+
+<!--
+        <a href="../doc/reference/sample_code/sigwx" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+--> 
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 5;
+
+            var conf_path = "./pri/conf";     // ローカルの sample_data用コンフィグを用いる
+            WRAP.DH.conf_path = conf_path+"/data";
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 8,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+
+            // Model
+            var data_name = ["USWAFC_High", "USWAFC_Middle", "UKWAFC_High", "UKWAFC_Middle"];
+            var data = [];
+            var layer = [];
+            var current = -1;
+
+            // Create DataObject and Layers
+            for ( var i = 0 ; i < data_name.length ; i++ ) {
+                var id = data_name[i];
+                data[i] = WRAP.DH.addObject(id);
+                data[i].inspect(function(ref) {
+                    var index = data.indexOf(ref);
+                    if ( current == index )
+                        layer[index].invalidate();
+                });
+                layer[i] = new WRAP.Geo.Layer(id);
+                layer[i].hide();
+                
+                $('#element').append("<option value='"+i+"'>"+data_name[i]+"</option>");
+            }
+        
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.when(
+                $.getJSON(conf_dir + '/layer/SIGWX.json')
+            ).done(function(conf) {
+                for ( var i = 0 ; i < data_name.length ; i++ )
+                   layer[i].configure(data[i], conf);
+            });
+            WRAP.Geo.setLayer({upper_layers: layer});
+            
+            function select(index) {
+                if ( current != index ) {
+                    if ( current >= 0 )
+                        layer[current].hide();
+                    current = index;
+                    layer[current].show();
+                }
+            }
+
+            $('#element').change(function() {
+                select($(this).val());
+            });
+
+            // 初期状態設定
+            select(0);
+            
+        </script>
+    </body>
+</html>

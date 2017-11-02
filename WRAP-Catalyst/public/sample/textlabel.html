@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Text Label Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+ 
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0">
+        <label style="position:absolute; width:160px; height:18px; left:10px; top:8px;">Text Label Sample</label>
+<!--
+        <a href="../doc/reference/sample_code/textlabel.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+-->
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 4;
+
+            var conf_path = "./pri/conf";     // ローカルの sample_data用コンフィグを用いる
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+            
+            // Layer
+            var layer = new WRAP.Geo.Layer("Sample Layer");
+            WRAP.Geo.setLayer({upper_layers : [layer] });
+            
+
+            // アイコンの設定
+            var icon = new WRAP.Geo.Feature.Image({  // スタイル
+                point:[initial_lon, initial_lat],   // 座標
+                image:"img/place.png",
+                width:24,
+                height:24,
+                offsetX:-12,    // point位置をアイコン中心にするために、アイコン x座標を −12ピクセルずらす
+                offsetY:-12     // point位置をアイコン中心にするために、アイコン y座標を -12ピクセルずらす
+            });
+            icon.data = "Icon";         // dataには任意のオブジェクトを設定可能
+            layer.addFeature(icon);
+            
+            // テキストラベルの設定
+            var label = new WRAP.Geo.Feature.Text({  // スタイル
+                point:[initial_lon, initial_lat],   // 座標
+                text:"Label Sample",
+                fontSize:14,
+                fillStyle:'red',
+                offsetX:0,      // point位置（アイコン）の下にラベルを表示するために、x座標のオフセットは 0ピクセル
+                offsetY:30,     // point位置をアイコン中心にするために、アイコン y座標を 30ピクセルずらす
+                align:'center'  // テキストを上記座標を基準に中央寄せで表示（左寄せの場合'left'、右寄せの場合'right'を指定）
+            });
+            label.data = "Text Label";   // dataには任意のオブジェクトを設定可能
+            layer.addFeature(label);
+            
+            layer.invalidate(); // レイヤーの再描画指示
+
+            // map_canvasのイベント監視を登録
+            WRAP.Geo.setInteraction(map_canvas);
+
+            // ツールチップ内容設定
+            layer.setTooltip(function(geo, data) {
+                return data+" Tooltip";    // マウスオーバーした Featureの data属性に設定した内容を表示
+            });
+
+            // イベントハンドラによる確認
+            WRAP.Geo.addEventHandler('mouseover', function(layer, feature, sp) {
+                if ( feature && feature.data )
+                    console.log("mouseover : "+feature.data);
+            });
+            WRAP.Geo.addEventHandler('mouseout', function(layer, feature, sp) {
+                if ( feature && feature.data )
+                    console.log("mouseout : "+feature.data);
+            });
+            WRAP.Geo.addEventHandler('touch', function(layer, feature, sp) {
+                if ( feature && feature.data )
+                    console.log("touch : "+feature.data);
+            });
+            
+        </script>
+    </body>
+</html>

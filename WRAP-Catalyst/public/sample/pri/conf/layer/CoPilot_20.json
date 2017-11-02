@@ -1,0 +1,21 @@
+{
+    "Name" : "CoPilot_20",
+    "Renderer" : "CoPilot",
+    "Attributes" : {
+        "type" : "20",
+        "route" : false,
+        "style" : {
+            "default" : {
+                "icon_width" : 32,
+                "icon_height" : 32,
+                "icon_offset_x" : 16,
+                "icon_offset_y" : 16,
+                "icon" : "img/car.png",
+                "point_size" : 4,
+                "point_color" : "#ffffff",
+                "line_color" : "#0000ff",
+                "line_width" : 3
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+	"Name": "WX_WNI_COMPASS_HOUR",
+	"DataHandler": "GeoTiff",
+	"Attributes": {
+		"TimeList": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR/index.json",
+		"File": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR/%element%/%level%/%basetime%/%validtime%/%z%/%y%/%x%.tiff",
+		"_TimeList": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR_WHOLE/index.json",
+		"_File": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR_WHOLE/%element%/%level%/%basetime%/%validtime%.tiff",
+		"DataGrid": {
+			"Width" : 7200,
+			"Height" : 3597,
+			"LatBase" : 89.9,
+			"LonBase" : 0.0,
+			"LatInterval" : 0.05,
+			"LonInterval" : 0.05,
+			"TileSize" : 128
+		}, 
+		"UpdateInterval": 3600
+	}
+}

@@ -1,0 +1,18 @@
+{
+    "Name" : "MAP_ARINC_Fix",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "_File" : "./pri/data/MAP_ARINC_Fix/ALL.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/MAP_ARINC_FIX/%z%/%y%/%x%.json",
+        "DataGrid" : {
+            "MinZoom" : 4,
+            "MaxZoom" : 4,
+            "BoundingBox" : {
+                "West":-180.0,
+                "South":-90.0,
+                "East":180.0,
+                "North":90.0
+            }
+        }
+    }
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Radar Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <div style="color:black; position:absolute; left:20px; top:8px;">Radar</div>
+        <select id="element" style="position:absolute; width:110px; left:100px; top:6px; height:18px;"></select>
+        <select id="validtime" style="position:absolute; width:110px; left:230px; top:6px; height:18px;"></select>
+        <label style="position:absolute; width:60px; height:18px; left:360px; top:6px;">
+            <input type="checkbox" id="coverage" checked><spawn style="position:absolute; top:2px; left:20px;">coverage</spawn>
+        </label>
+
+        <a href="../doc/reference/sample_code/radar.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 5;
+
+            var conf_path = "./pri/conf";     // ローカルの sample_data用コンフィグを用いる
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 8,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+            
+            //var data_id = ["WX_JP_Radar"];
+            var data_id = ["WX_JP_Radar","WX_AU_Radar","WX_EU_Radar","WX_KR_Radar","WX_US_Radar","WX_TW_Radar"];
+            var data = [];      // データオブジェクト
+            var layer = [];     // レイヤー
+            var current = -1;   // 現在選択中のエレメント・インデックス
+            
+            WRAP.DH.conf_path = conf_path+"/data";
+            for ( var i = 0 ; i < data_id.length ; i++ ) {
+                data[i] = WRAP.DH.addObject(data_id[i]);
+                
+                data[i].inspect(function(ref) {
+                    var index = data.indexOf(ref);
+                    if ( current == index )
+                        setValidtime();
+                });
+                layer[i] = new WRAP.Geo.Layer(data_id[i]);
+                layer[i].hide();
+            }
+            
+            WRAP.Geo.setLayer({upper_layers: layer});
+
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.when(
+                $.getJSON(conf_dir + '/layer/Radar.json')
+            ).done(function(conf) {
+                for ( var i = 0 ; i < data_id.length ; i++ )
+                   layer[i].configure(data[i], conf);
+            });
+            
+            // UI の内容から現在のレイヤーに表示コンテンツをセット
+            function updateContent() {
+                if ( current >=0 ) {
+                    var vt = $("#validtime").val();
+                    if ( vt ) {
+                        // Validtimeの設定
+                        layer[current].set({
+                            validtime:vt
+                        });
+                    }
+                    // レイヤースタイルの設定 
+                    var coverage = $('#coverage').prop('checked');
+                    layer[current].setStyle(coverage?'default':'clear_coverage');
+                }
+            }
+
+            // レーダーを選択 表示レイヤーを切り替え
+            function setElement(index) {
+                if ( current != index ) {
+                    if ( current >= 0 )
+                        layer[current].hide();
+                    current = index;
+                    setValidtime();
+                    updateContent();
+                    layer[current].show();
+                }
+            }
+
+            // UIのセットアップ
+            for ( var i = 0 ; i < data_id.length ; i++ ) {
+                $('#element').append("<option value="+i+">"+data_id[i]+"</option>");
+            }
+        
+            // 選択要素の タイムリスト設定
+            function timeString(tm) {
+                return tm.substr(4,2)+"/"+tm.substr(6,2)+" "+tm.substr(9,2)+":"+tm.substr(11,2);
+            }
+        
+            function setValidtime() {
+                var validtime;
+                if ( current >= 0 ) {
+                    var tl = data[current].query("validtime").value();
+                    if ( tl && tl.length )
+                        validtime = tl;
+                }
+                $("#validtime").html("");
+                if ( validtime && validtime.length ) {
+                    $("#validtime").prop('disabled', false);
+                    for ( var i = 0 ; i < validtime.length ; i++ ) {
+                        var vt = validtime[i];
+                        var t = timeString(vt);
+                        $("#validtime").append("<option value='"+vt+"'>"+t+"</option>");
+                    }
+                    $("#validtime").val(validtime[validtime.length-1]);
+                    updateContent();
+                }
+                else {
+                    $("#validtime").prop('disabled', true);
+                }
+            }
+        
+            $('#coverage').click(function() {
+                updateContent();
+            });
+            
+            $('#element').change(function() {
+                setElement($(this).val());
+            });
+            
+            $('#validtime').change(function() {
+                updateContent();
+            });
+
+            // 初期状態設定
+            setElement(0);
+        </script>
+    </body>
+</html>

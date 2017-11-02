@@ -1,0 +1,12 @@
+{
+    "Name" : "Micronet",
+    "DataHandler" : "DataJSON",
+    "Attributes" : {
+        "PointFile" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/Airport/ALL.json",
+        "DataFile" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/WX_METAR/latest.json",
+        "DataStructure" : {
+            "geo_position_key" : "icao"
+        },
+        "UpdateInterval" : 3600
+    }
+}

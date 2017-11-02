@@ -1,0 +1,212 @@
+[
+    {
+        "name": "webGLマップ",
+        "summary": "webGLマップを表示する機能を提供します。",
+        "path": "sample/webglmap.html",
+        "published": true
+    },
+    {
+        "name": "緯度経度線",
+        "summary": "緯度経度線をmap上に表示する機能を提供します。",
+        "path": "sample/gridline.html",
+        "published": true
+    },
+    {
+        "name": "ツールチップ：ポリゴン",
+        "summary": "ポリゴンのツールチップをmap上に表示する機能を提供します。",
+        "path": "sample/polygon.html",
+        "published": true
+    },
+    {
+        "name": "ツールチップ：テキストラベル",
+        "summary": "テキストラベルのツールチップをmap上に表示する機能を提供します。",
+        "path": "sample/textlabel.html",
+        "published": true
+    },
+    {
+        "name": "ツールチップ：複数情報",
+        "summary": "複数情報をツールチップをmap上に表示する機能を提供します。",
+        "path": "sample/tooltip.html",
+        "published": true
+    },
+    {
+        "name": "GPV表現系（要素毎の有効範囲設定）",
+        "summary": "GPV表現系（要素毎の有効範囲設定）をmap上に表示する機能を提供します。",
+        "path": "sample/minmax.html",
+        "published": true
+    },
+    {
+        "name": "GPV表現系（IcingProb）",
+        "summary": "GPV表現系（IcingProb）をmap上に表示する機能を提供します。",
+        "path": "sample/icingprob.html",
+        "published": true
+    },
+    {
+        "name": "GPV表現系（WIND等風速線）",
+        "summary": "GPV表現系（WIND等風線）をmap上に表示する機能を提供します。",
+        "path": "sample/isotach.html",
+        "published": true
+    },
+    {
+        "name": "GPV表現系（コンター間隔変更）",
+        "summary": "GPV表現系（コンター間隔変更）をmap上に表示する機能を提供します。",
+        "path": "sample/multimap.html",
+        "published": true
+    },
+    {
+        "name": "GPV表現系（表現系サンプル）",
+        "summary": "GPV表現系（表現系サンプル）をmap上に表示する機能を提供します。",
+        "path": "sample/multimap.html",
+        "published": true
+    },
+    {
+        "name": "海岸線、国境線",
+        "summary": "海岸線、国境線をmap上に表示する機能を提供します。",
+        "path": "sample/tileddata.html",
+        "published": true
+    },
+    {
+        "name": "合成レーダ",
+        "summary": "合成レーダをmap上に表示する機能を提供します。",
+        "path": "sample/hybrid_radar.html",
+        "published": true
+    },
+    {
+        "name": "Mapデータ",
+        "summary": "Mapデータをmap上に表示する機能を提供します。",
+        "path": "sample/fix_fir.html",
+        "published": true
+    },
+    {
+        "name": "ASC Scale",
+        "summary": "ASC Scaleをmap上に表示する機能を提供します。",
+        "path": "sample/ascscale.html",
+        "published": true
+    },
+    {
+        "name": "TAF",
+        "summary": "TAFをmap上に表示する機能を提供します。",
+        "path": "sample/taf.html",
+        "published": true
+    },
+    {
+        "name": "SIGWX",
+        "summary": "SIGWXをmap上に表示する機能を提供します。",
+        "path": "sample/sigwx.html",
+        "published": true
+    },
+    {
+        "name": "時間クラス",
+        "summary": "時間クラスの解説",
+        "path": "http://pt-wrap01.wni.co.jp/Mercury/doc/reference/apis/classes/WRAP.Core.DateTime.html",
+        "published": true
+    },
+    {
+        "name": "タイムコントロール",
+        "summary": "タイムコントロールをmap上に表示する機能を提供します。",
+        "path": "sample/timecontrol.html",
+        "published": true
+    },
+    {
+        "name": "ひまわり表示",
+        "summary": "ひまわりの情報をmap上に表示する機能を提供します。",
+        "path": "sample/satellite.html",
+        "published": true
+    },
+    {
+        "name": "レーダー表示",
+        "summary": "レーダーの情報をmap上に表示する機能を提供します。",
+        "path": "sample/radar.html",
+        "published": true
+    },
+    {
+        "name": "ETOP Circle",
+        "summary": "map上に中心からの距離を一定にした円を描画する機能を提供します。",
+        "path": "sample/distance.html",
+        "published": true
+    },
+    {
+        "name": "NOTAM",
+        "summary": "map上に等緯度経度で作図した図形をPolorで厳密に描画する機能。",
+        "path": "sample/distance.html",
+        "published": true
+    },
+    {
+        "name": "作図機能（Point,Polyline,Polygon）",
+        "summary": "Point, Polyline, Polygonを作図しmap上に表示する機能を提供します。",
+        "path": "sample/drawing.html",
+        "published": true
+    },
+    {
+        "name": "各種ツールチップ表示機能",
+        "summary": "GeoJSON内容をツールチップ（雷でサンプル）。",
+        "path": "sample/lightning.html",
+        "published": true
+    },
+    {
+        "name": "地図の選択",
+        "summary": "GoogleMapとOpenStreetMapを切り替える機能を提供します。",
+        "path": "sample/multimap.html",
+        "published": true
+    },
+    {
+        "name": "Visibility",
+        "summary": "visibilityをmap上に表示する機能を提供します。",
+        "path": "sample/visibility.html",
+        "published": true
+    },
+    {
+        "name": "VP:Sea Spray Icing Risk",
+        "summary": "Sea Spray Icing Riskをmap上に表示する機能を提供します。",
+        "path": "sample/seaspray.html",
+        "published": true
+    },
+    {
+        "name": "VP:IceBerg",
+        "summary": "IceBergをmap上に表示する機能を提供します。",
+        "path": "sample/iceberg.html",
+        "published": true
+    },
+    {
+        "name": "ライブカメラ、Copilot、マイクロネット雨量、ランデブーポイント",
+        "summary": "ライブカメラ、Copilot、マイクロネット雨量、ランデブーポイントをmap上に表示します。",
+        "path": "sample/various.html",
+        "published": true
+    },
+    {
+        "name": "雷",
+        "summary": "雷をmap上に表示する機能を提供します。",
+        "path": "sample/lightning.html",
+        "published": true
+    },
+    {
+        "name": "Wind",
+        "summary": "風をmap上に表示する機能を提供します。",
+        "path": "sample/wind.html",
+        "published": true
+    },
+    {
+        "name": "WaveHeight",
+        "summary": "波の高さをmap上に表示する機能を提供します。",
+        "path": "sample/waveheight.html",
+        "published": true
+    },
+    {
+        "name": "TropicalStorm",
+        "summary": "台風をmap上に表示する機能を提供します。",
+        "path": "sample/tropicalstorm.html",
+        "published": true
+    },
+    {
+        "name": "Perspective",
+        "summary": "mapの中心点を指定した箇所に移動する機能を提供します。",
+        "path": "sample/test_perspective_o.html",
+        "published": true
+    },
+    {
+        "name": "WRAP Test Driver",
+        "summary": "WRAP Core/Geo/DHのサンプルアプリです。",
+        "path": "sample/driver.html",
+        "published": true
+    }
+]

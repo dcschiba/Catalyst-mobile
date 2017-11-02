@@ -1,0 +1,28 @@
+{
+    "Name" : "WaveHeight",
+    "Renderer" : "Mesh",
+    "Attributes" : {
+        "style" : {
+            "default" : {
+                "_fill_type" : "flat",
+                "fill_type" : "block",
+                "palette_gradient": false,
+                "palette_step": 0.1,
+                "palette" : [
+                    {
+                        "value" : 0.0,
+                        "color" : "rgba(0,0,0,0)"
+                    },
+                    {
+                        "value" : 2.0,
+                        "color" : "#34B1F0"
+                    },
+                    {
+                        "value" : 4.0,
+                        "color" : "#1B34CB"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "Name" : "MAP_ARINC_Fix",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "_File" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/MAP_ARINC_Fix/ALL.json",
+        "File" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/MAP_ARINC_Fix/%z%/%y%/%x%.json",
+        "DataGrid" : {
+            "MinZoom" : 4,
+            "MaxZoom" : 4,
+            "BoundingBox" : {
+                "West":-180.0,
+                "South":-90.0,
+                "East":180.0,
+                "North":90.0
+            }
+        }
+    }
+}

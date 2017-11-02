@@ -1,0 +1,9 @@
+{
+    "Name" : "VP_WNI_DASH",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/VP_WNI_DASH/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/VP_WNI_DASH/%validtime%.json",
+        "UpdateInterval" : 3600
+    }
+}

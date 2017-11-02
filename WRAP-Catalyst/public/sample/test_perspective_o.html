@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Venus Perspective Test</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.4.0/ol.js"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.2.0.0-min.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.2.0.0-min.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <div style="color:black; position:absolute; left:20px; top:8px;">Perspective Test</div>
+        <div id="info" style="color:#555; position:absolute; left:180px; top:8px; color:#f00;">---</div>
+        <input type="button" id="test" value="fit" style="position:absolute; left:480px; top:4px; width:100px;">
+
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+
+        <script type="text/javascript">
+
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 3;
+
+            var map_canvas = document.getElementById('map_canvas');
+/*
+            // Setup Google Maps
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 1,
+                maxZoom: 15,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map);
+*/            
+            // Setup OpenLayers
+            var o_map = new ol.Map({
+                    layers:[ new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                    ],
+                    target: 'map_canvas',
+                    view: new ol.View({
+                    center: ol.proj.transform([initial_lon, initial_lat], 'EPSG:4326', 'EPSG:3857'),
+                    zoom: initial_zoom
+                })
+            });
+            WRAP.Geo.setOpenLayers(o_map)
+
+            
+            // map_canvasに対するマウス操作監視を登録 (Featureのドラッグのため)
+            WRAP.Geo.setInteraction(map_canvas);
+
+            // レイヤーの登録
+            var layer = new WRAP.Geo.Layer("DistanceCaliculatorSample");
+            WRAP.Geo.setLayer({
+                upper_layers : [
+                    layer
+                ]
+            });
+        
+            var pos_0 = [140,40];
+            var pos_1 = [152,40];
+            var pos_2 = [100,0];
+            
+            var points = [pos_0, pos_1, pos_2];
+            
+            layer.clear();                  // ディスプレイリストのクリア
+            for ( var i = 0 ; i < points.length ; i++ ) {
+                var point = points[i];
+            
+                var feature = new WRAP.Geo.Feature.Point({  // ポイントのスタイル
+                    point:point,            // 座標
+                    strokeStyle:'#FFF',     // ラインカラー
+                    lineWidth:2,            // ライン幅
+                    fillStyle:'#F00',       // フィルカラー
+                    pointSize:14            // ポイントサイズ
+                });
+            
+                feature.setDraggable(true, function(feature, point) {});
+                layer.addFeature(feature);
+            }
+
+            $('#test').click(function() {
+                var pts = [];
+                for ( var i = 0 ; i < points.length ; i++ ) {
+                    var point = points[i];
+                    var p = new WRAP.Geo.Point(point[1]*60,point[0]*60);
+                    pts.push(p);
+                }
+                var pers = WRAP.Geo.getPerspective(pts,10);
+                var t = "center="+pers.center.latDegree().toFixed(4)+","+pers.center.lonDegree().toFixed(4)+" zoom="+pers.zoom;
+                $('#info').html(t);
+
+                WRAP.Geo.setCenterPoint(pers.center);
+                WRAP.Geo.setZoom(pers.zoom);
+            });
+
+        </script>
+    </body>
+</html>

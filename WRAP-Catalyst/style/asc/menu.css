@@ -1,0 +1,21 @@
+.ctrlPanel {
+  padding: 5px;
+}
+.navcontents {
+  position:relative;
+  border-radius:6px;
+  margin:0px 4px 10px 10px;
+  padding:5px;
+  clear: left;
+}
+.hordiv{
+  display: table-cell;
+  vertical-align: middle;
+}
+.navselects {
+  position: relative;
+  right: 0px;
+}
+.ckpaddleft {
+  padding-left:15px;
+}

@@ -1,0 +1,17 @@
+{
+    "Name" : "CoastLine",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "features" : [
+            {
+                "style" : {
+                    "default" : {
+                      "type" : "line",
+                      "line_color" : "rgba(20,20,150,0.8)",
+                      "line_width" : 1
+                    }
+                }
+            }
+        ]
+    }
+}

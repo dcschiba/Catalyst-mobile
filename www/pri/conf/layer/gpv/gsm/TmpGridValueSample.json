@@ -1,0 +1,15 @@
+{
+    "Name" : "TmpGridValueSample",
+    "Renderer" : "GridValue",
+    "Attributes" : {
+        "data_offset" : -273.15,
+        "style" : {
+            "default" : {
+                "fractional_digits" : 1,
+                "color": "rgba(0, 0, 0, 1.0)",
+                "offset_x": 0,
+                "offset_y": 6
+            }
+        }
+    }
+}

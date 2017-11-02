@@ -1,0 +1,8 @@
+{
+    "Name" : "SKY_CUS_RendezvousPoint",
+    "DataHandler" : "RendezvousPoint",
+    "Attributes" : {
+        "Directory" : "./pri/wrap/data/RP",
+        "UpdateInterval" : 600
+    }
+}

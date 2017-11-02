@@ -1,0 +1,18 @@
+{
+    "Name" : "Airport",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "features" : [
+            {
+                "style" : {
+                    "default" : {
+                        "type" : "point",
+                        "point_size" : 8,
+                      "line_color" : "#000000",
+                        "point_color" : "#2288ff"
+                    }
+                }
+            }
+        ]
+    }
+}

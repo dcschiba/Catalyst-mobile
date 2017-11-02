@@ -1,0 +1,22 @@
+.divVisible {
+  display: flex;
+  visibility: visible;
+}
+.divHidden {
+  position: absolute;
+  display: flex;
+  visibility: hidden;
+}
+.tooltipbasetext {
+  font-size: 9pt;
+  color: #000;
+}
+.tooltip {
+  direction: right;
+  width: 300px;
+  font-size: 16px;
+}
+.center {
+  padding: 5px;
+  text-align:center;
+}

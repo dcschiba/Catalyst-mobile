@@ -1,0 +1,18 @@
+.ctrlPanel {
+  padding: 5px;
+}
+selectTime {
+  width: 160,
+}
+selectLevel {
+  width: 100,
+}
+.bottomCheckBox {
+  margin-left: 15px;
+}
+
+.hordiv{
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 10pt;
+}

@@ -1,0 +1,20 @@
+.title {
+  border-left: #0b419a solid 3px;
+  margin: 0;
+  padding-left: 8px;
+}
+
+.listItem:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.listBox {
+  margin: 10px 4% 35px 4%;
+  height: 50vh;
+  overflow-y: scroll;
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.14)inset;
+}
+
+.link {
+  text-decoration: none;
+}

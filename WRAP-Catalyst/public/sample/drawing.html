@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Drawing Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <div style="color:black; position:absolute; left:20px; top:8px;">Drawing Sample</div>
+        <div id="p0" style="color:#555; position:absolute; left:140px; top:6px; color:#aaa;">(マップ上のクリックでポイントを追加します)</div>
+        <label style="position:absolute; width:60px; height:18px; left:460px; top:6px;">
+            <input type="radio" name="method" id="point" ><spawn style="position:absolute; top:2px; left:20px;">Point</spawn>
+        </label>
+        <label style="position:absolute; width:60px; height:18px; left:540px; top:6px;">
+            <input type="radio" name="method" id="polyline" ><spawn style="position:absolute; top:2px; left:20px;">Polyline</spawn>
+        </label>
+        <label style="position:absolute; width:60px; height:18px; left:620px; top:6px;">
+            <input type="radio" name="method" id="polygon" checked><spawn style="position:absolute; top:2px; left:20px;">Polygon</spawn>
+        </label>
+        <input type="button" id="delete" value="Delete Point" style="position:absolute; top:4px; left:740px;">
+        <a href="../doc/reference/sample_code/drawing.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+        <div id="info" style="position:absolute; top:40px; bottom:100px; width:160px; right:20px;
+            pointer-events: none; color:blue;"></div>
+
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 6;
+
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 15,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map);
+            
+            // map_canvasに対するマウス操作監視を登録（Featureのドラッグを行う為）
+            WRAP.Geo.setInteraction(map_canvas);
+
+            // レイヤーの登録
+            var layer = new WRAP.Geo.Layer("DrawingSample");
+            WRAP.Geo.setLayer({
+                upper_layers : [
+                    layer
+                ]
+            });
+        
+        var points = [];          // 編集を行う点列：[lon, lat]の配列
+            //var points = [[140,40], [135,35]];          // 編集を行う点列：[lon, lat]の配列
+            var current = -1;                           // 選択されている Pointのインデックス
+            
+//            current = 0;
+
+            // ポイント追加
+            function addPoint(sp) {
+                var p = WRAP.Geo.getPoint(sp);          // スクリーン座標を緯度経度に変換
+                point = [p.lonDegree(), p.latDegree(0)];
+                current++;
+                if ( current < points.length )
+                    points.splice(current, 0, point);
+                else
+                    points.push(point);
+                setDisplayList();
+            }
+        
+            // ポイント削除
+            function deletePoint() {
+                points.splice(current--, 1);
+                if ( current < 0 && points.length > 0 )
+                    current = points.length-1;
+                setDisplayList();
+            }
+        
+            // マップ・クリック処理
+            WRAP.Geo.addEventHandler('touch', function(layer, feature, sp) {
+                if ( !feature ) {
+                    // Feature以外がクリックされた場合ポイントを登録
+                    addPoint(sp);
+                }
+                else if ( feature.index !== undefined ) {
+                    if ( current != feature.index ) {
+                        // 選択 Featureが変化した場合、ディスプレイリストを再構築して描画
+                        current = feature.index;
+                        if ( current >= points.length )
+                            current = -1;
+                        setDisplayList();
+                    }
+                }
+            });
+
+            // ディスプレイリストの登録
+            function setDisplayList() {
+                layer.clear();          // ディスプレイリストのクリア
+                if ( points.length ) {
+                    if ( $('#polyline').prop('checked') ) {
+                        // Polylineモードではラインを表示
+                        var path = new WRAP.Geo.Feature.GeoLine({
+                            path:points,
+                            strokeStyle:'#088',
+                            lineWidth:2
+                        });
+                        layer.addFeature(path);
+                    }
+                    else if ( $('#polygon').prop('checked') ) {
+                        // Polygonモードではパスを閉じ（開始点と終了点を同じにする）、ラインと塗りつぶし表示
+                        var polygon = [].concat(points);
+                        polygon.push(points[0]); // 起点を最後に追加
+                        var path = new WRAP.Geo.Feature.GeoLine({
+                            path:polygon,
+                            strokeStyle:'rgba(0,0,150,0.7)',
+                            fillStyle:'rgba(0,0,100,0.3)',
+                            lineWidth:2
+                        });
+                        layer.addFeature(path);
+                    }
+                    // 編集用の Point Featureを登録
+                    for ( var i = 0 ; i < points.length ; i++ ) {
+                        var point = new WRAP.Geo.Feature.Point({
+                            point:points[i],
+                            strokeStyle:'#008',
+                            lineWidth:2,
+                            fillStyle:i==current?'#0F0':'#FFF',
+                            pointSize:12
+                        });
+                        point.index = i;    // Featureに インデックスを設定しておく
+                        
+                        // Point Featureをドラッグ可能に設定。第二引数に位置変更時のコールバックを指定する。
+                        point.setDraggable(true,
+                            function(feature, point) {
+                                updateUI();
+                            });
+                        layer.addFeature(point);
+                    }
+                }
+                WRAP.Geo.invalidate();  // レンダリング
+
+                updateUI();
+            }
+        
+            // UIの更新
+            function updateUI() {
+                // ポイントがない場合は Deleteボタンを無効化
+                $('#delete').prop('disabled', !points.length);
+                
+                // 現在の座標列を画面に表示
+                pos_list = "";
+                for ( var i = 0 ; i < points.length ; i++ ) {
+                    pos_list += points[i][1].toFixed(6) + "," + points[i][0].toFixed(6) + "</br>";
+                }
+                $('#info').html(pos_list);
+            }
+        
+            // モード変更
+            $('[name=method]').click(function() {
+                setDisplayList();
+            });
+            
+            // ポイント削除ボタン
+            $('#delete').click(deletePoint);
+
+            // 初期表示
+            setDisplayList();
+            
+        </script>
+    </body>
+</html>

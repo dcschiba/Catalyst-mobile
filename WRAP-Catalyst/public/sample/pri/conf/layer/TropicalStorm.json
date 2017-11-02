@@ -1,0 +1,36 @@
+{
+    "Name" : "TropicalStorm",
+    "Renderer" : "TropicalStorm",
+    "Attributes" : {
+        "track_history_line_color":"#802020",
+        "track_history_line_width":2,
+        "forecst_track_line_color":"#2020ee",
+        "forecst_track_line_width":2,
+        "wind_line_color_35kt":"rgba(255,255,150,1.0)",
+        "wind_line_color_50kt":"rgba(255,50,50,1.0)",
+        "wind_line_width":1,
+        "wind_fill_color_35kt":"rgba(255,255,100,0.3)",
+        "wind_fill_color_50kt":"rgba(255,50,50,0.3)",
+        "label_text_color":"#202020",
+        "label_edge_color":"#ffffff",
+        "label_offset_x":10,
+        "label_offset_y":10,
+        "icon": {
+            "STS": "img/STS.png",
+            "TS": "img/TS.png",
+            "TD": "img/TD.png"
+        },
+        "icon_south": {
+            "STS": "img/STS_south.png",
+            "TS": "img/TS_south.png"
+        },
+        "icon_width": 16,
+        "icon_height": 23,
+        "icon_offset_x": -8,
+        "icon_offset_y": -12,
+        "show_forcast_track": true,
+        "show_track_history": true,
+        "show_forcast_wind_radii": true,
+        "show_analysis_wind_radii": true
+    }
+}

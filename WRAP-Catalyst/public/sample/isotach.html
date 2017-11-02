@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0; padding:0; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; font-size: 13px;">
+    <head>
+        <meta charset="utf-8">
+        <title>WRAP Mercury Isotach Sample</title>
+        <script src="https://maps.googleapis.com/maps/api/js?client=gme-weathernewsinc&libraries=geometry"></script>
+        <script type="text/javascript" src="3rd/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/WRAP.DH-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.Geo-1.1.0.0.js"></script>
+        <script type="text/javascript" src="js/WRAP.ASM.js"></script>
+
+    </head>
+    <body style="width:100%; height:100%; margin:0; padding:0; background-color:rgb(255,255,255);">
+        <label style="position:absolute; width:160px; height:18px; left:10px; top:8px;">GSM Isotach</spawn>
+        </label>
+        <select id="mdl_lv" style="position:absolute; width:50px; left:100px; top:4px; height:18px;">
+            <option value="100">100</option>
+            <option value="150">150</option>
+            <option value="200">200</option>
+            <option value="250">250</option>
+            <option value="300" selected>300</option>
+            <option value="400">400</option>
+            <option value="500">500</option>
+            <option value="600">600</option>
+            <option value="700">700</option>
+            <option value="850">850</option>
+            <option value="925">925</option>
+            <option value="1000">1000</option>
+        </select>
+        <select id="mdl_bt" style="position:absolute; width:100px; left:160px; top:4px; height:18px;"></select>
+        <select id="mdl_vt" style="position:absolute; width:100px; left:270px; top:4px; height:18px;"></select>
+        
+        <label style="position:absolute; width:160px; height:18px; left:430px; top:6px;">
+            <input type="checkbox" id="chk_w"><spawn style="position:absolute; top:2px; left:20px;">Wind</spawn>
+        </label>
+        <label style="position:absolute; width:160px; height:18px; left:500px; top:6px;">
+            <input type="checkbox" id="chk_i" checked><spawn style="position:absolute; top:2px; left:20px;">Isotach</spawn>
+        </label>
+        
+            
+        <a href="../doc/reference/sample_code/isotach.html" target="_blank" style="position:absolute; right:40px; top:8px;" >Document</a>
+        <div id="map_canvas" style="position:absolute; top:30px; bottom:10px; left:10px; right:10px;"></div>
+        
+        <script type="text/javascript">
+            // Mapの初期画角
+            var initial_lat = 35.65;
+            var initial_lon = 140.045;
+            var initial_zoom = 5;
+
+            var conf_path = "./pri/conf";     // ローカルの sample_data用コンフィグを用いる
+            WRAP.DH.conf_path = conf_path+"/data";
+            
+            // Setup Google Maps
+            var map_canvas = document.getElementById('map_canvas');
+            var g_map = new google.maps.Map(map_canvas, {
+                zoom: initial_zoom,
+                minZoom: 3,
+                maxZoom: 8,
+                center: new google.maps.LatLng(initial_lat, initial_lon),
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                draggableCursor: "default",
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            WRAP.Geo.setGoogleMaps(g_map)
+
+            // Model
+            var gsm_data = WRAP.DH.addObject("Model_GSM");
+            
+            var wind_layer = new WRAP.Geo.Layer("Wind");
+            var contour_layer = new WRAP.Geo.Layer("Isotach");
+         
+            // レイヤー登録
+            WRAP.Geo.setLayer({upper_layers:[wind_layer, contour_layer]});
+
+            // Configure Layers
+            var conf_dir = "./pri/conf";
+            $.when(
+                $.getJSON(conf_dir + '/layer/Isotach.json'),
+                $.getJSON(conf_dir + '/layer/WindArrowSample.json')
+            ).done(function(contour_conf, wind_conf) {
+                contour_layer.configure(gsm_data, contour_conf[0]);
+                wind_layer.configure(gsm_data, wind_conf[0]);
+            });
+            
+            // Wind Arrow ツールチップ
+            WRAP.Geo.setInteraction(map_canvas);
+            wind_layer.setTooltip(function(geo) {
+                var p = geo && geo.properties;
+                if ( p )
+                    return p.direction_text+"/"+p.speed_text;
+            });
+
+            function timeString(tm, year) {
+                if ( !tm )
+                    return (year?"----/":"")+"--/-- --:--";
+                var ts = year?(tm.substr(0,4)+"/"):"";
+                return ts+tm.substr(4,2)+"/"+tm.substr(6,2)+" "+tm.substr(9,2)+":"+tm.substr(11,2);
+            }
+        
+            // モデルのタイムリスト取得＆UIセットアップ
+            var time_range = { gsm:[] };
+            var gsm_timelist;
+            
+            function updateModelContent() {
+                var time_index = parseInt($("#mdl_vt").val());
+                var content = {
+                    element:["UGRD","VGRD"],
+                    level:$("#mdl_lv").val(),
+                    basetime:time_range.gsm[time_index].basetime,
+                    validtime:time_range.gsm[time_index].validtime
+                };
+                
+                wind_layer.set(content);
+                contour_layer.set(content);
+                
+                wind_layer.setVisible($('#chk_w').prop('checked'));
+                contour_layer.setVisible($('#chk_i').prop('checked'));
+            }
+            
+            function updateModelTime() {
+                $("#mdl_vt").html("");
+                var timelist = gsm_data.query("timelist").value();
+                if ( !timelist && !timelist )
+                    return;
+                var b = $("#mdl_bt").val();
+                var bt = timelist[b].basetime;
+                var num = timelist[b].validtime.length;
+                for ( var i = 0 ; i < num ; i++ ) {
+                    var tm = timelist[b].validtime[i];
+                    var ts = timeString(tm)+"Z";
+                    $("#mdl_vt").append("<option value='"+i+"'>"+ts+"</option>");
+                    time_range.gsm[i] = {basetime:bt, validtime:tm};
+                }
+            }
+            gsm_data.inspect(function(ref) {
+                time_range.gsm = [];
+                var timelist = ref.query("timelist").value();
+                if ( timelist && timelist.length ) {
+                    $("#mdl_bt").html("");
+                    $("#mdl_vt").html("");
+                    gsm_timelist = timelist;
+                    for ( var i = 0 ; i < timelist.length ; i++ ) {
+                        var bt = timelist[i].basetime;
+                        var basetime = timeString(bt)+"Z";
+                        $("#mdl_bt").append("<option value='"+i+"'>"+basetime+"</option>");
+                    }
+                    $("#mdl_bt").val(timelist.length-1);
+                    updateModelTime();
+                    var vl = gsm_timelist[gsm_timelist.length-1].validtime;
+                    $("#mdl_vt").val(vl.length-1);
+                    updateModelContent();
+                }
+            }, true);
+
+            $('#mdl_lv').change(function() {
+                updateModelContent();
+            });
+                                
+            $('#mdl_bt').change(function() {
+                updateModelTime();
+                var index = $('#mdl_bt').val();
+                var vl = gsm_timelist[index].validtime;
+                $("#mdl_vt").val(vl.length-1);
+                updateModelContent();
+            });
+                                 
+            $('#mdl_vt').change(function() {
+                updateModelContent();
+            });
+            $('#chk_i').click(updateModelContent);
+            $('#chk_w').click(updateModelContent);
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+{
+    "Name" : "Fix",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "min_zoom" : 6,
+        "features" : [
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "kind",
+                "value" : "FIX"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/fix/triangle_01.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "kind",
+                    "value" : "FIXN"
+                    },
+                    "style" : {
+                        "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/fix/triangle_02.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "kind",
+                    "value" : "RNAV"
+                    },
+                    "style" : {
+                        "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/fix/Fly-by_WPT.png"
+                    }
+                }
+            }
+        ]
+    }
+}
