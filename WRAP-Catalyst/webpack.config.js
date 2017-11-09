@@ -6,7 +6,7 @@ module.exports = {
   entry: [
     'webpack-hot-middleware/client',
     'babel-polyfill',
-    './index',
+    process.env.PLATFORM === 'mobile' ? './index_mobile' : './index',
   ],
   resolve: {
     extensions: ['*', '.js', '.jsx']

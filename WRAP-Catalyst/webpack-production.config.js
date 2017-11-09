@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
   entry: [
     'babel-polyfill',
-    './index',
+    process.env.PLATFORM === 'mobile' ? './index_mobile' : './index'
   ],
   resolve: {
     extensions: ['*', '.js', '.jsx']

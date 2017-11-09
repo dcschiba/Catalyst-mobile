@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "node server.js",
+    "dev_mobile": "cross-env PLATFORM=mobile node server.js",
     "prod": "cross-env NODE_ENV=production webpack --config webpack-production.config.js --progress --colors",
+    "prod_mobile": "cross-env NODE_ENV=production PLATFORM=mobile webpack --config webpack-production.config.js --progress --colors",
     "test": "cross-env NODE_ENV=test mocha --recursive --compilers js:babel-register --require ./test/setup.js",
     "test:watch": "npm test -- --watch",
     "test:cover": "cross-env NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive --compilers js:babel-register --require ./test/setup.js"
@@ -13,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "WRAP": "git@github.com:weathernews/WRAP-modules.git#develop",
+    "WRAP": "git+https://github.com/weathernews/WRAP-modules.git#develop",
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.1",
     "chartjs-plugin-annotation": "^0.5.7",

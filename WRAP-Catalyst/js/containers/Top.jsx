@@ -28,16 +28,17 @@ class Top extends Component {
     if (WrapController.currentMap) {
       location.reload();
     }
-    fetch(`./sample/locales/ja/functionList.json?t=${new Date().getTime()}`)
-      .then((response) => {
-        if (response.ok) { // ステータスがokならば
-          return response.json();
-        }
-        return 'error';
-      })
-      .then((json) => {
-        this.setState({ functionListDataNotReactRedux: json });
-      });
+    // fetch(`./sample/locales/ja/functionList.json?t=${new Date().getTime()}`)
+    //   .then((response) => {
+    //     if (response.ok) { // ステータスがokならば
+    //       return response.json();
+    //     }
+    //     return 'error';
+    //   })
+    //   .then((json) => {
+    //     this.setState({ functionListDataNotReactRedux: json });
+    //   });
+    this.setState({ functionListDataNotReactRedux: 'error' });
   }
 
   render() {
