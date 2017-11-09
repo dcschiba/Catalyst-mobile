@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node server.js",
-    "dev_mobile": "cross-env PLATFORM=mobile node server.js",
+    "mobile": "cross-env PLATFORM=mobile node server.js",
     "prod": "cross-env NODE_ENV=production webpack --config webpack-production.config.js --progress --colors",
     "prod_mobile": "cross-env NODE_ENV=production PLATFORM=mobile webpack --config webpack-production.config.js --progress --colors",
     "test": "cross-env NODE_ENV=test mocha --recursive --compilers js:babel-register --require ./test/setup.js",
@@ -36,6 +36,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^3.2.0",
     "react-router-redux": "^4.0.8",
+    "react-svg": "^2.1.22",
     "react-tabs": "^2.1.0",
     "redux": "^3.7.2",
     "redux-actions": "^1.2.2",

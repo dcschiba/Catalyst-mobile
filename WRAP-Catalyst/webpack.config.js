@@ -42,9 +42,12 @@ module.exports = {
         use: ['babel-loader'],
       },
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|svg)$/,
         exclude: /node_modules/,
         use: ['url-loader'],
+      },      {
+        test: /\.svg$/,
+        loader: 'babel!react-svg',
       },
       {
         test: /\.css$/,
