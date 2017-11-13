@@ -47,7 +47,8 @@ module.exports = {
         use: ['url-loader'],
       },      {
         test: /\.svg$/,
-        loader: 'babel!react-svg',
+        exclude: /node_modules/,        
+        use: ['react-svg-loader'],
       },
       {
         test: /\.css$/,
