@@ -3,7 +3,7 @@ import { hashHistory } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import css from '../../style-mobile/launch.css';
 import ConceptImg from '../../img-mobile/concept.png';
-import Logo from '../../img-mobile/wni_logo.svg';
+import Logo from '../../img-mobile/wni_logo.png';
 
 const propTypes = {
 

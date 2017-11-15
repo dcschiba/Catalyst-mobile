@@ -2,18 +2,36 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import Header from 'WRAP/UI/Header';
-import MultilingualPullDown from '../components/catalyst/MultilingualPullDown';
-import * as Actions from '../actions/catalyst';
-import * as localeActions from '../actions/locale';
-import logo from '../../img/logo.png';
+import AppBar from 'material-ui/AppBar';
+import * as Actions from '../../js/actions/catalyst';
+import * as localeActions from '../../js/actions/locale';
 import { version } from '../data/appInfo.json';
+import css from '../../style-mobile/app.css';
 
 const propTypes = {
   children: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+};
+
+const themeColor = {
+  main: { backgroundColor: '#505050', color: '#ffffff' },
+  second: { backgroundColor: '#707070', color: '#ffffff' },
+  ground: { backgroundColor: '#ffffff', color: '#505050' },
+  accent: '#ff7710',
+};
+
+const styles = {
+  appBar: {
+    ...themeColor.main,
+    height: '40px',
+  },
+  title: {
+    fontSize: '1.15em',
+    textAlign: 'center',
+    height: '40px',
+    lineHeight: '40px',
+  },
 };
 
 class App extends Component {
@@ -24,15 +42,18 @@ class App extends Component {
   }
   render() {
     const { children, locale, actions } = this.props;
-
+    console.log(locale, actions, version);
     return (
-      <div>
-        <Header
-          title={<span>WRAP-Catalyst<span style={{ fontSize: '0.7em' }}>　　ver {version}</span></span>}
-          leftItem={<Link to="/"><img src={logo} alt="weathernew" /></Link>}
-          rightItem={<MultilingualPullDown locale={locale} onChange={actions.changeLocale} />}
+      <div style={{ ...themeColor.ground, height: '100vh' }} >
+        <AppBar
+          title="WRAP Catalyst mobile"
+          titleStyle={styles.title}
+          style={styles.appBar}
+          showMenuIconButton={false}
         />
-        <div>{children}</div>
+        <div className={css.contents}>
+          {React.cloneElement(children, { themeColor })}
+        </div>
       </div>
     );
   }
