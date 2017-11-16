@@ -1,8 +1,0 @@
-{
-    "Name" : "USWAFC_Middle",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "File" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/SIGWX/WX_USWAFC_SIGWX_Latest/Middle/latest.json",
-        "UpdateInterval" : 3600
-    }
-}

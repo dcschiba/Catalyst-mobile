@@ -1,7 +1,0 @@
-node_modules/
-server.js
-webpack.config.js
-webpack-production.config.js
-test/
-selenium_test/
-js-mobile/WRAP-UI

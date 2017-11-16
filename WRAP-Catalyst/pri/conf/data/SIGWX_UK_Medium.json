@@ -1,8 +1,0 @@
-{
-    "Name" : "SIGWX_UK_Medium",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-      "File" : "%baseurl%/WRAP/wrap-pri/data/WX_UKWAFC_SIGWX_Latest/Middle/latest.json",
-      "UpdateInterval" : 60
-    }
-}

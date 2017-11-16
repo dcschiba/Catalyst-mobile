@@ -1,8 +1,0 @@
-{
-    "Name" : "Airport",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "File" : "https://pt-wrap01.wni.co.jp/Venus/sample/pri/data/Airport/ALL.json",
-        "UpdateInterval" : 3600
-    }
-}

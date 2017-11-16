@@ -1,8 +1,0 @@
-{
-    "Name" : "SIGWX_US_High",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-      "File" : "%baseurl%/WRAP/wrap-pri/data/WX_USWAFC_SIGWX_Latest/High/latest.json",
-      "UpdateInterval" : 60
-    }
-}

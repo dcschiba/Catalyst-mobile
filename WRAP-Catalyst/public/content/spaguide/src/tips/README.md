@@ -1,3 +1,0 @@
-### Tips
-
-* [Define](./define.md)

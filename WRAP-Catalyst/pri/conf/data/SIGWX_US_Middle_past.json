@@ -1,9 +1,0 @@
-{
-    "Name" : "SIGWX_US_Middle_past",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-      "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_USWAFC_SIGWX/Middle/index.json",
-      "File" : "%baseurl%/WRAP/wrap-pri/data/WX_USWAFC_SIGWX/Middle/%basetime%/%validtime%.json",
-      "UpdateInterval" : 360
-    }
-}

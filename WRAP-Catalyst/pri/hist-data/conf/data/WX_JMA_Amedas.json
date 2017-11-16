@@ -1,9 +1,0 @@
-{
-    "Name" : "WX_JMA_Amedas",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-      "TimeList" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_JMA_Amedas/index.json",
-      "File" : "https://pt-wrap01.wni.co.jp/WRAP/hist-data/%event_id%/WX_JMA_Amedas/%validtime%.json",
-      "UpdateInterval" : 600
-    }
-}

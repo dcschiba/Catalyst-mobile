@@ -1,8 +1,0 @@
-{
-    "Name" : "WX_WNI_AnalogousTropicalStorm_2",
-    "DataHandler" : "IndexedGeoJSON",
-    "Attributes" : {
-        "File" : "%pdburl%/tc/JMA_TYPHN/%id%",
-        "_UpdateInterval" : 60
-    }
-}
