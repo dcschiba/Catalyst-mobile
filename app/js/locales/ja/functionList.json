@@ -1,0 +1,102 @@
+[
+    {
+        "name": "GPV(GFS)",
+        "summary": "数値予報モデルをmap上に表示します",
+        "path": "gfs",
+        "isExternal": false,
+        "published": true,
+        "target": ["LAND", "SKY"]
+    },
+    {
+        "name": "Radar",
+        "summary": "レーダーをmap上に表示します",
+        "path": "radar",
+        "isExternal": false,
+        "published": true,
+        "legend": true,
+        "legendtab": "レーダー",
+        "target": ["LAND", "SKY"]
+    },
+    {
+        "name": "WX_WNI_JP_10Ten_Report",
+        "summary": "10天報告をmap上に表示します",
+        "path": "jp10ten",
+        "isExternal": false,
+        "published": true,
+        "legend": true,
+        "legendtab": "10天報告",
+        "target": ["LAND"]
+    },
+    {
+        "name": "有義波高、波向",
+        "summary": "有義波高、波向をmap上に表示する。LOWRESOとHIGHRESOのデータの組み合わせ「Wave Blend」",
+        "path": "waveblend",
+        "isExternal": false,
+        "published": true,
+        "legend": true,
+        "legendtab": "有義波高、波向",
+        "target": ["SEA"]
+    },
+    {
+        "name": "High Low Front",
+        "summary": "地上気圧 / 高・低気圧　マーク / 前線を表示します",
+        "path": "hilofront",
+        "isExternal": false,
+        "published": true,
+        "target": ["LAND", "SEA", "SKY"]
+    },
+    {
+        "name": "DisasterReport",
+        "summary": "災害情報をmap上に表示します",
+        "path": "disasterreport",
+        "isExternal": false,
+        "published": true,
+        "target": ["LAND", "SKY"]
+    },
+    {
+        "name": "Live Camera",
+        "summary": "ライブカメラをmap上に表示します",
+        "path": "livecamera",
+        "isExternal": false,
+        "published": true,
+        "target": ["LAND", "SKY"]
+    },
+    {
+        "name": "JMA Warn",
+        "summary": "気象庁警報・注意報をmap上に表示します",
+        "path": "jmawarn",
+        "isExternal": false,
+        "published": true,
+        "legend": true,
+        "legendtab": "注警報",
+        "target": ["LAND"]
+    },
+    {
+        "name": "雷",
+        "summary": "雷をmap上に表示します",
+        "path": "lightning",
+        "isExternal": false,
+        "published": true,
+        "target": ["LAND", "SKY"]
+    },
+    {
+        "name": "AMeDAS",
+        "summary": "AMeDASをmap上に表示します",
+        "path": "amedas",
+        "isExternal": false,
+        "published": true,
+        "legend": true,
+        "legendtab": "アメダス",
+        "target": ["LAND", "SKY"]
+    },
+    {
+        "name": "COMPASS (Hour)",
+        "summary": "Displays COMPASS weather forecast on a map",
+        "path": "compasshour",
+        "isExternal": false,
+        "published": true,
+        "legend": true,
+        "legendtab": "COMPASS (Hour)",
+        "target": ["LAND"]
+    }
+]

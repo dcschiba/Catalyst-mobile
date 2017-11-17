@@ -1,1 +1,0 @@
-# ASC Scale LatLon

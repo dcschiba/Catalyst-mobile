@@ -1,8 +1,0 @@
-{
-    "Name" : "SKY_CUS_CoPilot",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "File" : "https://pt-wrap01.wni.co.jp/Mercury/sample/pri/data/COPILOT/%customer%/co_pi_latest.json",
-        "UpdateInterval" : 60
-    }
-}

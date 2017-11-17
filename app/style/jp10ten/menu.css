@@ -1,0 +1,15 @@
+.ctrlPanel {
+    padding: 5px;
+  }
+  selectTime {
+    width: 160,
+  }
+  selectLevel {
+    width: 100,
+  }
+  .hordiv {
+    padding-top: 10px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  

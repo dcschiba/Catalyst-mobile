@@ -1,8 +1,0 @@
-{
-    "Name" : "MAP_ARINC_FIR",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "File" : "https://pt-wrap01.wni.co.jp/WRAP/wrap-pri/data/MAP_ARINC_FIR/ALL.json",
-        "UpdateInterval" : 3600
-    }
-}

@@ -1,2 +1,0 @@
-export const LATLON_CLICK = 'LATLON_CLICK';
-export const LATLON_INITIALIZE = 'LATLON_INITIALIZE';

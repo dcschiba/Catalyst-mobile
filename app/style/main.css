@@ -1,0 +1,28 @@
+.wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+}
+
+.back_button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    padding: 8px;
+    width: 100px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.back_button_label {
+    margin: 4px;
+}

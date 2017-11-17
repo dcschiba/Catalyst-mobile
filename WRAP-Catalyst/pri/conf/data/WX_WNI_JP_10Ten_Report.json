@@ -1,9 +1,0 @@
-{
-    "Name" : "WX_WNI_JP_10Ten_Report",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_WNI_JP_10Ten_Report/index.json",
-        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_WNI_JP_10Ten_Report/%validtime%.json",
-        "UpdateInterval" : 60
-    }
-}

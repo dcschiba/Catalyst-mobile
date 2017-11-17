@@ -1,8 +1,0 @@
-{
-    "Name" : "VAA",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_ALL_VAA/latest.json",
-        "UpdateInterval" : 60
-    }
-}

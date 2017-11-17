@@ -1,9 +1,0 @@
-{
-    "Name" : "WX_WNI_Front",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_WNI_Front/index.json",
-        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_WNI_Front/%basetime%/%validtime%.json",
-        "UpdateInterval" : 3600
-    }
-}
