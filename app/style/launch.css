@@ -1,0 +1,47 @@
+.wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    width: 54%;
+    display: block;
+    margin: 32% auto 36px auto;
+    padding: 0;
+    position: relative;
+    animation: delay 1.8s ease 0s 1 backwards;    
+}
+
+.message {
+    width: 100%;
+    display: block;
+    position: relative;
+    animation: fadeIn 3s ease 1.8s 1 backwards;
+}
+
+.skip {
+    float: right;
+    padding: 20px 20px;
+    animation: fadeIn 0.5s ease 0s 1 backwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+    to {opacity: 1}
+}
+
+@keyframes delay {
+    0% {visibility: hidden}
+    1% {
+        visibility: visible;
+        top: -10px;
+        opacity: 0;
+    }
+    100% {
+        top: 0px;
+        opacity: 1;
+    }
+}

@@ -1,0 +1,148 @@
+{
+  "debug" : true,
+  "mapoption": {
+    "zoom": 6,
+    "zoomControl": false,
+    "max_zoom": 12,
+    "min_zoom": 3,
+    "lat": 35.792621,
+    "lon": 139.806513,
+    "client": "gme-weathernewsinc",
+    "libs": "geometry",
+    "lang": "jp",
+    "region": "JP",
+    "base_lat": 90,
+    "base_lon": 140,
+    "lat_ts": 45
+  },
+  "dhkeyoption":{
+    "baseurl": "https://pt-wrap01.wni.co.jp",
+    "icdburl": "https://wni-icdb.wni.com",
+    "pdburl": "https://wni-pdb.wni.com",
+    "apppath": "https://pt-wrap01.wni.co.jp/Catalyst/"
+  },
+  "confDataPath": "https://pt-wrap01.wni.co.jp/Catalyst/pri/conf/data/",
+  "confLayerPath": "https://pt-wrap01.wni.co.jp/Catalyst/pri/conf/layer/",
+  "layers": [
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVWindLayer_GFS",
+      "confName": "gpv/gfs/WindArrowSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVTmpContourSample_GFS",
+      "confName": "gpv/gfs/GPVTmpContourSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "TmpGridValue_GFS",
+      "confName": "gpv/gfs/TmpGridValueSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVTmpFillStyleSamples_GFS",
+      "confName": "gpv/gfs/GPVTmpFillSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVHgtContourSample_GFS",
+      "confName": "gpv/gfs/GPVHgtContourSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "HgtGridValue_GFS",
+      "confName": "gpv/gfs/HgtGridValueSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVHgtFillStyleSamples_GFS",
+      "confName": "gpv/gfs/GPVHgtFillSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVRhContourSample_GFS",
+      "confName": "gpv/gfs/GPVRhContourSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "RhGridValue_GFS",
+      "confName": "gpv/gfs/RhGridValueSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVRhFillStyleSamples_GFS",
+      "confName": "gpv/gfs/GPVRhFillSample.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVIsotachLayer_GFS",
+      "confName": "gpv/gfs/GPVIsotach.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVIcingprobLayer_GFS",
+      "confName": "gpv/gfs/IcingProbavility.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVPrecipitationLayer_GFS",
+      "confName": "gpv/gfs/GPVPrecipitation.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS_SnowDepth",
+      "layerName": "GPVSnowdepthContourLayer_GFS",
+      "confName": "gpv/gfs/GPVSnowdepthContour.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS_SnowDepth",
+      "layerName": "GPVSnowdepthGradationLayer_GFS",
+      "confName": "gpv/gfs/GPVSnowdepthGradation.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS_SnowDepth",
+      "layerName": "GPVSnowdepthGridValueLayer_GFS",
+      "confName": "gpv/gfs/GPVSnowdepthGridValue.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVPressuremslContourLayer_GFS",
+      "confName": "gpv/gfs/GPVPressuremslContour.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVPressuremslGradationLayer_GFS",
+      "confName": "gpv/gfs/GPVPressuremslGradation.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "Model_GFS",
+      "layerName": "GPVPressuremslGridValueLayer_GFS",
+      "confName": "gpv/gfs/GPVPressuremslGridValue.json",
+      "contentName": "gfs"
+    },
+    {
+      "DHObjectName": "WX_WNI_JP_10Ten_Report",
+      "layerName": "WX_WNI_JP_10Ten_Report",
+      "confName": "WX_WNI_JP_10Ten_Report.json",
+      "contentName": "jp10ten"
+    }
+  ]
+}
