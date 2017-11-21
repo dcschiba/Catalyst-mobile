@@ -5,7 +5,7 @@ import Checkbox from 'material-ui/Checkbox';
 // import css from '../../../style/functionList.css';
 
 const propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   flags: PropTypes.array.isRequired,
   itemClickAction: PropTypes.func.isRequired,
 };
@@ -16,7 +16,12 @@ const styles = {
     padding: '0',
   },
   item: {
-    height: '30px',
+    height: '1em',
+    padding: '28px 20px',
+  },
+  checkbox: {
+    margin: '14px',
+    padding: '0px',
   },
 };
 
@@ -40,6 +45,7 @@ class FunctionList extends Component {
                 <Checkbox
                   checked={flags.indexOf(item.path) !== -1}
                   onCheck={oldState => itemClickAction(oldState, item.path)}
+                  style={styles.checkbox}
                 />
               }
             />

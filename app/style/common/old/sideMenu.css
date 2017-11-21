@@ -1,0 +1,13 @@
+.menu {
+  height: 100%;
+  width: 220px;
+  z-index: 105;
+  transition: all  0.35s ease;
+  background: #f4f4ff;
+  border-right: solid 1px white;
+  overflow: scroll;
+}
+
+.content {
+  margin: 9px 8px;
+}

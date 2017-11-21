@@ -143,6 +143,378 @@
       "layerName": "WX_WNI_JP_10Ten_Report",
       "confName": "WX_WNI_JP_10Ten_Report.json",
       "contentName": "jp10ten"
+    },   {
+      "DHObjectName": "WX_JP_Radar",
+      "layerName": "WX_JP_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_US_AK_Radar",
+      "layerName": "WX_US_AK_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_US_GU_Radar",
+      "layerName": "WX_US_GU_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_US_HI_Radar",
+      "layerName": "WX_US_HI_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_US_NA_Radar",
+      "layerName": "WX_US_NA_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_US_PR_Radar",
+      "layerName": "WX_US_PR_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_EU_Radar",
+      "layerName": "WX_EU_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_AU_Radar",
+      "layerName": "WX_AU_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_KR_Radar",
+      "layerName": "WX_KR_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_TW_Radar",
+      "layerName": "WX_TW_Radar",
+      "confName": "Radar.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "JMA_OBS_RADAR_ECHTOP_JP",
+      "layerName": "JMA_OBS_RADAR_ECHTOP_JP",
+      "confName": "RadarEchoTop.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "JMA_OBS_RADAR_ECHINT_JP_5min",
+      "layerName": "JMA_OBS_RADAR_ECHINT_JP_5min",
+      "confName": "RadarICDB.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "JMA_ANLSIS_PRCINT_HRES_EXTRA",
+      "layerName": "JMA_ANLSIS_PRCRIN_EXTRA",
+      "confName": "JMA_ANLSIS_PRCINT_HRES_EXTRA.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "JMA_NOWCAS_PRCINT_HRES",
+      "layerName": "JMA_NOWCAS_PRCRIN",
+      "confName": "JMA_NOWCAS_PRCINT_HRES.json",
+      "contentName": "radar_bk"
+    },
+    {
+      "DHObjectName": "JMA_ANLSIS_PRCINT_HRES",
+      "layerName": "JMA_ANLSIS_PRCRIN",
+      "confName": "JMA_ANLSIS_PRCINT_HRES.json",
+      "contentName": "radar_bk"
+    },
+    {
+      "DHObjectName": "EC_OBS_RADAR_ECHINT_CA",
+      "layerName": "EC_OBS_RADAR_ECHINT_CA",
+      "confName": "EC_OBS_RADAR_ECHINT_CA.json",
+      "contentName": "radar"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_LOWRESO_BLEND_WaveHeight",
+      "layerName": "WaveBlendLowreso_Contour",
+      "confName": "WaveBlendHeightContour.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_LOWRESO_BLEND_WaveDirection",
+      "layerName": "WaveBlendLowreso_Arrow",
+      "confName": "WaveBlendDirectionArrow.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_LOWRESO_BLEND_WaveHeight",
+      "layerName": "WaveBlendLowreso_Flat",
+      "confName": "WaveBlendHeightFlat.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_NPAC_BLEND",
+      "layerName": "WaveBlendNpac_Contour",
+      "confName": "WaveBlendHeightContour.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_NPAC_BLEND",
+      "layerName": "WaveBlendNpac_Arrow",
+      "confName": "WaveBlendDirectionArrow.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_NPAC_BLEND",
+      "layerName": "WaveBlendNpac_Flat",
+      "confName": "WaveBlendHeightFlat.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_NATL_BLEND",
+      "layerName": "WaveBlendNatl_Contour",
+      "confName": "WaveBlendHeightContour.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_NATL_BLEND",
+      "layerName": "WaveBlendNatl_Arrow",
+      "confName": "WaveBlendDirectionArrow.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_NATL_BLEND",
+      "layerName": "WaveBlendNatl_Flat",
+      "confName": "WaveBlendHeightFlat.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_SEASIA_BLEND",
+      "layerName": "WaveBlendSeasia_Contour",
+      "confName": "WaveBlendHeightContour.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_SEASIA_BLEND",
+      "layerName": "WaveBlendSeasia_Arrow",
+      "confName": "WaveBlendDirectionArrow.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_WWIII_HIGHRESO_SEASIA_BLEND",
+      "layerName": "WaveBlendSeasia_Flat",
+      "confName": "WaveBlendHeightFlat.json",
+      "contentName": "waveblend"
+    },
+    {
+      "DHObjectName": "WX_WNI_GrandMaster",
+      "layerName": "SurfacePressureHiro",
+      "confName": "HiLo.json",
+      "contentName": "hilofront"
+    },
+    {
+      "DHObjectName": "WX_WNI_GrandMaster",
+      "layerName": "SurfacePressureContour",
+      "confName": "SurfacePressureContour.json",
+      "contentName": "hilofront"
+    },
+    {
+      "DHObjectName": "WX_WNI_Front",
+      "layerName": "SurfaceAnalysisFront",
+      "confName": "Front.json",
+      "contentName": "hilofront"
+    },
+    {
+      "DHObjectName": "DisasterReport",
+      "layerName": "DisasterReport",
+      "confName": "DisasterReport.json",
+      "contentName": "disasterreport"
+    },
+    {
+      "DHObjectName": "WX_LiveCamera",
+      "layerName": "LiveCamera",
+      "confName": "LiveCamera.json",
+      "contentName": "livecamera",
+      "livecamera": true
+    },
+    {
+      "DHObjectName": "WX_JMA_Warn_Border",
+      "layerName": "WX_JMA_Warn_Border",
+      "confName": "WX_JMA_Warn_Border.json",
+      "contentName": "jmawarn"
+    },
+    {
+      "DHObjectName": "WX_JMA_Warn",
+      "layerName": "WX_JMA_Warn",
+      "confName": "WX_JMA_Warn.json",
+      "contentName": "jmawarn"
+    },
+    {
+      "DHObjectName": "LightningJapan",
+      "layerName": "LightningJapan",
+      "confName": "LightningJapan.json",
+      "contentName": "lightning"
+    },
+    {
+      "DHObjectName": "LightningKorea",
+      "layerName": "LightningKorea",
+      "confName": "LightningKorea.json",
+      "contentName": "lightning"
+    },
+    {
+      "DHObjectName": "LIDEN",
+      "layerName": "LIDEN",
+      "confName": "LIDEN.json",
+      "contentName": "lightning"
+    },
+    {
+      "DHObjectName": "WX_JMA_Amedas",
+      "layerName": "WX_JMA_Amedas",
+      "confName": "Amedas.json",
+      "contentName": "amedas"
+    },
+    {
+      "DHObjectName": "JMA_ANLSIS_RADAR_AMEDAS_PRCRIN",
+      "layerName": "RadarAmedas_ANLSIS",
+      "confName": "RadarAmedas.json",
+      "contentName": "radaramedas"
+    },
+    {
+      "DHObjectName": "JMA_NOWCAS_RADAR_AMEDAS_PRCRIN",
+      "layerName": "RadarAmedas_NOWCAST",
+      "confName": "RadarAmedas.json",
+      "contentName": "radaramedas"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourTmpFill",
+      "confName": "compass/CompassHourTmpFill.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourTmpGridValue",
+      "confName": "compass/CompassHourTmpGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourTmpContour",
+      "confName": "compass/CompassHourTmpContour.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourPresFill",
+      "confName": "compass/CompassHourPresFill.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourPresGridValue",
+      "confName": "compass/CompassHourPresGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourPresContour",
+      "confName": "compass/CompassHourPresContour.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourRhFill",
+      "confName": "compass/CompassHourRhFill.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourRhGridValue",
+      "confName": "compass/CompassHourRhGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourRhContour",
+      "confName": "compass/CompassHourRhContour.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourAsnowFill",
+      "confName": "compass/CompassHourAsnowFill.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourAsnowGridValue",
+      "confName": "compass/CompassHourAsnowGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourAsnowContour",
+      "confName": "compass/CompassHourAsnowContour.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourApcpFill",
+      "confName": "compass/CompassHourApcpFill.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourApcpGridValue",
+      "confName": "compass/CompassHourApcpGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourApcpContour",
+      "confName": "compass/CompassHourApcpContour.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourPopFill",
+      "confName": "compass/CompassHourPopFill.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourPopGridValue",
+      "confName": "compass/CompassHourPopGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourPopContour",
+      "confName": "compass/CompassHourPopContour.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourUgrdvgrdBarbs",
+      "confName": "compass/CompassHourUgrdvgrdBarbs.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourUgrdGridValue",
+      "confName": "compass/CompassHourUgrdGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourVgrdGridValue",
+      "confName": "compass/CompassHourVgrdGridValue.json",
+      "contentName": "compasshour"
     }
   ]
 }
