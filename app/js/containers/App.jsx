@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
+import SettingIcon from 'material-ui/svg-icons/action/settings';
 import * as Actions from '../actions/catalyst';
 import * as localeActions from '../actions/locale';
-import { version } from '../data/appInfo.json';
+// import { version } from '../data/appInfo.json';
 import css from '../../style/app.css';
 
 const propTypes = {
   children: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
+//  actions: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
 };
 
@@ -32,6 +33,11 @@ const styles = {
     height: '40px',
     lineHeight: '40px',
   },
+  settingButton: {
+    padding: '0px',
+    margin: '0px',
+    height: '20px',
+  },
 };
 
 class App extends Component {
@@ -40,19 +46,20 @@ class App extends Component {
     // alert(navigator.browserLanguage);
     // alert(navigator.language);
   }
+
   render() {
-    const { children, locale, actions } = this.props;
-    console.log(locale, actions, version);
+    const { children, locale } = this.props;
     return (
       <div style={{ ...themeColor.ground, height: '100vh' }} >
         <AppBar
-          title="WRAP Catalyst mobile"
+          title="WRAP Catalyst"
           titleStyle={styles.title}
           style={styles.appBar}
           showMenuIconButton={false}
+          iconElementRight={<SettingIcon color={themeColor.main.color} />}
         />
         <div className={css.contents}>
-          {React.cloneElement(children, { themeColor })}
+          {React.cloneElement(children, { themeColor, locale })}
         </div>
       </div>
     );

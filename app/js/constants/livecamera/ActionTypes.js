@@ -1,0 +1,1 @@
+export const LIVE_CAMERA_CLICK = 'LIVE_CAMERA_CLICK';

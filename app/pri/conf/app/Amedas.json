@@ -1,0 +1,45 @@
+{
+    "wind":{
+      "base":"img/amedas/wind-",
+      "non":"img/amedas/wind-non.png",
+      "start": 0,
+      "end": 195,
+      "interval": 5
+    },
+    "Sunshine":[
+      "img/amedas/2.png",
+      "img/amedas/4.png",
+      "img/amedas/5.png",
+      "img/amedas/8.png"
+    ],
+    "Temperature":[
+      "img/amedas/0.png",
+      "img/amedas/0.png",
+      "img/amedas/3.png",
+      "img/amedas/2.png",
+      "img/amedas/4.png",
+      "img/amedas/5.png",
+      "img/amedas/6.png",
+      "img/amedas/7.png",
+      "img/amedas/8.png",
+      "img/amedas/10.png"
+    ],
+    "Precipitation":[
+      "img/amedas/3.png",
+      "img/amedas/2.png",
+      "img/amedas/4.png",
+      "img/amedas/5.png",
+      "img/amedas/6.png",
+      "img/amedas/7.png",
+      "img/amedas/8.png"
+    ],
+    "SnowDepth": [
+      "img/amedas/2.png",
+      "img/amedas/4.png",
+      "img/amedas/5.png",
+      "img/amedas/6.png",
+      "img/amedas/7.png",
+      "img/amedas/8.png"
+    ],
+    "MasterData": "%baseurl%/WRAP/wrap-pri/data/WX_JMA_Station_Amedas/latest.json"
+}    
