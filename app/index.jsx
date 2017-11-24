@@ -18,6 +18,43 @@ import Main from './js/containers/Main';
 import configureStore from './js/store/configureStore';
 import './style/index.css';
 
+const initPushNotification = () => {
+  const push = window.PushNotification.init({
+    android: { vibrate: true, forceShow: true },
+    ios: { alert: true, badge: true, sound: true },
+  });
+
+  push.on('registration', (data) => {
+    alert('registration');
+    let url;
+    if (process.NODE_ENV === 'production') {
+      url = 'http://192.168.10.4:3000';
+    } else {
+      url = 'http://192.168.10.4:3000';
+    }
+    const method = 'POST';
+    const body = JSON.stringify(data);
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+    fetch(`${url}/notification/regist`, { method, headers, body })
+      .catch(alert('Push registration error'));
+  });
+
+  push.on('notification', (data) => {
+    alert('notification');
+    console.log(data);
+  });
+
+  push.on('error', (e) => {
+    alert('error');
+    console.error(e);
+  });
+};
+
+document.addEventListener('deviceready', initPushNotification, false);
+
 const muiTheme = getMuiTheme({
   palette: {
     fontFamily: 'Noto Sans Japanese, sans-serif',

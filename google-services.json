@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1077540047384",
+    "firebase_url": "https://catalyst-mobile-e80ae.firebaseio.com",
+    "project_id": "catalyst-mobile-e80ae",
+    "storage_bucket": "catalyst-mobile-e80ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077540047384:android:51b45d1d3b23a403",
+        "android_client_info": {
+          "package_name": "com.wni.wrap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077540047384-eu8t91m25f9o2ru9bragqhghqt3dunit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSBadzHC5_ZyVBgcfLwXenCVdK0DEF_sc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
