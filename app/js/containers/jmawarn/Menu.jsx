@@ -31,6 +31,7 @@ class Menu extends Component {
     return (
       <div className={css.ctrlpanel}>
         <Checkbox
+          id="jmawarn"
           label="JMA Warn"
           checked={jmawarnChecked}
           onClick={e => Menu.showClick(e, actions)}

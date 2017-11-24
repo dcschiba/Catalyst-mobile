@@ -37,7 +37,11 @@
     align-items: flex-end;
 }
 
+.spread_button {
+    
+}
+
 @keyframes slideIn {
-    from {bottom: -400px;}
-    to {bottom: 0px;}
+    from {bottom: 0px;}
+    to {bottom: -400px;}
 }

@@ -50,6 +50,7 @@ class Menu extends Component {
     return (
       <div>
         <CheckBox
+          id="jp10ten"
           checked={showchecked}
           onClick={e => Menu.showClick(e, actions)}
           label={'JP 10ten'}

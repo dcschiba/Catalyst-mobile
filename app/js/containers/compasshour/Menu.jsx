@@ -89,6 +89,7 @@ class Menu extends Component {
     return (
       <div className={css.ctrlpanel}>
         <Checkbox
+          id="compasshour"
           label={<FormattedMessage id="compasshour.compasshour" />}
           checked={compassHourChecked}
           onClick={e => actions.compassHourClick(e.target.checked)}

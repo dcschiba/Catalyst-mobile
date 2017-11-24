@@ -46,6 +46,7 @@ class Menu extends Component {
     return (
       <div>
         <CheckBox
+          id="hilofront"
           checked={showchecked}
           onClick={e => actions.hilofrontShowClick(e.target.checked)}
           label={'Hi Lo Front'}

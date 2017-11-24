@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
-import WrapController from 'WRAP/UI/WrapController';
-// import GoogleMap from 'WRAP/UI/GoogleMap';
 import { hashHistory } from 'react-router';
+import { bindActionCreators } from 'redux';
+import WrapController from 'WRAP/UI/WrapController';
+import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
+// import GoogleMap from 'WRAP/UI/GoogleMap';
 import mapsetting from '../constants/map/mapsetting-newest.json';
 import MapConsole from '../components/catalyst/MapConsole';
-import css from '../../style/main.css';
+import Loading from '../components/catalyst/Loading';
 import GoogleMap from '../WRAP-UI/GoogleMap';
+import * as LayerConfig from '../layers/LayerConfig';
+import * as LoadingActions from '../actions/loading';
 import * as LayerActions from '../actions/layer';
 import * as RadarActions from '../actions/radar';
-import * as LayerConfig from '../layers/LayerConfig';
-
+import css from '../../style/main.css';
 
 const propTypes = {
   actions: PropTypes.object,
   checkedFunc: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapId = 'map';
@@ -31,7 +33,9 @@ class Main extends Component {
     super(props);
     this.mapInitedCallback = this.mapInitedCallback.bind(this);
   }
-
+  componentWillMount() {
+    this.props.actions.startLoading();
+  }
   mapInitedCallback(map) {
     const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
     const { checkedFunc, actions } = this.props;
@@ -51,14 +55,10 @@ class Main extends Component {
     if (JPRadarLayer) {
       JPRadarLayer.setAction(actions.loadJPRadarActivity);
     }
+    actions.stopLoading();
   }
   render() {
-    if (!mapsetting) {
-      return (
-        <div>Map Loading...</div>
-      );
-    }
-    const { checkedFunc, themeColor, locale } = this.props;
+    const { checkedFunc, themeColor, locale, isLoading } = this.props;
     /* eslint-disable global-require,import/no-dynamic-require */
     let messages;
     try {
@@ -73,6 +73,7 @@ class Main extends Component {
     return (
       <IntlProvider locale={locale} messages={messages}>
         <div className={css.wrapper}>
+          <Loading show={isLoading} />
           <div id={mapId} style={{ height: 'calc(100% - 50px)', width: '100%', position: 'relative' }}>
             <GoogleMap
               mapSetting={mapsetting.mapoption}
@@ -94,14 +95,20 @@ class Main extends Component {
 
 function mapStateToProps(state) {
   const checkedFunc = state.functionList.list;
+  const isLoading = state.loading.isLoading;
   return {
     checkedFunc,
+    isLoading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign({}, LayerActions, RadarActions), dispatch),
+    actions: bindActionCreators(Object.assign({},
+      LayerActions,
+      RadarActions,
+      LoadingActions,
+    ), dispatch),
   };
 }
 
