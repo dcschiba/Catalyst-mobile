@@ -43,7 +43,7 @@ const initPushNotification = () => {
   });
 
   push.on('notification', (data) => {
-    alert('notification');
+    hashHistory.push('app/top');
     console.log(data);
   });
 
