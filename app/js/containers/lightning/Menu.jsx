@@ -36,6 +36,7 @@ class Menu extends Component {
     return (
       <div className={css.ctrlpanel}>
         <Checkbox
+          id="lightning"
           label={LIGHTNING}
           checked={lightningJpChecked}
           onClick={e => actions.lightningJpClick(e.target.checked)}

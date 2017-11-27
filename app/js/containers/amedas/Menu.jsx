@@ -47,6 +47,7 @@ class Menu extends Component {
     return (
       <div>
         <CheckBox
+          id="amedas"
           checked={showchecked}
           onClick={e => Menu.showClick(e, actions)}
           label={<FormattedMessage id="amedas.amedas" />}

@@ -152,6 +152,7 @@ class Menu extends Component {
         <div>
           <div className={css.hordiv}>
             <Checkbox
+              id="radar"
               label="Radar"
               checked={radarChecked}
               onClick={e => Menu.radarClick(e, actions, jpChecked)}

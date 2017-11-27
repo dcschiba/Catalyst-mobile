@@ -25,6 +25,7 @@ class Menu extends Component {
     return (
       <div className={css.ctrlpanel}>
         <Checkbox
+          id="disasterreport"
           label="災害情報"
           checked={disasterReportChecked}
           onClick={e => actions.disasterReportClick(e.target.checked)}

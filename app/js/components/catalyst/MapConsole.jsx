@@ -12,7 +12,7 @@ import UpButton from 'material-ui/svg-icons/navigation/expand-less';
 import SlideLeftButton from 'material-ui/svg-icons/navigation/chevron-left';
 import SlideRightButton from 'material-ui/svg-icons/navigation/chevron-right';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import css from '../../../style/MapConsole.css';
+import css from '../../../style/mapConsole.css';
 
 
 // import { List, ListItem } from 'material-ui/List';
@@ -30,12 +30,15 @@ const styles = {
     margin: '0 14px 30px 0',
   },
   spread_button: {
-    height: '50px',
-    width: '40px',
+    height: '100%',
+    width: '90px',
+    border: 'solid 1px #666666',
   },
   slide_button: {
-    height: '50px',
+    height: '100%',
     width: '50px',
+    padding: 0,
+    border: 'solid 1px #666666',
   },
 };
 
@@ -44,7 +47,7 @@ class MapConsole extends Component {
     super(props);
     this.state = {
       tabState: 0,
-      isMenuShown: true,
+      isMenuShown: false,
     };
     this.menuForward = this.menuForward.bind(this);
     this.menuToggle = this.menuToggle.bind(this);
@@ -89,6 +92,7 @@ class MapConsole extends Component {
       });
     }
   }
+
   render() {
     const { tabList, themeColor } = this.props;
     const { isMenuShown, tabState } = this.state;
@@ -96,8 +100,6 @@ class MapConsole extends Component {
       wrapper: true,
       hide: !isMenuShown,
     });
-    // if (tabList.length) {
-    // }
     const tabStyle = {
       wrapper: {
         width: '100%',
@@ -115,6 +117,14 @@ class MapConsole extends Component {
         overflow: 'hidden',
       },
     };
+    // TODO 変数化、共通化
+    if (tabList.length === 1) {
+      tabStyle.tabs = '100%';
+      tabStyle.tab.width = '100%';
+    } else if (tabList.length === 2) {
+      tabStyle.tabs = '100%';
+      tabStyle.tab.width = '50%';
+    }
     return (
       <div>
         <div className={wrapper}>
@@ -123,14 +133,20 @@ class MapConsole extends Component {
               <LocationIcon style={{ fill: '#4285f4' }} />
             </FloatingActionButton>
           </div>
+          <div>
+            {tabList.map(contents => (
+              <button onClick={() => document.getElementById(contents).click()}>{contents}</button>
+            ))}
+          </div>
           <div className={css.menu} style={themeColor.ground}>
             <div className={css.tab_area}>
               <IconButton
                 onClick={() => this.menuToggle(!isMenuShown)}
                 style={{ ...themeColor.main, ...styles.spread_button }}
+                className={css.spread_button}
               >
                 {isMenuShown ? <DownButton color={themeColor.main.color} />
-                : <UpButton color={themeColor.main.color} />}
+                  : <UpButton color={themeColor.main.color} />}
               </IconButton>
               <IconButton
                 onClick={() => this.menuForward(false)}
