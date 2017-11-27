@@ -13,13 +13,15 @@
     "cordova-android": "^6.4.0",
     "cordova-browser": "5.0.1",
     "cordova-ios": "4.5.4",
+    "cordova-plugin-httpd": "^0.9.3",
     "cordova-plugin-whitelist": "^1.3.3",
     "phonegap-plugin-push": "^2.1.1"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "phonegap-plugin-push": {}
+      "phonegap-plugin-push": {},
+      "cordova-plugin-httpd": {}
     },
     "platforms": [
       "android",

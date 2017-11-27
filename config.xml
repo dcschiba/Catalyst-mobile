@@ -30,4 +30,5 @@
     <engine name="browser" spec="5.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="phonegap-plugin-push" spec="^2.1.1" />
+    <plugin name="cordova-plugin-httpd" spec="^0.9.3" />
 </widget>
