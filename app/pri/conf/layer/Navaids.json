@@ -1,0 +1,94 @@
+{
+    "Name" : "Fix",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "min_zoom" : 6,
+        "features" : [
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "kind",
+                "value" : "NDB"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/navaids/NDB.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "kind",
+                "value" : "TACAN"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/navaids/TACAN.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "kind",
+                "value" : "VOR/DME"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/navaids/VOR_DME.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "kind",
+                "value" : "VOR/TAC"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/navaids/VOR_TAC.png"
+                    }
+                }
+            },
+            {
+                "selector" : {
+                "type" : "key_value",
+                "key" : "kind",
+                "value" : "VOR"
+                },
+                "style" : {
+                    "default" : {
+                        "type" : "image",
+                        "width" : 15,
+                        "height" : 15,
+                        "offset_x" : -7,
+                        "offset_y" : -7,
+                        "url" : "img/navaids/VOR.png"
+                    }
+                }
+            }
+        ]
+    }
+}

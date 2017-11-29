@@ -6,13 +6,14 @@ import SwipeableViews from 'react-swipeable-views';
 // import Hammer from 'hammerjs';
 // import Checkbox from 'material-ui/Checkbox';
 import LocationIcon from 'material-ui/svg-icons/maps/my-location';
-import IconButton from 'material-ui/IconButton';
-import DownButton from 'material-ui/svg-icons/navigation/expand-more';
-import UpButton from 'material-ui/svg-icons/navigation/expand-less';
-import SlideLeftButton from 'material-ui/svg-icons/navigation/chevron-left';
-import SlideRightButton from 'material-ui/svg-icons/navigation/chevron-right';
+// import DownIcon from 'material-ui/svg-icons/navigation/expand-more';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import UpIcon from 'material-ui/svg-icons/navigation/expand-less';
+import SlideLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
+import SlideRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import css from '../../../style/mapConsole.css';
+import NeonButton from './NeonButton';
 
 
 // import { List, ListItem } from 'material-ui/List';
@@ -25,22 +26,6 @@ const propTypes = {
 
 const tabSize = '40%';
 const tabSizeRate = 0.4;
-const styles = {
-  locationButton: {
-    margin: '0 14px 30px 0',
-  },
-  spread_button: {
-    height: '100%',
-    width: '90px',
-    border: 'solid 1px #666666',
-  },
-  slide_button: {
-    height: '100%',
-    width: '50px',
-    padding: 0,
-    border: 'solid 1px #666666',
-  },
-};
 
 class MapConsole extends Component {
   constructor(props) {
@@ -48,22 +33,15 @@ class MapConsole extends Component {
     this.state = {
       tabState: 0,
       isMenuShown: false,
+      isActive: {},
     };
+    this.props.tabList.forEach((content) => {
+      this.state.isActive[content] = false;
+    });
     this.menuForward = this.menuForward.bind(this);
     this.menuToggle = this.menuToggle.bind(this);
     this.cx = ClassNames.bind(css);
     this.handleChange = this.handleChange.bind(this);
-  }
-  componentDidMount() {
-    // // material UIにrefが効かないのでclassNameでしていする
-    // const tabObj = new Hammer(document.getElementsByClassName('mapconsole_tab')[0].parentNode);
-    // const konbObj = new Hammer(this.konb);
-    // konbObj.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-    // konbObj.on('swipeup', () => this.menuToggle(true));
-    // konbObj.on('swipedown', () => this.menuToggle(false));
-    // tabObj.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-    // tabObj.on('swipeup', () => this.menuToggle(true));
-    // tabObj.on('swipedown', () => this.menuToggle(false));
   }
   handleChange(value) {
     const tabSizePx = this.tabs.clientWidth * tabSizeRate;
@@ -75,6 +53,11 @@ class MapConsole extends Component {
   menuToggle(openFlag) {
     this.setState({
       isMenuShown: openFlag,
+    });
+  }
+  turnActive(contents, flag) {
+    this.setState({
+      isActive: { ...this.state.isActive, [contents]: flag },
     });
   }
   menuForward(toForward) {
@@ -104,58 +87,57 @@ class MapConsole extends Component {
       wrapper: {
         width: '100%',
         overflowX: 'scroll',
+        overflowY: 'hidden',
         ...themeColor.main,
       },
       tabs: {
         position: 'relative',
-        height: '50px',
+        height: '60px',
         width: `calc(${tabSize} * ${tabList.length})`,
       },
       tab: {
-        height: '50px',
+        height: '60px',
         width: tabSize,
         overflow: 'hidden',
       },
     };
-    // TODO 変数化、共通化
-    if (tabList.length === 1) {
-      tabStyle.tabs = '100%';
-      tabStyle.tab.width = '100%';
-    } else if (tabList.length === 2) {
-      tabStyle.tabs = '100%';
-      tabStyle.tab.width = '50%';
+    if (tabList.length <= 2) {
+      tabStyle.tabs.width = '100%';
+      tabStyle.tab.width = `${100 / tabList.length}%`;
     }
     return (
       <div>
+        <div className={css.location_button}>
+          <FloatingActionButton backgroundColor="white">
+            <LocationIcon style={{ fill: '#4285f4' }} />
+          </FloatingActionButton>
+        </div>
+        <div className={css.contents_trigger_area}>
+          {tabList.map(contents => (
+            <button
+              onClick={() => {
+                document.getElementById(contents).click();
+                this.turnActive(contents, !this.state.isActive[contents]);
+              }}
+              className={css.contents_trigger} style={themeColor.main}
+            >{contents.slice(0, 5).toUpperCase()}..
+              <NeonButton isActive={this.state.isActive[contents]} />
+            </button>
+          ))}
+        </div>
+
         <div className={wrapper}>
-          <div className={css.baffer_area}>
-            <FloatingActionButton backgroundColor="white" style={styles.locationButton}>
-              <LocationIcon style={{ fill: '#4285f4' }} />
-            </FloatingActionButton>
-          </div>
-          <div>
-            {tabList.map(contents => (
-              <button onClick={() => document.getElementById(contents).click()}>{contents}</button>
-            ))}
-          </div>
           <div className={css.menu} style={themeColor.ground}>
             <div className={css.tab_area}>
-              <IconButton
-                onClick={() => this.menuToggle(!isMenuShown)}
-                style={{ ...themeColor.main, ...styles.spread_button }}
-                className={css.spread_button}
-              >
-                {isMenuShown ? <DownButton color={themeColor.main.color} />
-                  : <UpButton color={themeColor.main.color} />}
-              </IconButton>
-              <IconButton
+              <button
                 onClick={() => this.menuForward(false)}
-                style={{ ...themeColor.main, ...styles.slide_button }}
+                style={themeColor.main}
+                className={css.slide_button}
               >
-                <SlideLeftButton
+                <SlideLeftIcon
                   color={tabState !== 0 ? themeColor.main.color : themeColor.main.backgroundColor}
                 />
-              </IconButton>
+              </button>
               <div style={tabStyle.wrapper} ref={(node) => { this.tabs = node; }}>
                 <Tabs
                   value={tabState}
@@ -175,31 +157,39 @@ class MapConsole extends Component {
                   ))}
                 </Tabs>
               </div>
-              <IconButton
+              <button
                 onClick={() => this.menuForward(true)}
-                style={{ ...themeColor.main, ...styles.slide_button }}
+                style={themeColor.main}
+                className={css.slide_button}
               >
-                <SlideRightButton
+                <SlideRightIcon
                   color={tabState !== tabList.length - 1 ?
                     themeColor.main.color : themeColor.main.backgroundColor}
                 />
-              </IconButton>
+              </button>
             </div>
             <SwipeableViews
               index={tabState}
               onChangeIndex={this.handleChange}
             >
               {tabList.map((item, index) => {
-                  /* eslint-disable */
-                  const Menu = require(`../../containers/${item}/Menu`).default;
-                  return (
-                    <div key={index} className={css.console_area}>
-                      <Menu />
-                    </div>
-                  );
+                /* eslint-disable */
+                const Menu = require(`../../containers/${item}/Menu`).default;
+                return (
+                  <div key={index} className={css.console_area}>
+                    <Menu />
+                  </div>
+                );
               })}
             </SwipeableViews>
           </div>
+          <button
+            onClick={() => this.menuToggle(!isMenuShown)}
+            className={css.spread_button}
+          >
+            {isMenuShown ? <div><CloseIcon /><div>close</div></div>
+              : <div><UpIcon /><div>control</div></div>}
+          </button>
         </div>
       </div>
     );

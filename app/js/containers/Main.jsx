@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+import OpenLayers from 'WRAP/UI/OpenLayers';
 import WrapController from 'WRAP/UI/WrapController';
 import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
 // import GoogleMap from 'WRAP/UI/GoogleMap';
 import mapsetting from '../constants/map/mapsetting-newest.json';
 import MapConsole from '../components/catalyst/MapConsole';
 import Loading from '../components/catalyst/Loading';
-import GoogleMap from '../WRAP-UI/GoogleMap';
 import * as LayerConfig from '../layers/LayerConfig';
 import * as LoadingActions from '../actions/loading';
 import * as LayerActions from '../actions/layer';
@@ -37,11 +37,11 @@ class Main extends Component {
     this.props.actions.startLoading();
   }
   mapInitedCallback(map) {
-    const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
+    const { confLayerPath, confDataPath, layers } = mapsetting;
     const { checkedFunc, actions } = this.props;
     const mapDiv = document.getElementById(mapId);
-    WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
-    WrapController.initGoogleMap(map); // Geoにmapオブジェクトをセット
+    WrapController.initWRAP(confDataPath);  // DHが参照するデータの設定ファイルの格納先をセット
+    WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
     WrapController.setMapdiv(mapDiv);
     WrapController.initLayer(
       layers, // レイヤー設定の定義
@@ -74,11 +74,11 @@ class Main extends Component {
       <IntlProvider locale={locale} messages={messages}>
         <div className={css.wrapper}>
           <Loading show={isLoading} />
-          <div id={mapId} style={{ height: 'calc(100% - 50px)', width: '100%', position: 'relative' }}>
-            <GoogleMap
+          <div id={mapId} style={{ height: 'calc(100% - 60px)', width: '100%', position: 'relative' }}>
+            <OpenLayers
               mapSetting={mapsetting.mapoption}
+              mapSource="http://localhost:50001/map/openStreetMap/{z}/{x}/{y}.png"
               mapId={gmapId}
-              isHide={false}
               mapInitedCallback={this.mapInitedCallback}
             />
           </div>

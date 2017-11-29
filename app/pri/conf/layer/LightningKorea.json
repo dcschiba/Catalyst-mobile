@@ -1,0 +1,22 @@
+{
+    "Name" : "LightningKorea",
+    "Renderer" : "Lightning",
+    "Attributes" : {
+        "style" : {
+            "default" : {
+                "icon_width" : 16,
+                "icon_height" : 16,
+                "icon_offset_x" : -8,
+                "icon_offset_y" : -8,
+                "icon" : [
+                    { "ge":0, "lt":10, "image":"img/thunder_red.png" },
+                    { "ge":10, "lt":20, "image":"img/thunder_orange.png" },
+                    { "ge":20, "lt":30, "image":"img/thunder_yellow.png" },
+                    { "ge":30, "lt":40, "image":"img/thunder_yellow_green.png" },
+                    { "ge":40, "lt":50, "image":"img/thunder_light_blue.png" },
+                    { "ge":50, "lt":60, "image":"img/thunder_blue.png" }
+                ]
+            }
+        }
+    }
+}

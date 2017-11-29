@@ -1,0 +1,8 @@
+{
+    "Name" : "LIDEN",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_JMA_LIDEN_Latest/latest70min.json",
+        "UpdateInterval" : 60
+    }
+}

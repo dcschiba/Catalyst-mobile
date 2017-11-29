@@ -1,0 +1,17 @@
+{
+    "Name" : "MSM",
+    "DataHandler" : "GeoTiff",
+    "Attributes" : {
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_JMA_JP_MSMGround/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_JMA_JP_MSMGround/%element%/%level%/%basetime%/%validtime%.tiff",
+        "DataGrid" : {
+            "Width" : 481,
+            "Height" : 505,
+            "LatBase" : 47.6,
+            "LonBase" : 120.0,
+            "LatInterval" : 0.05,
+            "LonInterval" : 0.0625
+        },
+        "UpdateInterval" : 3600
+    }
+}

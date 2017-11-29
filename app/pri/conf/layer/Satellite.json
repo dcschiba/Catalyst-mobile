@@ -1,0 +1,12 @@
+{
+    "Name" : "Satellite",
+    "Renderer" : "Image",
+    "Attributes" : {
+        "style" : {
+            "default" : {
+              "type" : "filter",
+              "opacity" : 0.5
+            }
+        }
+    }
+}

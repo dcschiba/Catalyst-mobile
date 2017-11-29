@@ -1,0 +1,19 @@
+{
+    "Name" : "LiveCamera",
+    "Renderer" : "LiveCamera",
+    "Attributes" : {
+        "date_format":"%month%/%day% %0hour%:%0min% UTC",
+        "style" : {
+            "default" : {
+                "icon_width" : 32,
+                "icon_height" : 32,
+                "icon_offset_x" : -16,
+                "icon_offset_y" : -16,
+                "icon_nondir" : "img/camera_icon_nodir.png",
+                "icon_t" : "img/camera_icont.png",
+                "icon_s" : "img/camera_icons.png",
+                "icon_a" : "img/camera_icona.png"
+            }
+        }
+    }
+}

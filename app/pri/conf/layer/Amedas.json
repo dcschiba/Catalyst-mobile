@@ -1,0 +1,8 @@
+{
+    "Name" : "Amedas",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "features" : [
+        ]
+    }
+}

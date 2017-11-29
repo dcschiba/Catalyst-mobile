@@ -1,0 +1,45 @@
+.neon {
+    transition: all 250ms 0s ease-in-out;
+    position: relative;
+    margin: auto;
+    width: 50px;
+    height: 20px;
+    bottom: -5px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+.neon_light {
+    background-color: #4a8fe1;
+    border: solid 0.5px #64a8f7;
+    box-shadow: 0 0 10px #4a8fe1, 0 0 20px #64a8f7;
+    opacity: 1;
+}
+
+.neon_extinguish {
+    background-color: #646464;
+    border: solid 0.5px #646464;
+    box-shadow: 0 0 0 #4a8fe1;
+    opacity: 1;    
+}
+
+
+.neon_label {
+    transition: all 250ms 0s ease-in-out;    
+    opacity: 0.85;
+    opacity: 0;
+}
+.neon_label_light {
+    color: white;
+    text-shadow: 0 0 15px #fff;
+    font-size: 1.15em;
+    opacity: 1;    
+}
+.neon_label_extinguish {
+    color: black;
+    text-shadow: 0 0 0px #fff;
+    font-size: 1.10em; 
+    opacity: 1;    
+}

@@ -1,0 +1,64 @@
+{
+    "Name" : "VAA",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "features" : [
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "fcst_tau",
+                    "value" : "6"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "Polygon",
+                      "line_color": "#FFC0CB",
+                      "line_width": 3
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "fcst_tau",
+                    "value" : "12"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "Polygon",
+                      "line_color": "#ffff00",
+                      "line_width": 3
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "fcst_tau",
+                    "value" : "18"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "Polygon",
+                      "line_color": "#1e90ff",
+                      "line_width": 3
+                    }
+                }
+            },
+            {
+                "style" : {
+                    "default" : {
+                      "type" : "image",
+                      "width" : 32,
+                      "height" : 32,
+                      "offset_x" : -16,
+                      "offset_y" : -16,
+                      "url" : "img/sigwx_03.png",
+                      "line_color": "#ff0000",
+                      "line_width": 3
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "Name" : "SIGWX_UK_High_past",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+      "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_UKWAFC_SIGWX/High/index.json",
+      "File" : "%baseurl%/WRAP/wrap-pri/data/WX_UKWAFC_SIGWX/High/%basetime%/%validtime%.json",
+      "UpdateInterval" : 360
+    }
+}

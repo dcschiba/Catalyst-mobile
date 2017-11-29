@@ -1,0 +1,9 @@
+{
+    "Name" : "WX_JMA_Typhoon",
+    "DataHandler" : "IndexedGeoJSON",
+    "Attributes" : {
+        "Index" : "%baseurl%/WRAP/wrap-pri/data/WX_JMA_Typhoon_5days/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_JMA_Typhoon_5days/TropicalStorm/%id%.json",
+        "UpdateInterval" : 60
+    }
+}
