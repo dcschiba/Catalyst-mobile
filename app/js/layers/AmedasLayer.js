@@ -9,7 +9,7 @@ import css from '../../style/common/tooltip.css';
 class AmedasLayer extends WrapLayer {
   constructor(conf) {
     super(conf);
-    fetch(`./pri/conf/app/Amedas.json?t=${new Date().getTime()}`)
+    fetch(`http://localhost:50001/conf/app/Amedas.json?t=${new Date().getTime()}`)
       .then((response) => {
         if (response.ok) {
           response.json().then((json) => {

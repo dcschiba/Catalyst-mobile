@@ -91,6 +91,7 @@ class GpvMenu extends Component {
     return (
       <div>
         <CheckBox
+          id="gfs"
           value={basetimeidx}
           checked={gpvchecked}
           onClick={e => actions.gpvClick(e.target.checked)}

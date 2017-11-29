@@ -1,0 +1,85 @@
+{
+    "Name" : "JMA_Typhoon_5days",
+    "Renderer" : "Typhoon",
+    "Attributes" : {
+        "icon_width": 16,
+        "icon_height": 23,
+        "icon_offset_x": -8,
+        "icon_offset_y": -12,
+        "icon": {
+            "track" : {
+                "icon": "",
+                "class_icon" : {
+                    "STS": "img/tropicalstorm/STS.png",
+                    "TS": "img/tropicalstorm/TS.png",
+                    "TD": "img/tropicalstorm/TD.png",
+                    "TY": "img/tropicalstorm/TY.png",
+                    "LOW": "img/tropicalstorm/XT.png"
+                }
+            },
+            "analysis" : {
+                "icon": "img/tropicalstorm/analysis.png",
+                "class_icon" : {
+                    "STS": "",
+                    "TS": "",
+                    "TD": "",
+                    "TY": "",
+                    "LOW": ""
+                }
+            },
+            "estimate" : {
+                "icon": "img/tropicalstorm/analysis.png",
+                "class_icon" : {
+                    "STS": "img/tropicalstorm/STS.png",
+                    "TS": "img/tropicalstorm/TS.png",
+                    "TD": "img/tropicalstorm/TD.png",
+                    "TY": "img/tropicalstorm/TY.png",
+                    "LOW": "img/tropicalstorm/XT.png"
+                }
+            },
+            "forecast" : {
+                "icon": "",
+                "class_icon" : {
+                    "_STS": "img/tropicalstorm/STS.png",
+                    "_TS": "img/tropicalstorm/TS.png",
+                    "_TD": "img/tropicalstorm/TD.png",
+                    "_TY": "img/tropicalstorm/TY.png",
+                    "_LOW": "img/tropicalstorm/XT.png"
+                }
+            },
+	    "custom_icon": "img/tropicalstorm/custom.png"
+        },
+        "track_history_line_color":"#202080",
+        "track_history_line_width":2,
+        "forecst_track_line_color":"#ffffff",
+        "forecst_track_line_width":2,
+        "_forecst_track_line_dash":[4],
+        "forecst_circle_line_color":"#ffffff",
+        "forecst_circle_line_width":2,
+        "forecst_circle_line_dash":[4],
+        "forecst_area_line_color":"#ffffff",
+        "forecst_area_line_width":2,
+        "forecst_area_line_dash":[],
+        "wind_line_color_gale":"rgba(255,255,150,1.0)",
+        "wind_line_color_storm":"rgba(255,50,50,1.0)",
+        "wind_line_width":2,
+        "wind_fill_color_gale":"rgba(255,255,100,0.3)",
+        "wind_fill_color_storm":"rgba(255,50,50,0.3)",
+        "label_text_color":"#202020",
+        "label_edge_color":"#ffffff",
+        "label_offset_x":10,
+        "label_offset_y":10,
+        "label_font_size":12,
+        "date_format":"%local_year%年%0local_month%月%local_day%日%local_hour%時",
+        "_date_format":"%day% / %hour%Z",
+        "show_track_history": false,
+        "show_estimate": false,
+        "show_td_low": false,
+	    "show_datetime": true,
+	    "show_number" : true,
+        "show_forecast_track": true,
+        "show_forecast_circle": true,
+	"show_analysis_wind_radii": false,
+	"show_forecast_wind_radii": false
+    }
+}

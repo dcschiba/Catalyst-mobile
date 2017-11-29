@@ -1,0 +1,17 @@
+{
+    "Name" : "WNI_ANLSIS_SAT_WORLD_IR",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "_TimeList" : "https://wrapicdb:XsBqJdEc@wni-icdb.wni.com/sat/WNI_ANLSIS_SAT_WORLD_IR/list",
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_Satellite/WNI_ANLSIS_SAT_WORLD_IR_index.json",
+        "_File" : "https://wrapicdb:XsBqJdEc@wni-icdb.wni.com/sat/WNI_ANLSIS_SAT_WORLD_IR_%validtime%/%z%_%y%_%x%.png",
+        "File" : "%icdburl%/sat/WNI_ANLSIS_SAT_WORLD_IR_%validtime%/%z%_%y%_%x%.png",
+        "API" : "satdb",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 6,
+            "YCoordinate" : -1
+        },
+        "UpdateInterval" : 300
+    }
+}

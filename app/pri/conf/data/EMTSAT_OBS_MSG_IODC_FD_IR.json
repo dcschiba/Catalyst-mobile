@@ -1,0 +1,22 @@
+{
+    "Name" : "EMTSAT_OBS_MSG_IODC_FD_IR",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "%icdburl%/sat/EMTSAT_OBS_MSG_IODC_FD_IR/list",
+        "File" : "%icdburl%/sat/EMTSAT_OBS_MSG_IODC_FD_IR_%validtime%/%z%_%y%_%x%.png",
+        "_TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_Satellite/EMTSAT_OBS_MSG_IODC_FD_IR_index.json",
+        "API" : "satdb",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 6,
+            "YCoordinate" : -1,
+            "BoundingBox" : {
+                "West":-48.5,
+                "South":-90,
+                "East":131.5,
+                "North":90
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

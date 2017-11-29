@@ -4,6 +4,7 @@ import functionList from './functionList';
 import locale from './locale';
 import catalyst from './catalyst';
 import map from './map';
+import loading from './loading';
 import gpvgfs from './gpvgfs';
 import jp10ten from './jp10ten';
 import radar from './radar';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   locale,
   catalyst,
   map,
+  loading,
   gpvgfs,
   jp10ten,
   radar,

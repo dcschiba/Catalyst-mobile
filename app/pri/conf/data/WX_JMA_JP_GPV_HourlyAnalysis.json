@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_JMA_JP_GPV_HourlyAnalysis",
+    "DataHandler" : "GeoTiff",
+    "Attributes" : {
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_JMA_JP_GPV_HourlyAnalysis/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_JMA_JP_GPV_HourlyAnalysis/%element%/%level%/%basetime%/%validtime%.tiff",
+        "DataGrid" : {
+            "Width": 481,
+            "Height": 505,
+            "LatBase": 47.6,
+            "LonBase": 120.0,
+            "LatInterval": 0.05,
+            "LonInterval": 0.0625,
+            "MinValue": -20000,
+            "MaxValue": 20000
+        },
+        "UpdateInterval" : 600
+    }
+}

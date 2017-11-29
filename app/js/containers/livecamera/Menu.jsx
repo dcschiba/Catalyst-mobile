@@ -28,6 +28,7 @@ class Menu extends Component {
     return (
       <div className={css.ctrlpanel}>
         <Checkbox
+          id="livecamera"
           label={LIVE_CAMERA}
           checked={liveCmChecked}
           onClick={e => actions.liveCameraClick(e.target.checked)}

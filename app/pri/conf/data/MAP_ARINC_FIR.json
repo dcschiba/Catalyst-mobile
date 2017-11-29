@@ -1,0 +1,7 @@
+{
+    "Name" : "MAP_ARINC_FIR",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "%baseurl%/WRAP/wrap-pri/data/MAP_ARINC_FIR/ALL.json"
+    }
+}

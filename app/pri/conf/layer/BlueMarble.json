@@ -1,0 +1,10 @@
+{
+    "Name" : "BlueMarble",
+    "Renderer" : "Image",
+    "Attributes" : {
+        "style" : {
+            "default" : {
+            }
+        }
+    }
+}

@@ -63,6 +63,7 @@ class Menu extends Component {
     return (
       <div className={css.ctrlpanel}>
         <Checkbox
+          id="waveblend"
           label={<FormattedMessage id="waveblend.waveblend" />}
           checked={waveBlendChecked}
           onClick={e => Menu.showClick(e, actions)}

@@ -1,0 +1,26 @@
+{
+    "Name" : "WindFlow",
+    "Renderer" : "WindFlow",
+    "Attributes" : {
+        "style" : {
+            "default" : {
+                "palette_gradient": true,
+                "palette_step": 0.1,
+                "palette" : [
+                    {
+                        "value" : 2.0,
+                        "color" : "rgba(200,0,255,0.0)"
+                    },
+                    {
+                        "value" : 2.0,
+                        "color" : "rgba(0,0,255,0.7)"
+                    },
+                    {
+                        "value" : 60.0,
+                        "color" : "rgba(255,0,0,1.0)"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "Name" : "SIGMET",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "features" : [
+          {
+              "selector" : {
+                  "type" : "key_value",
+                  "key" : "elm_type",
+                  "value" : "VolcanicAshes"
+              },
+              "style" : {
+                  "default" : {
+                    "type" : "image",
+                    "width" : 32,
+                    "height" : 32,
+                    "offset_x" : -16,
+                    "offset_y" : -16,
+                    "url" : "img/sigwx_03.png"
+                  }
+              }
+          },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "data_type",
+                    "value" : "OBS"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "Polygon",
+                      "point_size" : 13,
+                      "point_color" : "#ffff22",
+                      "line_color": "#ff0000",
+                      "line_width": 2
+                    }
+                }
+            },
+            {
+                "selector" : {
+                    "type" : "key_value",
+                    "key" : "data_type",
+                    "value" : "FCST"
+                },
+                "style" : {
+                    "default" : {
+                      "type" : "Polygon",
+                      "point_size" : 13,
+                      "point_color" : "#ffff22",
+                      "line_color": "#F3D51A",
+                      "line_width": 2
+                    }
+                }
+            },
+            {
+                "style" : {
+                    "default" : {
+                      "type" : "Polygon",
+                      "point_size" : 10,
+                      "point_color" : "#ffd700",
+                      "line_color": "#ffd700",
+                      "line_width": 2
+                    }
+                }
+            }
+        ]
+    }
+}

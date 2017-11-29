@@ -1,4 +1,5 @@
 import React from 'react';
+import WRAP from 'WRAP';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
@@ -25,15 +26,19 @@ const initPushNotification = () => {
   });
 
   push.on('registration', (data) => {
-    alert('registration');
+    console.log(data);
     let url;
     if (process.NODE_ENV === 'production') {
-      url = 'http://192.168.10.4:3000';
+      url = 'https://catalyst-push.glitch.me';
     } else {
       url = 'http://192.168.10.4:3000';
     }
     const method = 'POST';
-    const body = JSON.stringify(data);
+    const body = {
+      token: data.token,
+      uuid: 456,
+      platform: 'Android',
+    };
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -53,7 +58,37 @@ const initPushNotification = () => {
   });
 };
 
-document.addEventListener('deviceready', initPushNotification, false);
+// ローカルサーバー起動イベント
+document.addEventListener('deviceready', () => {
+  initPushNotification();
+  window.cordova.plugins.CorHttpd.startServer(
+    {
+      www_root: '/data/data/com.wni.wrap/cache/',
+      port: 50000,
+    },
+    {},
+    () => alert('loadFS error'),
+  );
+  window.cordova.plugins.CorHttpd.startServer(
+    {
+      www_root: 'pri',
+      port: 50001,
+    },
+    {},
+    () => alert('loadFS error'),
+  );
+});
+
+
+document.addEventListener('cd', initPushNotification, false);
+document.addEventListener('offline', () => {
+  alert('offline');
+  WRAP.DH.set({ baseurl: 'http://localhost:50001' });
+}, false);
+document.addEventListener('online', () => {
+  alert('online');
+  WRAP.DH.set({ baseurl: 'https://pt-wrap01.wni.co.jp' });
+}, false);
 
 const muiTheme = getMuiTheme({
   palette: {

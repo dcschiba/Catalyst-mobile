@@ -1,0 +1,8 @@
+{
+    "Name" : "SIGWX_UK_High",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+      "File" : "%baseurl%/WRAP/wrap-pri/data/WX_UKWAFC_SIGWX_Latest/High/latest.json",
+      "UpdateInterval" : 60
+    }
+}

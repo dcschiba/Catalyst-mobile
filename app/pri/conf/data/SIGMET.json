@@ -1,0 +1,8 @@
+{
+    "Name" : "SIGMET",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_ALL_SIGMET_Latest/latest.json",
+        "UpdateInterval" : 60
+    }
+}
