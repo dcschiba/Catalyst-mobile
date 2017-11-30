@@ -17,6 +17,20 @@ const propTypes = {
   jp10ten: PropTypes.object.isRequired,
 };
 
+const styles = {
+  main_button: {
+    padding: '20px',
+    border: 'solid 0.5px lightgray',
+    margin: 0,
+  },
+  padding: {
+    padding: '20px',
+  },
+  radio: {
+    padding: '10px 20px',
+  },
+};
+
 class Menu extends Component {
   static showClick(e, actions) {
     actions.jptenClick(e.target.checked);
@@ -54,12 +68,13 @@ class Menu extends Component {
           checked={showchecked}
           onClick={e => Menu.showClick(e, actions)}
           label={'JP 10ten'}
+          style={styles.main_button}
         />
         <SelectField
           value={validtimeidx}
           floatingLabelText="validtime"
           {...subDisabled}
-          style={css.selectTime}
+          style={{ ...css.selectTime, ...styles.padding }}
           onChange={(event, index, value) => actions.jptenValidtimeChange(value)}
         >
           {validtimeItems}
@@ -74,31 +89,37 @@ class Menu extends Component {
               {...subDisabled}
               value="0"
               label="最新"
+              style={styles.radio}
             />
             <RadioButton
               {...subDisabled}
               value="10"
               label="過去１０分"
+              style={styles.radio}
             />
             <RadioButton
               {...subDisabled}
               value="30"
               label="過去３０分"
+              style={styles.radio}
             />
             <RadioButton
               {...subDisabled}
               value="60"
               label="過去１時間"
+              style={styles.radio}
             />
             <RadioButton
               {...subDisabled}
               value="180"
               label="過去３時間"
+              style={styles.radio}
             />
             <RadioButton
               {...subDisabled}
               value="360"
               label="過去６時間"
+              style={styles.radio}
             />
           </RadioButtonGroup>
         </div>

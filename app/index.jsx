@@ -1,5 +1,5 @@
 import React from 'react';
-import WRAP from 'WRAP';
+// import WRAP from 'WRAP';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
@@ -58,7 +58,7 @@ const initPushNotification = () => {
   });
 };
 
-// ローカルサーバー起動イベント
+// ���[�J���T�[�o�[�N���C�x���g
 document.addEventListener('deviceready', () => {
   initPushNotification();
   window.cordova.plugins.CorHttpd.startServer(
@@ -80,15 +80,17 @@ document.addEventListener('deviceready', () => {
 });
 
 
-document.addEventListener('cd', initPushNotification, false);
-document.addEventListener('offline', () => {
-  alert('offline');
-  WRAP.DH.set({ baseurl: 'http://localhost:50001' });
-}, false);
-document.addEventListener('online', () => {
-  alert('online');
-  WRAP.DH.set({ baseurl: 'https://pt-wrap01.wni.co.jp' });
-}, false);
+// document.addEventListener('cd', initPushNotification, false);
+// WRAP.DH.set({ baseurl: 'http://localhost:50001' });
+
+// document.addEventListener('offline', () => {
+//   alert('offline');
+//   WRAP.DH.set({ baseurl: 'http://localhost:50001' });
+// }, false);
+// document.addEventListener('online', () => {
+//   alert('online');
+//   WRAP.DH.set({ baseurl: 'https://pt-wrap01.wni.co.jp' });
+// }, false);
 
 const muiTheme = getMuiTheme({
   palette: {

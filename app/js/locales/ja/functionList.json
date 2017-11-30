@@ -5,7 +5,7 @@
         "path": "gfs",
         "isExternal": false,
         "published": true,
-        "target": ["LAND", "SKY"]
+        "target": ["LAND", "SKY"],
     },
     {
         "name": "Radar",

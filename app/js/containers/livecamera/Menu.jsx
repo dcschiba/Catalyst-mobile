@@ -14,7 +14,19 @@ const propTypes = {
   actions: PropTypes.object.isRequired,
   liveCmChecked: PropTypes.bool.isRequired,
 };
-
+const styles = {
+  main_button: {
+    padding: '20px',
+    border: 'solid 0.5px lightgray',
+    margin: 0,
+  },
+  padding: {
+    padding: '20px',
+  },
+  radio: {
+    padding: '10px 20px',
+  },
+};
 class Menu extends Component {
   componentWillUnmount() {
     const { actions } = this.props;
@@ -32,6 +44,7 @@ class Menu extends Component {
           label={LIVE_CAMERA}
           checked={liveCmChecked}
           onClick={e => actions.liveCameraClick(e.target.checked)}
+          style={styles.main_button}
         />
       </div>
     );

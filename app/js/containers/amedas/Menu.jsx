@@ -17,6 +17,20 @@ const propTypes = {
   amedas: PropTypes.object.isRequired,
 };
 
+const styles = {
+  main_button: {
+    padding: '20px',
+    border: 'solid 0.5px lightgray',
+    margin: 0,
+  },
+  padding: {
+    padding: '20px',
+  },
+  radio: {
+    padding: '10px 20px',
+  },
+};
+
 class Menu extends Component {
   static showClick(e, actions) {
     actions.amedasClick(e.target.checked);
@@ -51,12 +65,13 @@ class Menu extends Component {
           checked={showchecked}
           onClick={e => Menu.showClick(e, actions)}
           label={<FormattedMessage id="amedas.amedas" />}
+          style={styles.main_button}
         />
         <SelectField
           floatingLabelText={<FormattedMessage id="common.validtime" />}
           value={validtimeidx}
           {...subDisabled}
-          style={css.selectTime}
+          style={{ ...css.selectTime, ...styles.padding }}
           onChange={(event, index, value) => actions.amedasValidtimeChange(value)}
         >
           {validtimeItems}
@@ -67,6 +82,7 @@ class Menu extends Component {
             checked={windchecked}
             onClick={e => actions.amedasWindClick(e.target.checked)}
             label={<FormattedMessage id="common.wind" />}
+            style={styles.padding}
           />
           <RadioButtonGroup
             name="AMEDAS_RG"
@@ -77,21 +93,25 @@ class Menu extends Component {
               disabled={!showchecked}
               value="Sunshine"
               label={<FormattedMessage id="common.sunshine.withunit" />}
+              style={styles.radio}
             />
             <RadioButton
               disabled={!showchecked}
               value="Temperature"
               label={<FormattedMessage id="common.temperature.withunit" />}
+              style={styles.radio}
             />
             <RadioButton
               disabled={!showchecked}
               value="Precipitation"
               label={<FormattedMessage id="common.precipitation.withunit" />}
+              style={styles.radio}
             />
             <RadioButton
               disabled={!showchecked}
               value="SnowDepth"
               label={<FormattedMessage id="common.snowdepth.withunit" />}
+              style={styles.radio}
             />
           </RadioButtonGroup>
         </div>

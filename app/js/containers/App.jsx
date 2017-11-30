@@ -16,7 +16,7 @@ const propTypes = {
 };
 
 const themeColor = {
-  main: { backgroundColor: '#505050', color: '#ffffff' },
+  main: { backgroundColor: '#333333', color: '#ffffff' },
   second: { backgroundColor: '#707070', color: '#ffffff' },
   ground: { backgroundColor: '#ffffff', color: '#505050' },
   accent: '#ff7710',

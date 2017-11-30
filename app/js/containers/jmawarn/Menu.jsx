@@ -13,6 +13,17 @@ const propTypes = {
   jmawarnChecked: PropTypes.bool.isRequired,
 };
 
+const styles = {
+  main_button: {
+    padding: '20px',
+    border: 'solid 0.5px lightgray',
+    margin: 0,
+  },
+  padding: {
+    padding: '20px',
+  },
+};
+
 class Menu extends Component {
   static showClick(e, actions) {
     actions.jmawarnClick(e.target.checked);
@@ -35,6 +46,7 @@ class Menu extends Component {
           label="JMA Warn"
           checked={jmawarnChecked}
           onClick={e => Menu.showClick(e, actions)}
+          style={styles.main_button}
         />
       </div>
     );

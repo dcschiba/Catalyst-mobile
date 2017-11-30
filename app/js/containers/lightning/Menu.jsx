@@ -18,6 +18,17 @@ const propTypes = {
   lightningLidenChecked: PropTypes.bool.isRequired,
 };
 
+const styles = {
+  main_button: {
+    padding: '20px',
+    border: 'solid 0.5px lightgray',
+    margin: 0,
+  },
+  padding: {
+    padding: '20px',
+  },
+};
+
 class Menu extends Component {
   componentWillUnmount() {
     const { actions } = this.props;
@@ -40,16 +51,19 @@ class Menu extends Component {
           label={LIGHTNING}
           checked={lightningJpChecked}
           onClick={e => actions.lightningJpClick(e.target.checked)}
+          style={styles.padding}
         />
         <Checkbox
           label={LIGHTNING_KMA}
           checked={lightningKmaChecked}
           onClick={e => actions.lightningKmaClick(e.target.checked)}
+          style={styles.padding}
         />
         <Checkbox
           label={LIGHTNING_LIDEN}
           checked={lightningLidenChecked}
           onClick={e => actions.lightningLidenClick(e.target.checked)}
+          style={styles.padding}
         />
       </div>
     );

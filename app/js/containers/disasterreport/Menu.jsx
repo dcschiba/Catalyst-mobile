@@ -14,6 +14,20 @@ const propTypes = {
   showtype: PropTypes.string.isRequired,
 };
 
+const styles = {
+  main_button: {
+    padding: '20px',
+    border: 'solid 0.5px lightgray',
+    margin: 0,
+  },
+  padding: {
+    padding: '20px',
+  },
+  radio: {
+    padding: '10px 20px',
+  },
+};
+
 class Menu extends Component {
   render() {
     const {
@@ -29,6 +43,7 @@ class Menu extends Component {
           label="災害情報"
           checked={disasterReportChecked}
           onClick={e => actions.disasterReportClick(e.target.checked)}
+          style={styles.main_button}
         />
         <div className={css.bottomCheckBox}>
           <RadioButtonGroup
@@ -40,21 +55,25 @@ class Menu extends Component {
               disabled={!disasterReportChecked}
               value="1"
               label="過去１時間"
+              style={styles.radio}
             />
             <RadioButton
               disabled={!disasterReportChecked}
               value="24"
               label="過去24時間"
+              style={styles.radio}
             />
             <RadioButton
               disabled={!disasterReportChecked}
               value="72"
               label="過去72時間"
+              style={styles.radio}
             />
             <RadioButton
               disabled={!disasterReportChecked}
               value="168"
               label="過去一週間"
+              style={styles.radio}
             />
           </RadioButtonGroup>
         </div>

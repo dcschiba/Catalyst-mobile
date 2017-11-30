@@ -88,7 +88,7 @@ class MapConsole extends Component {
         width: '100%',
         overflowX: 'scroll',
         overflowY: 'hidden',
-        ...themeColor.main,
+        backgroundColor: '#f5f5f5',
       },
       tabs: {
         position: 'relative',
@@ -99,6 +99,21 @@ class MapConsole extends Component {
         height: '60px',
         width: tabSize,
         overflow: 'hidden',
+        backgroundColor: '#f5f5f5',
+        color: '#000000',
+      },
+    };
+    const styles = {
+      slide_button: {
+        height: '100%',
+        width: '30px',
+        textAlign: 'center',
+        verticalAlign: 'middle',
+        padding: 0,
+        ...themeColor.main,
+      },
+      trigger_wrapper: {
+        width: `calc(${tabList.length} * 60px)`,
       },
     };
     if (tabList.length <= 2) {
@@ -112,30 +127,35 @@ class MapConsole extends Component {
             <LocationIcon style={{ fill: '#4285f4' }} />
           </FloatingActionButton>
         </div>
-        <div className={css.contents_trigger_area}>
-          {tabList.map(contents => (
-            <button
-              onClick={() => {
-                document.getElementById(contents).click();
-                this.turnActive(contents, !this.state.isActive[contents]);
-              }}
-              className={css.contents_trigger} style={themeColor.main}
-            >{contents.slice(0, 5).toUpperCase()}..
+        <div className={css.footer}>
+          <SlideLeftIcon style={styles.slide_button} />
+          <div className={css.contents_trigger_area}>
+            <div className={css.contents_trigger_wrapper} style={styles.trigger_wrapper}>
+              {tabList.map(contents => (
+                <button
+                  onClick={() => {
+                    document.getElementById(contents).click();
+                    this.turnActive(contents, !this.state.isActive[contents]);
+                  }}
+                  className={css.contents_trigger} style={themeColor.main}
+                >{contents.slice(0, 4).toUpperCase()}..
               <NeonButton isActive={this.state.isActive[contents]} />
-            </button>
-          ))}
+                </button>
+              ))}
+            </div>
+          </div>
+          <SlideRightIcon style={styles.slide_button} />
         </div>
-
         <div className={wrapper}>
           <div className={css.menu} style={themeColor.ground}>
             <div className={css.tab_area}>
               <button
                 onClick={() => this.menuForward(false)}
-                style={themeColor.main}
+                style={{ backgroundColor: '#f5f5f5' }}
                 className={css.slide_button}
               >
                 <SlideLeftIcon
-                  color={tabState !== 0 ? themeColor.main.color : themeColor.main.backgroundColor}
+                  color={tabState !== 0 ? 'black' : '#f5f5f5'}
                 />
               </button>
               <div style={tabStyle.wrapper} ref={(node) => { this.tabs = node; }}>
@@ -159,12 +179,11 @@ class MapConsole extends Component {
               </div>
               <button
                 onClick={() => this.menuForward(true)}
-                style={themeColor.main}
+                style={{ backgroundColor: '#f5f5f5' }}
                 className={css.slide_button}
               >
                 <SlideRightIcon
-                  color={tabState !== tabList.length - 1 ?
-                    themeColor.main.color : themeColor.main.backgroundColor}
+                  color={tabState !== 0 ? 'black' : '#f5f5f5'}
                 />
               </button>
             </div>
