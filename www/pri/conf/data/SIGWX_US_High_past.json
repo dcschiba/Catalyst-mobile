@@ -1,9 +1,0 @@
-{
-    "Name" : "SIGWX_US_Hight_past",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-      "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_USWAFC_SIGWX/High/index.json",
-      "File" : "%baseurl%/WRAP/wrap-pri/data/WX_USWAFC_SIGWX/High/%basetime%/%validtime%.json",
-      "UpdateInterval" : 360
-    }
-}

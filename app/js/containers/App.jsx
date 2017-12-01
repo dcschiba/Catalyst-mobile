@@ -25,18 +25,16 @@ const themeColor = {
 const styles = {
   appBar: {
     ...themeColor.main,
-    height: '40px',
+    height: '56px',
   },
   title: {
     fontSize: '1.15em',
-    textAlign: 'center',
-    height: '40px',
-    lineHeight: '40px',
+    height: '56px',
+    lineHeight: '58px',
   },
   settingButton: {
-    padding: '0px',
+    padding: '8px 14px 10px 14px',
     margin: '0px',
-    height: '20px',
   },
 };
 
@@ -56,7 +54,9 @@ class App extends Component {
           titleStyle={styles.title}
           style={styles.appBar}
           showMenuIconButton={false}
-          iconElementRight={<SettingIcon color={themeColor.main.color} />}
+          iconElementRight={
+            <SettingIcon color={themeColor.main.color} style={styles.settingButton} />
+          }
         />
         <div className={css.contents}>
           {React.cloneElement(children, { themeColor, locale })}

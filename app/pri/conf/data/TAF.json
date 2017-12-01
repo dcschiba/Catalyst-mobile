@@ -3,7 +3,7 @@
     "DataHandler" : "DataJSON",
     "Attributes" : {
         "PointFile" : "%baseurl%/WRAP/wrap-pri/data/MAP_ARINC_Airport/ALL.json",
-        "DataFile" : "/pri/data/WX_ALL_TAF_Latest/latest.json",
+        "DataFile" : "%baseurl%/WRAP/wrap-pri/data/WX_ALL_TAF_Latest/latest.json",
         "DataStructure" : {
           "geo_position_key" : "icao"
         },

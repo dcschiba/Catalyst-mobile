@@ -11,7 +11,12 @@ const propTypes = {
 
 const styles = {
   skip: {
+    width: '120px',
+    height: '70px',
     color: 'rgb(0, 109, 185)',
+  },
+  labelStyle: {
+    fontSize: '1.4em',
   },
 };
 
@@ -22,11 +27,13 @@ class Launch extends Component {
 
   render() {
     return (
-      <div className={css.wrapper}>
+      <button className={css.wrapper} onClick={() => hashHistory.push('start')} >
         <img src={Logo} className={css.logo} alt="weathernews-logo" />
         <img src={ConceptImg} className={css.message} alt="Services Concept" />
-        <div className={css.skip}><FlatButton label="Skip" style={styles.skip} onClick={() => hashHistory.push('start')} /></div>
-      </div>
+        <div className={css.skip}>
+          <FlatButton label="Skip" style={styles.skip} labelStyle={styles.labelStyle} />
+        </div>
+      </button>
     );
   }
 

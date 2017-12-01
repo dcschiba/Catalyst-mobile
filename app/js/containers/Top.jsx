@@ -18,16 +18,16 @@ const propTypes = {
 
 const styles = {
   tab: {
-    height: '40px',
+    height: '56px',
   },
   button: {
     width: '90%',
-    height: '40px',
+    height: '50px',
     margin: 'auto',
   },
   disabled: {
     backgroundColor: '#cccccc',
-    color: '999999',
+    color: '#999999',
   },
 };
 
@@ -72,7 +72,7 @@ class Top extends Component {
 
     return (
       <div className={css.wrapper}>
-        <div className={css.title} style={themeColor.main}>コンテンツ一覧</div>
+        <div className={css.title_wrapper} style={themeColor.main}>コンテンツ一覧</div>
         <div className={css.contents}>
           <Tabs
             value={this.state.value}
@@ -115,7 +115,11 @@ class Top extends Component {
         <div className={css.button}>
           <FlatButton
             label="決定"
-            style={{ ...styles.button, ...themeColor.second }}
+            style={{
+              ...styles.button,
+              ...themeColor.second,
+              ...checkedFunc.length === 0 ? styles.disabled : {},
+            }}
             onClick={() => hashHistory.push('app/main')}
             disabled={checkedFunc.length === 0}
           />

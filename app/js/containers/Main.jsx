@@ -37,10 +37,13 @@ class Main extends Component {
     this.props.actions.startLoading();
   }
   mapInitedCallback(map) {
-    const { confLayerPath, confDataPath, layers } = mapsetting;
+    const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
+    // if(offline) {
+    //   dhkeyoption.baseurl = localhost
+    // }
     const { checkedFunc, actions } = this.props;
     const mapDiv = document.getElementById(mapId);
-    WrapController.initWRAP(confDataPath);  // DHが参照するデータの設定ファイルの格納先をセット
+    WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
     WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
     WrapController.setMapdiv(mapDiv);
     WrapController.initLayer(

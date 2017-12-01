@@ -3,7 +3,7 @@
     "DataHandler" : "DataJSON",
     "Attributes" : {
         "PointFile" : "%baseurl%/WRAP/wrap-pri/data/MAP_JMA_Warn_Area/ALL.json",
-        "DataFile" : "/pri/data/WX_JMA_Warn_Latest/matome_latest.json",
+        "DataFile" : "%baseurl%/WRAP/wrap-pri/data/WX_JMA_Warn_Latest/matome_latest.json",
         "DataStructure" : {
           "geo_position_key" : "code"
         },

@@ -58,7 +58,6 @@ const initPushNotification = () => {
   });
 };
 
-// ���[�J���T�[�o�[�N���C�x���g
 document.addEventListener('deviceready', () => {
   initPushNotification();
   window.cordova.plugins.CorHttpd.startServer(

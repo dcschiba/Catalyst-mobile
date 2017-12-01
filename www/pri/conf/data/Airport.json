@@ -1,8 +1,0 @@
-{
-    "Name" : "Airport",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "_File" : "./pri/data/Airport/Airport.json",
-        "File" : "%baseurl%/WRAP/wrap-pri/data/MAP_ARINC_Airport/ALL.json"
-    }
-}
