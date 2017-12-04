@@ -7,22 +7,15 @@
     overflow-y: hidden;
 }
 
-.back_button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
+.top_area {
+    background-color: transparent;    
     position: absolute;
     top: 0;
     left: 0;
     height: 40px;
-    padding: 8px;
-    width: 100px;
+    padding-top: 10px;
+    width: 100%;
     margin: 0;
     display: flex;
     align-items: center;
-}
-
-.back_button_label {
-    margin: 4px;
 }

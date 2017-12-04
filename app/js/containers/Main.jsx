@@ -4,13 +4,17 @@ import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import OpenLayers from 'WRAP/UI/OpenLayers';
 import WrapController from 'WRAP/UI/WrapController';
 import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
+import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
+
 // import GoogleMap from 'WRAP/UI/GoogleMap';
 import mapsetting from '../constants/map/mapsetting-newest.json';
 import MapConsole from '../components/catalyst/MapConsole';
+import FooterButtons from '../components/catalyst/FooterButtons';
+import IconButton from '../components/catalyst/IconButton';
 import Loading from '../components/catalyst/Loading';
+import GoogleMap from '../WRAP-UI/GoogleMap';
 import * as LayerConfig from '../layers/LayerConfig';
 import * as LoadingActions from '../actions/loading';
 import * as LayerActions from '../actions/layer';
@@ -23,6 +27,15 @@ const propTypes = {
   themeColor: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
+};
+
+const styles = {
+  refresh_button: {
+    backgroundColor: '#173588',
+  },
+  back_button: {
+    color: '#000000',
+  },
 };
 
 const mapId = 'map';
@@ -38,13 +51,10 @@ class Main extends Component {
   }
   mapInitedCallback(map) {
     const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
-    // if(offline) {
-    //   dhkeyoption.baseurl = localhost
-    // }
     const { checkedFunc, actions } = this.props;
     const mapDiv = document.getElementById(mapId);
     WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
-    WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
+    WrapController.initGoogleMap(map); // Geoにmapオブジェクトをセット
     WrapController.setMapdiv(mapDiv);
     WrapController.initLayer(
       layers, // レイヤー設定の定義
@@ -78,17 +88,29 @@ class Main extends Component {
         <div className={css.wrapper}>
           <Loading show={isLoading} />
           <div id={mapId} style={{ height: 'calc(100% - 60px)', width: '100%', position: 'relative' }}>
-            <OpenLayers
+            <GoogleMap
               mapSetting={mapsetting.mapoption}
-              mapSource="http://localhost:50001/map/openStreetMap/{z}/{x}/{y}.png"
               mapId={gmapId}
+              isHide={false}
               mapInitedCallback={this.mapInitedCallback}
             />
           </div>
-          <button className={css.back_button} onClick={() => hashHistory.push('app/top')}>
-            <ArrowIcon />
-            <div className={css.back_button_label}>Back</div>
-          </button>
+          <div className={css.top_area}>
+            <IconButton
+              label="Back"
+              className={css.refresh_button}
+              Icon={ArrowIcon}
+              style={styles.back_button}
+              onClick={() => hashHistory.push('app/top')}
+            />
+            <IconButton
+              label="refresh"
+              className={css.refresh_button}
+              Icon={RefreshIcon}
+              style={styles.refresh_button}
+            />
+          </div>
+          <FooterButtons tabList={checkedFunc} themeColor={themeColor} />
           <MapConsole tabList={checkedFunc} themeColor={themeColor} />
         </div>
       </IntlProvider>

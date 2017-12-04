@@ -16,7 +16,7 @@
     "lat_ts": 45
   },
   "dhkeyoption":{
-    "baseurl": "http://localhost:50001",
+    "baseurl": "https://pt-wrap01.wni.co.jp",
     "icdburl": "https://wni-icdb.wni.com",
     "pdburl": "https://wni-pdb.wni.com",
     "apppath": "https://pt-wrap01.wni.co.jp/Catalyst/"

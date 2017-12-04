@@ -2,12 +2,13 @@
 }
 
 .title_wrapper {
-    height: 30px;
+    height: 35px;
     width: 100%;
     margin: 0;
     padding: 0;
     font-size: 1.1em;
-    
+    text-align: center;
+    line-height: 35px;
 }
 
 .contents {
@@ -16,7 +17,7 @@
 }
 .list {
     margin: 0;
-    height: calc(100vh - 56px - 40px - 56px - 80px);
+    height: calc(100vh - 50px - 35px - 56px - 80px);
     overflow-y: scroll;
 }
 .button {

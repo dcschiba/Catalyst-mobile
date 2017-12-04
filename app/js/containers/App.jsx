@@ -25,15 +25,14 @@ const themeColor = {
 const styles = {
   appBar: {
     ...themeColor.main,
-    height: '56px',
+    height: '50px',
   },
   title: {
     fontSize: '1.15em',
-    height: '56px',
-    lineHeight: '58px',
+    lineHeight: '50px',
   },
   settingButton: {
-    padding: '8px 14px 10px 14px',
+    padding: '6px 14px 6px 14px',
     margin: '0px',
   },
 };
