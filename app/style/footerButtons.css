@@ -38,7 +38,8 @@
     height: 100%;
     width: 80px;
     padding: 0;
-    margin: 0;
+    margin-bottom: 0;
+    font-size: 0.75em;
 }
 
 .location_button {
@@ -47,6 +48,16 @@
     height: 60px;
     margin: 0;
     padding: 0;
-    bottom: 120px;
+    bottom: 90px;
     right: 20px;
+}
+
+.label {
+    width: calc(100% - 20px);    
+    padding: 0 10px;
+    line-height: 16px;
+    height: 18px;
+    white-space: nowrap;
+    overflow: hidden;    
+    text-overflow: ellipsis;
 }

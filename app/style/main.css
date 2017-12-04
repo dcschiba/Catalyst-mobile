@@ -4,7 +4,7 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 .top_area {
@@ -17,5 +17,10 @@
     width: 100%;
     margin: 0;
     display: flex;
-    align-items: center;
+    justify-content: space-between;    
+    align-items: top;
+}
+
+.top_item {
+    width: calc(100% / 3);
 }

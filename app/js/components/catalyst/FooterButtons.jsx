@@ -11,6 +11,7 @@ import NeonButton from './NeonButton';
 const propTypes = {
   tabList: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
+  activeFlags: PropTypes.object.isRequired,
 };
 
 class FooterButtons extends Component {
@@ -19,21 +20,10 @@ class FooterButtons extends Component {
     this.state = {
       tabState: 0,
       isMenuShown: false,
-      isActive: {},
     };
-    this.props.tabList.forEach((content) => {
-      this.state.isActive[content] = false;
-    });
   }
-  turnActive(contents, flag) {
-    this.setState({
-      isActive: { ...this.state.isActive, [contents]: flag },
-    });
-  }
-
   render() {
-    const { tabList, themeColor } = this.props;
-
+    const { tabList, themeColor, activeFlags } = this.props;
     const styles = {
       slide_button: {
         height: '100%',
@@ -46,13 +36,25 @@ class FooterButtons extends Component {
       trigger_wrapper: {
         width: `calc(${tabList.length} * 60px)`,
       },
+      floating_button_label: {
+        fontSize: '0.7em',
+        position: 'relative',
+        top: '-46px',
+        color: '#000000',
+      },
+      floating_button_icon: {
+        fill: '#4285f4',
+        position: 'relative',
+        top: '-8px',
+      },
     };
 
     return (
       <div>
         <div className={css.location_button}>
           <FloatingActionButton backgroundColor="white">
-            <LocationIcon style={{ fill: '#4285f4' }} />
+            <LocationIcon style={styles.floating_button_icon} />
+            <div style={styles.floating_button_label}>現在地</div>
           </FloatingActionButton>
         </div>
         <div className={css.footer}>
@@ -61,13 +63,14 @@ class FooterButtons extends Component {
             <div className={css.contents_trigger_wrapper} style={styles.trigger_wrapper}>
               {tabList.map(contents => (
                 <button
-                  onClick={() => {
-                    document.getElementById(contents).click();
-                    this.turnActive(contents, !this.state.isActive[contents]);
-                  }}
-                  className={css.contents_trigger} style={themeColor.main}
-                >{contents.slice(0, 4).toUpperCase()}..
-              <NeonButton isActive={this.state.isActive[contents]} />
+                  onClick={() => document.getElementById(contents.path).click()}
+                  className={css.contents_trigger}
+                  style={themeColor.main}
+                >
+                  <div className={css.label}>
+                    {contents.name.toUpperCase()}
+                  </div>
+                  <NeonButton isActive={activeFlags[contents.path]} />
                 </button>
               ))}
             </div>

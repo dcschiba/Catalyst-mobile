@@ -45,13 +45,11 @@ class Top extends Component {
       value,
     });
   }
-  selectFunction(value, name) {
+  selectFunction(value, name, path) {
     if (value.target.checked) {
-      this.props.actions.addFunction(name);
-      // this.props.actions.removeFunction(name);
+      this.props.actions.addFunction({ name, path });
     } else {
       this.props.actions.removeFunction(name);
-      // this.props.actions.addFunction(name);
     }
   }
   render() {
@@ -70,6 +68,7 @@ class Top extends Component {
       }
     }
 
+    const flags = checkedFunc.map(func => func.path);
     return (
       <div className={css.wrapper}>
         <div className={css.title_wrapper} style={themeColor.main}>コンテンツ一覧</div>
@@ -87,7 +86,7 @@ class Top extends Component {
               <div className={css.list}>
                 <FunctionList
                   data={functionList}
-                  flags={checkedFunc}
+                  flags={flags}
                   itemClickAction={this.selectFunction}
                 />
               </div>
@@ -103,7 +102,7 @@ class Top extends Component {
                 <div className={css.list}>
                   <FunctionList
                     data={functionList.filter(item => item.target.indexOf(target) !== -1)}
-                    flags={checkedFunc}
+                    flags={flags}
                     itemClickAction={this.selectFunction}
                   />
                 </div>

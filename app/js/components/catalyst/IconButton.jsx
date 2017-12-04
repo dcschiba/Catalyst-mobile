@@ -6,6 +6,7 @@ const propTypes = {
   label: PropTypes.string,
   onClick: PropTypes.func,
   style: PropTypes.object,
+  iconStyle: PropTypes.object,
   className: PropTypes.any,
 };
 
@@ -32,11 +33,11 @@ const defaultStyle = {
 
 class IconButton extends Component {
   render() {
-    const { label = '', onClick = {}, className = {}, Icon } = this.props;
+    const { label = '', onClick = {}, className = {}, Icon, iconStyle } = this.props;
     const style = { ...defaultStyle.button_style, ...this.props.style };
     return (
       <button onClick={() => onClick()} style={style} className={className}>
-        {Icon ? <Icon style={defaultStyle.icon_style} /> : null}
+        {Icon ? <Icon style={{ ...defaultStyle.icon_style, ...iconStyle }} /> : null}
         {label}
       </button>
     );

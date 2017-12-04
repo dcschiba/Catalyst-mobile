@@ -1,0 +1,33 @@
+.wrapper {
+    position: relative;
+    transition: all 0.3s ease;
+    background-color: rgba(20,20,20,0.7);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 0.65em;
+    float: right;
+    overflow: hidden;
+    box-shadow: 2px 3px 6px #777777;
+}
+
+.line {
+    transition: all 0.3s ease;    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+}
+
+.base_time {
+    white-space: nowrap;
+}
+
+.name {
+    white-space: nowrap;
+    overflow: hidden;    
+    text-overflow: ellipsis;
+    text-align: left;
+}

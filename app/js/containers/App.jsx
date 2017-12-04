@@ -26,6 +26,7 @@ const styles = {
   appBar: {
     ...themeColor.main,
     height: '50px',
+    boxShadow: '0px 1px 8px #333333',
   },
   title: {
     fontSize: '1.15em',

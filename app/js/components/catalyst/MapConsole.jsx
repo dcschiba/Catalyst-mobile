@@ -82,10 +82,17 @@ class MapConsole extends Component {
       },
       tab: {
         height: '60px',
-        width: tabSize,
-        overflow: 'hidden',
+        width: `calc(${tabSize} - 12px)`,
+        padding: '0 6px',
         backgroundColor: '#f5f5f5',
         color: '#000000',
+        overflow: 'hidden',
+      },
+
+      label: {
+        width: '100%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
       },
     };
     const styles = {
@@ -116,15 +123,15 @@ class MapConsole extends Component {
                   onChange={this.handleChange}
                   // onClick={() => this.menuToggle(true)}
                   inkBarStyle={{ backgroundColor: themeColor.accent }}
-                  className={css.tabs}
                   style={tabStyle.tabs}
                 >
                   {tabList.map((item, index) => (
                     <Tab
                       key={index}
-                      label={item}
+                      label={<div style={tabStyle.label}>{item.name}</div>}
                       value={Number(index)}
                       style={tabStyle.tab}
+                      buttonStyle={tabStyle.button}
                     />
                   ))}
                 </Tabs>
@@ -143,7 +150,7 @@ class MapConsole extends Component {
             >
               {tabList.map((item, index) => {
                 /* eslint-disable */
-                const Menu = require(`../../containers/${item}/Menu`).default;
+                const Menu = require(`../../containers/${item.path}/Menu`).default;
                 return (
                   <div key={index} className={css.console_area}>
                     <Menu />
@@ -154,7 +161,7 @@ class MapConsole extends Component {
           </div>
           <button
             onClick={() => this.menuToggle(!isMenuShown)}
-            className={css.spread_button}           
+            className={css.spread_button}
           >
             {isMenuShown ? <div><CloseIcon /><div>close</div></div>
               : <div><UpIcon /><div>control</div></div>}

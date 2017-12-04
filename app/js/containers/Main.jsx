@@ -10,8 +10,10 @@ import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
 
 // import GoogleMap from 'WRAP/UI/GoogleMap';
 import mapsetting from '../constants/map/mapsetting-newest.json';
+import BaseTime from '../components/catalyst/BaseTime';
 import MapConsole from '../components/catalyst/MapConsole';
 import FooterButtons from '../components/catalyst/FooterButtons';
+import Legend from '../components/catalyst/Legend';
 import IconButton from '../components/catalyst/IconButton';
 import Loading from '../components/catalyst/Loading';
 import GoogleMap from '../WRAP-UI/GoogleMap';
@@ -27,14 +29,18 @@ const propTypes = {
   themeColor: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  activeFlags: PropTypes.object.isRequired,
 };
 
 const styles = {
   refresh_button: {
     backgroundColor: '#173588',
+    margin: '0 auto',
+    boxShadow: '2px 3px 6px #777777',
   },
   back_button: {
     color: '#000000',
+    float: 'left',
   },
 };
 
@@ -44,10 +50,27 @@ const gmapId = 'gmap';
 class Main extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isShowLegend: false,
+      isSpreadBaseTime: false,
+    };
     this.mapInitedCallback = this.mapInitedCallback.bind(this);
+    this.legendToggle = this.legendToggle.bind(this);
+    this.baseTimeToggle = this.baseTimeToggle.bind(this);
   }
   componentWillMount() {
     this.props.actions.startLoading();
+  }
+  legendToggle(flag) {
+    this.setState({
+      isShowLegend: flag,
+    });
+  }
+  baseTimeToggle(flag) {
+    this.setState({
+      isSpreadBaseTime: flag,
+      isShowLegend: this.props.checkedFunc.length > 3 ? false : this.state.isShowLegend,
+    });
   }
   mapInitedCallback(map) {
     const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
@@ -71,7 +94,7 @@ class Main extends Component {
     actions.stopLoading();
   }
   render() {
-    const { checkedFunc, themeColor, locale, isLoading } = this.props;
+    const { checkedFunc, themeColor, locale, isLoading, activeFlags } = this.props;
     /* eslint-disable global-require,import/no-dynamic-require */
     let messages;
     try {
@@ -96,21 +119,39 @@ class Main extends Component {
             />
           </div>
           <div className={css.top_area}>
-            <IconButton
-              label="Back"
-              className={css.refresh_button}
-              Icon={ArrowIcon}
-              style={styles.back_button}
-              onClick={() => hashHistory.push('app/top')}
-            />
-            <IconButton
-              label="refresh"
-              className={css.refresh_button}
-              Icon={RefreshIcon}
-              style={styles.refresh_button}
-            />
+            <div className={css.top_item}>
+              <IconButton
+                label="Back"
+                className={css.backh_button}
+                Icon={ArrowIcon}
+                style={styles.back_button}
+                iconStyle={{ color: '#000000' }}
+                onClick={() => hashHistory.push('app/top')}
+              />
+            </div>
+            <div className={css.top_item}>
+              <IconButton
+                label="refresh"
+                className={css.refresh_button}
+                Icon={RefreshIcon}
+                style={styles.refresh_button}
+              />
+            </div>
+            <div className={css.top_item}>
+              <BaseTime
+                timeList={checkedFunc.map(func => ({ name: func.name, baseTime: '09/13 09:30' }))}
+                toggle={this.baseTimeToggle}
+                flag={this.state.isSpreadBaseTime}
+              />
+            </div>
           </div>
-          <FooterButtons tabList={checkedFunc} themeColor={themeColor} />
+          <Legend
+            tabList={checkedFunc}
+            toggle={this.legendToggle}
+            flag={this.state.isShowLegend}
+            moreHidden={checkedFunc.length > 3 && this.state.isSpreadBaseTime}
+          />
+          <FooterButtons tabList={checkedFunc} themeColor={themeColor} activeFlags={activeFlags} />
           <MapConsole tabList={checkedFunc} themeColor={themeColor} />
         </div>
       </IntlProvider>
@@ -121,9 +162,35 @@ class Main extends Component {
 function mapStateToProps(state) {
   const checkedFunc = state.functionList.list;
   const isLoading = state.loading.isLoading;
+
+  const gfs = state.gpvgfs.gpv.gpvchecked;
+  const radar = state.radar.radar.radarChecked;
+  const amedas = state.amedas.showchecked;
+  const jp10ten = state.jp10ten.showchecked;
+  const jmawarn = state.jmawarn.jmawarnChecked;
+  const hilofront = state.hilofront.showchecked;
+  const lightning = state.lightning.lightningLidenChecked;
+  const waveblend = state.waveblend.waveBlendChecked;
+  const livecamera = state.livecamera.liveCmChecked;
+  const compasshour = state.compasshour.compassHourChecked;
+  const disasterreport = state.disasterreport.disasterReportChecked;
+
   return {
     checkedFunc,
     isLoading,
+    activeFlags: {
+      gfs,
+      radar,
+      amedas,
+      jp10ten,
+      jmawarn,
+      hilofront,
+      lightning,
+      waveblend,
+      livecamera,
+      compasshour,
+      disasterreport,
+    },
   };
 }
 

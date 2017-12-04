@@ -16,7 +16,7 @@ const styles = {
     color: 'rgb(0, 109, 185)',
   },
   labelStyle: {
-    fontSize: '1.4em',
+    fontSize: '1.3em',
   },
 };
 
