@@ -2,8 +2,14 @@
 	"Name": "WX_WNI_COMPASS_HOUR",
 	"DataHandler": "GeoTiff",
 	"Attributes": {
-		"TimeList": "%baseurl_ea%/catalyst/contents/WX_WNI_COMPASS_HOUR/index.json",
-		"File": "%baseurl_ea%/catalyst/contents/WX_WNI_COMPASS_HOUR/%element%/%level%/%basetime%/%validtime%/%z%/%y%/%x%.tiff",
+		"TimeList": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR/index.json",
+		"File": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR/%element%/%level%/%basetime%/%validtime%/%z%/%y%/%x%.tiff",
+		"_TimeList": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR_128/index.json",
+		"_File": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR_128/%element%/%level%/%basetime%/%validtime%/%z%/%y%/%x%.tiff",
+		"__TimeList": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR_256/index.json",
+		"__File": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR_256/%element%/%level%/%basetime%/%validtime%/%z%/%y%/%x%.tiff",
+		"___TimeList": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR_WHOLE/index.json",
+		"___File": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_COMPASS_HOUR_WHOLE/%element%/%level%/%basetime%/%validtime%.tiff",
 		"DataGrid": {
 			"Width" : 7200,
 			"Height" : 3597,
@@ -11,18 +17,8 @@
 			"LonBase" : 0.0,
 			"LatInterval" : 0.05,
 			"LonInterval" : 0.05,
-			"element" : {
-			    "TMP" : {
-				"MaxValue": 9000
-			    },
-			    "PRES" : {
-				"MinValue": 20000
-			    },
-			    "RH" : {
-				"MinValue": 0,
-				"MaxValue": 100
-			    }
-			},
+			"_TileSize" : 128,
+			"__TileSize" : 256,
 			"TileSize" : 512
 		}, 
 		"UpdateInterval": 3600

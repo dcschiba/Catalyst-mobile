@@ -3,15 +3,13 @@
 	"Renderer": "Mesh",
 	"Attributes": {
 		"data_offset": 0,
-		"_data_scale" : 0.001,
 		"style": {
 			"default": {
 				"contour": [{
 					"base": 0,
-					"interval": 5000,
-					"fractional_digits": 0,
-					"num": 10,
-					"unit_label": "m",
+					"interval": 1000.0,
+					"fractional_digits": 1,
+					"num": 500,
 					"strokeStyle": "rgba(50,50,100,0.8)",
 					"textColor": "rgba(20,20,80,0.9)"
 				}]

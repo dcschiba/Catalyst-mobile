@@ -139,7 +139,7 @@ export default handleActions({
         ...state.gpv,
         tmpflatchecked: action.payload.checked,
         tmpgradationchecked:
-        (action.payload.checked && tmpgradationchecked) ? false : tmpgradationchecked,
+          (action.payload.checked && tmpgradationchecked) ? false : tmpgradationchecked,
       },
 
     };
@@ -152,7 +152,7 @@ export default handleActions({
         ...state.gpv,
         tmpgradationchecked: action.payload.checked,
         tmpflatchecked:
-        (action.payload.checked && tmpflatchecked) ? false : tmpflatchecked,
+          (action.payload.checked && tmpflatchecked) ? false : tmpflatchecked,
       },
 
     };
@@ -210,7 +210,7 @@ export default handleActions({
         ...state.gpv,
         hgtflatchecked: action.payload.checked,
         hgtgradationchecked:
-        (action.payload.checked && hgtgradationchecked) ? false : hgtgradationchecked,
+          (action.payload.checked && hgtgradationchecked) ? false : hgtgradationchecked,
       },
 
     };
@@ -223,7 +223,7 @@ export default handleActions({
         ...state.gpv,
         hgtgradationchecked: action.payload.checked,
         hgtflatchecked:
-        (action.payload.checked && hgtflatchecked) ? false : hgtflatchecked,
+          (action.payload.checked && hgtflatchecked) ? false : hgtflatchecked,
       },
 
     };
@@ -260,7 +260,7 @@ export default handleActions({
         ...state.gpv,
         rhflatchecked: action.payload.checked,
         rhgradationchecked:
-        (action.payload.checked && rhgradationchecked) ? false : rhgradationchecked,
+          (action.payload.checked && rhgradationchecked) ? false : rhgradationchecked,
       },
 
     };
@@ -273,7 +273,7 @@ export default handleActions({
         ...state.gpv,
         rhgradationchecked: action.payload.checked,
         rhflatchecked:
-        (action.payload.checked && rhflatchecked) ? false : rhflatchecked,
+          (action.payload.checked && rhflatchecked) ? false : rhflatchecked,
       },
 
     };

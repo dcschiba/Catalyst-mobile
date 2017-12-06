@@ -2,7 +2,7 @@
     "Name" : "WX_LiveCamera",
     "DataHandler" : "LiveCamera",
     "Attributes" : {
-        "CameraMaster" : "./pri/wrap/data/LIVE_CAMERA/camera_master.txt",
+        "CameraMaster" : "https://pt-wrap01.wni.co.jp/Catalyst/pri/wrap/data/LIVE_CAMERA/camera_master.txt",
         "CameraInfo" : "https://livecamdb.wni.co.jp/info/public/camera_master/%id%",
         "ImageFileList" : "https://livecamdb.wni.co.jp/date/public/%id%/%time_start%/%time_end%/",
         "ImageFile" : "https://livecamdb.wni.co.jp/img/public/%id%/%time%.jpeg",

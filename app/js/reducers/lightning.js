@@ -7,8 +7,8 @@ import {
 
 const initialState = {
   lightningJpChecked: false,
-  lightningKmaChecked: false,
-  lightningLidenChecked: false,
+  lightningKmaChecked: true,
+  lightningLidenChecked: true,
 };
 
 export default handleActions({

@@ -53,7 +53,7 @@ import {
 
 const initialState = {
   radar: {
-    radarChecked: false,
+    radarChecked: true,
     coverageChecked: true,
     jpChecked: false,
     jpvalidtimeidx: 0,

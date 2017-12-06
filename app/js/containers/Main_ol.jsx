@@ -17,6 +17,7 @@ import * as LoadingActions from '../actions/loading';
 import * as LayerActions from '../actions/layer';
 import * as RadarActions from '../actions/radar';
 import css from '../../style/main.css';
+import { OPEN_STREET_MAP } from '../constants/map/mapSource';
 
 const propTypes = {
   actions: PropTypes.object,
@@ -81,7 +82,7 @@ class Main extends Component {
           <div id={mapId} style={{ height: 'calc(100% - 60px)', width: '100%', position: 'relative' }}>
             <OpenLayers
               mapSetting={mapsetting.mapoption}
-              mapSource="http://localhost:50001/map/openStreetMap/{z}/{x}/{y}.png"
+              mapSource={OPEN_STREET_MAP}
               mapId={gmapId}
               mapInitedCallback={this.mapInitedCallback}
             />

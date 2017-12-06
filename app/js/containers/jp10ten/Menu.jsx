@@ -9,26 +9,14 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import WrapUtils from '../../common/utils/WrapUtils';
 import * as LegendActions from '../../actions/legend';
 import * as Jp10tenActions from '../../actions/jp10ten';
-
-import css from '../../../style/jp10ten/menu.css';
+import * as InitActions from '../../actions/layerInit';
+import { styles, childStyles, childWrapper } from '../../utils/menuStyle';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
   jp10ten: PropTypes.object.isRequired,
-};
-
-const styles = {
-  main_button: {
-    padding: '20px',
-    border: 'solid 0.5px lightgray',
-    margin: 0,
-  },
-  padding: {
-    padding: '20px',
-  },
-  radio: {
-    padding: '10px 20px',
-  },
+  layerInitflags: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 class Menu extends Component {
@@ -40,6 +28,24 @@ class Menu extends Component {
       actions.deleteLegend('jp10ten');
     }
   }
+  componentDidMount() {
+    const waitForlayerInitialize = setInterval(() => {
+      const { actions, layerInitflags, isLoading } = this.props;
+      if (!layerInitflags.jp10ten && isLoading) {
+        actions.layerInit({ jp10ten: true });
+        clearInterval(waitForlayerInitialize);
+      }
+    }, 1000);
+
+    const waitForMapInitialize = setInterval(() => {
+      const { actions, isLoading } = this.props;
+      if (!isLoading) {
+        actions.jptenClick(true);
+        actions.jptenValidtimeChange('30');
+        clearInterval(waitForMapInitialize);
+      }
+    }, 1000);
+  }
   render() {
     const {
       actions, jp10ten,
@@ -47,7 +53,6 @@ class Menu extends Component {
 
     const {
       showchecked,
-      subDisabled,
       showpast,
       validtimeidx,
       validtimelist,
@@ -68,58 +73,63 @@ class Menu extends Component {
           checked={showchecked}
           onClick={e => Menu.showClick(e, actions)}
           label={'JP 10ten'}
-          style={styles.main_button}
+          style={styles.checkbox}
+          labelStyle={styles.label}
         />
-        <SelectField
-          value={validtimeidx}
-          floatingLabelText="validtime"
-          {...subDisabled}
-          style={{ ...css.selectTime, ...styles.padding }}
-          onChange={(event, index, value) => actions.jptenValidtimeChange(value)}
-        >
-          {validtimeItems}
-        </SelectField>
-        <div className={css.bottomCheckBox}>
+        <div style={childWrapper(7, showchecked)}>
+          <div style={childStyles.line}>
+            <div style={childStyles.selectLabel}>validtime</div>
+            <div style={childStyles.selectWrapper}>
+              <SelectField
+                value={validtimeidx}
+                onChange={(event, index, value) => actions.jptenValidtimeChange(value)}
+                style={childStyles.select}
+                labelStyle={childStyles.selectLabel}
+              >
+                {validtimeItems}
+              </SelectField>
+            </div>
+          </div>
           <RadioButtonGroup
             name="DisasterReport"
             defaultSelected={showpast}
             onChange={(e, value) => actions.jptenPastChange(value)}
           >
             <RadioButton
-              {...subDisabled}
               value="0"
               label="最新"
-              style={styles.radio}
+              style={childStyles.radio}
+              labelStyle={childStyles.label}
             />
             <RadioButton
-              {...subDisabled}
               value="10"
               label="過去１０分"
-              style={styles.radio}
+              style={childStyles.radio}
+              labelStyle={childStyles.label}
             />
             <RadioButton
-              {...subDisabled}
               value="30"
               label="過去３０分"
-              style={styles.radio}
+              style={childStyles.radio}
+              labelStyle={childStyles.label}
             />
             <RadioButton
-              {...subDisabled}
               value="60"
               label="過去１時間"
-              style={styles.radio}
+              style={childStyles.radio}
+              labelStyle={childStyles.label}
             />
             <RadioButton
-              {...subDisabled}
               value="180"
               label="過去３時間"
-              style={styles.radio}
+              style={childStyles.radio}
+              labelStyle={childStyles.label}
             />
             <RadioButton
-              {...subDisabled}
               value="360"
               label="過去６時間"
-              style={styles.radio}
+              style={childStyles.radio}
+              labelStyle={childStyles.label}
             />
           </RadioButtonGroup>
         </div>
@@ -131,12 +141,15 @@ class Menu extends Component {
 function mapStateToProps(state) {
   return {
     jp10ten: state.jp10ten,
+    layerInitflags: state.layerInit,
+    isLoading: state.loading.isLoading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign(LegendActions, Jp10tenActions), dispatch),
+    actions: bindActionCreators(
+      Object.assign(LegendActions, Jp10tenActions, InitActions), dispatch),
   };
 }
 

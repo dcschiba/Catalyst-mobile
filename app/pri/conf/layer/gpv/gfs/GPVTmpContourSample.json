@@ -7,10 +7,9 @@
             "default" : {
                 "contour": [
                     {
-                        "base":-99,
+                        "base":-201,
                         "interval":3,
-                        "num": 70,
-			"_unit_label": "℃",
+                        "num": 250,
                         "strokeStyle": "rgba(50,50,100,0.8)",
                         "textColor": "rgba(20,20,80,0.9)"
                     }

@@ -132,6 +132,7 @@ class MapConsole extends Component {
                       value={Number(index)}
                       style={tabStyle.tab}
                       buttonStyle={tabStyle.button}
+                      id={`${item.path}_tab`}
                     />
                   ))}
                 </Tabs>

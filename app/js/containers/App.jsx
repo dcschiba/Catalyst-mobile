@@ -48,7 +48,7 @@ class App extends Component {
   render() {
     const { children, locale } = this.props;
     return (
-      <div style={{ ...themeColor.ground, height: '100vh' }} >
+      <div style={{ ...themeColor.ground }} >
         <AppBar
           title="WRAP Catalyst"
           titleStyle={styles.title}

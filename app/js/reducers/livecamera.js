@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import { LIVE_CAMERA_CLICK } from '../constants/livecamera/ActionTypes';
 
 const initialState = {
-  liveCmChecked: false,
+  liveCmChecked: true,
 };
 
 export default handleActions({

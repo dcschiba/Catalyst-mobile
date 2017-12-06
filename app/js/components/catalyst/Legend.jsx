@@ -4,6 +4,7 @@ import ClassNames from 'classnames/bind';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import SpreadIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import css from '../../../style/legend.css';
+import dammy from '../../../img/legend.png';
 
 const propTypes = {
   // tabList: PropTypes.array.isRequired,
@@ -40,7 +41,7 @@ class Legend extends Component {
             : <div><SpreadIcon style={styles.icon} /><div>Legend</div></div>}
         </button>
         <div className={css.contents}>
-        aaa
+          <img src={dammy} alt="amedasLegend" width="50%" />
         </div>
       </div>
     );

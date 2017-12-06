@@ -29,14 +29,16 @@ class BaseTime extends Component {
     const styles = {
       spread: {
         height: `calc(${timeList.length} * 20px + 12px )`,
+        minWidth: 'calc(100% - 20px)',
         width: `calc(${Math.max(...timeList.map(item => item.name.length))} * 0.7em + 80px)`,
         padding: '6px',
         margin: '0 8px',
       },
       normal: {
-        height: `calc(${timeList.length} * 20px + 10px )`,
+        height: `calc(${timeList.length} * 20px + 12px)`,
+        minWidth: 'none',
         width: 'calc(100% - 20px)',
-        padding: '6px 6px 12px 6px',
+        padding: '6px 6px 8px 6px',
         margin: '0 8px',
       },
     };

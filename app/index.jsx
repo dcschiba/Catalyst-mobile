@@ -16,6 +16,7 @@ import App from './js/containers/App';
 import Launch from './js/containers/Launch';
 import Start from './js/containers/Start';
 import Main from './js/containers/Main';
+import Test from './js/components/Test';
 import configureStore from './js/store/configureStore';
 import './style/index.css';
 
@@ -62,29 +63,24 @@ document.addEventListener('deviceready', () => {
   initPushNotification();
   window.cordova.plugins.CorHttpd.startServer(
     {
-      www_root: '/data/data/com.wni.wrap/cache/',
+      www_root: 'data',
       port: 50000,
     },
     {},
-    () => alert('loadFS error'),
-  );
-  window.cordova.plugins.CorHttpd.startServer(
-    {
-      www_root: 'pri',
-      port: 50001,
+    (error) => {
+      console.error(error);
+      alert('server error');
     },
-    {},
-    () => alert('loadFS error'),
   );
 });
 
 
 // document.addEventListener('cd', initPushNotification, false);
-// WRAP.DH.set({ baseurl: 'http://localhost:50001' });
+// WRAP.DH.set({ baseurl: 'http://localhost:50000' });
 
 // document.addEventListener('offline', () => {
 //   alert('offline');
-//   WRAP.DH.set({ baseurl: 'http://localhost:50001' });
+//   WRAP.DH.set({ baseurl: 'http://localhost:50000' });
 // }, false);
 // document.addEventListener('online', () => {
 //   alert('online');
@@ -126,6 +122,7 @@ render(
           <Route path="top" component={Top} />
           <Route path="main" component={Main} />
         </Route>
+        <Route path="test999" component={Test} />
       </Router>
     </MuiThemeProvider>
   </Provider>,

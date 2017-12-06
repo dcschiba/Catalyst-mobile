@@ -33,7 +33,7 @@ class FooterButtons extends Component {
         padding: 0,
         ...themeColor.main,
       },
-      trigger_wrapper: {
+      buttons: {
         width: `calc(${tabList.length} * 60px)`,
       },
       floating_button_label: {
@@ -59,12 +59,18 @@ class FooterButtons extends Component {
         </div>
         <div className={css.footer}>
           <SlideLeftIcon style={styles.slide_button} />
-          <div className={css.contents_trigger_area}>
-            <div className={css.contents_trigger_wrapper} style={styles.trigger_wrapper}>
-              {tabList.map(contents => (
+          <div className={css.buttons_area}>
+            <div className={css.buttons} style={styles.buttons}>
+              {tabList.map((contents, index) => (
                 <button
-                  onClick={() => document.getElementById(contents.path).click()}
-                  className={css.contents_trigger}
+                  key={index}
+                  onClick={() => {
+                    if (!activeFlags[contents.path]) {
+                      document.getElementById(`${contents.path}_tab`).click();
+                    }
+                    document.getElementById(contents.path).click();
+                  }}
+                  className={css.button}
                   style={themeColor.main}
                 >
                   <div className={css.label}>

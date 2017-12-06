@@ -26,12 +26,14 @@ class Top extends Component {
 
   render() {
     return (
-      <button className={css.wrapper} onClick={() => hashHistory.push('app')} >
-        <img src={startImg} className={css.background} alt="Hello WRAP Catalyst mobile" />
-        <div className={css.start_button}>
-          <FlatButton label="START" style={styles.start} />
-        </div>
-      </button>
+      <div className={css.wrapper}>
+        <button className={css.wrapper_button} onClick={() => hashHistory.push('app')} >
+          <img src={startImg} className={css.background} alt="Hello WRAP Catalyst mobile" />
+          <div className={css.start_button}>
+            <FlatButton label="START" style={styles.start} />
+          </div>
+        </button>
+      </div>
     );
   }
 

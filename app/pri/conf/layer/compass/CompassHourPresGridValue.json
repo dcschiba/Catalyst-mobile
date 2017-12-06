@@ -3,7 +3,6 @@
     "Renderer" : "GridValue",
     "Attributes" : {
         "data_offset" : 0,
-        "data_scale" : 0.01,
         "style" : {
             "default" : {
                 "fractional_digits" : 0,

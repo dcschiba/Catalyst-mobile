@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 const propTypes = {
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.bool,
   fullScreen: PropTypes.bool,
   blurStyle: PropTypes.object,
   iconStyle: PropTypes.object,
@@ -39,9 +39,10 @@ const styles = {
 
 class Loading extends Component {
   render() {
-    if (!this.props.show) { return null; }
+    const { show = true } = this.props;
+    if (!show) { return null; }
     const {
-      fullScreen = true,
+      fullScreen = false,
       blurStyle,
       iconStyle,
     } = this.props;

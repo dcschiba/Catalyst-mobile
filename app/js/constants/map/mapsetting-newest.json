@@ -21,8 +21,8 @@
     "pdburl": "https://wni-pdb.wni.com",
     "apppath": "https://pt-wrap01.wni.co.jp/Catalyst/"
   },
-  "confDataPath": "http://localhost:50001/conf/data",
-  "confLayerPath": "http://localhost:50001/conf/layer/",
+  "confDataPath": "http://localhost:50000/pri/conf/data",
+  "confLayerPath": "http://localhost:50000/pri/conf/layer/",
   "layers": [
     {
       "DHObjectName": "Model_GFS",

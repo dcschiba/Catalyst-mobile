@@ -8,9 +8,9 @@
             "default" : {
                 "contour": [
                     {
-                        "base":800,
-                        "interval":4,
-                        "num": 150,
+                        "base":880,
+                        "interval":20,
+                        "num": 250,
                         "unit_label": "hPa",
                         "strokeStyle": "rgba(50,50,100,0.6)",
                         "textColor": "rgba(20,20,80,0.5)"

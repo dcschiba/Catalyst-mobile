@@ -6,22 +6,12 @@ import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import * as JmawarnActions from '../../actions/jmawarn';
 import * as LegendActions from '../../actions/legend';
+import { styles } from '../../utils/menuStyle';
 import css from '../../../style/jmawarn/menu.css';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
   jmawarnChecked: PropTypes.bool.isRequired,
-};
-
-const styles = {
-  main_button: {
-    padding: '20px',
-    border: 'solid 0.5px lightgray',
-    margin: 0,
-  },
-  padding: {
-    padding: '20px',
-  },
 };
 
 class Menu extends Component {
@@ -41,13 +31,16 @@ class Menu extends Component {
 
     return (
       <div className={css.ctrlpanel}>
-        <Checkbox
-          id="jmawarn"
-          label="JMA Warn"
-          checked={jmawarnChecked}
-          onClick={e => Menu.showClick(e, actions)}
-          style={styles.main_button}
-        />
+        <div style={styles.line}>
+          <Checkbox
+            id="jmawarn"
+            label="JMA Warn"
+            checked={jmawarnChecked}
+            onClick={e => Menu.showClick(e, actions)}
+            style={styles.checkbox}
+            labelStyle={styles.label}
+          />
+        </div>
       </div>
     );
   }

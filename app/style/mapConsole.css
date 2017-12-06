@@ -11,25 +11,26 @@
     box-shadow: 2px -2px 8px -2px #888888;
 }
 .hide {
-    bottom: calc(160px - 100vh);
+    bottom: calc(180px - 100vh);
 }
 
 .menu {
     width: 100%;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 180px);
 }
 
 .tab_area {
     display: flex;
     height: 60px;
+    border-bottom: solid 1px lightgray;
 }
 .console_area {
     padding: 0px;
     left: 0;
     width: 100vw;
-    height: calc(100vh - 160px - 60px);
+    height: calc(100vh - 180px - 60px);
     overflow-y: scroll;
-    background-color: #f5f5f5;    
+    background-color: #f5f5f5;
 }
 
 .spread_button {
@@ -61,5 +62,5 @@
 
 @keyframes slideIn {
     from {bottom: 0px;}
-    to {bottom: calc(160px - 100vh);}
+    to {bottom: calc(180px - 100vh);}
 }

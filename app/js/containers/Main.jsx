@@ -18,9 +18,10 @@ import IconButton from '../components/catalyst/IconButton';
 import Loading from '../components/catalyst/Loading';
 import GoogleMap from '../WRAP-UI/GoogleMap';
 import * as LayerConfig from '../layers/LayerConfig';
-import * as LoadingActions from '../actions/loading';
 import * as LayerActions from '../actions/layer';
 import * as RadarActions from '../actions/radar';
+import * as InitActions from '../actions/layerInit';
+import * as LoadingActions from '../actions/loading';
 import css from '../../style/main.css';
 
 const propTypes = {
@@ -28,13 +29,14 @@ const propTypes = {
   checkedFunc: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  initflags: PropTypes.object.isRequired,
   activeFlags: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const styles = {
   refresh_button: {
-    backgroundColor: '#173588',
+    backgroundColor: 'rgb(66, 133, 244)',
     margin: '0 auto',
     boxShadow: '2px 3px 6px #777777',
   },
@@ -58,9 +60,18 @@ class Main extends Component {
     this.legendToggle = this.legendToggle.bind(this);
     this.baseTimeToggle = this.baseTimeToggle.bind(this);
   }
-  componentWillMount() {
-    this.props.actions.startLoading();
+  componentDidUpdate() {
+    const { checkedFunc, initflags, actions } = this.props;
+    if (this.props.isLoading && checkedFunc.filter(func => !initflags[func.path]).length === 0) {
+      actions.stopLoading();
+    }
   }
+
+  componentWillUnmount() {
+    // storeのlayer情報を初期化
+    this.props.actions.layerInitClear();
+  }
+
   legendToggle(flag) {
     this.setState({
       isShowLegend: flag,
@@ -76,6 +87,7 @@ class Main extends Component {
     const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
     const { checkedFunc, actions } = this.props;
     const mapDiv = document.getElementById(mapId);
+    map.setOptions({ passiveLogo: true });
     WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
     WrapController.initGoogleMap(map); // Geoにmapオブジェクトをセット
     WrapController.setMapdiv(mapDiv);
@@ -83,7 +95,7 @@ class Main extends Component {
       layers, // レイヤー設定の定義
       LayerConfig, // レイヤー名とレイヤーファイルの紐づけ
       confLayerPath,  // レイヤー設定ファイルの格納先
-      checkedFunc, // 表示する機能コンテンツリスト
+      checkedFunc.map(func => func.path), // 表示する機能コンテンツリスト
       actions.wrapDispatchAction,  // inspect関数のコールバック等
     ); // レイヤーを初期化
 
@@ -91,10 +103,14 @@ class Main extends Component {
     if (JPRadarLayer) {
       JPRadarLayer.setAction(actions.loadJPRadarActivity);
     }
-    actions.stopLoading();
   }
   render() {
-    const { checkedFunc, themeColor, locale, isLoading, activeFlags } = this.props;
+    const {
+      checkedFunc,
+      themeColor,
+      locale,
+      activeFlags,
+      isLoading } = this.props;
     /* eslint-disable global-require,import/no-dynamic-require */
     let messages;
     try {
@@ -109,7 +125,7 @@ class Main extends Component {
     return (
       <IntlProvider locale={locale} messages={messages}>
         <div className={css.wrapper}>
-          <Loading show={isLoading} />
+          {isLoading ? <Loading /> : null}
           <div id={mapId} style={{ height: 'calc(100% - 60px)', width: '100%', position: 'relative' }}>
             <GoogleMap
               mapSetting={mapsetting.mapoption}
@@ -161,8 +177,7 @@ class Main extends Component {
 
 function mapStateToProps(state) {
   const checkedFunc = state.functionList.list;
-  const isLoading = state.loading.isLoading;
-
+  const initflags = state.layerInit;
   const gfs = state.gpvgfs.gpv.gpvchecked;
   const radar = state.radar.radar.radarChecked;
   const amedas = state.amedas.showchecked;
@@ -174,10 +189,9 @@ function mapStateToProps(state) {
   const livecamera = state.livecamera.liveCmChecked;
   const compasshour = state.compasshour.compassHourChecked;
   const disasterreport = state.disasterreport.disasterReportChecked;
-
+  const isLoading = state.loading.isLoading;
   return {
     checkedFunc,
-    isLoading,
     activeFlags: {
       gfs,
       radar,
@@ -191,6 +205,8 @@ function mapStateToProps(state) {
       compasshour,
       disasterreport,
     },
+    initflags,
+    isLoading,
   };
 }
 
@@ -199,6 +215,7 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(Object.assign({},
       LayerActions,
       RadarActions,
+      InitActions,
       LoadingActions,
     ), dispatch),
   };

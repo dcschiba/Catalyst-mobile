@@ -1,8 +1,0 @@
-{
-    "Name" : "WX_WNI_VolcanicRank",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_WNI_VolcanicRank/latest.json",
-        "UpdateInterval" : 600
-    }
-}

@@ -1,4 +1,5 @@
 .wrapper {
+    transition: all 0.3s ease;        
     position: relative;
     transition: all 0.3s ease;
     background-color: rgba(20,20,20,0.7);
@@ -23,6 +24,7 @@
 
 .base_time {
     white-space: nowrap;
+    margin-left: 2px;
 }
 
 .name {
@@ -31,3 +33,4 @@
     text-overflow: ellipsis;
     text-align: left;
 }
+
