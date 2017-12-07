@@ -1,0 +1,17 @@
+{
+    "Name" : "WX_JMA_Warn_Border",
+    "Renderer" : "GeoJSON",
+    "Attributes" : {
+        "features" : [
+            {
+                "style" : {
+                    "default" : {
+                      "type" : "Polygon",
+                      "line_color": "rgba(105,105,105,1)",
+                      "line_width": 4
+                    }
+                }
+            }
+        ]
+    }
+}

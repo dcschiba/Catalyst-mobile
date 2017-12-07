@@ -1,0 +1,25 @@
+{
+	"Name": "WX_WNI_WWIII_LOWRESO_BLEND_WaveDirection",
+	"DataHandler": "GeoTiff",
+	"Attributes": {
+		"TimeList": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_WWIII_LOWRESO_BLEND/index.json",
+		"File": "%baseurl%/WRAP/wrap-pri/data/WX_WNI_WWIII_LOWRESO_BLEND/%element%/SFC/%basetime%/%validtime%.tiff",
+		"DataGrid": {
+			"Width": 360,
+			"Height": 181,
+			"LatBase": 90.0,
+			"LonBase": 0.0,
+			"LatInterval": 1.0,
+			"LonInterval": 1.0,
+			"MinValue": -100,
+			"MaxValue": 100,
+			"element": {
+				"WNIPRDIR": {
+					"MinValue": 0,
+					"MaxValue": 360
+				}
+			}
+		},
+		"UpdateInterval": 3600
+	}
+}

@@ -1,0 +1,159 @@
+{
+	"Name": "CompassHourPresGradiation",
+	"Renderer": "Mesh",
+	"Attributes": {
+		"data_offset": 0,
+		"style": {
+			"default": {
+				"fill_type": "gradation",
+				"palette_gradient": true,
+				"palette_step": 2,
+				"palette": [{
+						"value": 94000.0,
+						"color": "rgba( 255,  40,   0, 0.5)"
+					},
+					{
+						"value": 94800.0,
+						"color": "rgba( 253,  65,  31, 0.5)"
+					},
+					{
+						"value": 95600.0,
+						"color": "rgba( 252,  90,  63, 0.5)"
+					},
+					{
+						"value": 96400.0,
+						"color": "rgba( 250, 115,  95, 0.5)"
+					},
+					{
+						"value": 97200.0,
+						"color": "rgba( 249, 140, 127, 0.5)"
+					},
+					{
+						"value": 98000.0,
+						"color": "rgba( 246, 190, 191, 0.5)"
+					},
+					{
+						"value": 99600.0,
+						"color": "rgba( 244, 215, 223, 0.5)"
+					},
+					{
+						"value": 100400.0,
+						"color": "rgba( 242, 240, 255, 0.5)"
+					},
+					{
+						"value": 101200.0,
+						"color": "rgba( 160, 210, 255, 0.5)"
+					},
+					{
+						"value": 102000.0,
+						"color": "rgba(   0,  65, 255, 0.5)"
+					},
+					{
+						"value": 102800.0,
+						"color": "rgba(   0,   0, 255, 0.8)"
+					}
+				]
+			},
+			"flat": {
+				"fill_type": "flat",
+				"palette_gradient": false,
+				"palette_step": 8,
+				"palette": [{
+						"value": 94000.0,
+						"color": "rgba( 255,  40,   0, 0.5)"
+					},
+					{
+						"value": 94800.0,
+						"color": "rgba( 253,  65,  31, 0.5)"
+					},
+					{
+						"value": 95600.0,
+						"color": "rgba( 252,  90,  63, 0.5)"
+					},
+					{
+						"value": 96400.0,
+						"color": "rgba( 250, 115,  95, 0.5)"
+					},
+					{
+						"value": 97200.0,
+						"color": "rgba( 249, 140, 127, 0.5)"
+					},
+					{
+						"value": 98000.0,
+						"color": "rgba( 246, 190, 191, 0.5)"
+					},
+					{
+						"value": 99600.0,
+						"color": "rgba( 244, 215, 223, 0.5)"
+					},
+					{
+						"value": 100400.0,
+						"color": "rgba( 242, 240, 255, 0.5)"
+					},
+					{
+						"value": 101200.0,
+						"color": "rgba( 160, 210, 255, 0.5)"
+					},
+					{
+						"value": 102000.0,
+						"color": "rgba(   0,  65, 255, 0.5)"
+					},
+					{
+						"value": 102800.0,
+						"color": "rgba(   0,   0, 255, 0.8)"
+					}
+				]
+			},
+			"gradation": {
+				"fill_type": "gradation",
+				"palette_gradient": true,
+				"palette_step": 2,
+				"palette": [{
+						"value": 94000.0,
+						"color": "rgba( 255,  40,   0, 0.5)"
+					},
+					{
+						"value": 94800.0,
+						"color": "rgba( 253,  65,  31, 0.5)"
+					},
+					{
+						"value": 95600.0,
+						"color": "rgba( 252,  90,  63, 0.5)"
+					},
+					{
+						"value": 96400.0,
+						"color": "rgba( 250, 115,  95, 0.5)"
+					},
+					{
+						"value": 97200.0,
+						"color": "rgba( 249, 140, 127, 0.5)"
+					},
+					{
+						"value": 98000.0,
+						"color": "rgba( 246, 190, 191, 0.5)"
+					},
+					{
+						"value": 99600.0,
+						"color": "rgba( 244, 215, 223, 0.5)"
+					},
+					{
+						"value": 100400.0,
+						"color": "rgba( 242, 240, 255, 0.5)"
+					},
+					{
+						"value": 101200.0,
+						"color": "rgba( 160, 210, 255, 0.5)"
+					},
+					{
+						"value": 102000.0,
+						"color": "rgba(   0,  65, 255, 0.5)"
+					},
+					{
+						"value": 102800.0,
+						"color": "rgba(   0,   0, 255, 0.8)"
+					}
+				]
+			}
+		}
+	}
+}

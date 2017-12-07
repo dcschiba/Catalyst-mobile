@@ -1,0 +1,9 @@
+{
+    "Name" : "LightningJapan",
+    "DataHandler" : "GeoJSON",
+    "Attributes" : {
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_JP_Lightning_Latest/latest70min.json",
+        "aFile" : "./pri/data/Lightning/kr_lighting_latest.json",
+        "UpdateInterval" : 60
+    }
+}

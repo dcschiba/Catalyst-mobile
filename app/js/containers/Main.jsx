@@ -7,8 +7,9 @@ import { bindActionCreators } from 'redux';
 import WrapController from 'WRAP/UI/WrapController';
 import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
-
+import WRAP from 'WRAP';
 // import GoogleMap from 'WRAP/UI/GoogleMap';
+// import OpenLayers from 'WRAP/UI/OpenLayers';
 import mapsetting from '../constants/map/mapsetting-newest.json';
 import BaseTime from '../components/catalyst/BaseTime';
 import MapConsole from '../components/catalyst/MapConsole';
@@ -17,11 +18,13 @@ import Legend from '../components/catalyst/Legend';
 import IconButton from '../components/catalyst/IconButton';
 import Loading from '../components/catalyst/Loading';
 import GoogleMap from '../WRAP-UI/GoogleMap';
+import OpenLayers from '../WRAP-UI/OpenLayers';
 import * as LayerConfig from '../layers/LayerConfig';
 import * as LayerActions from '../actions/layer';
 import * as RadarActions from '../actions/radar';
 import * as InitActions from '../actions/layerInit';
 import * as LoadingActions from '../actions/loading';
+import { OPEN_STREET_MAP } from '../constants/map/mapSource';
 import css from '../../style/main.css';
 
 const propTypes = {
@@ -55,11 +58,24 @@ class Main extends Component {
     this.state = {
       isShowLegend: false,
       isSpreadBaseTime: false,
+      isOnline: true,
     };
+    // this.onOnline = this.onOnline.bind(this);
+    // this.onOffline = this.onOffline.bind(this);
     this.mapInitedCallback = this.mapInitedCallback.bind(this);
     this.legendToggle = this.legendToggle.bind(this);
     this.baseTimeToggle = this.baseTimeToggle.bind(this);
   }
+  componentWillMount() {
+    if (navigator.connection.type === 'none') {
+      this.setState({ isOnline: false });
+    } else {
+      this.setState({ isOnline: true });
+    }
+    // document.addEventListener('online', this.onOnline, false);
+    // document.addEventListener('offline', this.onOffline, false);
+  }
+
   componentDidUpdate() {
     const { checkedFunc, initflags, actions } = this.props;
     if (this.props.isLoading && checkedFunc.filter(func => !initflags[func.path]).length === 0) {
@@ -68,9 +84,21 @@ class Main extends Component {
   }
 
   componentWillUnmount() {
+    // document.removeEventListener('online', this.onOnline);
+    // document.removeEventListener('offline', this.onOffline);
     // storeのlayer情報を初期化
     this.props.actions.layerInitClear();
   }
+
+  // onOnline() {
+  //   const { actions } = this.props;
+  //   actions.online();
+  // }
+
+  // onOffline() {
+  //   const { actions } = this.props;
+  //   actions.offline();
+  // }
 
   legendToggle(flag) {
     this.setState({
@@ -86,10 +114,18 @@ class Main extends Component {
   mapInitedCallback(map) {
     const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
     const { checkedFunc, actions } = this.props;
+    const { isOnline } = this.state;
     const mapDiv = document.getElementById(mapId);
-    map.setOptions({ passiveLogo: true });
     WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
-    WrapController.initGoogleMap(map); // Geoにmapオブジェクトをセット
+    // TODO AMeDASの「MasterData」のみ、DH.setが効いていないようなのであとで調査
+    if (isOnline) {
+      map.setOptions({ passiveLogo: true });
+      WRAP.DH.set({ baseurl: 'https://pt-wrap01.wni.co.jp' });
+      WrapController.initGoogleMap(map); // Geoにmapオブジェクトをセット
+    } else {
+      WRAP.DH.set({ baseurl: 'http://localhost:50000' });
+      WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
+    }
     WrapController.setMapdiv(mapDiv);
     WrapController.initLayer(
       layers, // レイヤー設定の定義
@@ -111,6 +147,7 @@ class Main extends Component {
       locale,
       activeFlags,
       isLoading } = this.props;
+    const { isOnline } = this.state;
     /* eslint-disable global-require,import/no-dynamic-require */
     let messages;
     try {
@@ -127,12 +164,20 @@ class Main extends Component {
         <div className={css.wrapper}>
           {isLoading ? <Loading /> : null}
           <div id={mapId} style={{ height: 'calc(100% - 60px)', width: '100%', position: 'relative' }}>
-            <GoogleMap
-              mapSetting={mapsetting.mapoption}
-              mapId={gmapId}
-              isHide={false}
-              mapInitedCallback={this.mapInitedCallback}
-            />
+            {isOnline ?
+              <GoogleMap
+                mapSetting={mapsetting.mapoption}
+                mapId={gmapId}
+                isHide={false}
+                mapInitedCallback={this.mapInitedCallback}
+              /> :
+              <OpenLayers
+                mapSetting={mapsetting.mapoption}
+                mapSource={OPEN_STREET_MAP}
+                mapId={gmapId}
+                mapInitedCallback={this.mapInitedCallback}
+              />
+            }
           </div>
           <div className={css.top_area}>
             <div className={css.top_item}>

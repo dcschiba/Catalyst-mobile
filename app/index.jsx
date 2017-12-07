@@ -9,14 +9,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ja from 'react-intl/locale-data/ja';
 import en from 'react-intl/locale-data/en';
-import fr from 'react-intl/locale-data/fr';
-import vi from 'react-intl/locale-data/vi';
 import Top from './js/containers/Top';
 import App from './js/containers/App';
 import Launch from './js/containers/Launch';
 import Start from './js/containers/Start';
 import Main from './js/containers/Main';
-import Test from './js/components/Test';
 import configureStore from './js/store/configureStore';
 import './style/index.css';
 
@@ -59,72 +56,65 @@ const initPushNotification = () => {
   });
 };
 
-document.addEventListener('deviceready', () => {
-  initPushNotification();
-  window.cordova.plugins.CorHttpd.startServer(
-    {
-      www_root: 'data',
-      port: 50000,
+const init = () => {
+  const muiTheme = getMuiTheme({
+    palette: {
+      fontFamily: 'Noto Sans Japanese, sans-serif',
+      primary1Color: '#505050',
+      primary2Color: '#707070',
+      accent1Color: '#ff7710',
     },
-    {},
-    (error) => {
-      console.error(error);
-      alert('server error');
-    },
+  });
+
+  const store = configureStore();
+  const history = syncHistoryWithStore(hashHistory, store);
+
+  const rootElement = document.getElementById('root');
+
+  addLocaleData([...ja, ...en]);
+  if (!global.Intl) {
+    /* eslint-disable global-require */
+    require('intl');
+    require('intl/locale-data/jsonp/ja.js');
+    require('intl/locale-data/jsonp/en.js');
+  }
+
+  render(
+    <Provider store={store}>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <Router history={history}>
+          <Route path="/" component={Launch} />
+          <Route path="start" component={Start} />
+          <Route path="app" component={App}>
+            <IndexRoute component={Top} />
+            <Route path="top" component={Top} />
+            <Route path="main" component={Main} />
+          </Route>
+        </Router>
+      </MuiThemeProvider>
+    </Provider>,
+    rootElement,
   );
-});
+};
 
-
-// document.addEventListener('cd', initPushNotification, false);
-// WRAP.DH.set({ baseurl: 'http://localhost:50000' });
-
-// document.addEventListener('offline', () => {
-//   alert('offline');
-//   WRAP.DH.set({ baseurl: 'http://localhost:50000' });
-// }, false);
-// document.addEventListener('online', () => {
-//   alert('online');
-//   WRAP.DH.set({ baseurl: 'https://pt-wrap01.wni.co.jp' });
-// }, false);
-
-const muiTheme = getMuiTheme({
-  palette: {
-    fontFamily: 'Noto Sans Japanese, sans-serif',
-    primary1Color: '#505050',
-    primary2Color: '#707070',
-    accent1Color: '#ff7710',
-  },
-});
-
-const store = configureStore();
-const history = syncHistoryWithStore(hashHistory, store);
-
-const rootElement = document.getElementById('root');
-
-addLocaleData([...ja, ...en, ...fr, ...vi]);
-if (!global.Intl) {
-  /* eslint-disable global-require */
-  require('intl');
-  require('intl/locale-data/jsonp/ja.js');
-  require('intl/locale-data/jsonp/en.js');
-  require('intl/locale-data/jsonp/fr.js');
-  require('intl/locale-data/jsonp/vi.js');
+if (process.env.NODE_ENV === 'production') {
+  document.addEventListener('deviceready', () => {
+    init();
+    initPushNotification();
+    window.cordova.plugins.CorHttpd.startServer(
+      {
+        www_root: 'data',
+        port: 50000,
+      },
+      () => {
+        console.error('');
+      },
+      (error) => {
+        console.error(error);
+        alert('server error');
+      },
+    );
+  });
+} else {
+  init();
 }
-
-render(
-  <Provider store={store}>
-    <MuiThemeProvider muiTheme={muiTheme}>
-      <Router history={history}>
-        <Route path="/" component={Launch} />
-        <Route path="start" component={Start} />
-        <Route path="app" component={App}>
-          <IndexRoute component={Top} />
-          <Route path="top" component={Top} />
-          <Route path="main" component={Main} />
-        </Route>
-        <Route path="test999" component={Test} />
-      </Router>
-    </MuiThemeProvider>
-  </Provider>,
-  rootElement,
-);

@@ -1,0 +1,19 @@
+{
+    "Name" : "WX_AU_Radar",
+    "DataHandler" : "TMS",
+    "Attributes" : {
+        "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_AU_Radar/index.json",
+        "File" : "%baseurl%/WRAP/wrap-pri/data/WX_AU_Radar/%validtime%/%z%/%x%/%y%.png",
+        "DataGrid" : {
+            "MinZoom" : 0,
+            "MaxZoom" : 5,
+            "BoundingBox" : {
+                "West":107.00000000000001,
+                "South":-48.00603746596926,
+                "East":174.00697513195303,
+                "North":-7.00000000000000
+            }
+        },
+        "UpdateInterval" : 300
+    }
+}

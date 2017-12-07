@@ -39,12 +39,6 @@ const styles = {
 };
 
 class App extends Component {
-  componentWillMount() {
-    // alert(navigator.userLanguage);
-    // alert(navigator.browserLanguage);
-    // alert(navigator.language);
-  }
-
   render() {
     const { children, locale } = this.props;
     return (

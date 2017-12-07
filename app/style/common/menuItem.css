@@ -1,0 +1,39 @@
+.wrapper {
+    width: 100%;
+    padding: 0px;
+}
+
+.childrenWrapper {
+    transition: all 0.3s ease;
+    height: 0px;
+    width: calc(100% - 56px);
+    padding: 0px;
+    float: right;
+    overflow: hidden;
+}
+
+.line {
+    width: 100%;
+    height: 56px;
+    display: flex;
+}
+
+.leftItem {
+    width: 56px;
+    height: 100%;
+    flex: 1;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.rightItem {
+    width: 56px;    
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+}

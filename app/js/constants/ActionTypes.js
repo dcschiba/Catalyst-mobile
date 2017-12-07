@@ -1,4 +1,7 @@
 
+export const ONLINE = 'ONLINE';
+export const OFFLINE = 'OFFLINE';
+
 export const CHANGE_LOCALE = 'CHANGE_LOCALE';
 export const CHANGE_SHOW_CONTENTS = 'CHANGE_SHOW_CONTENTS';
 

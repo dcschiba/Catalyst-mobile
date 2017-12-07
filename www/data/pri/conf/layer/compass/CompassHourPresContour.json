@@ -1,0 +1,22 @@
+{
+	"Name": "CompassHourPresContour",
+	"Renderer" : "Mesh",
+	"Attributes" : {
+        "data_offset" : 0,
+        "data_scale" : 0.01,
+        "style" : {
+            "default" : {
+                "contour": [
+                    {
+                        "base":900,
+                        "interval":8,
+                        "num": 30,
+                        "unit_label": "hPa",
+                        "strokeStyle": "rgba(50,50,100,0.6)",
+                        "textColor": "rgba(20,20,80,0.5)"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -19,6 +19,7 @@ import lightning from './lightning';
 import amedas from './amedas';
 import compasshour from './compasshour';
 import loading from './loading';
+import online from './online';
 
 const appReducer = combineReducers({
   routing: routerReducer,
@@ -40,6 +41,7 @@ const appReducer = combineReducers({
   amedas,
   compasshour,
   loading,
+  online,
 });
 
 const rootReducer = (state, action) => {
