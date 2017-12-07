@@ -32,6 +32,8 @@ import {
   COMPASS_HOUR_POP_FILL_CHANGE,
   COMPASS_HOUR_UGRDVGRD_CLICK,
   COMPASS_HOUR_UGRDVGRD_BARBS_CLICK,
+  COMPASS_HOUR_WIND_FLOW_CLICK,
+  COMPASS_HOUR_WIND_LINES_CHANGE,
   COMPASS_HOUR_VIS_CLICK,
   COMPASS_HOUR_VIS_CONTOUR_CLICK,
   COMPASS_HOUR_VIS_GRIDVALUE_CLICK,
@@ -85,6 +87,8 @@ const initialState = {
   compassHourUgrdvgrdGroupDisabled: { disabled: true },
   compassHourUgrdvgrdChecked: false,
   compassHourUgrdvgrdBarbsChecked: false,
+  compassHourWindflowcheckd: false,
+  compassHourWindflowlines: 1000,
   compassHourVisGroupDisabled: { disabled: true },
   compassHourVisChecked: false,
   compassHourVisFillValue: 'gradiation',
@@ -255,6 +259,14 @@ export default handleActions({
   [COMPASS_HOUR_UGRDVGRD_BARBS_CLICK]: (state, action) => ({
     ...state,
     compassHourUgrdvgrdBarbsChecked: action.payload.checked,
+  }),
+  [COMPASS_HOUR_WIND_FLOW_CLICK]: (state, action) => ({
+    ...state,
+    compassHourWindflowcheckd: action.payload.checked,
+  }),
+  [COMPASS_HOUR_WIND_LINES_CHANGE]: (state, action) => ({
+    ...state,
+    compassHourWindflowlines: action.payload.checked,
   }),
   // VIS
   [COMPASS_HOUR_VIS_CLICK]: (state, action) => ({

@@ -17,6 +17,7 @@
   },
   "dhkeyoption": {
     "baseurl": "https://pt-wrap01.wni.co.jp",
+    "baseurl_ea": "https://pt-wrap.wni.com",
     "icdburl": "https://wni-icdb.wni.com",
     "pdburl": "https://wni-pdb.wni.com",
     "apppath": "https://pt-wrap01.wni.co.jp/Catalyst/"
@@ -507,14 +508,44 @@
     },
     {
       "DHObjectName": "WX_WNI_COMPASS_HOUR",
-      "layerName": "CompassHourUgrdGridValue",
-      "confName": "compass/CompassHourUgrdGridValue.json",
+      "layerName": "CompassHourWindFlow",
+      "confName": "compass/WindFlow.json",
       "contentName": "compasshour"
     },
     {
       "DHObjectName": "WX_WNI_COMPASS_HOUR",
-      "layerName": "CompassHourVgrdGridValue",
-      "confName": "compass/CompassHourVgrdGridValue.json",
+      "layerName": "CompassHourVisFill",
+      "confName": "compass/CompassHourVisFill.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourVisGridValue",
+      "confName": "compass/CompassHourVisGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourVisContour",
+      "confName": "compass/CompassHourVisContour.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourWiwwFill",
+      "confName": "compass/CompassHourWiwwFill.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourWiwwGridValue",
+      "confName": "compass/CompassHourWiwwGridValue.json",
+      "contentName": "compasshour"
+    },
+    {
+      "DHObjectName": "WX_WNI_COMPASS_HOUR",
+      "layerName": "CompassHourWiwwContour",
+      "confName": "compass/CompassHourWiwwContour.json",
       "contentName": "compasshour"
     }
   ]

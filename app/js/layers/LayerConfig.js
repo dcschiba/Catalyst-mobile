@@ -77,6 +77,7 @@ import CompassHourPopContourLayer from '../layers/compasshour/CompassHourPopCont
 import CompassHourPopGridValueLayer from '../layers/compasshour/CompassHourPopGridValueLayer';
 import CompassHourPopFillLayer from '../layers/compasshour/CompassHourPopFillLayer';
 import CompassHourUgrdvgrdBarbsLayer from '../layers/compasshour/CompassHourUgrdvgrdBarbsLayer';
+import CompassHourWindFlowLayer from '../layers/compasshour/CompassHourWindFlowLayer';
 import CompassHourVisContourLayer from '../layers/compasshour/CompassHourVisContourLayer';
 import CompassHourVisGridValueLayer from '../layers/compasshour/CompassHourVisGridValueLayer';
 import CompassHourVisFillLayer from '../layers/compasshour/CompassHourVisFillLayer';
@@ -182,6 +183,7 @@ export const CompassHourPopFill = { layerClass: CompassHourPopFillLayer, layerNa
 export const CompassHourPopContour = { layerClass: CompassHourPopContourLayer, layerName: 'CompassHourPopContour' };
 export const CompassHourPopGridValue = { layerClass: CompassHourPopGridValueLayer, layerName: 'CompassHourPopGridValue' };
 export const CompassHourUgrdvgrdBarbs = { layerClass: CompassHourUgrdvgrdBarbsLayer, layerName: 'CompassHourUgrdvgrdBarbs' };
+export const CompassHourWindFlow = { layerClass: CompassHourWindFlowLayer, layerName: 'CompassHourWindFlow' };
 export const CompassHourVisFill = { layerClass: CompassHourVisFillLayer, layerName: 'CompassHourVisFill' };
 export const CompassHourVisContour = { layerClass: CompassHourVisContourLayer, layerName: 'CompassHourVisContour' };
 export const CompassHourVisGridValue = { layerClass: CompassHourVisGridValueLayer, layerName: 'CompassHourVisGridValue' };

@@ -13,6 +13,7 @@
     "cordova-android": "^6.4.0",
     "cordova-browser": "5.0.1",
     "cordova-ios": "4.5.4",
+    "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-httpd": "^0.9.3",
     "cordova-plugin-network-information": "^1.3.4",
@@ -25,8 +26,8 @@
       "phonegap-plugin-push": {},
       "cordova-plugin-httpd": {},
       "cordova-plugin-file": {},
-      "cordova-inappbrowser": {},
-      "cordova-plugin-network-information": {}
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-device": {}
     },
     "platforms": [
       "android",

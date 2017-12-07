@@ -23,9 +23,19 @@ export const styles = {
   },
 };
 
+ // TODO 作成
+export const childStyles = {
+  radio: {},
+  label: {},
+  line: {},
+  selectLabel: {},
+  selectWrapper: {},
+};
+
 export const childWrapper = (num, flag) => ({
   transition: 'all 0.3s ease',
   overflow: 'hidden',
   height: flag ? `calc(${num} * 60px)` : '0px',
   marginLeft: '24px',
 });
+

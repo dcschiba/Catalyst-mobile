@@ -7,9 +7,9 @@
 			"default": {
 				"fill_type": "gradation",
 				"palette_gradient": true,
-				"palette_step": 2,
+				"palette_step": 200,
 				"palette": [{
-						"value": 94000.0,
+						"value": 20000.0,
 						"color": "rgba( 255,  40,   0, 0.5)"
 					},
 					{
@@ -57,9 +57,9 @@
 			"flat": {
 				"fill_type": "flat",
 				"palette_gradient": false,
-				"palette_step": 8,
+				"palette_step": 200,
 				"palette": [{
-						"value": 94000.0,
+						"value": 20000.0,
 						"color": "rgba( 255,  40,   0, 0.5)"
 					},
 					{
@@ -107,9 +107,9 @@
 			"gradation": {
 				"fill_type": "gradation",
 				"palette_gradient": true,
-				"palette_step": 2,
+				"palette_step": 200,
 				"palette": [{
-						"value": 94000.0,
+						"value": 20000.0,
 						"color": "rgba( 255,  40,   0, 0.5)"
 					},
 					{

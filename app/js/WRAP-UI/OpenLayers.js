@@ -86,7 +86,7 @@ class OpenLayers extends Component {
           attributionOptions: ({
             collapsible: false,
           }),
-          zoom: true,
+          zoom: false,
         }),
       });
       const olZoom = document.getElementsByClassName('ol-zoom');

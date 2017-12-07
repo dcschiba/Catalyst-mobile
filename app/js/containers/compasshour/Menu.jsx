@@ -80,6 +80,7 @@ class Menu extends Component {
       compassHourTmpChecked,
       compassHourTmpContourChecked,
       compassHourTmpGridValueChecked,
+      compassHourTmpFillValue,
       compassHourPresGroupDisabled,
       compassHourPresChecked,
       compassHourPresContourChecked,
@@ -165,7 +166,7 @@ class Menu extends Component {
           <div style={childWrapper(7, compassHourTmpChecked)}>
             <RadioButtonGroup
               name="TMP_FILL_RG"
-              defaultSelected="gradation"
+              defaultSelected={compassHourTmpFillValue}
               onChange={(e, value) => actions.compassHourTmpfillChange(value)}
             >
               <RadioButton

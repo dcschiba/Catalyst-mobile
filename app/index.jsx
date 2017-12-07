@@ -16,6 +16,7 @@ import Start from './js/containers/Start';
 import Main from './js/containers/Main';
 import configureStore from './js/store/configureStore';
 import './style/index.css';
+import appConfig from './appConfig.json';
 
 const initPushNotification = () => {
   const push = window.PushNotification.init({
@@ -24,39 +25,55 @@ const initPushNotification = () => {
   });
 
   push.on('registration', (data) => {
-    console.log(data);
-    let url;
-    if (process.NODE_ENV === 'production') {
-      url = 'https://catalyst-push.glitch.me';
-    } else {
-      url = 'http://192.168.10.4:3000';
-    }
+    const url = appConfig.pushServer;
     const method = 'POST';
-    const body = {
-      token: data.token,
-      uuid: 456,
-      platform: 'Android',
-    };
+    const { platform, uuid } = window.device;
+    const body = JSON.stringify({
+      token: data.registrationId,
+      platform,
+      uuid,
+    });
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     };
     fetch(`${url}/notification/regist`, { method, headers, body })
-      .catch(alert('Push registration error'));
+      .then(res => console.log(res))
+      .catch((err) => {
+        console.error(err);
+      });
   });
 
   push.on('notification', (data) => {
-    hashHistory.push('app/top');
-    console.log(data);
+    const { path } = data.additionalData;
+    if (path) {
+      hashHistory.push(path);
+    }
   });
 
   push.on('error', (e) => {
-    alert('error');
+    alert('push receive error');
     console.error(e);
   });
 };
 
-const init = () => {
+const initLocalServer = () => {
+  window.cordova.plugins.CorHttpd.startServer(
+    {
+      www_root: 'data',
+      port: 50000,
+    },
+    () => {
+      console.log('server startup success');
+    },
+    (error) => {
+      alert('server startup error');
+      console.error(error);
+    },
+  );
+};
+
+const initApp = () => {
   const muiTheme = getMuiTheme({
     palette: {
       fontFamily: 'Noto Sans Japanese, sans-serif',
@@ -99,22 +116,10 @@ const init = () => {
 
 if (process.env.NODE_ENV === 'production') {
   document.addEventListener('deviceready', () => {
-    init();
     initPushNotification();
-    window.cordova.plugins.CorHttpd.startServer(
-      {
-        www_root: 'data',
-        port: 50000,
-      },
-      () => {
-        console.error('');
-      },
-      (error) => {
-        console.error(error);
-        alert('server error');
-      },
-    );
+    initLocalServer();
+    initApp();
   });
 } else {
-  init();
+  initApp();
 }

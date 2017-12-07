@@ -1,5 +1,4 @@
 import { createActions } from 'redux-actions';
-
 import {
   COMPASS_HOUR_CLICK,
   COMPASS_HOUR_BASETIME_CHANGE,
@@ -32,6 +31,8 @@ import {
   COMPASS_HOUR_POP_FILL_CHANGE,
   COMPASS_HOUR_UGRDVGRD_CLICK,
   COMPASS_HOUR_UGRDVGRD_BARBS_CLICK,
+  COMPASS_HOUR_WIND_FLOW_CLICK,
+  COMPASS_HOUR_WIND_LINES_CHANGE,
   COMPASS_HOUR_VIS_CLICK,
   COMPASS_HOUR_VIS_CONTOUR_CLICK,
   COMPASS_HOUR_VIS_GRIDVALUE_CLICK,
@@ -61,6 +62,7 @@ import {
   CompassHourPopGridValue,
   CompassHourPopFill,
   CompassHourUgrdvgrdBarbs,
+  CompassHourWindFlow,
   CompassHourVisContour,
   CompassHourVisGridValue,
   CompassHourVisFill,
@@ -89,6 +91,7 @@ const targetLayer = [
   CompassHourPopGridValue.layerName,
   CompassHourPopFill.layerName,
   CompassHourUgrdvgrdBarbs.layerName,
+  CompassHourWindFlow.layerName,
   CompassHourVisContour.layerName,
   CompassHourVisGridValue.layerName,
   CompassHourVisFill.layerName,
@@ -133,6 +136,8 @@ export const {
   compassHourUgrdvgrdClick,
   compassHourUgrdvgrdbarbsClick,
   compassHourUgrdgridvalueClick,
+  compassHourWindFlowClick,
+  compassHourWindLinesChange,
   compassHourVgrdgridvalueClick,
   compassHourVisClick,
   compassHourViscontourClick,
@@ -174,6 +179,8 @@ export const {
   [COMPASS_HOUR_POP_FILL_CHANGE]: valueAction,
   [COMPASS_HOUR_UGRDVGRD_CLICK]: checkAction,
   [COMPASS_HOUR_UGRDVGRD_BARBS_CLICK]: checkAction,
+  [COMPASS_HOUR_WIND_FLOW_CLICK]: checkAction,
+  [COMPASS_HOUR_WIND_LINES_CHANGE]: valueAction,
   [COMPASS_HOUR_VIS_CLICK]: checkAction,
   [COMPASS_HOUR_VIS_CONTOUR_CLICK]: checkAction,
   [COMPASS_HOUR_VIS_GRIDVALUE_CLICK]: checkAction,

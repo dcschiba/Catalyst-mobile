@@ -4,7 +4,7 @@ import WrapController from 'WRAP/UI/WrapController';
 import WrapUtils from '../common/utils/WrapUtils';
 import WrapMessages from '../common/messages/WrapMessages';
 import { AMEDAS_TIMELIST } from '../constants/amedas/ActionTypes';
-import css from '../../style/common/tooltip.css';
+// import css from '../../style/common/tooltip.css';
 
 class AmedasLayer extends WrapLayer {
   constructor(conf) {
@@ -32,14 +32,20 @@ class AmedasLayer extends WrapLayer {
               const timelist = ref.query('validtime').value();
               this.dataInspect(timelist);
             });
-            WRAP.Geo.addEventHandler('mouseover', AmedasLayer.mouseoverHandle);
-            WRAP.Geo.addEventHandler('mouseout', AmedasLayer.mouseoutHandle);
+
+            this.setTooltip((geo, data) => {
+              if (data) {
+                return AmedasLayer.tooltipHandle(data);
+              }
+              return null;
+            });
           });
         } else {
           WRAP.Logger.critical('Failed to get Amedas app config');
         }
       });
   }
+
   static getAmedasMaster(MasterData) {
     fetch(`${MasterData}?t=${new Date().getTime()}`)
       .then((response) => {
@@ -69,88 +75,21 @@ class AmedasLayer extends WrapLayer {
     return amssid;
   }
   /* eslint no-param-reassign: ["error", { "props": false }]*/
-  static showtooltip(tooltip, prax, pray) {
-    const pw = tooltip.parentNode.clientWidth;
-    const ph = tooltip.parentNode.clientHeight;
-    if (prax < 0 || prax >= pw || pray < 0 || pray >= ph) {
-      tooltip.style.display = 'none';
-      return;
+  static tooltipHandle(tooltipdata) {
+    const wind = tooltipdata.wind;
+    let windknot = '-';
+    if (wind !== '_missing_') {
+      const windround = Math.round(wind / 0.514);
+      windknot = `${windround} knot`;
     }
-    tooltip.style.display = 'block';
-    let tw = tooltip.clientWidth;
-    const th = tooltip.clientHeight;
-    let x = prax;
-    let y = pray;
-    if (tw >= pw) {
-      tw = 0;
-    }
-    const arrowoffset = 20;
-    const ox = 26;
-    const oy = 14;
-    const ay = oy + arrowoffset;
-    let xm;
-    let ym;
+    const sunshinemes = WrapMessages.getMessage('common.sunshine');
+    const precipitationmes = WrapMessages.getMessage('common.precipitation');
+    const winddirmes = WrapMessages.getMessage('common.wind.direction');
+    const windvelocitymes = WrapMessages.getMessage('common.wind.velocity');
+    const temperaturemes = WrapMessages.getMessage('common.temperature');
+    const snowdepthmes = WrapMessages.getMessage('common.snowdepth');
 
-    if (x + tw + (ox * 2) >= pw) {
-      x -= (tw + ox);
-      xm = ' r';
-    } else {
-      x += ox;
-      xm = ' l';
-    }
-
-    if (y < ay) {
-      y = oy;
-    } else if (y >= ph - oy - arrowoffset) {
-      y = ph - oy - th;
-    } else if ((y + th) - arrowoffset >= ph - ay) {
-      y -= th - arrowoffset - 2;
-      if (y > oy) {
-        ym = 'b-arrow';
-      } else {
-        y = oy;
-      }
-    } else {
-      y -= arrowoffset;
-      if (y > oy) {
-        ym = 't-arrow';
-      } else {
-        y = oy;
-      }
-    }
-    let c = 'tooltip';
-    if (xm && ym) {
-      c += (xm + ym);
-    }
-    tooltip.style.top = `${y}px`;
-    tooltip.style.left = `${x}px`;
-    tooltip.setAttribute('class', c);
-  }
-
-  static mouseoverHandle(layer, feature, point) {
-    if (layer && layer.name() === 'WX_JMA_Amedas'
-      && feature.image.indexOf('wind') === -1) {
-      if (!layer.tooltip) {
-        layer.tooltip = document.createElement('div');
-        layer.tooltip.className = css.tooltip;
-        const basediv = WrapController.mapDiv;
-        basediv.appendChild(layer.tooltip);
-      }
-      const tooltipdata = feature.tooltipdata;
-      const wind = tooltipdata.wind;
-      let windknot = '-';
-      if (wind !== '_missing_') {
-        const windround = Math.round(wind / 0.514);
-        windknot = `${windround} knot`;
-      }
-      const sunshinemes = WrapMessages.getMessage('common.sunshine');
-      const precipitationmes = WrapMessages.getMessage('common.precipitation');
-      const winddirmes = WrapMessages.getMessage('common.wind.direction');
-      const windvelocitymes = WrapMessages.getMessage('common.wind.velocity');
-      const temperaturemes = WrapMessages.getMessage('common.temperature');
-      const snowdepthmes = WrapMessages.getMessage('common.snowdepth');
-
-      layer.tooltip.innerHTML = `${AmedasLayer.getAmedasObsen(tooltipdata.amsid)} <br>
+    return `${AmedasLayer.getAmedasObsen(tooltipdata.amsid)} <br>
 ${sunshinemes}: ${AmedasLayer.checkmissing(tooltipdata.Sunshine, 'min')} <br>
 ${precipitationmes}: ${AmedasLayer.checkmissing(tooltipdata.Precipitation, 'mm')}<br>
 ${winddirmes}: ${AmedasLayer.checkmissing(tooltipdata.winddir, '')} <br>
@@ -158,19 +97,6 @@ ${windvelocitymes}: ${AmedasLayer.checkmissing(tooltipdata.wind, 'm/s')}<br>
 ${windvelocitymes}(knot): ${windknot}<br>
 ${temperaturemes}: ${AmedasLayer.checkmissing(tooltipdata.Temperature, '℃')}<br>
 ${snowdepthmes}:  ${AmedasLayer.checkmissing(tooltipdata.SnowDepth, 'cm')}<br>`;
-
-      AmedasLayer.showtooltip(layer.tooltip, point.x, point.y);
-    }
-  }
-
-  /* eslint-disable no-unused-vars */
-  static mouseoutHandle(layer, feature, point) {
-    if (layer && layer.name() === 'WX_JMA_Amedas') {
-      if (layer.tooltip) {
-        layer.tooltip.style.top = '-1000px';
-        layer.tooltip.style.left = '-1000px';
-      }
-    }
   }
 
   dataInspect(timelist) {
@@ -230,15 +156,17 @@ ${snowdepthmes}:  ${AmedasLayer.checkmissing(tooltipdata.SnowDepth, 'cm')}<br>`;
                 }
                 const feature = new WRAP.Geo.Feature.Image(imgopt);
                 feature.val = imgidx.val;
-                feature.tooltipdata = {
-                  amsid: prop.amsid,
-                  Sunshine: prop.sun_time_total['10m'],
-                  Precipitation: prop.rain_amnt_total['10m'],
-                  winddir: prop.wind_dir['10m_mean'],
-                  wind: prop.wind_vel['10m_mean'],
-                  Temperature: prop.air.temp,
-                  SnowDepth: prop.snow.wrap_hgt,
-                };
+                if (tp !== 'wind') {
+                  feature.data = {
+                    amsid: prop.amsid,
+                    Sunshine: prop.sun_time_total['10m'],
+                    Precipitation: prop.rain_amnt_total['10m'],
+                    winddir: prop.wind_dir['10m_mean'],
+                    wind: prop.wind_vel['10m_mean'],
+                    Temperature: prop.air.temp,
+                    SnowDepth: prop.snow.wrap_hgt,
+                  };
+                }
                 if (tp === 'wind') {
                   windfeatures.push(feature);
                 } else {

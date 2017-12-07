@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -7,25 +8,39 @@ module.exports = {
     './index',
   ],
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
   },
   node: {
-    fs: 'empty'
+    fs: 'empty',
   },
   output: {
     path: path.join(__dirname, '..', 'www'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: './',
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: process.env.NODE_ENV,
       },
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
+      },
+    }),
+    new HtmlWebpackPlugin({
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
+      hash: false,
+      filename: 'index.html',
+      template: path.join(__dirname, 'index.template.ejs'),
+      inject: 'body',
+      environment: {
+        NODE_ENV: process.env.NODE_ENV,
       },
     }),
   ],
@@ -35,7 +50,7 @@ module.exports = {
         enforce: 'pre',
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['eslint-loader']
+        use: ['eslint-loader'],
       },
       {
         test: /\.(js|jsx)$/,
@@ -49,17 +64,17 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        exclude: /node_modules/,        
+        exclude: /node_modules/,
         use: ['react-svg-loader'],
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader']
+        use: ['style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'],
       },
       {
         test: /\.json$/,
-        use: ['json-loader']
+        use: ['json-loader'],
       },
-    ]
+    ],
   },
-}
+};

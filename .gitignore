@@ -4,3 +4,5 @@ platforms
 plugins
 package-lock.json
 npm-debug.log
+www/bundle.js
+www/index.html
