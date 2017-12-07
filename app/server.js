@@ -13,7 +13,7 @@ app.use(webpackHotMiddleware(compiler));
 
 var express = require('express');
 app.use(express.static('public'));
-app.use('/pri', express.static(path.join(__dirname, '..', 'www/data/pri')));
+app.use(express.static(path.join(__dirname, '..', 'www/data')));
 app.use('/img', express.static(path.join(__dirname, '..', 'www/img')));
 
 app.get('/', function (req, res) {

@@ -89,11 +89,11 @@ class OpenLayers extends Component {
           zoom: false,
         }),
       });
-      const olZoom = document.getElementsByClassName('ol-zoom');
-      olZoom[0].style.left = 'auto';
-      olZoom[0].style.top = 'auto';
-      olZoom[0].style.bottom = '30px';
-      olZoom[0].style.right = '8px';
+      // const olZoom = document.getElementsByClassName('ol-zoom');
+      // olZoom[0].style.left = 'auto';
+      // olZoom[0].style.top = 'auto';
+      // olZoom[0].style.bottom = '30px';
+      // olZoom[0].style.right = '8px';
       mapInitedCallback(map);
     }
   }
