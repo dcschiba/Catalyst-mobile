@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import style from './styles/openlayers';
 
@@ -27,22 +28,26 @@ class OpenLayers extends Component {
   
   componentWillReceiveProps(nextProps) {
     const { mapSource } = nextProps;
-    if(mapSource) {
+    if(mapSource && this.source) {
       this.source.setUrl(mapSource);
     }
   }
 
   initOpenLayers() {
+    if(window.ol) {
+      this.initOpenStreetMap();
+      return;
+    }
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/ol3/3.20.1/ol.js';
+    script.src = 'http://localhost:50000/libs/ol/ol.js';
 
     document.getElementsByTagName('head')[0].appendChild(script);
 
     const ollink = document.createElement('link');
     ollink.rel = 'stylesheet';
     ollink.type = 'text/css';
-    ollink.href = 'https://cdnjs.cloudflare.com/ajax/libs/ol3/3.20.1/ol.css';
+    ollink.href = 'http://localhost:50000/libs/ol/ol.css';
 
     document.getElementsByTagName('head')[0].appendChild(script);
     document.getElementsByTagName('head')[0].appendChild(ollink);

@@ -14,7 +14,7 @@ export default handleActions({
   }),
 
   [REMOVE_FUNCTION_LIST]: (state, action) => ({
-    list: state.list.filter(listItem => listItem !== action.payload.item),
+    list: state.list.filter(listItem => listItem.name !== action.payload.name),
   }),
 
 }, initialState);

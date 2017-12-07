@@ -16,16 +16,16 @@ import {
 } from '../constants/waveblend/ActionTypes';
 
 const initialState = {
-  waveBlendChecked: false,
+  waveBlendChecked: true,
   waveBlendArrowChecked: true,
   waveBlendContourChecked: true,
   waveBlendFlatChecked: true,
   waveBlendLowresoChecked: true,
   waveBlendNpacChecked: true,
-  waveBlendNatlChecked: true,
-  waveBlendSeasiaChecked: true,
+  waveBlendNatlChecked: false,
+  waveBlendSeasiaChecked: false,
   data: {},
-  subDisabled: { disabled: true },
+  subDisabled: { disabled: false },
   basetimeidx: 0,
   validtimeidx: 0,
   basetime: [],

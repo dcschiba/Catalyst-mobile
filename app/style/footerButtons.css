@@ -1,0 +1,64 @@
+.slide_button {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    height: 60px;
+    width: 70px;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+.footer {
+    position: absolute;
+    height: 60px;    
+    width: calc(100vw - 60px);
+    bottom: 0px;
+    right: 0;
+    display: flex;
+}
+
+.buttons_area {
+    background: #333333 ;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    overflow-x: scroll;
+}
+
+.buttons {
+    height: 60px;
+    display: flex;    
+}
+
+.button {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    height: 100%;
+    width: 80px;
+    margin: 0;
+    padding: 10px;
+    font-size: 0.75em;
+}
+
+.label {
+    width: 100%;    
+    padding: 0;
+    margin: 0;
+    line-height: 16px;
+    height: 18px;
+    white-space: nowrap;
+    overflow: hidden;    
+    text-overflow: ellipsis;
+}
+
+.location_button {
+    position: absolute;    
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    bottom: 90px;
+    right: 20px;
+}

@@ -16,7 +16,7 @@ const propTypes = {
 };
 
 const themeColor = {
-  main: { backgroundColor: '#505050', color: '#ffffff' },
+  main: { backgroundColor: '#333333', color: '#ffffff' },
   second: { backgroundColor: '#707070', color: '#ffffff' },
   ground: { backgroundColor: '#ffffff', color: '#505050' },
   accent: '#ff7710',
@@ -25,38 +25,32 @@ const themeColor = {
 const styles = {
   appBar: {
     ...themeColor.main,
-    height: '40px',
+    height: '50px',
+    boxShadow: '0px 1px 8px #333333',
   },
   title: {
     fontSize: '1.15em',
-    textAlign: 'center',
-    height: '40px',
-    lineHeight: '40px',
+    lineHeight: '50px',
   },
   settingButton: {
-    padding: '0px',
+    padding: '6px 14px 6px 14px',
     margin: '0px',
-    height: '20px',
   },
 };
 
 class App extends Component {
-  componentWillMount() {
-    // alert(navigator.userLanguage);
-    // alert(navigator.browserLanguage);
-    // alert(navigator.language);
-  }
-
   render() {
     const { children, locale } = this.props;
     return (
-      <div style={{ ...themeColor.ground, height: '100vh' }} >
+      <div style={{ ...themeColor.ground }} >
         <AppBar
           title="WRAP Catalyst"
           titleStyle={styles.title}
           style={styles.appBar}
           showMenuIconButton={false}
-          iconElementRight={<SettingIcon color={themeColor.main.color} />}
+          iconElementRight={
+            <SettingIcon color={themeColor.main.color} style={styles.settingButton} />
+          }
         />
         <div className={css.contents}>
           {React.cloneElement(children, { themeColor, locale })}

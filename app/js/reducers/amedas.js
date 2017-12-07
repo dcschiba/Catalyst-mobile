@@ -9,12 +9,12 @@ import {
 
 const initialState = {
   data: {},
-  showchecked: false,
+  showchecked: true,
   legendClosed: true,
-  subDisabled: { disabled: true },
+  subDisabled: { disabled: false },
   validtimeidx: 0,
   windchecked: false,
-  content: 'Sunshine',
+  content: 'Temperature',
   tsarr: [],
 };
 

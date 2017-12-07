@@ -42,6 +42,9 @@ class GoogleMap extends Component {
         streetViewControl: false,
         draggableCursor: 'default',
         mapTypeId: google.maps.MapTypeId.ROADMAP,
+        fullscreenControlOptions: {
+          position: google.maps.ControlPosition.LEFT_BOTTOM,
+        },
       };
       const mapDiv = document.getElementById(mapId);
       const map = new google.maps.Map(mapDiv, mapOption);
@@ -69,6 +72,9 @@ callback=g_GOOGLE_MAP_INITIALIZE`;
         scaleControl: false,
         zoomControlOptions: {
           position: google.maps.ControlPosition.RIGHT_BOTTOM,
+        },
+        fullscreenControlOptions: {
+          position: google.maps.ControlPosition.LEFT_BOTTOM,
         },
         streetViewControl: false,
         draggableCursor: 'default',

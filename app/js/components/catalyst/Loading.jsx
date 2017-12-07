@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 const propTypes = {
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.bool,
   fullScreen: PropTypes.bool,
   blurStyle: PropTypes.object,
   iconStyle: PropTypes.object,
-  iconWrapperStyle: PropTypes.object,
 };
 
 const styles = {
@@ -28,38 +28,28 @@ const styles = {
     backgroundColor: '#888888',
     opacity: 1,
     zIndex: 2000,
-    margin: 'auto',
+    margin: 0,
+    padding: 0,
   },
-  icon: {
-    width: '24px',
-    height: '24px',
+  iconStyle: {
+    margin: 'calc(50% - 16px)',
   },
-  iconWrapper: {
-    width: '40px',
-    height: '40px',
-    margin: 'auto',
-    backgroundColor: '#ffffff',
-  },
+
 };
 
 class Loading extends Component {
   render() {
-    if (!this.props.show) { return null; }
-
+    const { show = true } = this.props;
+    if (!show) { return null; }
     const {
-      fullScreen = true,
+      fullScreen = false,
       blurStyle,
       iconStyle,
-      iconWrapperStyle,
     } = this.props;
 
     const blur = {
       ...fullScreen ? styles.blur_full_screan : styles.blur_full_screan,
       ...blurStyle,
-    };
-    const iconWrapper = {
-      ...styles.iconWrapper,
-      ...iconWrapperStyle,
     };
     const icon = {
       ...styles.iconStyle,
@@ -67,9 +57,13 @@ class Loading extends Component {
     };
     return (
       <div style={blur}>
-        <div style={iconWrapper}>
-          <img alt="Now Loading..." style={icon} />
-        </div>
+        <RefreshIndicator
+          status="loading"
+          size={40}
+          left={0}
+          top={0}
+          style={icon}
+        />
       </div>
     );
   }

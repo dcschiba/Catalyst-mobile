@@ -43,17 +43,17 @@ import {
 } from '../constants/compasshour/ActionTypes';
 
 const initialState = {
-  compassHourChecked: false,
+  compassHourChecked: true,
   data: {},
   basetimeidx: 0,
   validtimeidx: 0,
   basetime: [],
   tsobj: {},
-  compassHourDisabled: { disabled: true },
-  compassHourTmpGroupDisabled: { disabled: true },
-  compassHourTmpChecked: false,
-  compassHourTmpFillValue: 'gradiation',
-  compassHourTmpContourChecked: false,
+  compassHourDisabled: { disabled: false },
+  compassHourTmpGroupDisabled: { disabled: false },
+  compassHourTmpChecked: true,
+  compassHourTmpFillValue: 'none',
+  compassHourTmpContourChecked: true,
   compassHourTmpContourUnit: 'C',
   compassHourTmpGridValueChecked: false,
   compassHourTmpGridValueUnit: 'C',

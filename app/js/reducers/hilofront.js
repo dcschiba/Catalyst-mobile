@@ -12,13 +12,13 @@ import {
 
 
 const initialState = {
-  showchecked: false,
-  subDisabled: { disabled: true },
+  showchecked: true,
+  subDisabled: { disabled: false },
   basetimeidx: 0,
   validtimeidx: 0,
-  contourchecked: false,
-  hilochecked: false,
-  frontchecked: false,
+  contourchecked: true,
+  hilochecked: true,
+  frontchecked: true,
   basetimelist: [],
   bvtimeobj: {},
 };

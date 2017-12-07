@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   data: {},
-  jmawarnChecked: false,
+  jmawarnChecked: true,
   announceddate: '',
 };
 

@@ -1,9 +1,0 @@
-{
-    "Name" : "SIGWX_UK_Middle_past",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-      "TimeList" : "%baseurl%/WRAP/wrap-pri/data/WX_UKWAFC_SIGWX/Middle/index.json",
-      "File" : "%baseurl%/WRAP/wrap-pri/data/WX_UKWAFC_SIGWX/Middle/%basetime%/%validtime%.json",
-      "UpdateInterval" : 360
-    }
-}

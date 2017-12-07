@@ -1,8 +1,0 @@
-{
-    "Name" : "CarGPS",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "File" : "./pri/data/CarGPS/out.json",
-        "UpdateInterval" : 60
-    }
-}

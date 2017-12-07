@@ -1,11 +1,14 @@
 import WrapLayer from 'WRAP/UI/WrapLayer';
+import _ from 'lodash';
 import WrapUtils from '../../common/utils/WrapUtils';
 import {
-  COMPASS_HOUR_TIMELIST } from '../../constants/compasshour/ActionTypes';
+  COMPASS_HOUR_TIMELIST,
+} from '../../constants/compasshour/ActionTypes';
 
 class CompassHourLayer extends WrapLayer {
   constructor(conf) {
     super(conf);
+    this.setContent = this.setContent.bind(this);
     this.timeRange = {};
     this.dispathfunc = conf.dispatchAction;
     this.dhData.inspect((ref) => {
@@ -34,23 +37,27 @@ class CompassHourLayer extends WrapLayer {
       }
       this.timeRange = { basetime, tsobj };
 
-      this.dispathfunc(COMPASS_HOUR_TIMELIST, { basetime,
+      this.dispathfunc(COMPASS_HOUR_TIMELIST, {
+        basetime,
         tsobj,
         basetimeidx: 0,
-        validtimeidx: 0 },
+        validtimeidx: 0,
+      },
         this.name());
     }
   }
 
   setContent(f, basetimdidx, validtimeidx) {
-    const basetime = this.timeRange.basetime[basetimdidx];
-    const validtimelist = this.timeRange.tsobj[basetime];
-    if (validtimelist && validtimeidx < validtimelist.length) {
-      this.set({
-        ...f,
-        basetime: validtimelist[validtimeidx].basetime,
-        validtime: validtimelist[validtimeidx].validtime,
-      });
+    if (_.get(this, 'timeRange.basetime')) {
+      const basetime = this.timeRange.basetime[basetimdidx];
+      const validtimelist = this.timeRange.tsobj[basetime];
+      if (validtimelist && validtimeidx < validtimelist.length) {
+        this.set({
+          ...f,
+          basetime: validtimelist[validtimeidx].basetime,
+          validtime: validtimelist[validtimeidx].validtime,
+        });
+      }
     }
   }
 }

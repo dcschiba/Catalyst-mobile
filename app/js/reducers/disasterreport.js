@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   data: {},
-  disasterReportChecked: false,
+  disasterReportChecked: true,
   showtype: '1',
 };
 

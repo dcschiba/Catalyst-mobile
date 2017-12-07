@@ -13,7 +13,19 @@ const propTypes = {
   actions: PropTypes.object.isRequired,
   hilofront: PropTypes.object.isRequired,
 };
-
+const styles = {
+  main_button: {
+    padding: '20px',
+    border: 'solid 0.5px lightgray',
+    margin: 0,
+  },
+  padding: {
+    padding: '20px',
+  },
+  radio: {
+    padding: '10px 20px',
+  },
+};
 class Menu extends Component {
   render() {
     const {
@@ -50,12 +62,13 @@ class Menu extends Component {
           checked={showchecked}
           onClick={e => actions.hilofrontShowClick(e.target.checked)}
           label={'Hi Lo Front'}
+          style={styles.main_button}
         />
         <SelectField
           value={basetimeidx}
           floatingLabelText="basetime"
           {...subDisabled}
-          style={css.selectTime}
+          style={{ ...css.selectTime, ...styles.padding }}
           onChange={(event, index, value) => actions.hilofrontBasetimeChange(value)}
         >
           {basetimeItems}
@@ -64,7 +77,7 @@ class Menu extends Component {
           value={validtimeidx}
           floatingLabelText="validtime"
           {...subDisabled}
-          style={css.selectTime}
+          style={{ ...css.selectTime, ...styles.padding }}
           onChange={(event, index, value) => actions.hilofrontValidtimeChange(value)}
         >
           {validtimeItems}
@@ -75,18 +88,21 @@ class Menu extends Component {
             onClick={e => actions.hilofrontContourClick(e.target.checked)}
             disabled={subDisabled.disabled}
             label={'Contour'}
+            style={styles.padding}
           />
           <CheckBox
             checked={hilochecked}
             onClick={e => actions.hilofrontHiloClick(e.target.checked)}
             disabled={subDisabled.disabled}
             label={'Hi Lo'}
+            style={styles.padding}
           />
           <CheckBox
             checked={frontchecked}
             onClick={e => actions.hilofrontFrontClick(e.target.checked)}
             disabled={subDisabled.disabled}
             label={'Front'}
+            style={styles.padding}
           />
         </div>
       </div>

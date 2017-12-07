@@ -1,8 +1,0 @@
-{
-    "Name" : "WX_JP_Lightning",
-    "DataHandler" : "Lightning",
-    "Attributes" : {
-        "URL" : "./pri/wrap/data/LIGHTNING/lightning_latest.json",
-        "UpdateInterval" : 60
-    }
-}

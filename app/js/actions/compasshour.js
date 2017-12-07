@@ -1,4 +1,5 @@
 import { createActions } from 'redux-actions';
+
 import {
   COMPASS_HOUR_CLICK,
   COMPASS_HOUR_BASETIME_CHANGE,

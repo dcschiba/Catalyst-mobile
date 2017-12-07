@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { STORE_INITIALIZE } from '../constants/ActionTypes';
+import layerInit from './layerInit';
 import functionList from './functionList';
 import locale from './locale';
 import catalyst from './catalyst';
 import map from './map';
-import loading from './loading';
 import gpvgfs from './gpvgfs';
 import jp10ten from './jp10ten';
 import radar from './radar';
@@ -17,14 +18,16 @@ import jmaseawarn from './jmaseawarn';
 import lightning from './lightning';
 import amedas from './amedas';
 import compasshour from './compasshour';
+import loading from './loading';
+import online from './online';
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   routing: routerReducer,
+  layerInit,
   functionList,
   locale,
   catalyst,
   map,
-  loading,
   gpvgfs,
   jp10ten,
   radar,
@@ -37,6 +40,32 @@ const rootReducer = combineReducers({
   lightning,
   amedas,
   compasshour,
+  loading,
+  online,
 });
+
+const rootReducer = (state, action) => {
+  let newState = state;
+  if (action.type === STORE_INITIALIZE) {
+    newState = {
+      ...state,
+      layerInit: undefined,
+      gpvgfs: undefined,
+      jp10ten: undefined,
+      radar: undefined,
+      waveblend: undefined,
+      hilofront: undefined,
+      disasterreport: undefined,
+      livecamera: undefined,
+      jmawarn: undefined,
+      jmaseawarn: undefined,
+      lightning: undefined,
+      amedas: undefined,
+      compasshour: undefined,
+      loading: undefined,
+    };
+  }
+  return appReducer(newState, action);
+};
 
 export default rootReducer;

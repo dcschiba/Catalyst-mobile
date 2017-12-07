@@ -1,7 +1,0 @@
-{
-    "Name" : "DisasterReportPast",
-    "DataHandler" : "GeoJSON",
-    "Attributes" : {
-        "File" : "%past%.json"
-    }
-}

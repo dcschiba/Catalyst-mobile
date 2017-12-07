@@ -8,14 +8,13 @@
     text-align: center;
     vertical-align: middle;
     border-radius: 10px;
-    opacity: 0;
-}
-
-.neon_light {
     background-color: #4a8fe1;
     border: solid 0.5px #64a8f7;
     box-shadow: 0 0 10px #4a8fe1, 0 0 20px #64a8f7;
     opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .neon_extinguish {
@@ -29,14 +28,11 @@
 .neon_label {
     transition: all 250ms 0s ease-in-out;    
     opacity: 0.85;
-    opacity: 0;
-}
-.neon_label_light {
     color: white;
     text-shadow: 0 0 15px #fff;
     font-size: 1.15em;
-    opacity: 1;    
 }
+
 .neon_label_extinguish {
     color: black;
     text-shadow: 0 0 0px #fff;

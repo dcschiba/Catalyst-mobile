@@ -8,13 +8,13 @@ import * as LiveCameraActions from '../../actions/livecamera';
 import {
   LIVE_CAMERA,
 } from '../../constants/livecamera/LabelText';
+import { styles } from '../../utils/menuStyle';
 import css from '../../../style/livecamera/menu.css';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
   liveCmChecked: PropTypes.bool.isRequired,
 };
-
 class Menu extends Component {
   componentWillUnmount() {
     const { actions } = this.props;
@@ -32,6 +32,8 @@ class Menu extends Component {
           label={LIVE_CAMERA}
           checked={liveCmChecked}
           onClick={e => actions.liveCameraClick(e.target.checked)}
+          style={styles.checkbox}
+          labelStyle={styles.label}
         />
       </div>
     );

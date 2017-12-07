@@ -9,9 +9,9 @@ import {
 
 
 const initialState = {
-  showchecked: false,
-  subDisabled: { disabled: true },
-  validtimeidx: 0,
+  showchecked: true,
+  subDisabled: { disabled: false },
+  validtimeidx: 2,
   showpast: '0',
   validtimelist: [],
   visiblecodes: [100, 101, 200, 300, 301, 302, 303, 304, 400, 410, 411, 412, 420, 421, 422],

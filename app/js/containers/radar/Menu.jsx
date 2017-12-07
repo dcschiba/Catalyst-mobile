@@ -33,7 +33,7 @@ class Menu extends Component {
           actions.jpRadarActivityChange(jptm);
         } else {
           actions.loadJPRadarActivity(WrapController.dhkeyoption.baseurl,
-             WXJPRadar[e.target.value].tm);
+            WXJPRadar[e.target.value].tm);
         }
       }
     }
@@ -168,6 +168,24 @@ class Menu extends Component {
           </div>
         </div>
         <div>
+          <div className={css.hordiv2}>
+            <Checkbox
+              disabled={!radarChecked}
+              label="JMA_PRCRIN"
+              onClick={e => actions.jmaPrcrinExtraClick(e.target.checked)}
+            />
+            <div className={css.hordiv2}>
+              <select
+                disabled={!radarChecked || !jmaprcrinextraChecked}
+                value={jmaprcrinextravalidtimeidx}
+                onChange={e => actions.jmaPrcrinExtraValidtimeChange(e.target.value)}
+              >
+                {JMA_ANLSIS_PRCRIN_EXTRA.map((ts, i) =>
+                  <option key={i} value={i}>{ts.ts}</option>,
+                )};
+              </select>
+            </div>
+          </div>
           <div className={css.hordiv2}>
             <Checkbox
               label="JP"
@@ -415,24 +433,6 @@ class Menu extends Component {
               </select>
             </div>
           </div> */}
-          <div className={css.hordiv2}>
-            <Checkbox
-              disabled={!radarChecked}
-              label="JMA_PRCRIN"
-              onClick={e => actions.jmaPrcrinExtraClick(e.target.checked)}
-            />
-            <div className={css.hordiv2}>
-              <select
-                disabled={!radarChecked || !jmaprcrinextraChecked}
-                value={jmaprcrinextravalidtimeidx}
-                onChange={e => actions.jmaPrcrinExtraValidtimeChange(e.target.value)}
-              >
-                {JMA_ANLSIS_PRCRIN_EXTRA.map((ts, i) =>
-                  <option key={i} value={i}>{ts.ts}</option>,
-                )};
-              </select>
-            </div>
-          </div>
         </div>
         <div>
           <div className={css.hordiv2}>
@@ -459,7 +459,7 @@ class Menu extends Component {
           {jpActivitySelectkey.map((key, i) =>
             <div
               className={jpActivitySelect[key] === 0 || jpActivitySelect[key] === 3
-              ? css.graycolor : css.bluecolor} key={i}
+                ? css.graycolor : css.bluecolor} key={i}
             >
               <label htmlFor className={css.labelwidth}>{Menu.getJpRadarName(key)}</label>
               ： {JpRadarActivityStatus[jpActivitySelect[key]]}

@@ -12,8 +12,8 @@ const propTypes = {
 
 const styles = {
   start: {
-    width: '90%',
-    height: '40px',
+    width: '84%',
+    height: '50px',
     backgroundColor: '#0C419A',
     color: 'white',
   },
@@ -27,8 +27,12 @@ class Top extends Component {
   render() {
     return (
       <div className={css.wrapper}>
-        <img src={startImg} className={css.background} alt="Hello WRAP Catalyst mobile" />
-        <div className={css.start_button}><FlatButton label="START" style={styles.start} onClick={() => hashHistory.push('app')} /></div>
+        <button className={css.wrapper_button} onClick={() => hashHistory.push('app')} >
+          <img src={startImg} className={css.background} alt="Hello WRAP Catalyst mobile" />
+          <div className={css.start_button}>
+            <FlatButton label="START" style={styles.start} />
+          </div>
+        </button>
       </div>
     );
   }

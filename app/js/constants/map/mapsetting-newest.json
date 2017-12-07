@@ -1,5 +1,5 @@
 {
-  "debug" : true,
+  "debug": true,
   "mapoption": {
     "zoom": 6,
     "zoomControl": false,
@@ -15,14 +15,14 @@
     "base_lon": 140,
     "lat_ts": 45
   },
-  "dhkeyoption":{
+  "dhkeyoption": {
     "baseurl": "https://pt-wrap01.wni.co.jp",
     "icdburl": "https://wni-icdb.wni.com",
     "pdburl": "https://wni-pdb.wni.com",
     "apppath": "https://pt-wrap01.wni.co.jp/Catalyst/"
   },
-  "confDataPath": "http://localhost:50001/conf/data/",
-  "confLayerPath": "http://localhost:50001/conf/layer/",
+  "confDataPath": "http://localhost:50000/pri/conf/data",
+  "confLayerPath": "http://localhost:50000/pri/conf/layer/",
   "layers": [
     {
       "DHObjectName": "Model_GFS",
@@ -143,7 +143,8 @@
       "layerName": "WX_WNI_JP_10Ten_Report",
       "confName": "WX_WNI_JP_10Ten_Report.json",
       "contentName": "jp10ten"
-    },   {
+    },
+    {
       "DHObjectName": "WX_JP_Radar",
       "layerName": "WX_JP_Radar",
       "confName": "Radar.json",

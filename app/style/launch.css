@@ -1,13 +1,27 @@
 .wrapper {
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
+    overflow: hidden;    
 }
+
+.wrapper_button {
+    width: 100%;
+    height: 100%;
+    border: none;  
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
 
 .logo {
     width: 54%;
     display: block;
-    margin: 32% auto 36px auto;
+    margin: 25% auto 46px auto;
     padding: 0;
     position: relative;
     animation: delay 1.8s ease 0s 1 backwards;    
@@ -22,7 +36,7 @@
 
 .skip {
     float: right;
-    padding: 20px 20px;
+    padding: 25px 25px;
     animation: fadeIn 0.1s ease 0s 1 backwards;
 }
 

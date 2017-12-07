@@ -17,12 +17,10 @@ class NeonButton extends Component {
     const { isActive } = this.props;
     const buttonStyle = this.cx({
       neon: true,
-      neon_light: isActive,
       neon_extinguish: !isActive,
     });
     const labelStyle = this.cx({
       neon_label: true,
-      neon_label_light: isActive,
       neon_label_extinguish: !isActive,
     });
     return (

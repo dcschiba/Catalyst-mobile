@@ -3,17 +3,11 @@ import PropTypes from 'prop-types';
 import ClassNames from 'classnames/bind';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-// import Hammer from 'hammerjs';
-// import Checkbox from 'material-ui/Checkbox';
-import LocationIcon from 'material-ui/svg-icons/maps/my-location';
-// import DownIcon from 'material-ui/svg-icons/navigation/expand-more';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import UpIcon from 'material-ui/svg-icons/navigation/expand-less';
 import SlideLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import SlideRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import css from '../../../style/mapConsole.css';
-import NeonButton from './NeonButton';
 
 
 // import { List, ListItem } from 'material-ui/List';
@@ -33,11 +27,7 @@ class MapConsole extends Component {
     this.state = {
       tabState: 0,
       isMenuShown: false,
-      isActive: {},
     };
-    this.props.tabList.forEach((content) => {
-      this.state.isActive[content] = false;
-    });
     this.menuForward = this.menuForward.bind(this);
     this.menuToggle = this.menuToggle.bind(this);
     this.cx = ClassNames.bind(css);
@@ -53,11 +43,6 @@ class MapConsole extends Component {
   menuToggle(openFlag) {
     this.setState({
       isMenuShown: openFlag,
-    });
-  }
-  turnActive(contents, flag) {
-    this.setState({
-      isActive: { ...this.state.isActive, [contents]: flag },
     });
   }
   menuForward(toForward) {
@@ -88,7 +73,7 @@ class MapConsole extends Component {
         width: '100%',
         overflowX: 'scroll',
         overflowY: 'hidden',
-        ...themeColor.main,
+        backgroundColor: '#f5f5f5',
       },
       tabs: {
         position: 'relative',
@@ -97,46 +82,40 @@ class MapConsole extends Component {
       },
       tab: {
         height: '60px',
-        width: tabSize,
+        width: `calc(${tabSize} - 12px)`,
+        padding: '0 6px',
+        backgroundColor: '#f5f5f5',
+        color: '#000000',
         overflow: 'hidden',
+      },
+
+      label: {
+        width: '100%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
+    };
+    const styles = {
+      slide_button: {
+        backgroundColor: '#f5f5f5',
       },
     };
     if (tabList.length <= 2) {
       tabStyle.tabs.width = '100%';
       tabStyle.tab.width = `${100 / tabList.length}%`;
+      styles.slide_button = { display: 'none' };
     }
     return (
       <div>
-        <div className={css.location_button}>
-          <FloatingActionButton backgroundColor="white">
-            <LocationIcon style={{ fill: '#4285f4' }} />
-          </FloatingActionButton>
-        </div>
-        <div className={css.contents_trigger_area}>
-          {tabList.map(contents => (
-            <button
-              onClick={() => {
-                document.getElementById(contents).click();
-                this.turnActive(contents, !this.state.isActive[contents]);
-              }}
-              className={css.contents_trigger} style={themeColor.main}
-            >{contents.slice(0, 5).toUpperCase()}..
-              <NeonButton isActive={this.state.isActive[contents]} />
-            </button>
-          ))}
-        </div>
-
         <div className={wrapper}>
           <div className={css.menu} style={themeColor.ground}>
             <div className={css.tab_area}>
               <button
                 onClick={() => this.menuForward(false)}
-                style={themeColor.main}
+                style={styles.slide_button}
                 className={css.slide_button}
               >
-                <SlideLeftIcon
-                  color={tabState !== 0 ? themeColor.main.color : themeColor.main.backgroundColor}
-                />
+                <SlideLeftIcon color={tabState !== 0 ? 'black' : '#f5f5f5'} />
               </button>
               <div style={tabStyle.wrapper} ref={(node) => { this.tabs = node; }}>
                 <Tabs
@@ -144,28 +123,26 @@ class MapConsole extends Component {
                   onChange={this.handleChange}
                   // onClick={() => this.menuToggle(true)}
                   inkBarStyle={{ backgroundColor: themeColor.accent }}
-                  className={css.tabs}
                   style={tabStyle.tabs}
                 >
                   {tabList.map((item, index) => (
                     <Tab
                       key={index}
-                      label={item}
+                      label={<div style={tabStyle.label}>{item.name}</div>}
                       value={Number(index)}
                       style={tabStyle.tab}
+                      buttonStyle={tabStyle.button}
+                      id={`${item.path}_tab`}
                     />
                   ))}
                 </Tabs>
               </div>
               <button
                 onClick={() => this.menuForward(true)}
-                style={themeColor.main}
+                style={styles.slide_button}
                 className={css.slide_button}
               >
-                <SlideRightIcon
-                  color={tabState !== tabList.length - 1 ?
-                    themeColor.main.color : themeColor.main.backgroundColor}
-                />
+                <SlideRightIcon color={tabState !== tabList.length - 1 ? 'black' : '#f5f5f5'} />
               </button>
             </div>
             <SwipeableViews
@@ -174,7 +151,7 @@ class MapConsole extends Component {
             >
               {tabList.map((item, index) => {
                 /* eslint-disable */
-                const Menu = require(`../../containers/${item}/Menu`).default;
+                const Menu = require(`../../containers/${item.path}/Menu`).default;
                 return (
                   <div key={index} className={css.console_area}>
                     <Menu />

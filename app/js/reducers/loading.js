@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import { LOADING_START, LOADING_STOP } from '../constants/ActionTypes';
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
 };
 
 export default handleActions({
