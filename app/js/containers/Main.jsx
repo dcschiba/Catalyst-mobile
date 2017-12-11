@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import WrapController from 'WRAP/UI/WrapController';
 import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
-import WRAP from 'WRAP';
 // import GoogleMap from 'WRAP/UI/GoogleMap';
 // import OpenLayers from 'WRAP/UI/OpenLayers';
 import mapsetting from '../constants/map/mapsetting-newest.json';
@@ -120,10 +119,10 @@ class Main extends Component {
     // TODO AMeDASの「MasterData」のみ、DH.setが効いていないようなのであとで調査
     if (isOnline) {
       map.setOptions({ passiveLogo: true });
-      WRAP.DH.set({ baseurl: 'https://pt-wrap01.wni.co.jp' });
+      dhkeyoption.baseurl = 'https://pt-wrap01.wni.co.jp';
       WrapController.initGoogleMap(map); // Geoにmapオブジェクトをセット
     } else {
-      WRAP.DH.set({ baseurl: 'http://localhost:50000' });
+      dhkeyoption.baseurl = 'http://localhost:50000';
       WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
     }
     WrapController.setMapdiv(mapDiv);

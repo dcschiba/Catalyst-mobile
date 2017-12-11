@@ -30,8 +30,8 @@ class Menu extends Component {
   }
   componentDidMount() {
     const waitForlayerInitialize = setInterval(() => {
-      const { actions, layerInitflags, isLoading } = this.props;
-      if (!layerInitflags.amedas && isLoading) {
+      const { actions, layerInitflags, isLoading, amedas } = this.props;
+      if (!layerInitflags.amedas && isLoading && amedas.tsarr.length !== 0) {
         actions.layerInit({ amedas: true });
         clearInterval(waitForlayerInitialize);
       }
