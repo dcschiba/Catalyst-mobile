@@ -4,7 +4,7 @@ import { LAYER_INITIALIZE } from '../constants/ActionTypes';
 // 初期化未実装のコンテンツは、trueにしておく
 const initialState = {
   gfs: false,
-  radar: true,
+  radar: false,
   amedas: false,
   jp10ten: false,
   jmawarn: true,

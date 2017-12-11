@@ -54,7 +54,7 @@ import {
 const initialState = {
   radar: {
     radarChecked: true,
-    coverageChecked: true,
+    coverageChecked: false,
     jpChecked: false,
     jpvalidtimeidx: 0,
     usAkChecked: false,
@@ -94,7 +94,7 @@ const initialState = {
     jpActivityFailure: false,
     jmaprcrinChecked: false,
     jmaprcrinvalidtimeidx: 0,
-    jmaprcrinextraChecked: false,
+    jmaprcrinextraChecked: true,
     jmaprcrinextravalidtimeidx: 0,
     jmaprcrinvalidtime: '',
     JMA_PRCRIN: [],

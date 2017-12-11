@@ -6,12 +6,15 @@ import Checkbox from 'material-ui/Checkbox';
 import WrapController from 'WRAP/UI/WrapController';
 import * as RadarActions from '../../actions/radar';
 import * as LegendActions from '../../actions/legend';
+import * as InitActions from '../../actions/layerInit';
 
 import css from '../../../style/radar/menu.css';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
   radar: PropTypes.object.isRequired,
+  layerInitflags: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const JpRadarActivityStatus = [
@@ -69,7 +72,25 @@ class Menu extends Component {
       actions.loadJPRadarActivity(WrapController.dhkeyoption.baseurl, WXJPRadar[0].tm);
     }
   }
-
+  componentDidMount() {
+    const waitForlayerInitialize = setInterval(() => {
+      const { actions, layerInitflags, isLoading, radar } = this.props;
+      if (!layerInitflags.radar && isLoading
+        && radar.JMA_ANLSIS_PRCRIN_EXTRA.length !== 0
+      ) {
+        actions.layerInit({ radar: true });
+        clearInterval(waitForlayerInitialize);
+      }
+    }, 1000);
+    const waitForMapInitialize = setInterval(() => {
+      const { actions, isLoading } = this.props;
+      if (!isLoading) {
+        actions.radarClick(true);
+        actions.jmaPrcrinExtraValidtimeChange(12);
+        clearInterval(waitForMapInitialize);
+      }
+    }, 1000);
+  }
   // componentWillMount() {
   //   fetch(`./pri/conf/app/JpRadarActivity.json?t=${new Date().getTime()}`)
   //   .then(response => response.json())
@@ -92,7 +113,7 @@ class Menu extends Component {
     const {
       radarChecked,
       coverageChecked,
-      WX_JP_Radar,
+      // WX_JP_Radar,
       WX_US_AK_Radar,
       WX_US_GU_Radar,
       WX_US_HI_Radar,
@@ -103,7 +124,7 @@ class Menu extends Component {
       WX_KR_Radar,
       WX_TW_Radar,
       JMA_OBS_RADAR_ECHINT_JP_5min,
-      jpvalidtimeidx,
+      // jpvalidtimeidx,
       auvalidtimeidx,
       usAkvalidtimeidx,
       usGuvalidtimeidx,
@@ -115,7 +136,7 @@ class Menu extends Component {
       krvalidtimeidx,
       jpicdbChecked,
       jpicdbvalidtimeidx,
-      jpActivity,
+      // jpActivity,
       jpChecked,
       jpActivitySelect,
       // jmaprcrinChecked,
@@ -170,8 +191,9 @@ class Menu extends Component {
         <div>
           <div className={css.hordiv2}>
             <Checkbox
-              disabled={!radarChecked}
               label="JMA_PRCRIN"
+              checked={jmaprcrinextraChecked}
+              disabled={!radarChecked}
               onClick={e => actions.jmaPrcrinExtraClick(e.target.checked)}
             />
             <div className={css.hordiv2}>
@@ -186,7 +208,7 @@ class Menu extends Component {
               </select>
             </div>
           </div>
-          <div className={css.hordiv2}>
+          {/* <div className={css.hordiv2}>
             <Checkbox
               label="JP"
               checked={jpChecked}
@@ -205,7 +227,7 @@ class Menu extends Component {
                 <option key={ts.tm} value={i}>{ts.ts}</option>,
               )};
             </select>
-          </div>
+          </div> */}
         </div>
         <div>
           <div className={css.hordiv2}>
@@ -474,12 +496,14 @@ class Menu extends Component {
 function mapStateToProps(state) {
   return {
     radar: state.radar.radar,
+    layerInitflags: state.layerInit,
+    isLoading: state.loading.isLoading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign(RadarActions, LegendActions), dispatch),
+    actions: bindActionCreators(Object.assign(RadarActions, LegendActions, InitActions), dispatch),
   };
 }
 

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import RadarLayer from './RadarLayer';
 import WrapUtils from '../../common/utils/WrapUtils';
 
@@ -41,9 +42,11 @@ class AnlsisExtraRadarLayer extends RadarLayer {
   }
 
   setContent(validtimeidx) {
-    this.set({
-      extravalidtime: this.timeRange[validtimeidx].extravalidtime,
-    });
+    if (_.get(this.timeRange[validtimeidx], 'extravalidtime')) {
+      this.set({
+        extravalidtime: this.timeRange[validtimeidx].extravalidtime,
+      });
+    }
   }
   ctrlLayer(type, state) {
     if ([RADAR_CLICK,
@@ -62,7 +65,7 @@ class AnlsisExtraRadarLayer extends RadarLayer {
     } = radar;
     const isChecked = radarChecked && jmaprcrinextraChecked;
     if (type === RADAR_CLICK ||
-        type === JMA_PRCRIN_EXTRA_CLICK) {
+      type === JMA_PRCRIN_EXTRA_CLICK) {
       this.setVisible(isChecked);
     }
     if (type === RADAR_COVERAGE_CLICK) {

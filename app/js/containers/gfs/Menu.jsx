@@ -18,7 +18,8 @@ class Menu extends Component {
   componentDidMount() {
     const waitForlayerInitialize = setInterval(() => {
       const { actions, layerInitflags, isLoading, gpv } = this.props;
-      if (!layerInitflags.gfs && isLoading && gpv.basetime.length !== 0) {
+      if (!layerInitflags.gfs && isLoading
+        && gpv.basetime.length !== 0 && gpv.tsarr.length !== 0) {
         actions.layerInit({ gfs: true });
         clearInterval(waitForlayerInitialize);
       }

@@ -30,18 +30,18 @@ class Menu extends Component {
   }
   componentDidMount() {
     const waitForlayerInitialize = setInterval(() => {
-      const { actions, layerInitflags, isLoading } = this.props;
-      if (!layerInitflags.jp10ten && isLoading) {
+      const { actions, layerInitflags, isLoading, jp10ten } = this.props;
+      if (!layerInitflags.jp10ten && isLoading && jp10ten.validtimelist.length !== 0) {
         actions.layerInit({ jp10ten: true });
         clearInterval(waitForlayerInitialize);
       }
     }, 1000);
 
     const waitForMapInitialize = setInterval(() => {
-      const { actions, isLoading } = this.props;
+      const { isLoading, actions } = this.props;
       if (!isLoading) {
         actions.jptenClick(true);
-        actions.jptenValidtimeChange('30');
+        actions.jptenValidtimeChange(0);
         clearInterval(waitForMapInitialize);
       }
     }, 1000);
@@ -58,6 +58,9 @@ class Menu extends Component {
       validtimelist,
     } = jp10ten;
 
+    if (Object.keys(validtimelist).length === 0) {
+      return null;
+    }
     const validtimeItems = [];
     validtimelist.map((time, i) => {
       if (i < 360) {
