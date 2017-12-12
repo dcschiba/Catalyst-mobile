@@ -92,7 +92,7 @@ class Menu extends Component {
           />
           <RadioButtonGroup
             name="AMEDAS_RG"
-            defaultSelected="Sunshine"
+            defaultSelected="Temperature"
             onChange={(e, value) => actions.amedasContentChange(value)}
           >
             <RadioButton

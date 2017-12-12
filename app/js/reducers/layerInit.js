@@ -7,13 +7,13 @@ const initialState = {
   radar: false,
   amedas: false,
   jp10ten: false,
-  jmawarn: true,
-  hilofront: true,
+  jmawarn: false,
+  hilofront: false,
   lightning: false,
-  waveblend: true,
-  livecamera: true,
+  waveblend: false,
+  livecamera: false,
   compasshour: false,
-  disasterreport: true,
+  disasterreport: false,
 };
 
 export default handleActions({

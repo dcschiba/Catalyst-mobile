@@ -9,11 +9,14 @@ import MenuItem from 'material-ui/MenuItem';
 import NumericInput from 'react-numeric-input';
 import * as WaveBlendActions from '../../actions/waveblend';
 import * as LegendActions from '../../actions/legend';
+import * as InitActions from '../../actions/layerInit';
 import css from '../../../style/waveblend/menu.css';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
   waveblend: PropTypes.object.isRequired,
+  layerInitflags: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 class Menu extends Component {
@@ -24,6 +27,24 @@ class Menu extends Component {
     } else {
       actions.deleteLegend('waveblend');
     }
+  }
+  componentDidMount() {
+    const waitForlayerInitialize = setInterval(() => {
+      const { actions, layerInitflags, isLoading, waveblend } = this.props;
+      if (!layerInitflags.waveblend && isLoading
+        && waveblend.basetime.length !== 0 && waveblend.tsobj.length !== 0) {
+        actions.layerInit({ waveblend: true });
+        clearInterval(waitForlayerInitialize);
+      }
+    }, 1000);
+
+    const waitForMapInitialize = setInterval(() => {
+      const { isLoading, actions } = this.props;
+      if (!isLoading) {
+        actions.waveBlendClick(true);
+        clearInterval(waitForMapInitialize);
+      }
+    }, 1000);
   }
 
   render() {
@@ -174,12 +195,15 @@ function mapStateToProps(state) {
   return {
     waveblend: state.waveblend,
     locale: state.locale.locale,
+    isLoading: state.loading.isLoading,
+    layerInitflags: state.layerInit,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign(LegendActions, WaveBlendActions), dispatch),
+    actions: bindActionCreators(
+      Object.assign(LegendActions, WaveBlendActions, InitActions), dispatch),
   };
 }
 

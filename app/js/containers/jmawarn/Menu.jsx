@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import * as JmawarnActions from '../../actions/jmawarn';
 import * as LegendActions from '../../actions/legend';
+import * as InitActions from '../../actions/layerInit';
 import { styles } from '../../utils/menuStyle';
 import css from '../../../style/jmawarn/menu.css';
 
@@ -15,6 +16,18 @@ const propTypes = {
 };
 
 class Menu extends Component {
+  componentDidMount() {
+    const { actions, layerInitflags, isLoading } = this.props;
+    if (!layerInitflags.jmawarn && isLoading) {
+      actions.layerInit({ jmawarn: true });
+    }
+    const waitForMapInitialize = setInterval(() => {
+      if (!this.props.isLoading) {
+        actions.jmawarnClick(true);
+        clearInterval(waitForMapInitialize);
+      }
+    }, 1000);
+  }
   static showClick(e, actions) {
     actions.jmawarnClick(e.target.checked);
     if (e.target.checked) {
@@ -49,12 +62,14 @@ class Menu extends Component {
 function mapStateToProps(state) {
   return {
     jmawarnChecked: state.jmawarn.jmawarnChecked,
+    layerInitflags: state.layerInit,
+    isLoading: state.loading.isLoading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign(JmawarnActions, LegendActions), dispatch),
+    actions: bindActionCreators(Object.assign(JmawarnActions, LegendActions, InitActions), dispatch),
   };
 }
 

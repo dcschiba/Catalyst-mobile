@@ -24,8 +24,8 @@ const propTypes = {
 class Menu extends Component {
 
   componentDidMount() {
-    const { actions, layerInitflags } = this.props;
-    if (!layerInitflags.lightning) {
+    const { actions, layerInitflags, isLoading } = this.props;
+    if (!layerInitflags.lightning && isLoading) {
       actions.layerInit({ lightning: true });
     }
     const waitForMapInitialize = setInterval(() => {

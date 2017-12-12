@@ -7,7 +7,7 @@ import {
 const initialState = {
   data: {},
   disasterReportChecked: true,
-  showtype: '1',
+  showtype: '72',
 };
 
 export default handleActions({

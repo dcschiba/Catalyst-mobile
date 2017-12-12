@@ -19,12 +19,12 @@ const propTypes = {
 
 class Menu extends Component {
   componentDidMount() {
-    const { actions, isLoading, layerInitflags } = this.props;
-    if (!layerInitflags.disasterreport) {
+    const { actions, layerInitflags, isLoading } = this.props;
+    if (!layerInitflags.disasterreport && isLoading) {
       actions.layerInit({ disasterreport: true });
     }
     const waitForMapInitialize = setInterval(() => {
-      if (!isLoading) {
+      if (!this.props.isLoading) {
         actions.disasterReportClick(true);
         actions.disasterReportTypeChange('72');
         clearInterval(waitForMapInitialize);

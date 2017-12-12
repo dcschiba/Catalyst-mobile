@@ -10,7 +10,7 @@ import {
 const initialState = {
   data: {},
   showchecked: true,
-  legendClosed: true,
+  legendClosed: false,
   subDisabled: { disabled: false },
   validtimeidx: 0,
   windchecked: false,
