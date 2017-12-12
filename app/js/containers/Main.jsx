@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import WRAP from 'WRAP';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { hashHistory } from 'react-router';
@@ -9,6 +10,8 @@ import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
 // import GoogleMap from 'WRAP/UI/GoogleMap';
 // import OpenLayers from 'WRAP/UI/OpenLayers';
+import LocationIcon from 'material-ui/svg-icons/maps/my-location';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import mapsetting from '../constants/map/mapsetting-newest.json';
 import BaseTime from '../components/catalyst/BaseTime';
 import MapConsole from '../components/catalyst/MapConsole';
@@ -46,11 +49,53 @@ const styles = {
     color: '#000000',
     float: 'left',
   },
+  location_button: {
+    position: 'absolute',
+    bottom: '90px',
+    right: '20px',
+  },
+  floating_button_label: {
+    fontSize: '0.7em',
+    position: 'relative',
+    top: '-46px',
+    color: '#000000',
+  },
+  floating_button_icon: {
+    fill: '#4285f4',
+    position: 'relative',
+    top: '-8px',
+  },
 };
 
 const mapId = 'map';
 const gmapId = 'gmap';
-
+const getLocation = () => {
+  const layer = WrapController.getLayer(LayerConfig.Location.layerName);
+  window.navigator.geolocation.getCurrentPosition(
+    (position) => {
+      layer.clear();
+      const point = new WRAP.Geo.Feature.Point({
+        point: [position.coords.longitude, position.coords.latitude],
+        strokeStyle: '#ffffff',
+        lineWidth: 2,
+        fillStyle: '#4285f4',
+        pointSize: 18,
+      });
+      point.index = 0;
+      layer.addFeature(point);
+      WRAP.Geo.invalidate();
+      WRAP.Geo.setCenterPoint(
+        new WRAP.Geo.Point(
+          position.coords.latitude * 60.0,
+          position.coords.longitude * 60.0,
+        ));
+      window.navigator.vibrate([300]);
+    },
+    (error) => {
+      alert('sorry, could not find you..');
+      console.log(error);
+    });
+};
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -125,12 +170,14 @@ class Main extends Component {
       dhkeyoption.baseurl = 'http://localhost:50000';
       WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
     }
+    const pathList = checkedFunc.map(func => func.path);
+    pathList.push('location');
     WrapController.setMapdiv(mapDiv);
     WrapController.initLayer(
       layers, // レイヤー設定の定義
       LayerConfig, // レイヤー名とレイヤーファイルの紐づけ
       confLayerPath,  // レイヤー設定ファイルの格納先
-      checkedFunc.map(func => func.path), // 表示する機能コンテンツリスト
+      pathList, // 表示する機能コンテンツリスト
       actions.wrapDispatchAction,  // inspect関数のコールバック等
     ); // レイヤーを初期化
 
@@ -211,6 +258,14 @@ class Main extends Component {
             flag={this.state.isShowLegend}
             moreHidden={checkedFunc.length > 3 && this.state.isSpreadBaseTime}
           />
+          <FloatingActionButton
+            backgroundColor="white"
+            onClick={getLocation}
+            style={styles.location_button}
+          >
+            <LocationIcon style={styles.floating_button_icon} />
+            <div style={styles.floating_button_label}>現在地</div>
+          </FloatingActionButton>
           <FooterButtons tabList={checkedFunc} themeColor={themeColor} activeFlags={activeFlags} />
           <MapConsole tabList={checkedFunc} themeColor={themeColor} />
         </div>

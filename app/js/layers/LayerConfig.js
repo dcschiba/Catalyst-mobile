@@ -1,3 +1,4 @@
+import LocationLayer from '../layers/LocationLayer';
 import GPVTmpContourLayer from '../layers/gpv/GPVTmpContourLayer';
 import GPVTmpFillLayer from '../layers/gpv/GPVTmpFillLayer';
 import GPVTmpGridValueLayer from '../layers/gpv/GPVTmpGridValueLayer';
@@ -84,6 +85,9 @@ import CompassHourVisFillLayer from '../layers/compasshour/CompassHourVisFillLay
 import CompassHourWiwwContourLayer from '../layers/compasshour/CompassHourWiwwContourLayer';
 import CompassHourWiwwGridValueLayer from '../layers/compasshour/CompassHourWiwwGridValueLayer';
 import CompassHourWiwwFillLayer from '../layers/compasshour/CompassHourWiwwFillLayer';
+
+
+export const Location = { layerClass: LocationLayer, layerName: 'Location' };
 
 /* eslint-disable camelcase */
 export const WX_WNI_JP_10Ten_Report = { layerClass: Jp10tenLayer, layerName: 'WX_WNI_JP_10Ten_Report' };
