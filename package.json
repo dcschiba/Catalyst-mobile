@@ -30,8 +30,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-network-information": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-geolocation": {},
-      "cordova-plugin-vibration": {}
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-geolocation": {}
     },
     "platforms": [
       "android",

@@ -69,10 +69,12 @@ const styles = {
 
 const mapId = 'map';
 const gmapId = 'gmap';
-const getLocation = () => {
-  const layer = WrapController.getLayer(LayerConfig.Location.layerName);
+
+function getLocation() {
   window.navigator.geolocation.getCurrentPosition(
     (position) => {
+      window.navigator.vibrate([300]);
+      const layer = WrapController.getLayer(LayerConfig.Location.layerName);
       layer.clear();
       const point = new WRAP.Geo.Feature.Point({
         point: [position.coords.longitude, position.coords.latitude],
@@ -88,14 +90,21 @@ const getLocation = () => {
         new WRAP.Geo.Point(
           position.coords.latitude * 60.0,
           position.coords.longitude * 60.0,
-        ));
-      window.navigator.vibrate([300]);
+        ),
+      );
     },
     (error) => {
       alert('sorry, could not find you..');
       console.log(error);
-    });
-};
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    },
+  );
+}
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -265,7 +274,7 @@ class Main extends Component {
           >
             <LocationIcon style={styles.floating_button_icon} />
             <div style={styles.floating_button_label}>現在地</div>
-          </FloatingActionButton>
+          </FloatingActionButton>s
           <FooterButtons tabList={checkedFunc} themeColor={themeColor} activeFlags={activeFlags} />
           <MapConsole tabList={checkedFunc} themeColor={themeColor} />
         </div>
