@@ -58,7 +58,7 @@ class Top extends Component {
     let functionList;
     let targetList;
     try {
-      targetList = require(`../locales/${locale}/targetList.json`);
+      targetList = require('../locales/targetList.json');
       functionList = require(`../locales/${locale}/functionList.json`);
     } catch (error) {
       if (error.message.indexOf('Cannot find module') !== -1) {

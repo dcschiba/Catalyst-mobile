@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
-import SettingIcon from 'material-ui/svg-icons/action/settings';
+import SettingMenu from '../components/catalyst/SettingMenu';
+
 import * as Actions from '../actions/catalyst';
 import * as localeActions from '../actions/locale';
 // import { version } from '../data/appInfo.json';
@@ -11,8 +12,8 @@ import css from '../../style/app.css';
 
 const propTypes = {
   children: PropTypes.object.isRequired,
-//  actions: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 const themeColor = {
@@ -32,15 +33,16 @@ const styles = {
     fontSize: '1.15em',
     lineHeight: '50px',
   },
-  settingButton: {
-    padding: '6px 14px 6px 14px',
-    margin: '0px',
+  rightIcon: {
+    margin: '4px 0 0 0',
+    padding: 0,
   },
 };
 
+
 class App extends Component {
   render() {
-    const { children, locale } = this.props;
+    const { children, locale, actions } = this.props;
     return (
       <div style={{ ...themeColor.ground }} >
         <AppBar
@@ -49,8 +51,8 @@ class App extends Component {
           style={styles.appBar}
           showMenuIconButton={false}
           iconElementRight={
-            <SettingIcon color={themeColor.main.color} style={styles.settingButton} />
-          }
+            <SettingMenu actions={actions} themeColor={themeColor} locale={locale} />}
+          iconStyleRight={styles.rightIcon}
         />
         <div className={css.contents}>
           {React.cloneElement(children, { themeColor, locale })}

@@ -73,7 +73,7 @@ const gmapId = 'gmap';
 function getLocation() {
   window.navigator.geolocation.getCurrentPosition(
     (position) => {
-      window.navigator.vibrate([300]);
+      window.navigator.vibrate([10]);
       const layer = WrapController.getLayer(LayerConfig.Location.layerName);
       layer.clear();
       const point = new WRAP.Geo.Feature.Point({
@@ -274,7 +274,7 @@ class Main extends Component {
           >
             <LocationIcon style={styles.floating_button_icon} />
             <div style={styles.floating_button_label}>現在地</div>
-          </FloatingActionButton>s
+          </FloatingActionButton>
           <FooterButtons tabList={checkedFunc} themeColor={themeColor} activeFlags={activeFlags} />
           <MapConsole tabList={checkedFunc} themeColor={themeColor} />
         </div>

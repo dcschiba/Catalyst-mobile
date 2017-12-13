@@ -5,7 +5,10 @@
         "path": "gfs",
         "isExternal": false,
         "published": true,
-        "target": ["LAND", "SKY"]
+        "target": [
+            "LAND",
+            "SKY"
+        ]
     },
     {
         "name": "Radar",
@@ -15,7 +18,10 @@
         "published": true,
         "legend": true,
         "legendtab": "レーダー",
-        "target": ["LAND", "SKY"]
+        "target": [
+            "LAND",
+            "SKY"
+        ]
     },
     {
         "name": "WX_WNI_JP_10Ten_Report",
@@ -25,7 +31,9 @@
         "published": true,
         "legend": true,
         "legendtab": "10天報告",
-        "target": ["LAND"]
+        "target": [
+            "LAND"
+        ]
     },
     {
         "name": "有義波高、波向",
@@ -35,7 +43,9 @@
         "published": true,
         "legend": true,
         "legendtab": "有義波高、波向",
-        "target": ["SEA"]
+        "target": [
+            "SEA"
+        ]
     },
     {
         "name": "High Low Front",
@@ -43,7 +53,11 @@
         "path": "hilofront",
         "isExternal": false,
         "published": true,
-        "target": ["LAND", "SEA", "SKY"]
+        "target": [
+            "LAND",
+            "SEA",
+            "SKY"
+        ]
     },
     {
         "name": "DisasterReport",
@@ -51,7 +65,10 @@
         "path": "disasterreport",
         "isExternal": false,
         "published": true,
-        "target": ["LAND", "SKY"]
+        "target": [
+            "LAND",
+            "SKY"
+        ]
     },
     {
         "name": "Live Camera",
@@ -59,7 +76,10 @@
         "path": "livecamera",
         "isExternal": false,
         "published": true,
-        "target": ["LAND", "SKY"]
+        "target": [
+            "LAND",
+            "SKY"
+        ]
     },
     {
         "name": "JMA Warn",
@@ -69,7 +89,9 @@
         "published": true,
         "legend": true,
         "legendtab": "注警報",
-        "target": ["LAND"]
+        "target": [
+            "LAND"
+        ]
     },
     {
         "name": "雷",
@@ -77,7 +99,10 @@
         "path": "lightning",
         "isExternal": false,
         "published": true,
-        "target": ["LAND", "SKY"]
+        "target": [
+            "LAND",
+            "SKY"
+        ]
     },
     {
         "name": "AMeDAS",
@@ -87,7 +112,10 @@
         "published": true,
         "legend": true,
         "legendtab": "アメダス",
-        "target": ["LAND", "SKY"]
+        "target": [
+            "LAND",
+            "SKY"
+        ]
     },
     {
         "name": "COMPASS (Hour)",
@@ -97,6 +125,8 @@
         "published": true,
         "legend": true,
         "legendtab": "COMPASS (Hour)",
-        "target": ["LAND"]
+        "target": [
+            "LAND"
+        ]
     }
 ]
