@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import WrapController from 'WRAP/UI/WrapController';
 import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
+import MuiIconButton from 'material-ui/IconButton';
 // import GoogleMap from 'WRAP/UI/GoogleMap';
 // import OpenLayers from 'WRAP/UI/OpenLayers';
 import LocationIcon from 'material-ui/svg-icons/maps/my-location';
@@ -42,6 +43,9 @@ const propTypes = {
 const styles = {
   refresh_button: {
     backgroundColor: 'rgb(66, 133, 244)',
+    height: '100%',
+    padding: '0px',
+    textAlign: 'center',
     margin: '0 auto',
     boxShadow: '2px 3px 6px #777777',
   },
@@ -54,16 +58,8 @@ const styles = {
     bottom: '90px',
     right: '20px',
   },
-  floating_button_label: {
-    fontSize: '0.7em',
-    position: 'relative',
-    top: '-46px',
-    color: '#000000',
-  },
   floating_button_icon: {
     fill: '#4285f4',
-    position: 'relative',
-    top: '-8px',
   },
 };
 
@@ -246,11 +242,8 @@ class Main extends Component {
               />
             </div>
             <div className={css.top_item}>
-              <IconButton
-                label="refresh"
-                className={css.refresh_button}
+              <MuiIconButton
                 Icon={RefreshIcon}
-                style={styles.refresh_button}
               />
             </div>
             <div className={css.top_item}>
@@ -270,10 +263,10 @@ class Main extends Component {
           <FloatingActionButton
             backgroundColor="white"
             onClick={getLocation}
+            mini
             style={styles.location_button}
           >
             <LocationIcon style={styles.floating_button_icon} />
-            <div style={styles.floating_button_label}>現在地</div>
           </FloatingActionButton>
           <FooterButtons tabList={checkedFunc} themeColor={themeColor} activeFlags={activeFlags} />
           <MapConsole tabList={checkedFunc} themeColor={themeColor} />
