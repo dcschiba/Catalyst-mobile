@@ -10,7 +10,7 @@ import NumericInput from 'react-numeric-input';
 import * as WaveBlendActions from '../../actions/waveblend';
 import * as LegendActions from '../../actions/legend';
 import * as InitActions from '../../actions/layerInit';
-import css from '../../../style/waveblend/menu.css';
+import { styles, childWrapper } from '../../utils/menuStyle';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
@@ -82,18 +82,20 @@ class Menu extends Component {
     }
 
     return (
-      <div className={css.ctrlpanel}>
+      <div>
         <Checkbox
           id="waveblend"
           label={<FormattedMessage id="waveblend.waveblend" />}
           checked={waveBlendChecked}
           onClick={e => Menu.showClick(e, actions)}
+          iconStyle={styles.checkbox.icon}
+          labelStyle={styles.checkbox.label}
         />
         <SelectField
           value={basetimeidx}
           floatingLabelText={<FormattedMessage id="common.basetime" />}
           {...subDisabled}
-          style={css.selectTime}
+          style={styles.select.wrapper}
           onChange={(event, index, value) => actions.waveBlendBasetimeChange(value)}
         >
           {basetimeItems}
@@ -102,19 +104,21 @@ class Menu extends Component {
           floatingLabelText={<FormattedMessage id="common.validtime" />}
           value={validtimeidx}
           {...subDisabled}
-          style={css.selectTime}
+          style={styles.select.wrapper}
           onChange={(event, index, value) => actions.waveBlendValidtimeChange(value)}
         >
           {validtimeItems}
         </SelectField>
-        <div className={css.subcheckbox}>
-          <div><span>{<FormattedMessage id="common.data" />}</span></div>
+        <div style={styles.sectionName}>{<FormattedMessage id="common.data" />}</div>
+        <div style={childWrapper(4, true)}>
           <Checkbox
             value={basetimeidx}
             {...subDisabled}
             checked={waveBlendLowresoChecked}
             onClick={e => actions.waveBlendLowresoClick(e.target.checked)}
             label={<FormattedMessage id="waveblend.lowreso" />}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
           <Checkbox
             value={basetimeidx}
@@ -122,6 +126,8 @@ class Menu extends Component {
             checked={waveBlendNpacChecked}
             onClick={e => actions.waveBlendNpacClick(e.target.checked)}
             label={<FormattedMessage id="waveblend.npac" />}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
           <Checkbox
             value={basetimeidx}
@@ -129,6 +135,8 @@ class Menu extends Component {
             checked={waveBlendNatlChecked}
             onClick={e => actions.waveBlendNatlClick(e.target.checked)}
             label={<FormattedMessage id="waveblend.natl" />}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
           <Checkbox
             value={basetimeidx}
@@ -136,40 +144,50 @@ class Menu extends Component {
             checked={waveBlendSeasiaChecked}
             onClick={e => actions.waveBlendSeasiaClick(e.target.checked)}
             label={<FormattedMessage id="waveblend.seasia" />}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
-          <div><span>{<FormattedMessage id="common.display" />}</span></div>
+        </div>
+        <div style={styles.sectionName}>{<FormattedMessage id="common.display" />}</div>
+        <div style={childWrapper(waveBlendFlatChecked ? 5 : 3, true)}>
           <Checkbox
             value={basetimeidx}
             {...subDisabled}
             checked={waveBlendFlatChecked}
             onClick={e => actions.waveBlendFlatClick(e.target.checked)}
             label={<FormattedMessage id="waveblend.flat" />}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
-          <div className={css.subcheckbox}>
-            <span>{<FormattedMessage id="common.threshold" />} 1 </span>
-            <NumericInput
-              {...subDisabled}
-              style={{ input: { width: '70px' } }}
-              precision={1}
-              step={0.1}
-              value={lowthreshold}
-              min={0.0}
-              max={highthreshold}
-              onChange={valueAsNumber => actions.waveBlendLowthresholdChange(valueAsNumber)}
-            />
-          </div>
-          <div className={css.subcheckbox}>
-            <span>{<FormattedMessage id="common.threshold" />} 2 </span>
-            <NumericInput
-              {...subDisabled}
-              style={{ input: { width: '70px' } }}
-              precision={1}
-              step={0.1}
-              value={highthreshold}
-              min={lowthreshold}
-              max={10.0}
-              onChange={valueAsNumber => actions.waveBlendHighthresholdChange(valueAsNumber)}
-            />
+          <div style={childWrapper(2, waveBlendFlatChecked)}>
+            <div style={styles.line} >
+              <div style={styles.numeric.label}>
+                {<FormattedMessage id="common.threshold" />} 1 </div>
+              <NumericInput
+                {...subDisabled}
+                style={{ input: { width: '120px', height: '36px' } }}
+                precision={1}
+                step={0.1}
+                value={lowthreshold}
+                min={0.0}
+                max={highthreshold}
+                onChange={valueAsNumber => actions.waveBlendLowthresholdChange(valueAsNumber)}
+              />
+            </div>
+            <div style={styles.line} >
+              <div style={styles.numeric.label}>
+                {<FormattedMessage id="common.threshold" />} 2 </div>
+              <NumericInput
+                {...subDisabled}
+                style={{ input: { width: '120px', height: '36px' } }}
+                precision={1}
+                step={0.1}
+                value={highthreshold}
+                min={lowthreshold}
+                max={10.0}
+                onChange={valueAsNumber => actions.waveBlendHighthresholdChange(valueAsNumber)}
+              />
+            </div>
           </div>
           <Checkbox
             value={basetimeidx}
@@ -177,6 +195,8 @@ class Menu extends Component {
             checked={waveBlendContourChecked}
             onClick={e => actions.waveBlendContourClick(e.target.checked)}
             label={<FormattedMessage id="waveblend.contour" />}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
           <Checkbox
             value={basetimeidx}
@@ -184,6 +204,8 @@ class Menu extends Component {
             checked={waveBlendArrowChecked}
             onClick={e => actions.waveBlendArrowClick(e.target.checked)}
             label={<FormattedMessage id="waveblend.arrow" />}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
         </div>
       </div>

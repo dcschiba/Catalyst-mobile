@@ -37,7 +37,7 @@ import {
 
 const initialState = {
   gpv: {
-    gpvchecked: false,
+    gpvchecked: true,
     basetimeidx: 0,
     validtimeidx: 4,
     level: 500,

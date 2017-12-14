@@ -36,17 +36,23 @@ const styles = {
   radioButton: {
     marginBottom: 16,
   },
-  okButton: {
-    backgroundColor: 'lightgreen',
-    color: 'white',
-  },
-  ngButton: {
-    backgroundColor: 'lightgray',
-    color: 'white',
-  },
   radioWrapper: {
     padding: '10px 0',
   },
+  ngButton: {
+    backgroundColor: '#707070',
+    color: 'white',
+    margin: '0 16px 8px 16px',
+  },
+  okButton: {
+    backgroundColor: '#44f477',
+    color: 'white',
+  },
+  buttonWrapper: {
+    width: '100%',
+    textAlign: 'center',
+  },
+
 };
 class SettingMenu extends Component {
   constructor() {
@@ -79,11 +85,13 @@ class SettingMenu extends Component {
         dialogTitle = 'UUID';
         dialog = <div>uuid: {uuid}</div>;
         dialogButtons = [
-          <FlatButton
-            label="Close"
-            onClick={this.handleClose}
-            style={{ ...themeColor.second }}
-          />,
+          <div style={styles.buttonWrapper}>
+            <FlatButton
+              label="Close"
+              onClick={this.handleClose}
+              style={styles.ngButton}
+            />
+          </div>,
         ];
         break;
       }
@@ -108,21 +116,23 @@ class SettingMenu extends Component {
             />
           </RadioButtonGroup >
         );
-        dialogButtons = [
-          <FlatButton
-            label="Cancel"
-            onClick={this.handleClose}
-            style={styles.ngButton}
-          />,
-          <FlatButton
-            label="OK"
-            onClick={() => {
-              actions.changeLocale(this.state.language);
-              this.handleClose();
-            }}
-            style={styles.okButton}
-          />,
-        ];
+        dialogButtons = (
+          <div style={styles.buttonWrapper}>
+            <FlatButton
+              label="Cancel"
+              onClick={this.handleClose}
+              style={styles.ngButton}
+            />
+            <FlatButton
+              label="OK"
+              onClick={() => {
+                actions.changeLocale(this.state.language);
+                this.handleClose();
+              }}
+              style={styles.okButton}
+            />
+          </div>
+        );
         break;
       }
       default:

@@ -72,16 +72,16 @@ class Menu extends Component {
           iconStyle={styles.checkbox.icon}
           labelStyle={styles.checkbox.label}
         />
-        <SelectField
-          floatingLabelText={<FormattedMessage id="common.validtime" />}
-          value={validtimeidx}
-          {...subDisabled}
-          onChange={(event, index, value) => actions.amedasValidtimeChange(value)}
-          style={styles.select.wrapper}
-        >
-          {validtimeItems}
-        </SelectField>
         <div style={childWrapper(5, showchecked)}>
+          <SelectField
+            floatingLabelText={<FormattedMessage id="common.validtime" />}
+            value={validtimeidx}
+            {...subDisabled}
+            onChange={(event, index, value) => actions.amedasValidtimeChange(value)}
+            style={styles.select.wrapper}
+          >
+            {validtimeItems}
+          </SelectField>
           <CheckBox
             disabled={!showchecked}
             checked={windchecked}

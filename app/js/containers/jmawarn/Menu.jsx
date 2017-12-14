@@ -8,7 +8,6 @@ import * as JmawarnActions from '../../actions/jmawarn';
 import * as LegendActions from '../../actions/legend';
 import * as InitActions from '../../actions/layerInit';
 import { styles } from '../../utils/menuStyle';
-import css from '../../../style/jmawarn/menu.css';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
@@ -43,17 +42,15 @@ class Menu extends Component {
     } = this.props;
 
     return (
-      <div className={css.ctrlpanel}>
-        <div style={styles.line}>
+      <div>
           <Checkbox
             id="jmawarn"
             label="JMA Warn"
             checked={jmawarnChecked}
             onClick={e => Menu.showClick(e, actions)}
-            style={styles.checkbox}
-            labelStyle={styles.label}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
-        </div>
       </div>
     );
   }

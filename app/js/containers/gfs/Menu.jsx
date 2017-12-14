@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import GpvMenu from '../../components/gpv/GpvMenu';
 import * as InitActions from '../../actions/layerInit';
 import * as GsmActions from '../../actions/gpvgfs';
-import css from '../../../style/gpv/menu.css';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
@@ -19,7 +18,9 @@ class Menu extends Component {
     const waitForlayerInitialize = setInterval(() => {
       const { actions, layerInitflags, isLoading, gpv } = this.props;
       if (!layerInitflags.gfs && isLoading
-        && gpv.basetime.length !== 0 && gpv.tsarr.length !== 0) {
+        && gpv.basetime.length !== 0
+        && gpv.tsarr.length !== 0
+      ) {
         actions.layerInit({ gfs: true });
         clearInterval(waitForlayerInitialize);
       }
@@ -40,9 +41,7 @@ class Menu extends Component {
     } = this.props;
 
     return (
-      <div className={css.ctrlPanel}>
-        <GpvMenu {...gpv} modelName={'GFS'} precipitationShow snowdepthShow pressuremslShow actions={actions} />
-      </div>
+      <GpvMenu {...gpv} modelName={'GFS'} precipitationShow snowdepthShow pressuremslShow actions={actions} />
     );
   }
 }

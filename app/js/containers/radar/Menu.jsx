@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import WrapController from 'WRAP/UI/WrapController';
 import * as RadarActions from '../../actions/radar';
 import * as LegendActions from '../../actions/legend';
 import * as InitActions from '../../actions/layerInit';
-
 import css from '../../../style/radar/menu.css';
+import { styles, childWrapper } from '../../utils/menuStyle';
+
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
@@ -91,19 +94,6 @@ class Menu extends Component {
       }
     }, 1000);
   }
-  // componentWillMount() {
-  //   fetch(`./pri/conf/app/JpRadarActivity.json?t=${new Date().getTime()}`)
-  //   .then(response => response.json())
-  //   .then((json) => {
-  //     Menu.JpRadarActivityMaster = json;
-  //     Menu.JpRadarActivityMasterIndex = {};
-  //     const keys = Object.keys(json);
-  //     for (let i = 0; i < keys.length; i += 1) {
-  //       Menu.JpRadarActivityMasterIndex[keys[i]] = i;
-  //     }
-  //   });
-  // }
-
   render() {
     const {
       actions,
@@ -113,7 +103,6 @@ class Menu extends Component {
     const {
       radarChecked,
       coverageChecked,
-      // WX_JP_Radar,
       WX_US_AK_Radar,
       WX_US_GU_Radar,
       WX_US_HI_Radar,
@@ -124,7 +113,6 @@ class Menu extends Component {
       WX_KR_Radar,
       WX_TW_Radar,
       JMA_OBS_RADAR_ECHINT_JP_5min,
-      // jpvalidtimeidx,
       auvalidtimeidx,
       usAkvalidtimeidx,
       usGuvalidtimeidx,
@@ -136,18 +124,24 @@ class Menu extends Component {
       krvalidtimeidx,
       jpicdbChecked,
       jpicdbvalidtimeidx,
-      // jpActivity,
       jpChecked,
       jpActivitySelect,
-      // jmaprcrinChecked,
-      // jmaprcrinvalidtimeidx,
-      // JMA_PRCRIN,
       jmaprcrinextraChecked,
       jmaprcrinextravalidtimeidx,
       JMA_ANLSIS_PRCRIN_EXTRA,
       ecobsradarechintcaChecked,
       ecobsradarechintcaidtimeidx,
       EC_OBS_RADAR_ECHINT_CA,
+      usAkChecked,
+      usGuChecked,
+      usHiChecked,
+      usNaChecked,
+      usPrChecked,
+      euChecked,
+      auChecked,
+      krChecked,
+      twChecked,
+      jpechotopChecked,
     } = radar;
 
     let jpActivitycss = css.radarActivityHide;
@@ -170,311 +164,269 @@ class Menu extends Component {
 
     return (
       <div>
-        <div>
-          <div className={css.hordiv}>
-            <Checkbox
-              id="radar"
-              label="Radar"
-              checked={radarChecked}
-              onClick={e => Menu.radarClick(e, actions, jpChecked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="coverage"
-              checked={coverageChecked}
-              disabled={!radarChecked}
-              onClick={e => actions.radarCoverageClick(e.target.checked)}
-            />
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="JMA_PRCRIN"
-              checked={jmaprcrinextraChecked}
-              disabled={!radarChecked}
-              onClick={e => actions.jmaPrcrinExtraClick(e.target.checked)}
-            />
-            <div className={css.hordiv2}>
-              <select
-                disabled={!radarChecked || !jmaprcrinextraChecked}
-                value={jmaprcrinextravalidtimeidx}
-                onChange={e => actions.jmaPrcrinExtraValidtimeChange(e.target.value)}
-              >
-                {JMA_ANLSIS_PRCRIN_EXTRA.map((ts, i) =>
-                  <option key={i} value={i}>{ts.ts}</option>,
-                )};
-              </select>
-            </div>
-          </div>
-          {/* <div className={css.hordiv2}>
-            <Checkbox
-              label="JP"
-              checked={jpChecked}
-              disabled={!radarChecked}
-              onClick={
-                e => Menu.jpRadarClick(e, actions, jpActivitySelect, WX_JP_Radar)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={jpvalidtimeidx}
-              onChange={e => Menu.jpRadarValidtimeChange(e, actions, jpActivity, WX_JP_Radar)}
-            >
-              {WX_JP_Radar.map((ts, i) =>
-                <option key={ts.tm} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div> */}
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="US_AK"
-              disabled={!radarChecked}
-              onClick={e => actions.usAkRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={usAkvalidtimeidx}
-              onChange={e => actions.usAkRadarValidtimeChange(e.target.value)}
-            >
-              {WX_US_AK_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="US_GU"
-              disabled={!radarChecked}
-              onClick={e => actions.usGuRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={usGuvalidtimeidx}
-              onChange={e => actions.usGuRadarValidtimeChange(e.target.value)}
-            >
-              {WX_US_GU_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="US_HI"
-              disabled={!radarChecked}
-              onClick={e => actions.usHiRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={usHivalidtimeidx}
-              onChange={e => actions.usHiRadarValidtimeChange(e.target.value)}
-            >
-              {WX_US_HI_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="US_NA"
-              disabled={!radarChecked}
-              onClick={e => actions.usNaRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={usNavalidtimeidx}
-              onChange={e => actions.usNaRadarValidtimeChange(e.target.value)}
-            >
-              {WX_US_NA_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="US_PR"
-              disabled={!radarChecked}
-              onClick={e => actions.usPrRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={usPrvalidtimeidx}
-              onChange={e => actions.usPrRadarValidtimeChange(e.target.value)}
-            >
-              {WX_US_PR_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="EU"
-              disabled={!radarChecked}
-              onClick={e => actions.euRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={euvalidtimeidx}
-              onChange={e => actions.euRadarValidtimeChange(e.target.value)}
-            >
-              {WX_EU_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="AU"
-              disabled={!radarChecked}
-              onClick={e => actions.auRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={auvalidtimeidx}
-              onChange={e => actions.auRadarValidtimeChange(e.target.value)}
-            >
-              {WX_AU_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="KR"
-              disabled={!radarChecked}
-              onClick={e => actions.krRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={krvalidtimeidx}
-              onChange={e => actions.krRadarValidtimeChange(e.target.value)}
-            >
-              {WX_KR_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="TW"
-              disabled={!radarChecked}
-              onClick={e => actions.twRadarClick(e.target.checked)}
-            />
-          </div>
-          <div className={css.hordiv2}>
-            <select
-              disabled={!radarChecked}
-              value={twvalidtimeidx}
-              onChange={e => actions.twRadarValidtimeChange(e.target.value)}
-            >
-              {WX_TW_Radar.map((ts, i) =>
-                <option key={i} value={i}>{ts.ts}</option>,
-              )};
-            </select>
-          </div>
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              label="JP_ICDB"
-              disabled={!radarChecked}
-              onClick={e => actions.jpICDBRadarClick(e.target.checked)}
-            />
-          </div>
-        </div>
-        <div className={css.hordiv3}>
-          <select
+        <Checkbox
+          id="radar"
+          label="Radar"
+          checked={radarChecked}
+          onClick={e => Menu.radarClick(e, actions, jpChecked)}
+          iconStyle={styles.checkbox.leftPosition.icon}
+          labelStyle={styles.checkbox.leftPosition.label}
+        />
+        <Checkbox
+          label="coverage"
+          checked={coverageChecked}
+          disabled={!radarChecked}
+          onClick={e => actions.radarCoverageClick(e.target.checked)}
+          iconStyle={styles.checkbox.leftPosition.icon}
+          labelStyle={styles.checkbox.leftPosition.label}
+        />
+        <div style={styles.line}>
+          <Checkbox
+            label="JMA_PRCRIN"
+            checked={jmaprcrinextraChecked}
             disabled={!radarChecked}
-            value={jpicdbvalidtimeidx}
-            onChange={e => actions.jpICDBRadarValidtimeChange(e.target.value)}
+            onClick={e => actions.jmaPrcrinExtraClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !jmaprcrinextraChecked}
+            value={jmaprcrinextravalidtimeidx}
+            onChange={(event, index, value) => actions.jmaPrcrinExtraValidtimeChange(value)}
+            style={styles.select.rightPosition}
           >
-            {JMA_OBS_RADAR_ECHINT_JP_5min.map((ts, i) =>
-              <option key={i} value={i}>{ts.ts}</option>,
-            )};
-          </select>
+            {JMA_ANLSIS_PRCRIN_EXTRA.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
         </div>
-        <div className={css.hordiv3}>
+        <div style={styles.line}>
+          <Checkbox
+            label="US_AK"
+            checked={usAkChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.usAkRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !usAkChecked}
+            value={usAkvalidtimeidx}
+            onChange={(event, index, value) => actions.usAkRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_US_AK_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="US_GU"
+            checked={usGuChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.usGuRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !usGuChecked}
+            value={usGuvalidtimeidx}
+            onChange={(event, index, value) => actions.usGuRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_US_GU_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="US_HI"
+            checked={usHiChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.usHiRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !usHiChecked}
+            value={usHivalidtimeidx}
+            onChange={(event, index, value) => actions.usHiRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_US_HI_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="US_NA"
+            checked={usNaChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.usNaRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !usNaChecked}
+            value={usNavalidtimeidx}
+            onChange={(event, index, value) => actions.usNaRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_US_NA_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="US_PR"
+            checked={usPrChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.usPrRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !usPrChecked}
+            value={usPrvalidtimeidx}
+            onChange={(event, index, value) => actions.usPrRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_US_PR_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="EU"
+            checked={euChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.euRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !euChecked}
+            value={euvalidtimeidx}
+            onChange={(event, index, value) => actions.euRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_EU_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="AU"
+            checked={auChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.auRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !auChecked}
+            value={auvalidtimeidx}
+            onChange={(event, index, value) => actions.auRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_AU_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="KR"
+            checked={krChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.krRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !krChecked}
+            value={krvalidtimeidx}
+            onChange={(event, index, value) => actions.krRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_KR_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="TW"
+            checked={twChecked}
+            disabled={!radarChecked}
+            onClick={e => actions.twRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !twChecked}
+            value={twvalidtimeidx}
+            onChange={(event, index, value) => actions.twRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {WX_TW_Radar.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="JP_ICDB"
+            disabled={!radarChecked}
+            checked={jpicdbChecked}
+            onClick={e => actions.jpICDBRadarClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !jpicdbChecked}
+            value={jpicdbvalidtimeidx}
+            onChange={(event, index, value) => actions.jpICDBRadarValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {JMA_OBS_RADAR_ECHINT_JP_5min.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
+        </div>
+        <div style={childWrapper(1, jpicdbChecked)}>
           <Checkbox
             label="JP_ECHOTOP"
+            checked={jpechotopChecked}
             disabled={!radarChecked || !jpicdbChecked}
             onClick={e => actions.jpEchoTopClick(e.target.checked)}
           />
         </div>
-        <div>
-          {/* <div className={css.hordiv2}>
-            <Checkbox
-              disabled={!radarChecked}
-              label="JMA_PRCRIN"
-              onClick={e => actions.jmaPrcrinClick(e.target.checked)}
-            />
-            <div className={css.hordiv2}>
-              <select
-                disabled={!radarChecked || !jmaprcrinChecked}
-                value={jmaprcrinvalidtimeidx}
-                onChange={e => actions.jmaPrcrinValidtimeChange(e.target.value)}
-              >
-                {JMA_PRCRIN.map((ts, i) =>
-                  <option key={i} value={i}>{ts.ts}</option>,
-                )};
-              </select>
-            </div>
-          </div> */}
-        </div>
-        <div>
-          <div className={css.hordiv2}>
-            <Checkbox
-              disabled={!radarChecked}
-              label="OBS_RADAR_CA"
-              onClick={e => actions.ecObsRadarEchintCaClick(e.target.checked)}
-            />
-            <div className={css.hordiv2}>
-              <select
-                disabled={!radarChecked || !ecobsradarechintcaChecked}
-                value={ecobsradarechintcaidtimeidx}
-                onChange={e => actions.ecObsRadarEchintCaValidtimeChange(e.target.value)}
-              >
-                {EC_OBS_RADAR_ECHINT_CA.map((ts, i) =>
-                  <option key={i} value={i}>{ts.ts}</option>,
-                )};
-              </select>
-            </div>
-          </div>
+        <div style={styles.line}>
+          <Checkbox
+            label="OBS_RADAR_CA"
+            checked={ecobsradarechintcaChecked}
+            disables={!radarChecked}
+            onClick={e => actions.ecObsRadarEchintCaClick(e.target.checked)}
+            iconStyle={styles.checkbox.leftPosition.icon}
+            labelStyle={styles.checkbox.leftPosition.label}
+          />
+          <SelectField
+            disabled={!radarChecked || !ecobsradarechintcaChecked}
+            value={ecobsradarechintcaidtimeidx}
+            onChange={(event, index, value) => actions.ecObsRadarEchintCaValidtimeChange(value)}
+            style={styles.select.rightPosition}
+          >
+            {EC_OBS_RADAR_ECHINT_CA.slice(0, 20).map((ts, i) =>
+              <MenuItem key={i} value={i} primaryText={ts.ts} />,
+            )}
+          </SelectField>
         </div>
         <div className={jpActivitycss}>
           <p>JP Radar Activity</p>

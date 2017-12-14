@@ -27,6 +27,7 @@ const styles = {
   appBar: {
     ...themeColor.main,
     height: '50px',
+    paddingRight: '12px',
     boxShadow: '0px 1px 8px #333333',
   },
   title: {
@@ -34,7 +35,7 @@ const styles = {
     lineHeight: '50px',
   },
   rightIcon: {
-    margin: '4px 0 0 0',
+    margin: '2px 0 0 0',
     padding: 0,
   },
 };

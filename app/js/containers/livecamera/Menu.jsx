@@ -8,7 +8,6 @@ import * as LiveCameraActions from '../../actions/livecamera';
 import * as InitActions from '../../actions/layerInit';
 import { LIVE_CAMERA } from '../../constants/livecamera/LabelText';
 import { styles } from '../../utils/menuStyle';
-import css from '../../../style/livecamera/menu.css';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
@@ -39,14 +38,14 @@ class Menu extends Component {
     } = this.props;
 
     return (
-      <div className={css.ctrlpanel}>
+      <div>
         <Checkbox
           id="livecamera"
           label={LIVE_CAMERA}
           checked={liveCmChecked}
           onClick={e => actions.liveCameraClick(e.target.checked)}
-          style={styles.checkbox}
-          labelStyle={styles.label}
+          iconStyle={styles.checkbox.icon}
+          labelStyle={styles.checkbox.label}
         />
       </div>
     );

@@ -8,7 +8,6 @@ import { bindActionCreators } from 'redux';
 import WrapController from 'WRAP/UI/WrapController';
 import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
-import MuiIconButton from 'material-ui/IconButton';
 // import GoogleMap from 'WRAP/UI/GoogleMap';
 // import OpenLayers from 'WRAP/UI/OpenLayers';
 import LocationIcon from 'material-ui/svg-icons/maps/my-location';
@@ -41,13 +40,8 @@ const propTypes = {
 };
 
 const styles = {
-  refresh_button: {
-    backgroundColor: 'rgb(66, 133, 244)',
-    height: '100%',
-    padding: '0px',
-    textAlign: 'center',
-    margin: '0 auto',
-    boxShadow: '2px 3px 6px #777777',
+  refresh_icon: {
+    fill: '#eeeeee',
   },
   back_button: {
     color: '#000000',
@@ -241,10 +235,10 @@ class Main extends Component {
                 onClick={() => hashHistory.push('app/top')}
               />
             </div>
-            <div className={css.top_item}>
-              <MuiIconButton
-                Icon={RefreshIcon}
-              />
+            <div className={css.top_item_center}>
+              <button className={css.refresh_button}>
+                <RefreshIcon style={styles.refresh_icon} />
+              </button>
             </div>
             <div className={css.top_item}>
               <BaseTime
