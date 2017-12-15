@@ -6,27 +6,35 @@ import CheckBox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import * as hilofrontActions from '../../actions/hilofront';
-
-import css from '../../../style/hilofront/menu.css';
+import * as InitActions from '../../actions/layerInit';
+import { styles, childWrapper } from '../../utils/menuStyle';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
   hilofront: PropTypes.object.isRequired,
+  layerInitflags: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
-const styles = {
-  main_button: {
-    padding: '20px',
-    border: 'solid 0.5px lightgray',
-    margin: 0,
-  },
-  padding: {
-    padding: '20px',
-  },
-  radio: {
-    padding: '10px 20px',
-  },
-};
+
 class Menu extends Component {
+  componentDidMount() {
+    const waitForlayerInitialize = setInterval(() => {
+      const { actions, layerInitflags, isLoading, hilofront } = this.props;
+      if (!layerInitflags.hilofront && isLoading
+        && hilofront.basetimelist.length !== 0 && hilofront.bvtimeobj.length !== 0) {
+        actions.layerInit({ hilofront: true });
+        clearInterval(waitForlayerInitialize);
+      }
+    }, 1000);
+
+    const waitForMapInitialize = setInterval(() => {
+      const { isLoading, actions } = this.props;
+      if (!isLoading) {
+        actions.hilofrontShowClick(true);
+        clearInterval(waitForMapInitialize);
+      }
+    }, 1000);
+  }
   render() {
     const {
       actions,
@@ -53,7 +61,7 @@ class Menu extends Component {
     const validtimelist = bvtimeobj[sltbasetime];
     if (validtimelist) {
       validtimelist.map((ts, i) =>
-      validtimeItems.push(<MenuItem key={i} value={i} primaryText={ts.ts} />));
+        validtimeItems.push(<MenuItem key={i} value={i} primaryText={ts.ts} />));
     }
     return (
       <div>
@@ -62,47 +70,51 @@ class Menu extends Component {
           checked={showchecked}
           onClick={e => actions.hilofrontShowClick(e.target.checked)}
           label={'Hi Lo Front'}
-          style={styles.main_button}
+          iconStyle={styles.checkbox.icon}
+          labelStyle={styles.checkbox.label}
         />
-        <SelectField
-          value={basetimeidx}
-          floatingLabelText="basetime"
-          {...subDisabled}
-          style={{ ...css.selectTime, ...styles.padding }}
-          onChange={(event, index, value) => actions.hilofrontBasetimeChange(value)}
-        >
-          {basetimeItems}
-        </SelectField>
-        <SelectField
-          value={validtimeidx}
-          floatingLabelText="validtime"
-          {...subDisabled}
-          style={{ ...css.selectTime, ...styles.padding }}
-          onChange={(event, index, value) => actions.hilofrontValidtimeChange(value)}
-        >
-          {validtimeItems}
-        </SelectField>
-        <div>
+        <div style={childWrapper(5, showchecked)}>
+          <SelectField
+            value={basetimeidx}
+            floatingLabelText="basetime"
+            {...subDisabled}
+            style={styles.select.wrapper}
+            onChange={(event, index, value) => actions.hilofrontBasetimeChange(value)}
+          >
+            {basetimeItems}
+          </SelectField>
+          <SelectField
+            value={validtimeidx}
+            floatingLabelText="validtime"
+            {...subDisabled}
+            style={styles.select.wrapper}
+            onChange={(event, index, value) => actions.hilofrontValidtimeChange(value)}
+          >
+            {validtimeItems}
+          </SelectField>
           <CheckBox
             checked={contourchecked}
             onClick={e => actions.hilofrontContourClick(e.target.checked)}
             disabled={subDisabled.disabled}
             label={'Contour'}
-            style={styles.padding}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
           <CheckBox
             checked={hilochecked}
             onClick={e => actions.hilofrontHiloClick(e.target.checked)}
             disabled={subDisabled.disabled}
             label={'Hi Lo'}
-            style={styles.padding}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
           <CheckBox
             checked={frontchecked}
             onClick={e => actions.hilofrontFrontClick(e.target.checked)}
             disabled={subDisabled.disabled}
             label={'Front'}
-            style={styles.padding}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
         </div>
       </div>
@@ -113,12 +125,15 @@ class Menu extends Component {
 function mapStateToProps(state) {
   return {
     hilofront: state.hilofront,
+    isLoading: state.loading.isLoading,
+    layerInitflags: state.layerInit,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(hilofrontActions, dispatch),
+    actions: bindActionCreators(
+      Object.assign(hilofrontActions, InitActions), dispatch),
   };
 }
 

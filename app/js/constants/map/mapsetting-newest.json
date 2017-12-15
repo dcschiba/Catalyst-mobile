@@ -26,6 +26,10 @@
   "confLayerPath": "http://localhost:50000/pri/conf/layer/",
   "layers": [
     {
+      "layerName": "Location",
+      "contentName": "location"
+    },
+    {
       "DHObjectName": "Model_GFS",
       "layerName": "GPVWindLayer_GFS",
       "confName": "gpv/gfs/WindArrowSample.json",

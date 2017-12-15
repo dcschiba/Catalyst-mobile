@@ -24,13 +24,14 @@ class Launch extends Component {
   componentWillMount() {
 
   }
-
   render() {
     return (
       <div className={css.wrapper}>
         <button className={css.wrapper_button} onClick={() => hashHistory.push('start')} >
-          <img src={Logo} className={css.logo} alt="weathernews-logo" />
-          <img src={ConceptImg} className={css.message} alt="Services Concept" />
+          <div>
+            <img src={Logo} className={css.logo} alt="weathernews-logo" />
+            <img src={ConceptImg} className={css.message} alt="Services Concept" />
+          </div>
           <div className={css.skip}>
             <FlatButton label="Skip" style={styles.skip} labelStyle={styles.labelStyle} />
           </div>

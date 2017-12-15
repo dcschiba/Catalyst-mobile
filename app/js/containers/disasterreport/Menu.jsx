@@ -6,7 +6,7 @@ import Checkbox from 'material-ui/Checkbox';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import * as DisasterReportActions from '../../actions/disasterreport';
 import * as InitActions from '../../actions/layerInit';
-import { styles, childStyles, childWrapper } from '../../utils/menuStyle';
+import { styles, childWrapper } from '../../utils/menuStyle';
 import css from '../../../style/disasterreport/menu.css';
 
 const propTypes = {
@@ -19,12 +19,12 @@ const propTypes = {
 
 class Menu extends Component {
   componentDidMount() {
-    const { actions, isLoading, layerInitflags } = this.props;
-    if (!layerInitflags.disasterreport) {
+    const { actions, layerInitflags, isLoading } = this.props;
+    if (!layerInitflags.disasterreport && isLoading) {
       actions.layerInit({ disasterreport: true });
     }
     const waitForMapInitialize = setInterval(() => {
-      if (!isLoading) {
+      if (!this.props.isLoading) {
         actions.disasterReportClick(true);
         actions.disasterReportTypeChange('72');
         clearInterval(waitForMapInitialize);
@@ -45,8 +45,8 @@ class Menu extends Component {
             label="災害情報"
             checked={disasterReportChecked}
             onClick={e => actions.disasterReportClick(e.target.checked)}
-            inputStyle={styles.checkbox}
-            labelStyle={styles.label}
+            iconStyle={styles.checkbox.icon}
+            labelStyle={styles.checkbox.label}
           />
         </div>
         <div style={childWrapper(4, disasterReportChecked)}>
@@ -58,26 +58,26 @@ class Menu extends Component {
             <RadioButton
               value="1"
               label="過去１時間"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
             <RadioButton
               value="24"
               label="過去24時間"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
             <RadioButton
               value="72"
               label="過去72時間"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
             <RadioButton
               value="168"
               label="過去一週間"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
           </RadioButtonGroup>
         </div>

@@ -20,7 +20,7 @@ const initialState = {
   waveBlendArrowChecked: true,
   waveBlendContourChecked: true,
   waveBlendFlatChecked: true,
-  waveBlendLowresoChecked: true,
+  waveBlendLowresoChecked: false,
   waveBlendNpacChecked: true,
   waveBlendNatlChecked: false,
   waveBlendSeasiaChecked: false,

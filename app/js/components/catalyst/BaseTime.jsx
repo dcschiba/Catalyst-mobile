@@ -35,16 +35,13 @@ class BaseTime extends Component {
         margin: '0 8px',
       },
       normal: {
-        height: `calc(${timeList.length} * 20px + 12px)`,
-        minWidth: 'none',
+        height: timeList.length > 3 ? '72px' : `calc(${timeList.length} * 20px + 12px)`,
+        minWidth: 'calc(100% - 20px)',
         width: 'calc(100% - 20px)',
         padding: '6px 6px 8px 6px',
         margin: '0 8px',
       },
     };
-    if (timeList.length > 3) {
-      styles.normal.height = '72px';
-    }
 
     return (
       <button

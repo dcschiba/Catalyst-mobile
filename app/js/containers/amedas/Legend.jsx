@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import * as LegendActions from '../../actions/legend';
 import * as AmedasActions from '../../actions/amedas';
-import css from '../../../style/common/legend.css';
 
 const propTypes = {
   content: PropTypes.string.isRequired,
@@ -28,7 +27,7 @@ class Legend extends Component {
       paddingLeft: '5pt',
       fontSize: '8pt',
     };
-    const { content, actions } = this.props;
+    const { content } = this.props;
     const legends = [];
     if (content === 'Sunshine') {
       legends.push(<div key="s0">{<FormattedMessage id="common.unit" />}：min</div>);
@@ -77,7 +76,6 @@ class Legend extends Component {
     return (
       <div style={fontsize}>
         {legends}
-        <button className={css.closeButton} onClick={() => Legend.closeClick(actions)}>✖</button>
       </div>
     );
   }

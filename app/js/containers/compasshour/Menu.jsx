@@ -71,44 +71,34 @@ class Menu extends Component {
 
     const {
       compassHourChecked,
-      compassHourDisabled,
       basetime,
       validtimeidx,
       basetimeidx,
       tsobj,
-      compassHourTmpGroupDisabled,
       compassHourTmpChecked,
       compassHourTmpContourChecked,
       compassHourTmpGridValueChecked,
       compassHourTmpFillValue,
-      compassHourPresGroupDisabled,
       compassHourPresChecked,
       compassHourPresContourChecked,
       compassHourPresGridValueChecked,
-      compassHourRhGroupDisabled,
       compassHourRhChecked,
       compassHourRhContourChecked,
       compassHourRhGridValueChecked,
-      compassHourAsnowGroupDisabled,
       compassHourAsnowChecked,
       compassHourAsnowContourChecked,
       compassHourAsnowGridValueChecked,
-      compassHourApcpGroupDisabled,
       compassHourApcpChecked,
       compassHourApcpContourChecked,
       compassHourApcpGridValueChecked,
-      compassHourPopGroupDisabled,
       compassHourPopChecked,
       compassHourPopContourChecked,
       compassHourPopGridValueChecked,
-      compassHourUgrdvgrdGroupDisabled,
       compassHourUgrdvgrdChecked,
       compassHourUgrdvgrdBarbsChecked,
-      compassHourVisGroupDisabled,
       compassHourVisChecked,
       compassHourVisContourChecked,
       compassHourVisGridValueChecked,
-      compassHourWiwwGroupDisabled,
       compassHourWiwwChecked,
       compassHourWiwwContourChecked,
       compassHourWiwwGridValueChecked,
@@ -124,7 +114,12 @@ class Menu extends Component {
       tsarr.map((ts, i) =>
         validtimeItems.push(<MenuItem key={i} value={i} primaryText={ts.ts} />));
     }
-
+    let temperatureState = 5;
+    if (compassHourTmpContourChecked && compassHourTmpGridValueChecked) {
+      temperatureState = 9;
+    } else if (compassHourTmpContourChecked || compassHourTmpGridValueChecked) {
+      temperatureState = 7;
+    }
     return (
       <div>
         <Checkbox
@@ -138,7 +133,7 @@ class Menu extends Component {
         <SelectField
           value={basetimeidx}
           floatingLabelText={<FormattedMessage id="common.basetime" />}
-          {...compassHourDisabled}
+          disabled={!compassHourChecked}
           onChange={(event, index, value) => actions.compassHourBasetimeChange(value)}
           style={styles.select.wrapper}
         >
@@ -147,7 +142,7 @@ class Menu extends Component {
         <SelectField
           floatingLabelText={<FormattedMessage id="common.validtime" />}
           value={validtimeidx}
-          {...compassHourDisabled}
+          disabled={!compassHourChecked}
           onChange={(event, index, value) => actions.compassHourValidtimeChange(value)}
           style={styles.select.wrapper}
         >
@@ -158,100 +153,108 @@ class Menu extends Component {
           <Checkbox
             value={basetimeidx}
             checked={compassHourTmpChecked}
+            disabled={!compassHourChecked}
             onClick={e => actions.compassHourTmpClick(e.target.checked)}
             label={<FormattedMessage id="common.temperature" />}
             iconStyle={styles.checkbox.icon}
             labelStyle={styles.checkbox.label}
           />
-          <div style={childWrapper(7, compassHourTmpChecked)}>
+          <div
+            style={childWrapper(temperatureState, compassHourTmpChecked)}
+          >
             <RadioButtonGroup
               name="TMP_FILL_RG"
               defaultSelected={compassHourTmpFillValue}
               onChange={(e, value) => actions.compassHourTmpfillChange(value)}
             >
               <RadioButton
-                iconStyle={styles.radio.icon}
-                labelStyle={styles.radio.label}
-                disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
                 value="gradation"
                 label={<FormattedMessage id="common.gradiation" />}
-              />
-              <RadioButton
+                disabled={!compassHourChecked}
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
+              />
+              <RadioButton
                 value="flat"
                 label={<FormattedMessage id="common.flat" />}
-              />
-              <RadioButton
+                disabled={!compassHourChecked}
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
+              />
+              <RadioButton
                 value="none"
                 label={<FormattedMessage id="common.none" />}
+                disabled={!compassHourChecked}
+                iconStyle={styles.radio.icon}
+                labelStyle={styles.radio.label}
               />
             </RadioButtonGroup>
             <Checkbox
               checked={compassHourTmpContourChecked}
               onClick={e => actions.compassHourTmpcontourClick(e.target.checked)}
-              disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
+              disabled={!compassHourChecked}
               label={<FormattedMessage id="common.contour" />}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
-            <RadioButtonGroup
-              name="CONTOUR_UNIT_RG"
-              defaultSelected="C"
-              onChange={(e, value) => actions.compassHourTmpcontourUnit(value)}
-            >
-              <RadioButton
-                iconStyle={styles.radio.icon}
-                labelStyle={styles.radio.label}
-                disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
-                value="C"
-                label={<FormattedMessage id="common.temperature.celcius" />}
-              />
-              <RadioButton
-                iconStyle={styles.radio.icon}
-                labelStyle={styles.radio.label}
-                disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
-                value="F"
-                label={<FormattedMessage id="common.temperature.fahrenheit" />}
-              />
-            </RadioButtonGroup>
+            <div style={childWrapper(2, compassHourTmpContourChecked)}>
+              <RadioButtonGroup
+                name="CONTOUR_UNIT_RG"
+                defaultSelected="C"
+                onChange={(e, value) => actions.compassHourTmpcontourUnit(value)}
+              >
+                <RadioButton
+                  iconStyle={styles.radio.icon}
+                  labelStyle={styles.radio.label}
+                  disabled={!compassHourChecked}
+                  value="C"
+                  label={<FormattedMessage id="common.temperature.celcius" />}
+                />
+                <RadioButton
+                  iconStyle={styles.radio.icon}
+                  labelStyle={styles.radio.label}
+                  disabled={!compassHourChecked}
+                  value="F"
+                  label={<FormattedMessage id="common.temperature.fahrenheit" />}
+                />
+              </RadioButtonGroup>
+            </div>
             <Checkbox
               checked={compassHourTmpGridValueChecked}
               onClick={e => actions.compassHourTmpgridvalueClick(e.target.checked)}
-              disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.gridvalue" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
-            <RadioButtonGroup
-              name="GRIDVALUE_UNIT_RG"
-              defaultSelected="C"
-              onChange={(e, value) => actions.compassHourTmpgridvalueUnit(value)}
-            >
-              <RadioButton
-                iconStyle={styles.radio.icon}
-                labelStyle={styles.radio.label}
-                disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
-                value="C"
-                label={<FormattedMessage id="common.temperature.celcius" />}
-              />
-              <RadioButton
-                iconStyle={styles.radio.icon}
-                labelStyle={styles.radio.label}
-                disabled={compassHourTmpGroupDisabled.disabled || compassHourDisabled.disabled}
-                value="F"
-                label={<FormattedMessage id="common.temperature.fahrenheit" />}
-              />
-            </RadioButtonGroup>
+            <div style={childWrapper(2, compassHourTmpGridValueChecked)}>
+              <RadioButtonGroup
+                name="GRIDVALUE_UNIT_RG"
+                defaultSelected="C"
+                onChange={(e, value) => actions.compassHourTmpgridvalueUnit(value)}
+              >
+                <RadioButton
+                  iconStyle={styles.radio.icon}
+                  labelStyle={styles.radio.label}
+                  disabled={!compassHourChecked}
+                  value="C"
+                  label={<FormattedMessage id="common.temperature.celcius" />}
+                />
+                <RadioButton
+                  iconStyle={styles.radio.icon}
+                  labelStyle={styles.radio.label}
+                  disabled={!compassHourChecked}
+                  value="F"
+                  label={<FormattedMessage id="common.temperature.fahrenheit" />}
+                />
+              </RadioButtonGroup>
+            </div>
           </div>
           {/* 気圧 */}
           <Checkbox
             value={basetimeidx}
             checked={compassHourPresChecked}
+            disabled={!compassHourChecked}
             onClick={e => actions.compassHourPresClick(e.target.checked)}
             label={<FormattedMessage id="common.pressure" />}
             iconStyle={styles.checkbox.icon}
@@ -266,21 +269,21 @@ class Menu extends Component {
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourPresGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="gradation"
                 label={<FormattedMessage id="common.gradiation" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourPresGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="flat"
                 label={<FormattedMessage id="common.flat" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourPresGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="none"
                 label={<FormattedMessage id="common.none" />}
               />
@@ -288,16 +291,16 @@ class Menu extends Component {
             <Checkbox
               checked={compassHourPresContourChecked}
               onClick={e => actions.compassHourPrescontourClick(e.target.checked)}
-              disabled={compassHourPresGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.contour" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
             <Checkbox
               checked={compassHourPresGridValueChecked}
               onClick={e => actions.compassHourPresgridvalueClick(e.target.checked)}
-              disabled={compassHourPresGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.gridvalue" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
@@ -305,6 +308,7 @@ class Menu extends Component {
           <Checkbox
             value={basetimeidx}
             checked={compassHourRhChecked}
+            disabled={!compassHourChecked}
             onClick={e => actions.compassHourRhClick(e.target.checked)}
             label={<FormattedMessage id="common.relative.humidity" />}
             iconStyle={styles.checkbox.icon}
@@ -320,21 +324,21 @@ class Menu extends Component {
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourRhGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="gradation"
                 label={<FormattedMessage id="common.gradiation" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourRhGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="flat"
                 label={<FormattedMessage id="common.flat" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourRhGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="none"
                 label={<FormattedMessage id="common.none" />}
               />
@@ -342,16 +346,16 @@ class Menu extends Component {
             <Checkbox
               checked={compassHourRhContourChecked}
               onClick={e => actions.compassHourRhcontourClick(e.target.checked)}
-              disabled={compassHourRhGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.contour" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
             <Checkbox
               checked={compassHourRhGridValueChecked}
               onClick={e => actions.compassHourRhgridvalueClick(e.target.checked)}
-              disabled={compassHourRhGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.gridvalue" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
@@ -360,6 +364,7 @@ class Menu extends Component {
           <Checkbox
             value={basetimeidx}
             checked={compassHourAsnowChecked}
+            disabled={!compassHourChecked}
             onClick={e => actions.compassHourAsnowClick(e.target.checked)}
             label={<FormattedMessage id="common.total.snowfall" />}
             iconStyle={styles.checkbox.icon}
@@ -374,21 +379,21 @@ class Menu extends Component {
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourAsnowGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="gradation"
                 label={<FormattedMessage id="common.gradiation" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourAsnowGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="flat"
                 label={<FormattedMessage id="common.flat" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourAsnowGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="none"
                 label={<FormattedMessage id="common.none" />}
               />
@@ -396,16 +401,16 @@ class Menu extends Component {
             <Checkbox
               checked={compassHourAsnowContourChecked}
               onClick={e => actions.compassHourAsnowcontourClick(e.target.checked)}
-              disabled={compassHourAsnowGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.contour" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
             <Checkbox
               checked={compassHourAsnowGridValueChecked}
               onClick={e => actions.compassHourAsnowgridvalueClick(e.target.checked)}
-              disabled={compassHourAsnowGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.gridvalue" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
@@ -414,6 +419,7 @@ class Menu extends Component {
           <Checkbox
             value={basetimeidx}
             checked={compassHourApcpChecked}
+            disabled={!compassHourChecked}
             onClick={e => actions.compassHourApcpClick(e.target.checked)}
             label={<FormattedMessage id="common.total.precipitation" />}
             iconStyle={styles.checkbox.icon}
@@ -428,21 +434,21 @@ class Menu extends Component {
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourApcpGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="gradation"
                 label={<FormattedMessage id="common.gradiation" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourApcpGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="flat"
                 label={<FormattedMessage id="common.flat" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourApcpGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="none"
                 label={<FormattedMessage id="common.none" />}
               />
@@ -450,16 +456,16 @@ class Menu extends Component {
             <Checkbox
               checked={compassHourApcpContourChecked}
               onClick={e => actions.compassHourApcpcontourClick(e.target.checked)}
-              disabled={compassHourApcpGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.contour" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
             <Checkbox
               checked={compassHourApcpGridValueChecked}
               onClick={e => actions.compassHourApcpgridvalueClick(e.target.checked)}
-              disabled={compassHourApcpGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.gridvalue" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
@@ -468,6 +474,7 @@ class Menu extends Component {
           <Checkbox
             value={basetimeidx}
             checked={compassHourPopChecked}
+            disabled={!compassHourChecked}
             onClick={e => actions.compassHourPopClick(e.target.checked)}
             label={<FormattedMessage id="common.precipitation.probability" />}
             iconStyle={styles.checkbox.icon}
@@ -482,21 +489,21 @@ class Menu extends Component {
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourPopGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="gradation"
                 label={<FormattedMessage id="common.gradiation" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourPopGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="flat"
                 label={<FormattedMessage id="common.flat" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourPopGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="none"
                 label={<FormattedMessage id="common.none" />}
               />
@@ -504,16 +511,16 @@ class Menu extends Component {
             <Checkbox
               checked={compassHourPopContourChecked}
               onClick={e => actions.compassHourPopcontourClick(e.target.checked)}
-              disabled={compassHourPopGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.contour" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
             <Checkbox
               checked={compassHourPopGridValueChecked}
               onClick={e => actions.compassHourPopgridvalueClick(e.target.checked)}
-              disabled={compassHourPopGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.gridvalue" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
@@ -522,6 +529,7 @@ class Menu extends Component {
           <Checkbox
             value={basetimeidx}
             checked={compassHourUgrdvgrdChecked}
+            disabled={!compassHourChecked}
             onClick={e => actions.compassHourUgrdvgrdClick(e.target.checked)}
             label={<FormattedMessage id="common.wind" />}
             iconStyle={styles.checkbox.icon}
@@ -530,8 +538,8 @@ class Menu extends Component {
           <div style={childWrapper(1, compassHourUgrdvgrdChecked)}>
             <Checkbox
               checked={compassHourUgrdvgrdBarbsChecked}
+              disabled={!compassHourChecked}
               onClick={e => actions.compassHourUgrdvgrdbarbsClick(e.target.checked)}
-              disabled={compassHourUgrdvgrdGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.windbarb" />}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
@@ -541,6 +549,7 @@ class Menu extends Component {
           <Checkbox
             value={basetimeidx}
             checked={compassHourVisChecked}
+            disabled={!compassHourChecked}
             onClick={e => actions.compassHourVisClick(e.target.checked)}
             label={<FormattedMessage id="common.visibility" />}
             iconStyle={styles.checkbox.icon}
@@ -555,21 +564,21 @@ class Menu extends Component {
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourVisGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="gradation"
                 label={<FormattedMessage id="common.gradiation" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourVisGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="flat"
                 label={<FormattedMessage id="common.flat" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourVisGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="none"
                 label={<FormattedMessage id="common.none" />}
               />
@@ -577,16 +586,16 @@ class Menu extends Component {
             <Checkbox
               checked={compassHourVisContourChecked}
               onClick={e => actions.compassHourViscontourClick(e.target.checked)}
-              disabled={compassHourVisGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.contour" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
             <Checkbox
               checked={compassHourVisGridValueChecked}
               onClick={e => actions.compassHourVisgridvalueClick(e.target.checked)}
-              disabled={compassHourVisGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.gridvalue" />}
+              disabled={!compassHourChecked}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
@@ -595,6 +604,7 @@ class Menu extends Component {
           <Checkbox
             value={basetimeidx}
             checked={compassHourWiwwChecked}
+            disabled={!compassHourChecked}
             onClick={e => Menu.showClick(e, actions)}
             label={<FormattedMessage id="compasshour.weather" />}
             iconStyle={styles.checkbox.icon}
@@ -604,35 +614,36 @@ class Menu extends Component {
             <RadioButtonGroup
               name="WIWW_FILL_RG"
               defaultSelected="block"
+              disabled={!compassHourChecked}
               onChange={(e, value) => actions.compassHourWiwwfillChange(value)}
             >
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourWiwwGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="block"
                 label={<FormattedMessage id="common.block" />}
               />
               <RadioButton
                 iconStyle={styles.radio.icon}
                 labelStyle={styles.radio.label}
-                disabled={compassHourWiwwGroupDisabled.disabled || compassHourDisabled.disabled}
+                disabled={!compassHourChecked}
                 value="none"
                 label={<FormattedMessage id="common.none" />}
               />
             </RadioButtonGroup>
             <Checkbox
               checked={compassHourWiwwContourChecked}
+              disabled={!compassHourChecked}
               onClick={e => actions.compassHourWiwwcontourClick(e.target.checked)}
-              disabled={compassHourWiwwGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.contour" />}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}
             />
             <Checkbox
               checked={compassHourWiwwGridValueChecked}
+              disabled={!compassHourChecked}
               onClick={e => actions.compassHourWiwwgridvalueClick(e.target.checked)}
-              disabled={compassHourWiwwGroupDisabled.disabled || compassHourDisabled.disabled}
               label={<FormattedMessage id="common.gridvalue" />}
               iconStyle={styles.checkbox.icon}
               labelStyle={styles.checkbox.label}

@@ -4,10 +4,9 @@ import ClassNames from 'classnames/bind';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import SpreadIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import css from '../../../style/legend.css';
-import dammy from '../../../img/legend.png';
 
 const propTypes = {
-  // tabList: PropTypes.array.isRequired,
+  tabList: PropTypes.array.isRequired,
   toggle: PropTypes.func.isRequired,
   flag: PropTypes.bool.isRequired,
   moreHidden: PropTypes.bool.isRequired,
@@ -23,6 +22,20 @@ class Legend extends Component {
   constructor(props) {
     super(props);
     this.cx = ClassNames.bind(css);
+    /* eslint-disable global-require,import/no-dynamic-require */
+    const legendList = [];
+    props.tabList.forEach((item) => {
+      if (item.legend) {
+        const LegendItem = require(`../../containers/${item.path}/Legend`).default;
+        legendList.push({
+          name: item.name,
+          content: <LegendItem key={item.path} />,
+        });
+      }
+    });
+    this.state = {
+      legendList,
+    };
   }
   render() {
     const { toggle, flag, moreHidden } = this.props;
@@ -31,6 +44,10 @@ class Legend extends Component {
       hidden: !flag,
       moreHidden,
     });
+    console.log(this.state.legendList.name);
+    if (this.state.legendList.length === 0) {
+      return null;
+    }
     return (
       <div className={wrapper}>
         <button
@@ -41,7 +58,17 @@ class Legend extends Component {
             : <div><SpreadIcon style={styles.icon} /><div>Legend</div></div>}
         </button>
         <div className={css.contents}>
-          <img src={dammy} alt="amedasLegend" width="50%" />
+          {this.state.legendList.map((legend, index) => (
+            <div
+              className={css.item}
+              key={index}
+              style={index === this.state.legendList.length - 1 ? { border: 'none' } : {}}
+            >
+              <div>{legend.name}</div>
+              <div>{legend.content}</div>
+            </div>
+          ),
+          )}
         </div>
       </div>
     );

@@ -3,17 +3,17 @@ import { LAYER_INITIALIZE } from '../constants/ActionTypes';
 
 // 初期化未実装のコンテンツは、trueにしておく
 const initialState = {
-  gfs: true,
-  radar: true,
+  gfs: false,
+  radar: false,
   amedas: false,
   jp10ten: false,
-  jmawarn: true,
-  hilofront: true,
+  jmawarn: false,
+  hilofront: false,
   lightning: false,
-  waveblend: true,
-  livecamera: true,
+  waveblend: false,
+  livecamera: false,
   compasshour: false,
-  disasterreport: true,
+  disasterreport: false,
 };
 
 export default handleActions({

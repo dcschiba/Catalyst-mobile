@@ -13,7 +13,7 @@
     top: 0;
     left: 0;
     height: 40px;
-    padding-top: 10px;
+    padding-top: 8px;
     width: 100%;
     margin: 0;
     display: flex;
@@ -23,4 +23,21 @@
 
 .top_item {
     width: calc(100% / 3);
+}
+.top_item_center {
+    width: calc(100% / 3);
+    text-align: center;
+}
+
+.refresh_button {
+    background-color: rgb(66, 133, 244);
+    border: solid 1px rgb(66, 133, 244);  
+    border-radius: 4px;
+    height: calc(30px - 1px);
+    width: 40px;
+    padding: 1px 0 0 0;
+    margin: 0px;
+    box-shadow: 2px 3px 6px #777777;
+    cursor: pointer;
+    outline: none;
 }

@@ -28,6 +28,9 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <resource-file src="GoogleService-Info.plist" />
+        <config-file parent="NSLocationWhenInUseUsageDescription" target="*-Info.plist">
+            <string>アプリが位置情報を取得します。</string>
+        </config-file>
     </platform>
     <engine name="android" spec="^6.4.0" />
     <engine name="ios" spec="4.5.4" />
@@ -38,4 +41,6 @@
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
     <plugin name="cordova-plugin-network-information" spec="^1.3.4" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
+    <plugin name="cordova-plugin-vibration" spec="^2.1.6" />
+    <plugin name="cordova-plugin-geolocation" spec="^3.0.0" />
 </widget>

@@ -20,10 +20,6 @@ const styles = {
 };
 
 class Top extends Component {
-  componentWillMount() {
-
-  }
-
   render() {
     return (
       <div className={css.wrapper}>

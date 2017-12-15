@@ -30,8 +30,8 @@ class Menu extends Component {
   }
   componentDidMount() {
     const waitForlayerInitialize = setInterval(() => {
-      const { actions, layerInitflags, isLoading } = this.props;
-      if (!layerInitflags.amedas && isLoading) {
+      const { actions, layerInitflags, isLoading, amedas } = this.props;
+      if (!layerInitflags.amedas && isLoading && amedas.tsarr.length !== 0) {
         actions.layerInit({ amedas: true });
         clearInterval(waitForlayerInitialize);
       }
@@ -72,16 +72,16 @@ class Menu extends Component {
           iconStyle={styles.checkbox.icon}
           labelStyle={styles.checkbox.label}
         />
-        <SelectField
-          floatingLabelText={<FormattedMessage id="common.validtime" />}
-          value={validtimeidx}
-          {...subDisabled}
-          onChange={(event, index, value) => actions.amedasValidtimeChange(value)}
-          style={styles.select.wrapper}
-        >
-          {validtimeItems}
-        </SelectField>
         <div style={childWrapper(5, showchecked)}>
+          <SelectField
+            floatingLabelText={<FormattedMessage id="common.validtime" />}
+            value={validtimeidx}
+            {...subDisabled}
+            onChange={(event, index, value) => actions.amedasValidtimeChange(value)}
+            style={styles.select.wrapper}
+          >
+            {validtimeItems}
+          </SelectField>
           <CheckBox
             disabled={!showchecked}
             checked={windchecked}
@@ -92,7 +92,7 @@ class Menu extends Component {
           />
           <RadioButtonGroup
             name="AMEDAS_RG"
-            defaultSelected="Sunshine"
+            defaultSelected="Temperature"
             onChange={(e, value) => actions.amedasContentChange(value)}
           >
             <RadioButton

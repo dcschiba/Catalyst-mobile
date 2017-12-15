@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LocationIcon from 'material-ui/svg-icons/maps/my-location';
 import SlideLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import SlideRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import css from '../../../style/footerButtons.css';
 import NeonButton from './NeonButton';
 
@@ -36,27 +34,10 @@ class FooterButtons extends Component {
       buttons: {
         width: `calc(${tabList.length} * 60px)`,
       },
-      floating_button_label: {
-        fontSize: '0.7em',
-        position: 'relative',
-        top: '-46px',
-        color: '#000000',
-      },
-      floating_button_icon: {
-        fill: '#4285f4',
-        position: 'relative',
-        top: '-8px',
-      },
     };
 
     return (
       <div>
-        <div className={css.location_button}>
-          <FloatingActionButton backgroundColor="white">
-            <LocationIcon style={styles.floating_button_icon} />
-            <div style={styles.floating_button_label}>現在地</div>
-          </FloatingActionButton>
-        </div>
         <div className={css.footer}>
           <SlideLeftIcon style={styles.slide_button} />
           <div className={css.buttons_area}>

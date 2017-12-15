@@ -5,19 +5,31 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import * as LiveCameraActions from '../../actions/livecamera';
-import {
-  LIVE_CAMERA,
-} from '../../constants/livecamera/LabelText';
+import * as InitActions from '../../actions/layerInit';
+import { LIVE_CAMERA } from '../../constants/livecamera/LabelText';
 import { styles } from '../../utils/menuStyle';
-import css from '../../../style/livecamera/menu.css';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
   liveCmChecked: PropTypes.bool.isRequired,
+  layerInitflags: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 class Menu extends Component {
   componentWillUnmount() {
     const { actions } = this.props;
+  }
+  componentDidMount() {
+    const { actions, layerInitflags, isLoading } = this.props;
+    if (!layerInitflags.livecamera && isLoading) {
+      actions.layerInit({ livecamera: true });
+    }
+    const waitForMapInitialize = setInterval(() => {
+      if (!this.props.isLoading) {
+        actions.liveCameraClick(true);
+        clearInterval(waitForMapInitialize);
+      }
+    }, 1000);
   }
   render() {
     const {
@@ -26,14 +38,14 @@ class Menu extends Component {
     } = this.props;
 
     return (
-      <div className={css.ctrlpanel}>
+      <div>
         <Checkbox
           id="livecamera"
           label={LIVE_CAMERA}
           checked={liveCmChecked}
           onClick={e => actions.liveCameraClick(e.target.checked)}
-          style={styles.checkbox}
-          labelStyle={styles.label}
+          iconStyle={styles.checkbox.icon}
+          labelStyle={styles.checkbox.label}
         />
       </div>
     );
@@ -43,12 +55,15 @@ class Menu extends Component {
 function mapStateToProps(state) {
   return {
     liveCmChecked: state.livecamera.liveCmChecked,
+    isLoading: state.loading.isLoading,
+    layerInitflags: state.layerInit,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(LiveCameraActions, dispatch),
+    actions: bindActionCreators(
+      Object.assign(LiveCameraActions, InitActions), dispatch),
   };
 }
 

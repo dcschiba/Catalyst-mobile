@@ -10,7 +10,7 @@ import WrapUtils from '../../common/utils/WrapUtils';
 import * as LegendActions from '../../actions/legend';
 import * as Jp10tenActions from '../../actions/jp10ten';
 import * as InitActions from '../../actions/layerInit';
-import { styles, childStyles, childWrapper } from '../../utils/menuStyle';
+import { styles, childWrapper } from '../../utils/menuStyle';
 
 const propTypes = {
   actions: PropTypes.object.isRequired,
@@ -30,18 +30,18 @@ class Menu extends Component {
   }
   componentDidMount() {
     const waitForlayerInitialize = setInterval(() => {
-      const { actions, layerInitflags, isLoading } = this.props;
-      if (!layerInitflags.jp10ten && isLoading) {
+      const { actions, layerInitflags, isLoading, jp10ten } = this.props;
+      if (!layerInitflags.jp10ten && isLoading && jp10ten.validtimelist.length !== 0) {
         actions.layerInit({ jp10ten: true });
         clearInterval(waitForlayerInitialize);
       }
     }, 1000);
 
     const waitForMapInitialize = setInterval(() => {
-      const { actions, isLoading } = this.props;
+      const { isLoading, actions } = this.props;
       if (!isLoading) {
         actions.jptenClick(true);
-        actions.jptenValidtimeChange('30');
+        actions.jptenValidtimeChange(0);
         clearInterval(waitForMapInitialize);
       }
     }, 1000);
@@ -58,6 +58,9 @@ class Menu extends Component {
       validtimelist,
     } = jp10ten;
 
+    if (Object.keys(validtimelist).length === 0) {
+      return null;
+    }
     const validtimeItems = [];
     validtimelist.map((time, i) => {
       if (i < 360) {
@@ -73,23 +76,17 @@ class Menu extends Component {
           checked={showchecked}
           onClick={e => Menu.showClick(e, actions)}
           label={'JP 10ten'}
-          style={styles.checkbox}
-          labelStyle={styles.label}
+          iconStyle={styles.checkbox.icon}
+          labelStyle={styles.checkbox.label}
         />
         <div style={childWrapper(7, showchecked)}>
-          <div style={childStyles.line}>
-            <div style={childStyles.selectLabel}>validtime</div>
-            <div style={childStyles.selectWrapper}>
-              <SelectField
-                value={validtimeidx}
-                onChange={(event, index, value) => actions.jptenValidtimeChange(value)}
-                style={childStyles.select}
-                labelStyle={childStyles.selectLabel}
-              >
-                {validtimeItems}
-              </SelectField>
-            </div>
-          </div>
+          <SelectField
+            value={validtimeidx}
+            onChange={(event, index, value) => actions.jptenValidtimeChange(value)}
+            style={styles.select.wrapper}
+          >
+            {validtimeItems}
+          </SelectField>
           <RadioButtonGroup
             name="DisasterReport"
             defaultSelected={showpast}
@@ -98,38 +95,38 @@ class Menu extends Component {
             <RadioButton
               value="0"
               label="最新"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
             <RadioButton
               value="10"
               label="過去１０分"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
             <RadioButton
               value="30"
               label="過去３０分"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
             <RadioButton
               value="60"
               label="過去１時間"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
             <RadioButton
               value="180"
               label="過去３時間"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
             <RadioButton
               value="360"
               label="過去６時間"
-              style={childStyles.radio}
-              labelStyle={childStyles.label}
+              labelStyle={styles.radio.label}
+              iconStyle={styles.radio.icon}
             />
           </RadioButtonGroup>
         </div>
