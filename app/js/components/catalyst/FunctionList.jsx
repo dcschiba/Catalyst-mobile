@@ -44,7 +44,12 @@ class FunctionList extends Component {
               rightToggle={
                 <Checkbox
                   checked={flags.indexOf(item.path) !== -1}
-                  onCheck={oldState => itemClickAction(oldState, item.name, item.path)}
+                  onCheck={oldState =>
+                    itemClickAction(
+                      oldState,
+                      { name: item.name, path: item.path, legend: item.legend },
+                    )
+                  }
                   style={styles.checkbox}
                 />
               }

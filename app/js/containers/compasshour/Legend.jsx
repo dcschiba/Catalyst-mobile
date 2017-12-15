@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import * as LegendActions from '../../actions/legend';
 import * as CompassHourActions from '../../actions/compasshour';
-import comcss from '../../../style/common/legend.css';
 import css from '../../../style/compasshour/legend.css';
 
 const propTypes = {
@@ -23,8 +22,6 @@ class Legend extends Component {
   }
 
   render() {
-    const { actions } = this.props;
-
     return (
       <div className={css.basediv}>
         <div className={css.basediv}>
@@ -47,7 +44,6 @@ class Legend extends Component {
           <div className={css.legenditem} style={{ backgroundColor: '#FFFFFF' }} />
           <span className={css.legendtext}> {<FormattedMessage id="compasshour.snowy" />} </span>
         </div>
-        <button className={comcss.closeButton} onClick={() => Legend.closeClick(actions)}>✖</button>
       </div>
     );
   }

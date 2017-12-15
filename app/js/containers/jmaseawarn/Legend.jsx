@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 import * as JmaseawarnActions from '../../actions/jmaseawarn';
 import * as LegendActions from '../../actions/legend';
 import css from '../../../style/jmaseawarn/legend.css';
-import legendcss from '../../../style/common/legend.css';
-
 
 const propTypes = {
   actions: PropTypes.object,
@@ -22,7 +20,6 @@ class Legend extends Component {
     actions.legendChangeSize(200, 240);
   }
   render() {
-    const { actions } = this.props;
     return (
       <div className={css.container}>
         <div className={css.legendpadding}>
@@ -59,10 +56,6 @@ class Legend extends Component {
           </div>
           <div className={css.hordiv}> {'濃霧警報'} </div>
         </div>
-        <button
-          className={legendcss.closeButton}
-          onClick={() => Legend.closeClick(actions)}
-        >✖</button>
       </div>
     );
   }

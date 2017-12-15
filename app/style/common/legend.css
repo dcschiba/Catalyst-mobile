@@ -1,0 +1,23 @@
+.closeButton {
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  color: lightslategray;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  text-align: center;
+  margin-left: 4px;
+  width: 18px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  top: 38px;
+  right: 5px;
+}
+.closeButton:hover {
+    color: red;
+    background-color: #dde;
+}

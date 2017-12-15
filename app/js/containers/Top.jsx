@@ -45,11 +45,11 @@ class Top extends Component {
       value,
     });
   }
-  selectFunction(value, name, path) {
+  selectFunction(value, item) {
     if (value.target.checked) {
-      this.props.actions.addFunction({ name, path });
+      this.props.actions.addFunction(item);
     } else {
-      this.props.actions.removeFunction(name);
+      this.props.actions.removeFunction(item.name);
     }
   }
   render() {
