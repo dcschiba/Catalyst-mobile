@@ -8,5 +8,5 @@ export const addFunction = createAction(
 
 export const removeFunction = createAction(
   REMOVE_FUNCTION_LIST,
-  name => ({ name }),
+  path => ({ path }),
 );

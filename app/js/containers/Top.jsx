@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import { FormattedMessage } from 'react-intl';
+import SwipeableViews from 'react-swipeable-views';
 import FlatButton from 'material-ui/FlatButton';
 import { hashHistory } from 'react-router';
 import FunctionList from '../components/catalyst/FunctionList';
@@ -10,10 +12,10 @@ import css from '../../style/top.css';
 import * as selectFuncActions from '../actions/functionList';
 
 const propTypes = {
-  locale: PropTypes.string.isRequired,
+  themeColor: PropTypes.object.isRequired,
+  functionList: PropTypes.array.isRequired,
   checkedFunc: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
-  themeColor: PropTypes.object.isRequired,
 };
 
 const styles = {
@@ -35,81 +37,81 @@ class Top extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabStatus: 'ALL',
+      tabStatus: 0,
+      targetList: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.selectFunction = this.selectFunction.bind(this);
+
+    /* eslint-disable global-require,import/no-dynamic-require */
+    try {
+      const targetNames = [...require('../locales/targetList.json')];
+      this.state.targetList.push({
+        name: 'ALL',
+        data: props.functionList,
+      });
+      targetNames.forEach((target) => {
+        this.state.targetList.push({
+          name: target,
+          data: props.functionList.filter(func => func.target.indexOf(target) !== -1),
+        });
+      });
+    } catch (error) {
+      if (error.message.indexOf('Cannot find module') !== -1) {
+        this.setState({ functionList: ['ALL'] });
+      } else { throw error; }
+    }
   }
   handleChange(value) {
     this.setState({
-      value,
+      tabStatus: value,
     });
   }
   selectFunction(value, item) {
     if (value.target.checked) {
       this.props.actions.addFunction(item);
     } else {
-      this.props.actions.removeFunction(item.name);
+      this.props.actions.removeFunction(item.path);
     }
   }
   render() {
-    const { themeColor, locale, checkedFunc } = this.props;
-    /* eslint-disable global-require,import/no-dynamic-require */
-    let functionList;
-    let targetList;
-    try {
-      targetList = require('../locales/targetList.json');
-      functionList = require(`../locales/${locale}/functionList.json`);
-    } catch (error) {
-      if (error.message.indexOf('Cannot find module') !== -1) {
-        functionList = require('../locales/en/functionList.json');
-      } else {
-        throw error;
-      }
-    }
-
-    const flags = checkedFunc.map(func => func.path);
+    const { themeColor, checkedFunc } = this.props;
+    const { targetList } = this.state;
+    const onFlags = checkedFunc.map(func => func.path);
     return (
       <div className={css.wrapper}>
-        <div className={css.title_wrapper} style={themeColor.main}>コンテンツ一覧</div>
+        <div className={css.title_wrapper} style={themeColor.main}>
+          <FormattedMessage id="functionList.title" />
+        </div>
         <div className={css.contents}>
           <Tabs
-            value={this.state.value}
+            value={this.state.tabStatus}
             onChange={this.handleChange}
             inkBarStyle={{ backgroundColor: themeColor.accent }}
           >
-            <Tab
-              label="ALL"
-              value="ALL"
-              buttonStyle={{ ...themeColor.main, ...styles.tab }}
-            >
-              <div className={css.list}>
+            {targetList.map((target, index) => (
+              <Tab
+                key={index}
+                label={target.name}
+                value={index}
+                buttonStyle={{ ...themeColor.main, ...styles.tab }}
+              />
+            ))}
+          </Tabs>
+          <SwipeableViews
+            index={this.state.tabStatus}
+            onChangeIndex={this.handleChange}
+          >
+            {targetList.map((target, index) => (
+              <div className={css.list} key={index}>
                 <FunctionList
-                  data={functionList}
-                  flags={flags}
+                  data={target.data}
+                  flags={onFlags}
                   itemClickAction={this.selectFunction}
                 />
               </div>
-            </Tab>
-            {
-            targetList.map((target, index) => (
-              <Tab
-                key={index}
-                label={target}
-                value={target}
-                buttonStyle={{ ...themeColor.main, ...styles.tab }}
-              >
-                <div className={css.list}>
-                  <FunctionList
-                    data={functionList.filter(item => item.target.indexOf(target) !== -1)}
-                    flags={flags}
-                    itemClickAction={this.selectFunction}
-                  />
-                </div>
-              </Tab>
-            ))
-          }
-          </Tabs>
+            ))}
+          </SwipeableViews>
         </div>
         <div className={css.button}>
           <FlatButton
@@ -122,7 +124,6 @@ class Top extends Component {
             onClick={() => hashHistory.push('app/main')}
             disabled={checkedFunc.length === 0}
           />
-          {/* TODO disabled style */}
         </div>
       </div>
     );
@@ -131,10 +132,8 @@ class Top extends Component {
 }
 
 function mapStateToProps(state) {
-  const locale = state.locale.locale;
   const checkedFunc = state.functionList.list;
   return {
-    locale,
     checkedFunc,
   };
 }

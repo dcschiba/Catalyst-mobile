@@ -9,10 +9,6 @@ import SlideLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import SlideRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import css from '../../../style/mapConsole.css';
 
-
-// import { List, ListItem } from 'material-ui/List';
-// import Checkbox from 'material-ui/Checkbox';
-
 const propTypes = {
   tabList: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,

@@ -39,14 +39,10 @@ const styles = {
   radioWrapper: {
     padding: '10px 0',
   },
-  ngButton: {
+  okButton: {
     backgroundColor: '#707070',
     color: 'white',
     margin: '0 16px 8px 16px',
-  },
-  okButton: {
-    backgroundColor: '#44f477',
-    color: 'white',
   },
   buttonWrapper: {
     width: '100%',
@@ -55,24 +51,19 @@ const styles = {
 
 };
 class SettingMenu extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       dialogStatus: '',
-      language: '',
     };
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.handleLanguage = this.handleLanguage.bind(this);
   }
   handleOpen(item) {
     this.setState({ dialogStatus: item });
   }
   handleClose() {
     this.setState({ dialogStatus: '' });
-  }
-  handleLanguage(lang) {
-    this.setState({ language: lang });
   }
   render() {
     const { actions, themeColor, locale } = this.props;
@@ -87,52 +78,44 @@ class SettingMenu extends Component {
         dialogButtons = [
           <div style={styles.buttonWrapper}>
             <FlatButton
-              label="Close"
+              label="OK"
               onClick={this.handleClose}
-              style={styles.ngButton}
+              style={styles.okButton}
             />
           </div>,
         ];
         break;
       }
       case 'language': {
-        dialogTitle = 'Lenguage';
+        dialogTitle = 'Language';
         dialog = (
           <RadioButtonGroup
             name="language"
             defaultSelected={locale}
-            onChange={event => this.handleLanguage(event.target.value)}
+            onChange={event => actions.changeLocale(event.target.value)}
             style={styles.radioWrapper}
           >
+            <RadioButton
+              value="ja"
+              label="日本語"
+              style={styles.radioButton}
+            />
             <RadioButton
               value="en"
               label="English"
               style={styles.radioButton}
             />
-            <RadioButton
-              value="ja"
-              label="Japanese"
-              style={styles.radioButton}
-            />
           </RadioButtonGroup >
         );
-        dialogButtons = (
+        dialogButtons = [
           <div style={styles.buttonWrapper}>
             <FlatButton
-              label="Cancel"
-              onClick={this.handleClose}
-              style={styles.ngButton}
-            />
-            <FlatButton
               label="OK"
-              onClick={() => {
-                actions.changeLocale(this.state.language);
-                this.handleClose();
-              }}
+              onClick={this.handleClose}
               style={styles.okButton}
             />
-          </div>
-        );
+          </div>,
+        ];
         break;
       }
       default:
@@ -149,10 +132,7 @@ class SettingMenu extends Component {
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         >
           <MenuItem
-            primaryText="Language" onClick={() => {
-              this.handleLanguage('');
-              this.handleOpen('language');
-            }}
+            primaryText="Language" onClick={() => this.handleOpen('language')}
           />
           <MenuItem primaryText="UUID" onClick={() => this.handleOpen('uuid')} />
         </IconMenu>

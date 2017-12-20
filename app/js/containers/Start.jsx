@@ -5,7 +5,6 @@ import { hashHistory } from 'react-router';
 import css from '../../style/start.css';
 import startImg from '../../img/start.png';
 
-
 const propTypes = {
 
 };

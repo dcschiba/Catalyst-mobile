@@ -4,13 +4,15 @@ import { routerMiddleware } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import wrapApi from '../middleware/api/wrap';
 import layerMiddleware from '../middleware/layerMiddleware';
+import localStorage from '../middleware/localStorage';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(wrapApi, layerMiddleware, routerMiddleware(hashHistory), createLogger()),
+    applyMiddleware(wrapApi, layerMiddleware, localStorage,
+      routerMiddleware(hashHistory), createLogger()),
   );
 
   if (module.hot) {

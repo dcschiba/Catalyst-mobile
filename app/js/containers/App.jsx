@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import AppBar from 'material-ui/AppBar';
 import SettingMenu from '../components/catalyst/SettingMenu';
 
@@ -44,21 +45,43 @@ const styles = {
 class App extends Component {
   render() {
     const { children, locale, actions } = this.props;
+    /* eslint-disable global-require,import/no-dynamic-require */
+    let messages;
+    try {
+      messages = require(`../locales/${locale}/messages.json`);
+    } catch (error) {
+      if (error.message.indexOf('Cannot find module') !== -1) {
+        messages = require('../locales/en/messages.json');
+      } else {
+        throw error;
+      }
+    }
+    let functionList;
+    try {
+      functionList = require(`../locales/${locale}/functionList.json`);
+    } catch (error) {
+      if (error.message.indexOf('Cannot find module') !== -1) {
+        functionList = require('../locales/en/functionList.json');
+      } else { throw error; }
+    }
     return (
-      <div style={{ ...themeColor.ground }} >
-        <AppBar
-          title="WRAP Catalyst"
-          titleStyle={styles.title}
-          style={styles.appBar}
-          showMenuIconButton={false}
-          iconElementRight={
-            <SettingMenu actions={actions} themeColor={themeColor} locale={locale} />}
-          iconStyleRight={styles.rightIcon}
-        />
-        <div className={css.contents}>
-          {React.cloneElement(children, { themeColor, locale })}
+      <IntlProvider locale={locale} messages={messages}>
+        <div style={{ ...themeColor.ground }} >
+          <AppBar
+            title="WRAP Catalyst"
+            titleStyle={styles.title}
+            style={styles.appBar}
+            showMenuIconButton={false}
+            iconElementRight={
+              <SettingMenu actions={actions} themeColor={themeColor} locale={locale} />
+            }
+            iconStyleRight={styles.rightIcon}
+          />
+          <div className={css.contents}>
+            {React.cloneElement(children, { themeColor, functionList })}
+          </div>
         </div>
-      </div>
+      </IntlProvider>
     );
   }
 }
