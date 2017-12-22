@@ -9,12 +9,12 @@ import FlatButton from 'material-ui/FlatButton';
 import { hashHistory } from 'react-router';
 import FunctionList from '../components/catalyst/FunctionList';
 import css from '../../style/top.css';
-import * as selectFuncActions from '../actions/functionList';
+import * as selectFuncActions from '../actions/selectedFuncList';
 
 const propTypes = {
   themeColor: PropTypes.object.isRequired,
-  functionList: PropTypes.array.isRequired,
-  checkedFunc: PropTypes.array.isRequired,
+  funcMasterArray: PropTypes.array.isRequired,
+  selectedFuncList: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
@@ -34,50 +34,31 @@ const styles = {
 };
 
 class Top extends Component {
+  /* eslint-disable global-require,import/no-dynamic-require */
   constructor(props) {
     super(props);
     this.state = {
       tabStatus: 0,
-      targetList: [],
+      targetList: ['ALL', ...require('../locales/targetList.json')],
     };
     this.handleChange = this.handleChange.bind(this);
     this.selectFunction = this.selectFunction.bind(this);
-
-    /* eslint-disable global-require,import/no-dynamic-require */
-    try {
-      const targetNames = [...require('../locales/targetList.json')];
-      this.state.targetList.push({
-        name: 'ALL',
-        data: props.functionList,
-      });
-      targetNames.forEach((target) => {
-        this.state.targetList.push({
-          name: target,
-          data: props.functionList.filter(func => func.target.indexOf(target) !== -1),
-        });
-      });
-    } catch (error) {
-      if (error.message.indexOf('Cannot find module') !== -1) {
-        this.setState({ functionList: ['ALL'] });
-      } else { throw error; }
-    }
   }
   handleChange(value) {
     this.setState({
       tabStatus: value,
     });
   }
-  selectFunction(value, item) {
+  selectFunction(value, path) {
     if (value.target.checked) {
-      this.props.actions.addFunction(item);
+      this.props.actions.addFunction(path);
     } else {
-      this.props.actions.removeFunction(item.path);
+      this.props.actions.removeFunction(path);
     }
   }
   render() {
-    const { themeColor, checkedFunc } = this.props;
+    const { themeColor, selectedFuncList, funcMasterArray } = this.props;
     const { targetList } = this.state;
-    const onFlags = checkedFunc.map(func => func.path);
     return (
       <div className={css.wrapper}>
         <div className={css.title_wrapper} style={themeColor.main}>
@@ -92,7 +73,7 @@ class Top extends Component {
             {targetList.map((target, index) => (
               <Tab
                 key={index}
-                label={target.name}
+                label={target}
                 value={index}
                 buttonStyle={{ ...themeColor.main, ...styles.tab }}
               />
@@ -105,8 +86,9 @@ class Top extends Component {
             {targetList.map((target, index) => (
               <div className={css.list} key={index}>
                 <FunctionList
-                  data={target.data}
-                  flags={onFlags}
+                  data={target === 'ALL' ? funcMasterArray :
+                    funcMasterArray.filter(func => func.target.indexOf(target) !== -1)}
+                  selectedFuncList={selectedFuncList}
                   itemClickAction={this.selectFunction}
                 />
               </div>
@@ -119,10 +101,10 @@ class Top extends Component {
             style={{
               ...styles.button,
               ...themeColor.second,
-              ...checkedFunc.length === 0 ? styles.disabled : {},
+              ...selectedFuncList.length === 0 ? styles.disabled : {},
             }}
             onClick={() => hashHistory.push('app/main')}
-            disabled={checkedFunc.length === 0}
+            disabled={selectedFuncList.length === 0}
           />
         </div>
       </div>
@@ -132,9 +114,9 @@ class Top extends Component {
 }
 
 function mapStateToProps(state) {
-  const checkedFunc = state.functionList.list;
+  const selectedFuncList = state.selectedFuncList.list;
   return {
-    checkedFunc,
+    selectedFuncList,
   };
 }
 

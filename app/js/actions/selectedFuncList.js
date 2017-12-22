@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions';
-import { ADD_FUNCTION_LIST, REMOVE_FUNCTION_LIST } from '../constants/ActionTypes';
+import { ADD_CHECKED_FUNCTION, REMOVE_FUNCTION_LIST } from '../constants/ActionTypes';
 
 export const addFunction = createAction(
-  ADD_FUNCTION_LIST,
-  item => ({ item }),
+  ADD_CHECKED_FUNCTION,
+  path => ({ path }),
 );
 
 export const removeFunction = createAction(

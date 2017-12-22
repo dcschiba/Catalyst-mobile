@@ -14,6 +14,9 @@ import css from '../../style/app.css';
 const propTypes = {
   children: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+  messages: PropTypes.object.isRequired,
+  funcMasterArray: PropTypes.array.isRequired,
+  funcMasterObject: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
@@ -44,26 +47,7 @@ const styles = {
 
 class App extends Component {
   render() {
-    const { children, locale, actions } = this.props;
-    /* eslint-disable global-require,import/no-dynamic-require */
-    let messages;
-    try {
-      messages = require(`../locales/${locale}/messages.json`);
-    } catch (error) {
-      if (error.message.indexOf('Cannot find module') !== -1) {
-        messages = require('../locales/en/messages.json');
-      } else {
-        throw error;
-      }
-    }
-    let functionList;
-    try {
-      functionList = require(`../locales/${locale}/functionList.json`);
-    } catch (error) {
-      if (error.message.indexOf('Cannot find module') !== -1) {
-        functionList = require('../locales/en/functionList.json');
-      } else { throw error; }
-    }
+    const { children, locale, actions, messages, funcMasterArray, funcMasterObject } = this.props;
     return (
       <IntlProvider locale={locale} messages={messages}>
         <div style={{ ...themeColor.ground }} >
@@ -78,7 +62,7 @@ class App extends Component {
             iconStyleRight={styles.rightIcon}
           />
           <div className={css.contents}>
-            {React.cloneElement(children, { themeColor, functionList })}
+            {React.cloneElement(children, { themeColor, funcMasterArray, funcMasterObject })}
           </div>
         </div>
       </IntlProvider>
@@ -87,10 +71,10 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const locale = state.locale.locale;
+  const locale = state.locale;
   const title = state.catalyst.title;
   return {
-    locale,
+    ...locale, // locale = { locale, messages, funcMasterArray, funcMasterObject }
     title,
   };
 }

@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 import {
-    ADD_FUNCTION_LIST,
+    ADD_CHECKED_FUNCTION,
     REMOVE_FUNCTION_LIST,
 } from '../constants/ActionTypes';
 
@@ -9,12 +9,14 @@ const initialState = {
 };
 
 export default handleActions({
-  [ADD_FUNCTION_LIST]: (state, action) => ({
-    list: [...state.list, action.payload.item],
+  [ADD_CHECKED_FUNCTION]: (state, action) => ({
+    ...state,
+    list: [...state.list, action.payload.path],
   }),
 
   [REMOVE_FUNCTION_LIST]: (state, action) => ({
-    list: state.list.filter(listItem => listItem.path !== action.payload.path),
+    ...state,
+    list: state.list.filter(path => path !== action.payload.path),
   }),
 
 }, initialState);

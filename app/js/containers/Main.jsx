@@ -30,10 +30,11 @@ import css from '../../style/main.css';
 
 const propTypes = {
   actions: PropTypes.object,
-  checkedFunc: PropTypes.array.isRequired,
+  funcMasterObject: PropTypes.object.isRequired,
+  selectedFuncList: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
   initflags: PropTypes.object.isRequired,
-  activeFlags: PropTypes.object.isRequired,
+  showLayerFlags: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -87,7 +88,7 @@ function getLocation() {
     },
     {
       enableHighAccuracy: true,
-      timeout: 700,
+      timeout: 3000,
       maximumAge: 0,
     },
   );
@@ -118,8 +119,9 @@ class Main extends Component {
   }
 
   componentDidUpdate() {
-    const { checkedFunc, initflags, actions } = this.props;
-    if (this.props.isLoading && checkedFunc.filter(func => !initflags[func.path]).length === 0) {
+    const { selectedFuncList, initflags, actions } = this.props;
+    if (this.props.isLoading
+      && selectedFuncList.filter(func => !initflags[func]).length === 0) {
       actions.stopLoading();
     }
   }
@@ -149,12 +151,12 @@ class Main extends Component {
   baseTimeToggle(flag) {
     this.setState({
       isSpreadBaseTime: flag,
-      isShowLegend: this.props.checkedFunc.length > 3 ? false : this.state.isShowLegend,
+      isShowLegend: this.props.selectedFuncList.length > 3 ? false : this.state.isShowLegend,
     });
   }
   mapInitedCallback(map) {
     const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
-    const { checkedFunc, actions } = this.props;
+    const { selectedFuncList, actions } = this.props;
     const { isOnline } = this.state;
     const mapDiv = document.getElementById(mapId);
     WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
@@ -167,7 +169,7 @@ class Main extends Component {
       dhkeyoption.baseurl = 'http://localhost:50000';
       WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
     }
-    const pathList = checkedFunc.map(func => func.path);
+    const pathList = [...selectedFuncList];
     pathList.push('location');
     WrapController.setMapdiv(mapDiv);
     WrapController.initLayer(
@@ -185,10 +187,13 @@ class Main extends Component {
   }
   render() {
     const {
-      checkedFunc,
+      selectedFuncList,
       themeColor,
-      activeFlags,
-      isLoading } = this.props;
+      showLayerFlags,
+      isLoading,
+      funcMasterObject,
+    } = this.props;
+    const selectedFuncItemList = selectedFuncList.map(func => funcMasterObject[func]);
     const { isOnline } = this.state;
     return (
       <div className={css.wrapper}>
@@ -227,17 +232,17 @@ class Main extends Component {
           </div>
           <div className={css.top_item}>
             <BaseTime
-              timeList={checkedFunc.map(func => ({ name: func.name, baseTime: '09/13 09:30' }))}
+              timeList={selectedFuncItemList.map(func => ({ name: func.name, baseTime: '09/13 09:30' }))}
               toggle={this.baseTimeToggle}
               flag={this.state.isSpreadBaseTime}
             />
           </div>
         </div>
         <Legend
-          tabList={checkedFunc}
+          tabList={selectedFuncItemList}
           toggle={this.legendToggle}
           flag={this.state.isShowLegend}
-          moreHidden={checkedFunc.length > 3 && this.state.isSpreadBaseTime}
+          moreHidden={selectedFuncList.length > 3 && this.state.isSpreadBaseTime}
         />
         <FloatingActionButton
           backgroundColor="white"
@@ -247,15 +252,19 @@ class Main extends Component {
         >
           <LocationIcon style={styles.floating_button_icon} />
         </FloatingActionButton>
-        <FooterButtons tabList={checkedFunc} themeColor={themeColor} activeFlags={activeFlags} />
-        <MapConsole tabList={checkedFunc} themeColor={themeColor} />
+        <FooterButtons
+          tabList={selectedFuncItemList}
+          themeColor={themeColor}
+          showLayerFlags={showLayerFlags}
+        />
+        <MapConsole tabList={selectedFuncItemList} themeColor={themeColor} isLoading={isLoading} />
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const checkedFunc = state.functionList.list;
+  const selectedFuncList = state.selectedFuncList.list;
   const initflags = state.layerInit;
   const gfs = state.gpvgfs.gpv.gpvchecked;
   const radar = state.radar.radar.radarChecked;
@@ -270,8 +279,8 @@ function mapStateToProps(state) {
   const disasterreport = state.disasterreport.disasterReportChecked;
   const isLoading = state.loading.isLoading;
   return {
-    checkedFunc,
-    activeFlags: {
+    selectedFuncList,
+    showLayerFlags: {
       gfs,
       radar,
       amedas,

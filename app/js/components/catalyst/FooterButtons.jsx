@@ -9,7 +9,7 @@ import NeonButton from './NeonButton';
 const propTypes = {
   tabList: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
-  activeFlags: PropTypes.object.isRequired,
+  showLayerFlags: PropTypes.object.isRequired,
 };
 
 class FooterButtons extends Component {
@@ -21,7 +21,7 @@ class FooterButtons extends Component {
     };
   }
   render() {
-    const { tabList, themeColor, activeFlags } = this.props;
+    const { tabList, themeColor, showLayerFlags } = this.props;
     const styles = {
       slide_button: {
         height: '100%',
@@ -43,9 +43,11 @@ class FooterButtons extends Component {
             <button
               key={index}
               onClick={() => {
-                if (!activeFlags[contents.path]) {
+                if (!showLayerFlags[contents.path]) {
+                  // コントロールメニューのタブをクリック。スライドさせる。
                   document.getElementById(`${contents.path}_tab`).click();
                 }
+                // コントロールメニュー内のレイヤーon/offを切り替える。
                 document.getElementById(contents.path).click();
               }}
               className={css.button}
@@ -54,7 +56,7 @@ class FooterButtons extends Component {
               <div className={css.label}>
                 {contents.name.toUpperCase()}
               </div>
-              <NeonButton isActive={activeFlags[contents.path]} />
+              <NeonButton isActive={showLayerFlags[contents.path]} />
             </button>
           ))}
         </div>

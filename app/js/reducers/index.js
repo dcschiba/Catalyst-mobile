@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { STORE_INITIALIZE } from '../constants/ActionTypes';
 import layerInit from './layerInit';
-import functionList from './functionList';
+import selectedFuncList from './selectedFuncList';
 import locale from './locale';
 import catalyst from './catalyst';
 import map from './map';
@@ -24,7 +24,7 @@ import online from './online';
 const appReducer = combineReducers({
   routing: routerReducer,
   layerInit,
-  functionList,
+  selectedFuncList,
   locale,
   catalyst,
   map,

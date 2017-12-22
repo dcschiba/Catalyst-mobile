@@ -27,8 +27,8 @@ function copyDir(originDirEntory, landingDirEntory) {
     landingDirEntory,
     undefined,
     () => launchServer('/data/data/com.wni.wrap/cache/data'),
-    (error) => {
-      console.log(error);
+    () => {
+      console.log(landingDirEntory);
       launchServer('/data/data/com.wni.wrap/cache/data');
     },
   );

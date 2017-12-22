@@ -12,6 +12,7 @@ import css from '../../../style/mapConsole.css';
 const propTypes = {
   tabList: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const tabSize = '40%';
@@ -56,12 +57,14 @@ class MapConsole extends Component {
       });
     }
   }
-
   render() {
+    console.log(this.props.isLoading);
+
     const { tabList, themeColor } = this.props;
     const { isMenuShown, tabState } = this.state;
     const wrapper = this.cx({
       wrapper: true,
+      start_animation: !this.props.isLoading,
       hide: !isMenuShown,
     });
     const tabStyle = {
