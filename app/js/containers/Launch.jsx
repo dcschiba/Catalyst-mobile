@@ -27,15 +27,22 @@ class Launch extends Component {
   render() {
     return (
       <div className={css.wrapper}>
-        <button className={css.wrapper_button} onClick={() => hashHistory.push('start')} >
-          <div>
-            <img src={Logo} className={css.logo} alt="weathernews-logo" />
-            <img src={ConceptImg} className={css.message} alt="Services Concept" />
-          </div>
-          <div className={css.skip}>
-            <FlatButton label="Skip" style={styles.skip} labelStyle={styles.labelStyle} />
-          </div>
-        </button>
+        <button
+          className={css.wrapper_button}
+          onClick={() => hashHistory.push('start')}
+        />
+        <div>
+          <img src={Logo} className={css.logo} alt="weathernews-logo" />
+          <img src={ConceptImg} className={css.message} alt="Services Concept" />
+        </div>
+        <div className={css.skip}>
+          <FlatButton
+            label="Skip"
+            onClick={() => {}}
+            style={styles.skip}
+            labelStyle={styles.labelStyle}
+          />
+        </div>
       </div>
     );
   }

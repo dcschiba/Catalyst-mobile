@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import AppBar from 'material-ui/AppBar';
 import SettingMenu from '../components/catalyst/SettingMenu';
 
@@ -13,6 +14,9 @@ import css from '../../style/app.css';
 const propTypes = {
   children: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+  messages: PropTypes.object.isRequired,
+  funcMasterArray: PropTypes.array.isRequired,
+  funcMasterObject: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
@@ -43,31 +47,34 @@ const styles = {
 
 class App extends Component {
   render() {
-    const { children, locale, actions } = this.props;
+    const { children, locale, actions, messages, funcMasterArray, funcMasterObject } = this.props;
     return (
-      <div style={{ ...themeColor.ground }} >
-        <AppBar
-          title="WRAP Catalyst"
-          titleStyle={styles.title}
-          style={styles.appBar}
-          showMenuIconButton={false}
-          iconElementRight={
-            <SettingMenu actions={actions} themeColor={themeColor} locale={locale} />}
-          iconStyleRight={styles.rightIcon}
-        />
-        <div className={css.contents}>
-          {React.cloneElement(children, { themeColor, locale })}
+      <IntlProvider locale={locale} messages={messages}>
+        <div style={{ ...themeColor.ground }} >
+          <AppBar
+            title="WRAP Catalyst"
+            titleStyle={styles.title}
+            style={styles.appBar}
+            showMenuIconButton={false}
+            iconElementRight={
+              <SettingMenu actions={actions} themeColor={themeColor} locale={locale} />
+            }
+            iconStyleRight={styles.rightIcon}
+          />
+          <div className={css.contents}>
+            {React.cloneElement(children, { themeColor, funcMasterArray, funcMasterObject })}
+          </div>
         </div>
-      </div>
+      </IntlProvider>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const locale = state.locale.locale;
+  const locale = state.locale;
   const title = state.catalyst.title;
   return {
-    locale,
+    ...locale, // locale = { locale, messages, funcMasterArray, funcMasterObject }
     title,
   };
 }

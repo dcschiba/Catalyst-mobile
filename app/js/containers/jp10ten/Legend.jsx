@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import CheckBox from 'material-ui/Checkbox';
 import WrapUtils from '../../common/utils/WrapUtils';
 import * as LegendActions from '../../actions/legend';
-import * as AmedasActions from '../../actions/amedas';
+import * as Jp10tenActions from '../../actions/jp10ten';
 
 const propTypes = {
   jp10ten: PropTypes.object.isRequired,
@@ -99,7 +99,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign(LegendActions, AmedasActions), dispatch),
+    actions: bindActionCreators(Object.assign(LegendActions, Jp10tenActions), dispatch),
   };
 }
 Legend.propTypes = propTypes;

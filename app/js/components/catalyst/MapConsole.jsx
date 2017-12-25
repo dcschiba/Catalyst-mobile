@@ -9,13 +9,10 @@ import SlideLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import SlideRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import css from '../../../style/mapConsole.css';
 
-
-// import { List, ListItem } from 'material-ui/List';
-// import Checkbox from 'material-ui/Checkbox';
-
 const propTypes = {
   tabList: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const tabSize = '40%';
@@ -60,12 +57,12 @@ class MapConsole extends Component {
       });
     }
   }
-
   render() {
     const { tabList, themeColor } = this.props;
     const { isMenuShown, tabState } = this.state;
     const wrapper = this.cx({
       wrapper: true,
+      start_animation: !this.props.isLoading,
       hide: !isMenuShown,
     });
     const tabStyle = {

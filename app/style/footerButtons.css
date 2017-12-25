@@ -11,17 +11,11 @@
 
 .footer {
     position: absolute;
+    background: #333333 ;    
     height: 60px;    
     width: calc(100vw - 60px);
     bottom: 0px;
     right: 0;
-    display: flex;
-}
-
-.buttons_area {
-    background: #333333 ;
-    height: 100%;
-    width: 100%;
     text-align: center;
     overflow-x: scroll;
 }

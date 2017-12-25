@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import { FormattedMessage } from 'react-intl';
+import SwipeableViews from 'react-swipeable-views';
 import FlatButton from 'material-ui/FlatButton';
 import { hashHistory } from 'react-router';
 import FunctionList from '../components/catalyst/FunctionList';
 import css from '../../style/top.css';
-import * as selectFuncActions from '../actions/functionList';
+import * as selectFuncActions from '../actions/selectedFuncList';
 
 const propTypes = {
-  locale: PropTypes.string.isRequired,
-  checkedFunc: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
   themeColor: PropTypes.object.isRequired,
+  funcMasterArray: PropTypes.array.isRequired,
+  selectedFuncList: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 const styles = {
@@ -32,84 +34,66 @@ const styles = {
 };
 
 class Top extends Component {
+  /* eslint-disable global-require,import/no-dynamic-require */
   constructor(props) {
     super(props);
     this.state = {
-      tabStatus: 'ALL',
+      tabStatus: 0,
+      targetList: ['ALL', ...require('../locales/targetList.json')],
     };
     this.handleChange = this.handleChange.bind(this);
     this.selectFunction = this.selectFunction.bind(this);
   }
   handleChange(value) {
     this.setState({
-      value,
+      tabStatus: value,
     });
   }
-  selectFunction(value, item) {
+  selectFunction(value, path) {
     if (value.target.checked) {
-      this.props.actions.addFunction(item);
+      this.props.actions.addFunction(path);
     } else {
-      this.props.actions.removeFunction(item.name);
+      this.props.actions.removeFunction(path);
     }
   }
   render() {
-    const { themeColor, locale, checkedFunc } = this.props;
-    /* eslint-disable global-require,import/no-dynamic-require */
-    let functionList;
-    let targetList;
-    try {
-      targetList = require('../locales/targetList.json');
-      functionList = require(`../locales/${locale}/functionList.json`);
-    } catch (error) {
-      if (error.message.indexOf('Cannot find module') !== -1) {
-        functionList = require('../locales/en/functionList.json');
-      } else {
-        throw error;
-      }
-    }
-
-    const flags = checkedFunc.map(func => func.path);
+    const { themeColor, selectedFuncList, funcMasterArray } = this.props;
+    const { targetList } = this.state;
     return (
       <div className={css.wrapper}>
-        <div className={css.title_wrapper} style={themeColor.main}>コンテンツ一覧</div>
+        <div className={css.title_wrapper} style={themeColor.main}>
+          <FormattedMessage id="functionList.title" />
+        </div>
         <div className={css.contents}>
           <Tabs
-            value={this.state.value}
+            value={this.state.tabStatus}
             onChange={this.handleChange}
             inkBarStyle={{ backgroundColor: themeColor.accent }}
           >
-            <Tab
-              label="ALL"
-              value="ALL"
-              buttonStyle={{ ...themeColor.main, ...styles.tab }}
-            >
-              <div className={css.list}>
-                <FunctionList
-                  data={functionList}
-                  flags={flags}
-                  itemClickAction={this.selectFunction}
-                />
-              </div>
-            </Tab>
-            {
-            targetList.map((target, index) => (
+            {targetList.map((target, index) => (
               <Tab
                 key={index}
                 label={target}
-                value={target}
+                value={index}
                 buttonStyle={{ ...themeColor.main, ...styles.tab }}
-              >
-                <div className={css.list}>
-                  <FunctionList
-                    data={functionList.filter(item => item.target.indexOf(target) !== -1)}
-                    flags={flags}
-                    itemClickAction={this.selectFunction}
-                  />
-                </div>
-              </Tab>
-            ))
-          }
+              />
+            ))}
           </Tabs>
+          <SwipeableViews
+            index={this.state.tabStatus}
+            onChangeIndex={this.handleChange}
+          >
+            {targetList.map((target, index) => (
+              <div className={css.list} key={index}>
+                <FunctionList
+                  data={target === 'ALL' ? funcMasterArray :
+                    funcMasterArray.filter(func => func.target.indexOf(target) !== -1)}
+                  selectedFuncList={selectedFuncList}
+                  itemClickAction={this.selectFunction}
+                />
+              </div>
+            ))}
+          </SwipeableViews>
         </div>
         <div className={css.button}>
           <FlatButton
@@ -117,12 +101,11 @@ class Top extends Component {
             style={{
               ...styles.button,
               ...themeColor.second,
-              ...checkedFunc.length === 0 ? styles.disabled : {},
+              ...selectedFuncList.length === 0 ? styles.disabled : {},
             }}
             onClick={() => hashHistory.push('app/main')}
-            disabled={checkedFunc.length === 0}
+            disabled={selectedFuncList.length === 0}
           />
-          {/* TODO disabled style */}
         </div>
       </div>
     );
@@ -131,11 +114,9 @@ class Top extends Component {
 }
 
 function mapStateToProps(state) {
-  const locale = state.locale.locale;
-  const checkedFunc = state.functionList.list;
+  const selectedFuncList = state.selectedFuncList.list;
   return {
-    locale,
-    checkedFunc,
+    selectedFuncList,
   };
 }
 

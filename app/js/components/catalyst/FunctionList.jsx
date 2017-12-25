@@ -6,7 +6,7 @@ import Checkbox from 'material-ui/Checkbox';
 
 const propTypes = {
   data: PropTypes.array.isRequired,
-  flags: PropTypes.array.isRequired,
+  selectedFuncList: PropTypes.array.isRequired,
   itemClickAction: PropTypes.func.isRequired,
 };
 
@@ -20,7 +20,7 @@ const styles = {
     padding: '28px 20px',
   },
   checkbox: {
-    margin: '14px',
+    margin: '11px',
     padding: '0px',
   },
 };
@@ -28,7 +28,7 @@ const styles = {
 class FunctionList extends Component {
 
   render() {
-    const { data, flags, itemClickAction } = this.props;
+    const { data, selectedFuncList, itemClickAction } = this.props;
 
     if (!data) {
       return <div />;
@@ -43,11 +43,11 @@ class FunctionList extends Component {
               style={styles.item}
               rightToggle={
                 <Checkbox
-                  checked={flags.indexOf(item.path) !== -1}
+                  checked={selectedFuncList.indexOf(item.path) !== -1}
                   onCheck={oldState =>
                     itemClickAction(
                       oldState,
-                      { name: item.name, path: item.path, legend: item.legend },
+                      item.path,
                     )
                   }
                   style={styles.checkbox}

@@ -1,8 +1,9 @@
-import WrapLayer from 'WRAP/UI/WrapLayer';
+import WRAP from 'WRAP';
 
-class LocationLayer extends WrapLayer {
+class LocationLayer extends WRAP.Geo.Layer {
   constructor(props) {
-    super(props);
+    console.log(props.layerName);
+    super(props.layerName);
     this.setVisible(true);
   }
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WRAP from 'WRAP';
 import { connect } from 'react-redux';
-import { IntlProvider } from 'react-intl';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import WrapController from 'WRAP/UI/WrapController';
@@ -31,11 +30,11 @@ import css from '../../style/main.css';
 
 const propTypes = {
   actions: PropTypes.object,
-  checkedFunc: PropTypes.array.isRequired,
+  funcMasterObject: PropTypes.object.isRequired,
+  selectedFuncList: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
-  locale: PropTypes.string.isRequired,
   initflags: PropTypes.object.isRequired,
-  activeFlags: PropTypes.object.isRequired,
+  showLayerFlags: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -89,7 +88,7 @@ function getLocation() {
     },
     {
       enableHighAccuracy: true,
-      timeout: 5000,
+      timeout: 3000,
       maximumAge: 0,
     },
   );
@@ -120,8 +119,9 @@ class Main extends Component {
   }
 
   componentDidUpdate() {
-    const { checkedFunc, initflags, actions } = this.props;
-    if (this.props.isLoading && checkedFunc.filter(func => !initflags[func.path]).length === 0) {
+    const { selectedFuncList, initflags, actions } = this.props;
+    if (this.props.isLoading
+      && selectedFuncList.filter(func => !initflags[func]).length === 0) {
       actions.stopLoading();
     }
   }
@@ -151,12 +151,12 @@ class Main extends Component {
   baseTimeToggle(flag) {
     this.setState({
       isSpreadBaseTime: flag,
-      isShowLegend: this.props.checkedFunc.length > 3 ? false : this.state.isShowLegend,
+      isShowLegend: this.props.selectedFuncList.length > 3 ? false : this.state.isShowLegend,
     });
   }
   mapInitedCallback(map) {
     const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
-    const { checkedFunc, actions } = this.props;
+    const { selectedFuncList, actions } = this.props;
     const { isOnline } = this.state;
     const mapDiv = document.getElementById(mapId);
     WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
@@ -169,7 +169,7 @@ class Main extends Component {
       dhkeyoption.baseurl = 'http://localhost:50000';
       WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
     }
-    const pathList = checkedFunc.map(func => func.path);
+    const pathList = [...selectedFuncList];
     pathList.push('location');
     WrapController.setMapdiv(mapDiv);
     WrapController.initLayer(
@@ -187,91 +187,84 @@ class Main extends Component {
   }
   render() {
     const {
-      checkedFunc,
+      selectedFuncList,
       themeColor,
-      locale,
-      activeFlags,
-      isLoading } = this.props;
+      showLayerFlags,
+      isLoading,
+      funcMasterObject,
+    } = this.props;
+    const selectedFuncItemList = selectedFuncList.map(func => funcMasterObject[func]);
     const { isOnline } = this.state;
-    /* eslint-disable global-require,import/no-dynamic-require */
-    let messages;
-    try {
-      messages = require(`../locales/${locale}/messages.json`);
-    } catch (error) {
-      if (error.message.indexOf('Cannot find module') !== -1) {
-        messages = require('../locales/en/messages.json');
-      } else {
-        throw error;
-      }
-    }
     return (
-      <IntlProvider locale={locale} messages={messages}>
-        <div className={css.wrapper}>
-          {isLoading ? <Loading /> : null}
-          <div id={mapId} style={{ height: 'calc(100% - 60px)', width: '100%', position: 'relative' }}>
-            {isOnline ?
-              <GoogleMap
-                mapSetting={mapsetting.mapoption}
-                mapId={gmapId}
-                isHide={false}
-                mapInitedCallback={this.mapInitedCallback}
-              /> :
-              <OpenLayers
-                mapSetting={mapsetting.mapoption}
-                mapSource={OPEN_STREET_MAP}
-                mapId={gmapId}
-                mapInitedCallback={this.mapInitedCallback}
-              />
-            }
-          </div>
-          <div className={css.top_area}>
-            <div className={css.top_item}>
-              <IconButton
-                label="Back"
-                className={css.backh_button}
-                Icon={ArrowIcon}
-                style={styles.back_button}
-                iconStyle={{ color: '#000000' }}
-                onClick={() => hashHistory.push('app/top')}
-              />
-            </div>
-            <div className={css.top_item_center}>
-              <button className={css.refresh_button}>
-                <RefreshIcon style={styles.refresh_icon} />
-              </button>
-            </div>
-            <div className={css.top_item}>
-              <BaseTime
-                timeList={checkedFunc.map(func => ({ name: func.name, baseTime: '09/13 09:30' }))}
-                toggle={this.baseTimeToggle}
-                flag={this.state.isSpreadBaseTime}
-              />
-            </div>
-          </div>
-          <Legend
-            tabList={checkedFunc}
-            toggle={this.legendToggle}
-            flag={this.state.isShowLegend}
-            moreHidden={checkedFunc.length > 3 && this.state.isSpreadBaseTime}
-          />
-          <FloatingActionButton
-            backgroundColor="white"
-            onClick={getLocation}
-            mini
-            style={styles.location_button}
-          >
-            <LocationIcon style={styles.floating_button_icon} />
-          </FloatingActionButton>
-          <FooterButtons tabList={checkedFunc} themeColor={themeColor} activeFlags={activeFlags} />
-          <MapConsole tabList={checkedFunc} themeColor={themeColor} />
+      <div className={css.wrapper}>
+        {isLoading ? <Loading /> : null}
+        <div id={mapId} style={{ height: 'calc(100% - 60px)', width: '100%', position: 'relative' }}>
+          {isOnline ?
+            <GoogleMap
+              mapSetting={mapsetting.mapoption}
+              mapId={gmapId}
+              isHide={false}
+              mapInitedCallback={this.mapInitedCallback}
+            /> :
+            <OpenLayers
+              mapSetting={mapsetting.mapoption}
+              mapSource={OPEN_STREET_MAP}
+              mapId={gmapId}
+              mapInitedCallback={this.mapInitedCallback}
+            />
+          }
         </div>
-      </IntlProvider>
+        <div className={css.top_area}>
+          <div className={css.top_item}>
+            <IconButton
+              label="Back"
+              className={css.backh_button}
+              Icon={ArrowIcon}
+              style={styles.back_button}
+              iconStyle={{ color: '#000000' }}
+              onClick={() => hashHistory.push('app/top')}
+            />
+          </div>
+          <div className={css.top_item_center}>
+            <button className={css.refresh_button}>
+              <RefreshIcon style={styles.refresh_icon} />
+            </button>
+          </div>
+          <div className={css.top_item}>
+            <BaseTime
+              timeList={selectedFuncItemList.map(func => ({ name: func.name, baseTime: '09/13 09:30' }))}
+              toggle={this.baseTimeToggle}
+              flag={this.state.isSpreadBaseTime}
+            />
+          </div>
+        </div>
+        <Legend
+          tabList={selectedFuncItemList}
+          toggle={this.legendToggle}
+          flag={this.state.isShowLegend}
+          moreHidden={selectedFuncList.length > 3 && this.state.isSpreadBaseTime}
+        />
+        <FloatingActionButton
+          backgroundColor="white"
+          onClick={getLocation}
+          mini
+          style={styles.location_button}
+        >
+          <LocationIcon style={styles.floating_button_icon} />
+        </FloatingActionButton>
+        <FooterButtons
+          tabList={selectedFuncItemList}
+          themeColor={themeColor}
+          showLayerFlags={showLayerFlags}
+        />
+        <MapConsole tabList={selectedFuncItemList} themeColor={themeColor} isLoading={isLoading} />
+      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const checkedFunc = state.functionList.list;
+  const selectedFuncList = state.selectedFuncList.list;
   const initflags = state.layerInit;
   const gfs = state.gpvgfs.gpv.gpvchecked;
   const radar = state.radar.radar.radarChecked;
@@ -286,8 +279,8 @@ function mapStateToProps(state) {
   const disasterreport = state.disasterreport.disasterReportChecked;
   const isLoading = state.loading.isLoading;
   return {
-    checkedFunc,
-    activeFlags: {
+    selectedFuncList,
+    showLayerFlags: {
       gfs,
       radar,
       amedas,

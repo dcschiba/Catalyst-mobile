@@ -5,7 +5,6 @@ import { hashHistory } from 'react-router';
 import css from '../../style/start.css';
 import startImg from '../../img/start.png';
 
-
 const propTypes = {
 
 };
@@ -23,12 +22,14 @@ class Top extends Component {
   render() {
     return (
       <div className={css.wrapper}>
-        <button className={css.wrapper_button} onClick={() => hashHistory.push('app')} >
-          <img src={startImg} className={css.background} alt="Hello WRAP Catalyst mobile" />
-          <div className={css.start_button}>
-            <FlatButton label="START" style={styles.start} />
-          </div>
-        </button>
+        <button
+          className={css.wrapper_button}
+          onClick={() => hashHistory.push('app')}
+        />
+        <img src={startImg} className={css.background} alt="Hello WRAP Catalyst mobile" />
+        <div className={css.start_button}>
+          <FlatButton label="START" onClick={() => hashHistory.push('app')} style={styles.start} />
+        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SlideLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
-import SlideRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
+// import SlideLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
+// import SlideRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import css from '../../../style/footerButtons.css';
 import NeonButton from './NeonButton';
 
@@ -9,7 +9,7 @@ import NeonButton from './NeonButton';
 const propTypes = {
   tabList: PropTypes.array.isRequired,
   themeColor: PropTypes.object.isRequired,
-  activeFlags: PropTypes.object.isRequired,
+  showLayerFlags: PropTypes.object.isRequired,
 };
 
 class FooterButtons extends Component {
@@ -21,7 +21,7 @@ class FooterButtons extends Component {
     };
   }
   render() {
-    const { tabList, themeColor, activeFlags } = this.props;
+    const { tabList, themeColor, showLayerFlags } = this.props;
     const styles = {
       slide_button: {
         height: '100%',
@@ -37,32 +37,28 @@ class FooterButtons extends Component {
     };
 
     return (
-      <div>
-        <div className={css.footer}>
-          <SlideLeftIcon style={styles.slide_button} />
-          <div className={css.buttons_area}>
-            <div className={css.buttons} style={styles.buttons}>
-              {tabList.map((contents, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    if (!activeFlags[contents.path]) {
-                      document.getElementById(`${contents.path}_tab`).click();
-                    }
-                    document.getElementById(contents.path).click();
-                  }}
-                  className={css.button}
-                  style={themeColor.main}
-                >
-                  <div className={css.label}>
-                    {contents.name.toUpperCase()}
-                  </div>
-                  <NeonButton isActive={activeFlags[contents.path]} />
-                </button>
-              ))}
-            </div>
-          </div>
-          <SlideRightIcon style={styles.slide_button} />
+      <div className={css.footer}>
+        <div className={css.buttons} style={styles.buttons}>
+          {tabList.map((contents, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                if (!showLayerFlags[contents.path]) {
+                  // コントロールメニューのタブをクリック。スライドさせる。
+                  document.getElementById(`${contents.path}_tab`).click();
+                }
+                // コントロールメニュー内のレイヤーon/offを切り替える。
+                document.getElementById(contents.path).click();
+              }}
+              className={css.button}
+              style={themeColor.main}
+            >
+              <div className={css.label}>
+                {contents.name.toUpperCase()}
+              </div>
+              <NeonButton isActive={showLayerFlags[contents.path]} />
+            </button>
+          ))}
         </div>
       </div>
     );

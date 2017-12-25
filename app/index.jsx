@@ -17,8 +17,10 @@ import Main from './js/containers/Main';
 import configureStore from './js/store/configureStore';
 import './style/index.css';
 import appConfig from './appConfig.json';
+import { launchLocalServer } from './js/utils/fileHandler';
 
-const initPushNotification = () => {
+
+function initPushNotification() {
   const push = window.PushNotification.init({
     android: { vibrate: true, forceShow: true },
     ios: { alert: true, badge: true, sound: true },
@@ -55,25 +57,9 @@ const initPushNotification = () => {
     alert('push receive error');
     console.error(e);
   });
-};
+}
 
-const initLocalServer = () => {
-  window.cordova.plugins.CorHttpd.startServer(
-    {
-      www_root: 'data',
-      port: 50000,
-    },
-    () => {
-      console.log('server startup success');
-    },
-    (error) => {
-      alert('server startup error');
-      console.error(error);
-    },
-  );
-};
-
-const initApp = () => {
+function initApp() {
   const muiTheme = getMuiTheme({
     palette: {
       fontFamily: 'Noto Sans Japanese, sans-serif',
@@ -85,7 +71,6 @@ const initApp = () => {
 
   const store = configureStore();
   const history = syncHistoryWithStore(hashHistory, store);
-
   const rootElement = document.getElementById('root');
 
   addLocaleData([...ja, ...en]);
@@ -112,12 +97,12 @@ const initApp = () => {
     </Provider>,
     rootElement,
   );
-};
+}
 
 if (process.env.NODE_ENV === 'production') {
   document.addEventListener('deviceready', () => {
     initPushNotification();
-    initLocalServer();
+    launchLocalServer();
     initApp();
   });
 } else {
