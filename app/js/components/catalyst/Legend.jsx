@@ -44,7 +44,6 @@ class Legend extends Component {
       hidden: !flag,
       moreHidden,
     });
-    console.log(this.state.legendList.name);
     if (this.state.legendList.length === 0) {
       return null;
     }

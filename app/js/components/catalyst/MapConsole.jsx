@@ -58,8 +58,6 @@ class MapConsole extends Component {
     }
   }
   render() {
-    console.log(this.props.isLoading);
-
     const { tabList, themeColor } = this.props;
     const { isMenuShown, tabState } = this.state;
     const wrapper = this.cx({

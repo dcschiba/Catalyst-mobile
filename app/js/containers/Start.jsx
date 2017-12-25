@@ -28,7 +28,7 @@ class Top extends Component {
         />
         <img src={startImg} className={css.background} alt="Hello WRAP Catalyst mobile" />
         <div className={css.start_button}>
-          <FlatButton label="START" style={styles.start} />
+          <FlatButton label="START" onClick={() => hashHistory.push('app')} style={styles.start} />
         </div>
       </div>
     );
