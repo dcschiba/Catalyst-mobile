@@ -25,6 +25,7 @@ import * as LayerActions from '../actions/layer';
 import * as RadarActions from '../actions/radar';
 import * as InitActions from '../actions/layerInit';
 import * as LoadingActions from '../actions/loading';
+import * as selectFuncActions from '../actions/selectedFuncList';
 import { OPEN_STREET_MAP } from '../constants/map/mapSource';
 import css from '../../style/main.css';
 
@@ -36,6 +37,7 @@ const propTypes = {
   initflags: PropTypes.object.isRequired,
   showLayerFlags: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  location: PropTypes.object,
 };
 
 const styles = {
@@ -114,8 +116,11 @@ class Main extends Component {
     } else {
       this.setState({ isOnline: true });
     }
-    // document.addEventListener('online', this.onOnline, false);
-    // document.addEventListener('offline', this.onOffline, false);
+    const { actions } = this.props;
+    const { contents } = this.props.location.query;
+    if (contents) {
+      actions.addFunction(contents);
+    }
   }
 
   componentDidUpdate() {
@@ -305,6 +310,7 @@ function mapDispatchToProps(dispatch) {
       RadarActions,
       InitActions,
       LoadingActions,
+      selectFuncActions,
     ), dispatch),
   };
 }

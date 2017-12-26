@@ -22,7 +22,7 @@ import { launchLocalServer } from './js/utils/fileHandler';
 
 function initPushNotification() {
   const push = window.PushNotification.init({
-    android: { vibrate: true, forceShow: true },
+    android: { vibrate: true },
     ios: { alert: true, badge: true, sound: true },
   });
 
@@ -47,9 +47,19 @@ function initPushNotification() {
   });
 
   push.on('notification', (data) => {
-    const { path } = data.additionalData;
+    const { title, message, additionalData } = data;
+    const { path, contents, foreground } = additionalData;
+
+    if (foreground) {
+      alert(`Push通知を受信しました。\nTitle:${title}\nMessage:${message}`);
+    }
+
     if (path) {
-      hashHistory.push(path);
+      hashHistory.push({
+        pathname: path,
+        query: { contents },
+      });
+      window.location.reload();
     }
   });
 
