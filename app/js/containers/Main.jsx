@@ -9,8 +9,10 @@ import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
 // import GoogleMap from 'WRAP/UI/GoogleMap';
 // import OpenLayers from 'WRAP/UI/OpenLayers';
+import { FormattedMessage } from 'react-intl';
 import LocationIcon from 'material-ui/svg-icons/maps/my-location';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import WrapUtils from '../common/utils/WrapUtils';
 import mapsetting from '../constants/map/mapsetting-newest.json';
 import BaseTime from '../components/catalyst/BaseTime';
 import MapConsole from '../components/catalyst/MapConsole';
@@ -27,6 +29,7 @@ import * as InitActions from '../actions/layerInit';
 import * as LoadingActions from '../actions/loading';
 import { OPEN_STREET_MAP } from '../constants/map/mapSource';
 import css from '../../style/main.css';
+import GPVLayer from '../layers/gpv/GPVLayer';
 
 const propTypes = {
   actions: PropTypes.object,
@@ -36,6 +39,10 @@ const propTypes = {
   initflags: PropTypes.object.isRequired,
   showLayerFlags: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  locale: PropTypes.string.isRequired,
+  messages: PropTypes.object.isRequired,
+  networkInfo: PropTypes.object.isRequired,
+  basetimeList: PropTypes.array.isRequired,
 };
 
 const styles = {
@@ -59,7 +66,7 @@ const styles = {
 const mapId = 'map';
 const gmapId = 'gmap';
 
-function getLocation() {
+function getLocation(message) {
   window.navigator.geolocation.getCurrentPosition(
     (position) => {
       window.navigator.vibrate([10]);
@@ -83,12 +90,12 @@ function getLocation() {
       );
     },
     (error) => {
-      alert('sorry, could not find you..');
+      alert(message);
       console.log(error);
     },
     {
       enableHighAccuracy: true,
-      timeout: 3000,
+      timeout: 1400,
       maximumAge: 0,
     },
   );
@@ -100,22 +107,10 @@ class Main extends Component {
     this.state = {
       isShowLegend: false,
       isSpreadBaseTime: false,
-      isOnline: true,
     };
-    // this.onOnline = this.onOnline.bind(this);
-    // this.onOffline = this.onOffline.bind(this);
     this.mapInitedCallback = this.mapInitedCallback.bind(this);
     this.legendToggle = this.legendToggle.bind(this);
     this.baseTimeToggle = this.baseTimeToggle.bind(this);
-  }
-  componentWillMount() {
-    if (navigator.connection.type === 'none') {
-      this.setState({ isOnline: false });
-    } else {
-      this.setState({ isOnline: true });
-    }
-    // document.addEventListener('online', this.onOnline, false);
-    // document.addEventListener('offline', this.onOffline, false);
   }
 
   componentDidUpdate() {
@@ -127,21 +122,12 @@ class Main extends Component {
   }
 
   componentWillUnmount() {
-    // document.removeEventListener('online', this.onOnline);
-    // document.removeEventListener('offline', this.onOffline);
-    // storeのlayer情報を初期化
+    mapsetting.layers.forEach((layer) => {
+      WRAP.DH.removeObject(layer.DHObjectName);
+    });
+    GPVLayer.timeRange = {}; // Layerでtimelistを保持しているため、初期化
     this.props.actions.layerInitClear();
   }
-
-  // onOnline() {
-  //   const { actions } = this.props;
-  //   actions.online();
-  // }
-
-  // onOffline() {
-  //   const { actions } = this.props;
-  //   actions.offline();
-  // }
 
   legendToggle(flag) {
     this.setState({
@@ -156,17 +142,16 @@ class Main extends Component {
   }
   mapInitedCallback(map) {
     const { confLayerPath, confDataPath, dhkeyoption, layers } = mapsetting;
-    const { selectedFuncList, actions } = this.props;
-    const { isOnline } = this.state;
+    const { selectedFuncList, actions, networkInfo } = this.props;
     const mapDiv = document.getElementById(mapId);
     WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
     // TODO AMeDASの「MasterData」のみ、DH.setが効いていないようなのであとで調査
-    if (isOnline) {
+    if (networkInfo.isOnline) {
       map.setOptions({ passiveLogo: true });
-      dhkeyoption.baseurl = 'https://pt-wrap01.wni.co.jp';
+      dhkeyoption.baseurl = networkInfo.targetHost;
       WrapController.initGoogleMap(map); // Geoにmapオブジェクトをセット
     } else {
-      dhkeyoption.baseurl = 'http://localhost:50000';
+      dhkeyoption.baseurl = networkInfo.targetHost;
       WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
     }
     const pathList = [...selectedFuncList];
@@ -192,16 +177,18 @@ class Main extends Component {
       showLayerFlags,
       isLoading,
       funcMasterObject,
+      basetimeList,
     } = this.props;
     const selectedFuncItemList = selectedFuncList.map(func => funcMasterObject[func]);
-    const { isOnline } = this.state;
+    const { networkInfo } = this.props;
+    const mapoption = { ...mapsetting.mapoption, lang: this.props.locale };
     return (
-      <div className={css.wrapper}>
+      <div className={css.wrapper} >
         {isLoading ? <Loading /> : null}
         <div id={mapId} style={{ height: 'calc(100% - 60px)', width: '100%', position: 'relative' }}>
-          {isOnline ?
+          {networkInfo.isOnline ?
             <GoogleMap
-              mapSetting={mapsetting.mapoption}
+              mapSetting={mapoption}
               mapId={gmapId}
               isHide={false}
               mapInitedCallback={this.mapInitedCallback}
@@ -217,7 +204,7 @@ class Main extends Component {
         <div className={css.top_area}>
           <div className={css.top_item}>
             <IconButton
-              label="Back"
+              label={<FormattedMessage id="back_button_label" />}
               className={css.backh_button}
               Icon={ArrowIcon}
               style={styles.back_button}
@@ -232,7 +219,7 @@ class Main extends Component {
           </div>
           <div className={css.top_item}>
             <BaseTime
-              timeList={selectedFuncItemList.map(func => ({ name: func.name, baseTime: '09/13 09:30' }))}
+              timeList={basetimeList}
               toggle={this.baseTimeToggle}
               flag={this.state.isSpreadBaseTime}
             />
@@ -244,21 +231,21 @@ class Main extends Component {
           flag={this.state.isShowLegend}
           moreHidden={selectedFuncList.length > 3 && this.state.isSpreadBaseTime}
         />
-        <FloatingActionButton
+        {networkInfo.isOnline ? <FloatingActionButton
           backgroundColor="white"
-          onClick={getLocation}
+          onClick={() => getLocation(this.props.messages.getLocationFailed)}
           mini
           style={styles.location_button}
         >
           <LocationIcon style={styles.floating_button_icon} />
-        </FloatingActionButton>
+        </FloatingActionButton> : null}
         <FooterButtons
           tabList={selectedFuncItemList}
           themeColor={themeColor}
           showLayerFlags={showLayerFlags}
         />
         <MapConsole tabList={selectedFuncItemList} themeColor={themeColor} isLoading={isLoading} />
-      </div>
+      </div >
     );
   }
 }
@@ -278,23 +265,192 @@ function mapStateToProps(state) {
   const compasshour = state.compasshour.compassHourChecked;
   const disasterreport = state.disasterreport.disasterReportChecked;
   const isLoading = state.loading.isLoading;
+  const networkInfo = state.online;
+  const funcMasterObject = state.locale.funcMasterObject;
+  const showLayerFlags = {
+    gfs,
+    radar,
+    amedas,
+    jp10ten,
+    jmawarn,
+    hilofront,
+    lightning,
+    waveblend,
+    livecamera,
+    compasshour,
+    disasterreport,
+  };
+
+  const basetimeList = [];
+  const activefunc = selectedFuncList.filter(func => (
+    !isLoading && showLayerFlags[func]
+  ));
+  activefunc.forEach((func) => {
+    switch (func) {
+      case 'gfs': {
+        basetimeList.push({
+          name: funcMasterObject.gfs.name,
+          basetime: state.gpvgfs.gpv.basetime[state.gpvgfs.gpv.basetimeidx],
+        });
+        break;
+      }
+      case 'radar': {
+        const {
+          JMA_ANLSIS_PRCRIN_EXTRA,
+          WX_US_AK_Radar,
+          WX_US_GU_Radar,
+          WX_US_HI_Radar,
+          WX_US_NA_Radar,
+          WX_US_PR_Radar,
+          WX_EU_Radar,
+          WX_AU_Radar,
+          WX_KR_Radar,
+          WX_TW_Radar,
+          JMA_OBS_RADAR_ECHINT_JP_5min,
+          jmaprcrinextravalidtimeidx,
+          usAkvalidtimeidx,
+          usGuvalidtimeidx,
+          usHivalidtimeidx,
+          usNavalidtimeidx,
+          usPrvalidtimeidx,
+          euvalidtimeidx,
+          auvalidtimeidx,
+          krvalidtimeidx,
+          twvalidtimeidx,
+          jpicdbvalidtimeidx,
+          ecobsradarechintcaidtimeidx,
+        } = state.radar.radar;
+        basetimeList.push({
+          name: 'Radar JMA_PRCRIN',
+          basetime: JMA_ANLSIS_PRCRIN_EXTRA[jmaprcrinextravalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar US_AK',
+          basetime: WX_US_AK_Radar[usAkvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar US_GU',
+          basetime: WX_US_GU_Radar[usGuvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar US_HI',
+          basetime: WX_US_HI_Radar[usHivalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar US_NA',
+          basetime: WX_US_NA_Radar[usNavalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar US_PR',
+          basetime: WX_US_PR_Radar[usPrvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar EU',
+          basetime: WX_EU_Radar[euvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar AU',
+          basetime: WX_AU_Radar[auvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar KR',
+          basetime: WX_KR_Radar[krvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar TW',
+          basetime: WX_TW_Radar[twvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar AU',
+          basetime: WX_AU_Radar[auvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar JMA_OBS',
+          basetime: JMA_OBS_RADAR_ECHINT_JP_5min[jpicdbvalidtimeidx].ts,
+        });
+        basetimeList.push({
+          name: 'Radar OBS_RADAR_CA',
+          basetime: JMA_OBS_RADAR_ECHINT_JP_5min[ecobsradarechintcaidtimeidx].ts,
+        });
+        break;
+      }
+      case 'jp10ten': {
+        basetimeList.push({
+          name: funcMasterObject.jp10ten.name,
+          basetime: WrapUtils.dateFormat(state.jp10ten.validtimelist[state.jp10ten.validtimeidx], 'MM/DD hh:mm', 9 * 3600),
+        });
+        break;
+      }
+      case 'waveblend': {
+        basetimeList.push({
+          name: funcMasterObject.waveblend.name,
+          basetime: state.waveblend.basetime[state.waveblend.basetimeidx],
+        });
+        break;
+      }
+      case 'hilofront': {
+        basetimeList.push({
+          name: funcMasterObject.hilofront.name,
+          basetime: state.hilofront.basetimelist[state.hilofront.basetimeidx],
+        });
+        break;
+      }
+      case 'disasterreport': {
+        // TODO hook
+        basetimeList.push({
+          name: funcMasterObject.disasterreport.name,
+          basetime: '12/27 11:30Z',
+        });
+        break;
+      }
+      case 'livecamera': {
+        // TODO hook
+        basetimeList.push({
+          name: funcMasterObject.livecamera.name,
+          basetime: '12/27 11:30Z',
+        });
+        break;
+      }
+      case 'jmawarn': {
+        // TODO hook
+        basetimeList.push({
+          name: funcMasterObject.jmawarn.name,
+          basetime: '12/27 11:30Z',
+        });
+        break;
+      }
+      case 'lightning': {
+        // TODO hook
+        basetimeList.push({
+          name: funcMasterObject.lightning.name,
+          basetime: '12/27 11:30Z',
+        });
+        break;
+      }
+      case 'amedas': {
+        basetimeList.push({
+          name: funcMasterObject.amedas.name,
+          basetime: state.amedas.tsarr[state.amedas.validtimeidx].ts,
+        });
+        break;
+      }
+      case 'compasshour': {
+        basetimeList.push({
+          name: funcMasterObject.compasshour.name,
+          basetime: state.compasshour.basetime[state.compasshour.basetimeidx],
+        });
+        break;
+      }
+      default:
+    }
+  });
   return {
     selectedFuncList,
-    showLayerFlags: {
-      gfs,
-      radar,
-      amedas,
-      jp10ten,
-      jmawarn,
-      hilofront,
-      lightning,
-      waveblend,
-      livecamera,
-      compasshour,
-      disasterreport,
-    },
+    showLayerFlags,
     initflags,
     isLoading,
+    networkInfo,
+    basetimeList,
   };
 }
 

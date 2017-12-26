@@ -62,7 +62,10 @@ class App extends Component {
             iconStyleRight={styles.rightIcon}
           />
           <div className={css.contents}>
-            {React.cloneElement(children, { themeColor, funcMasterArray, funcMasterObject })}
+            {React.cloneElement(
+              children,
+              { themeColor, funcMasterArray, funcMasterObject, locale, messages },
+            )}
           </div>
         </div>
       </IntlProvider>

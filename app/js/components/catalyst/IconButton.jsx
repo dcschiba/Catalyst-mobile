@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   Icon: PropTypes.any,
-  label: PropTypes.string,
+  label: PropTypes.any,
   onClick: PropTypes.func,
   style: PropTypes.object,
   iconStyle: PropTypes.object,

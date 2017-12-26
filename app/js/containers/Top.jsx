@@ -10,12 +10,15 @@ import { hashHistory } from 'react-router';
 import FunctionList from '../components/catalyst/FunctionList';
 import css from '../../style/top.css';
 import * as selectFuncActions from '../actions/selectedFuncList';
+import * as onlineActions from '../actions/online';
 
 const propTypes = {
   themeColor: PropTypes.object.isRequired,
   funcMasterArray: PropTypes.array.isRequired,
   selectedFuncList: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
+  isOnline: PropTypes.bool.isRequired,
+  messages: PropTypes.object.isRequired,
 };
 
 const styles = {
@@ -43,6 +46,31 @@ class Top extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.selectFunction = this.selectFunction.bind(this);
+    this.onOnline = this.onOnline.bind(this);
+    this.onOffline = this.onOffline.bind(this);
+  }
+  componentWillMount() {
+    if (navigator.connection.type === 'none') {
+      this.props.actions.turnOffline();
+    } else {
+      // TODO this.props.actions.turnOnline();
+      this.props.actions.turnOnline();
+    }
+
+    document.addEventListener('online', this.onOnline, false);
+    document.addEventListener('offline', this.onOffline, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('online', this.onOnline);
+    document.removeEventListener('offline', this.onOffline);
+  }
+  onOnline() {
+    this.props.actions.turnOnline();
+  }
+
+  onOffline() {
+    // TODO this.props.actions.turnOffline();
+    this.props.actions.turnOnline();
   }
   handleChange(value) {
     this.setState({
@@ -57,7 +85,7 @@ class Top extends Component {
     }
   }
   render() {
-    const { themeColor, selectedFuncList, funcMasterArray } = this.props;
+    const { themeColor, selectedFuncList, funcMasterArray, isOnline, messages } = this.props;
     const { targetList } = this.state;
     return (
       <div className={css.wrapper}>
@@ -90,6 +118,7 @@ class Top extends Component {
                     funcMasterArray.filter(func => func.target.indexOf(target) !== -1)}
                   selectedFuncList={selectedFuncList}
                   itemClickAction={this.selectFunction}
+                  isOnline={isOnline}
                 />
               </div>
             ))}
@@ -97,7 +126,7 @@ class Top extends Component {
         </div>
         <div className={css.button}>
           <FlatButton
-            label="決定"
+            label={messages.ok_button_label}
             style={{
               ...styles.button,
               ...themeColor.second,
@@ -115,14 +144,16 @@ class Top extends Component {
 
 function mapStateToProps(state) {
   const selectedFuncList = state.selectedFuncList.list;
+  const isOnline = state.online.isOnline;
   return {
     selectedFuncList,
+    isOnline,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(selectFuncActions, dispatch),
+    actions: bindActionCreators(Object.assign({}, selectFuncActions, onlineActions), dispatch),
   };
 }
 

@@ -8,6 +8,7 @@ const propTypes = {
   data: PropTypes.array.isRequired,
   selectedFuncList: PropTypes.array.isRequired,
   itemClickAction: PropTypes.func.isRequired,
+  isOnline: PropTypes.bool.isRequired,
 };
 
 const styles = {
@@ -23,12 +24,17 @@ const styles = {
     margin: '11px',
     padding: '0px',
   },
+  item_disabled: {
+    height: '1em',
+    padding: '28px 20px',
+    color: '#cccccc',
+  },
 };
 
 class FunctionList extends Component {
 
   render() {
-    const { data, selectedFuncList, itemClickAction } = this.props;
+    const { data, selectedFuncList, itemClickAction, isOnline } = this.props;
 
     if (!data) {
       return <div />;
@@ -40,10 +46,11 @@ class FunctionList extends Component {
             <ListItem
               key={index}
               primaryText={item.name}
-              style={styles.item}
+              style={!isOnline && !item.offLine ? styles.item_disabled : styles.item}
               rightToggle={
                 <Checkbox
                   checked={selectedFuncList.indexOf(item.path) !== -1}
+                  disabled={!isOnline && !item.offLine}
                   onCheck={oldState =>
                     itemClickAction(
                       oldState,

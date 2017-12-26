@@ -26,6 +26,9 @@ class BaseTime extends Component {
   }
   render() {
     const { timeList, flag } = this.props;
+    if (timeList.length === 0) {
+      return null;
+    }
     const styles = {
       spread: {
         height: `calc(${timeList.length} * 20px + 12px )`,
@@ -54,7 +57,7 @@ class BaseTime extends Component {
             <div className={css.name}>
               {line.name.toUpperCase()}
             </div>
-            <div className={css.base_time}>{line.baseTime}</div>
+            <div className={css.base_time}>{line.basetime}</div>
           </div>,
         )}
         {flag ? null : <SpreadIcon style={iconStyle} />}

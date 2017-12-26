@@ -7,10 +7,53 @@ import WrapUtils from '../../common/utils/WrapUtils';
 import * as LegendActions from '../../actions/legend';
 import * as Jp10tenActions from '../../actions/jp10ten';
 
+const styles = {
+  checkbox: {
+    width: '100%',
+
+  },
+  iconStyle: {
+    color: 'red',
+  },
+  label: {
+    color: '#dddddd',
+    fontSize: '11pt',
+  },
+};
+const fontsize = {
+  fontSize: '11pt',
+};
+const basediv = {
+  overflow: 'hidden',
+  width: '100%',
+  marginBottom: '10px',
+};
+const clddiv = {
+  width: '220px',
+  float: 'left',
+};
+const codes = [100, 101, 200, 300, 301, 302, 303, 304, 400, 410, 411, 412, 420, 421, 422];
+const labels = [
+  '影くっきり／はっきり',
+  '影ぼんやり／うっすら',
+  '影見えない（くもり）',
+  'ぽつぽつ',
+  'ぱらぱら',
+  'さー',
+  'ザー',
+  'ゴーッ',
+  'べちゃ（みぞれ）',
+  'ちらちら',
+  'ふわふわ',
+  'しんしん',
+  'ドカドカ',
+  'あられ',
+  '吹雪',
+];
+
 const propTypes = {
   jp10ten: PropTypes.object.isRequired,
   actions: PropTypes.object,
-
 };
 class Legend extends Component {
   static closeClick(actions) {
@@ -23,57 +66,30 @@ class Legend extends Component {
   }
 
   render() {
-    const fontsize = {
-      fontSize: '11pt',
-    };
-
-    const basediv = {
-      overflow: 'hidden',
-    };
-    const clddiv = {
-      width: '220px',
-      float: 'left',
-    };
-
     const { jp10ten, actions } = this.props;
     const {
       validtimeidx,
       validtimelist,
       visiblecodes,
     } = jp10ten;
-
-    const codes = [100, 101, 200, 300, 301, 302, 303, 304, 400, 410, 411, 412, 420, 421, 422];
-    const labels = [
-      '影くっきり／はっきり',
-      '影ぼんやり／うっすら',
-      '影見えない（くもり）',
-      'ぽつぽつ',
-      'ぱらぱら',
-      'さー',
-      'ザー',
-      'ゴーッ',
-      'べちゃ（みぞれ）',
-      'ちらちら',
-      'ふわふわ',
-      'しんしん',
-      'ドカドカ',
-      'あられ',
-      '吹雪',
-    ];
-
     const legends = [];
     codes.map((code, i) => {
       const srcstr = `img/jp10ten/${code}.png`;
       const ckbChecked = visiblecodes.indexOf(code) > -1;
-      legends.push(<div style={basediv} key={code}>
-        <div style={clddiv}><img src={srcstr} alt={code} /> {labels[i]}</div>
-        <div style={{ float: 'left' }}><CheckBox
-          checked={ckbChecked}
-          style={{ display: 'inline-block', width: '100px' }}
-          onClick={e => actions.jptenTypeCheck(code, e.target.checked)}
-          label={'表示'}
-        /></div>
-      </div>);
+      legends.push(
+        <div style={basediv} key={code}>
+          <div style={clddiv}><img src={srcstr} alt={code} /> {labels[i]}</div>
+          <div style={{ float: 'left', width: '100%' }}>
+            <CheckBox
+              checked={ckbChecked}
+              style={styles.checkbox}
+              labelStyle={styles.label}
+              iconStyle={styles.iconStyle}
+              onClick={e => actions.jptenTypeCheck(code, e.target.checked)}
+              label={'表示'}
+            />
+          </div>
+        </div>);
       return code;
     });
     let reportdate = validtimelist[validtimeidx];

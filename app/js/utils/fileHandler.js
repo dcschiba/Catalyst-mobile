@@ -85,6 +85,7 @@ function writeFile(fileEntry, dataObj) {
 }
 
 function createDirectory(rootDirEntry, path, data) {
+  console.log(path);
   if (path.length > 1) {
     const dirName = path.shift();
     rootDirEntry.getDirectory(dirName, { create: true }, (dirEntry) => {
@@ -93,12 +94,16 @@ function createDirectory(rootDirEntry, path, data) {
   } else {
     switch (path[0].split('.')[1]) {
       case 'json':
-        rootDirEntry.getFile(path, { create: true, exclusive: false }, (dirEntry) => {
+        rootDirEntry.getFile(path[0], { create: true, exclusive: false }, (dirEntry) => {
           const blob = new Blob([JSON.stringify(data)], { type: 'text/plain' });
           writeFile(dirEntry, blob);
         }, () => console.log('create error'));
         break;
       default:
+        console.log(data);
+        rootDirEntry.getFile(path[0], { create: true, exclusive: false }, (dirEntry) => {
+          writeFile(dirEntry, data);
+        }, () => console.log('create error'));
     }
   }
 }
@@ -117,6 +122,9 @@ export function xhrHook() {
     if (xhr.responseURL.indexOf('wni.co.jp/WRAP/wrap-pri/data') !== -1) {
       saveLayerData(xhr.responseURL.split('wni.co.jp')[1].split('?')[0], xhr.response);
     }
+    // else if (xhr.responseURL.indexOf('wni-icdb.wni.com') !== -1) {
+    //   saveLayerData(xhr.responseURL.split('wni-icdb.wni.com')[1].split('?')[0], xhr.response);
+    // }
   });
   AjaxInterceptor.wire();
 }

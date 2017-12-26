@@ -8,7 +8,8 @@
         "target": [
             "LAND",
             "SKY"
-        ]
+        ],
+        "offLine": false
     },
     {
         "name": "Radar",
@@ -21,7 +22,8 @@
         "target": [
             "LAND",
             "SKY"
-        ]
+        ],
+        "offLine": true
     },
     {
         "name": "WX_WNI_JP_10Ten_Report",
@@ -33,7 +35,8 @@
         "legendtab": "10Ten Report",
         "target": [
             "LAND"
-        ]
+        ],
+        "offLine": false
     },
     {
         "name": "Wave Height and Direction",
@@ -45,7 +48,8 @@
         "legendtab": "Wave Height and Direction",
         "target": [
             "SEA"
-        ]
+        ],
+        "offLine": false
     },
     {
         "name": "High Low Front",
@@ -57,7 +61,8 @@
             "LAND",
             "SEA",
             "SKY"
-        ]
+        ],
+        "offLine": false
     },
     {
         "name": "DisasterReport",
@@ -68,7 +73,8 @@
         "target": [
             "LAND",
             "SKY"
-        ]
+        ],
+        "offLine": false
     },
     {
         "name": "Live Camera",
@@ -79,7 +85,8 @@
         "target": [
             "LAND",
             "SKY"
-        ]
+        ],
+        "offLine": false
     },
     {
         "name": "JMA Warn",
@@ -91,7 +98,8 @@
         "legendtab": "JMA Warn",
         "target": [
             "LAND"
-        ]
+        ],
+        "offLine": true
     },
     {
         "name": "Lightning",
@@ -102,7 +110,8 @@
         "target": [
             "LAND",
             "SKY"
-        ]
+        ],
+        "offLine": false
     },
     {
         "name": "AMeDAS",
@@ -115,7 +124,8 @@
         "target": [
             "LAND",
             "SKY"
-        ]
+        ],
+        "offLine": true
     },
     {
         "name": "COMPASS (Hour)",
@@ -127,6 +137,7 @@
         "legendtab": "COMPASS (Hour)",
         "target": [
             "LAND"
-        ]
+        ],
+        "offLine": true
     }
 ]
