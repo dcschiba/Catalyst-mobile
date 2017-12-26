@@ -1,3 +1,4 @@
+import AjaxInterceptor from 'ajax-interceptor';
 
 // function checkResult(dirEntory) {
 //   // # ディレクトリの中身を表示
@@ -39,7 +40,7 @@ function copyDir(originDirEntory, landingDirEntory) {
 function getOriginDir(landingDirEntory) {
   console.log('#3');
   window.resolveLocalFileSystemURL(
-    `${window.cordova.file.applicationDirectory}/www/data`,
+    `${window.cordova.file.applicationDirectory}/www/data/`,
     originDirEntory => copyDir(originDirEntory, landingDirEntory),
     error => console.log(error.code, 'getData failure'),
   );
@@ -83,38 +84,39 @@ function writeFile(fileEntry, dataObj) {
   });
 }
 
-function createDirectory(rootDirEntry, path, fileName, data) {
-  if (path.length > 0) {
+function createDirectory(rootDirEntry, path, data) {
+  if (path.length > 1) {
     const dirName = path.shift();
     rootDirEntry.getDirectory(dirName, { create: true }, (dirEntry) => {
-      createDirectory(dirEntry, path, fileName, data);
+      createDirectory(dirEntry, path, data);
     });
   } else {
-    const fileInfo = fileName.split('.');
-    switch (fileInfo[1]) {
+    switch (path[0].split('.')[1]) {
       case 'json':
-        rootDirEntry.getFile(fileName, { create: true, exclusive: false }, (dirEntry) => {
+        rootDirEntry.getFile(path, { create: true, exclusive: false }, (dirEntry) => {
           const blob = new Blob([JSON.stringify(data)], { type: 'text/plain' });
           writeFile(dirEntry, blob);
-        }, () => alert('create error'));
+        }, () => console.log('create error'));
         break;
       default:
     }
   }
 }
 
-export const getFile = (path) => {
-  fetch(`https://pt-wrap01.wni.co.jp/${path}`, {
-    method: 'GET',
-  })
-    .then(res => res.json())
-    .then((data) => {
-      const dirs = `data${path}`.split('/');
-      const fileName = dirs.pop();
-      window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory, (dirEntry) => {
-        console.log(dirEntry);
-        console.log('aaa');
-        createDirectory(dirEntry, dirs, fileName, data);
-      });
-    }).catch();
-};
+function saveLayerData(path, data) {
+  const dirs = `data${path}`.split('/');
+  window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory, (dirEntry) => {
+    createDirectory(dirEntry, dirs, data);
+  });
+}
+
+export function xhrHook() {
+  /* eslint-disable global-require */
+  AjaxInterceptor.addResponseCallback((xhr) => {
+    console.log(xhr);
+    if (xhr.responseURL.indexOf('wni.co.jp/WRAP/wrap-pri/data') !== -1) {
+      saveLayerData(xhr.responseURL.split('wni.co.jp')[1].split('?')[0], xhr.response);
+    }
+  });
+  AjaxInterceptor.wire();
+}

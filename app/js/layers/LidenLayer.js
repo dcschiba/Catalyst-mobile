@@ -1,5 +1,4 @@
 import WrapLayer from 'WRAP/UI/WrapLayer';
-import { getFile } from '../utils/fileHandler';
 
 class LidenLayer extends WrapLayer {
   constructor(conf) {
@@ -57,7 +56,6 @@ class LidenLayer extends WrapLayer {
 
   ctrlLayer(type, state) {
     const { lightning } = state;
-    getFile('/WRAP/wrap-pri/data/WX_JP_Lightning_Latest/latest70min.json');
     this.setVisible(lightning.lightningLidenChecked);
   }
 }
