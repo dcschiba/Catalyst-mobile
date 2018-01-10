@@ -133,7 +133,7 @@ export function xhrHook(actions) {
     element.href = responseURL;
     const path = element.pathname;
     if (
-      responseURL.indexOf('JMA_Warn') !== -1
+      responseURL.indexOf('WRAP/wrap-pri/data/JMA_Warn') !== -1
       || responseURL.indexOf('WarnRankMaster') !== -1
       || responseURL.indexOf('JMA_ANLSIS_PRCINT') !== -1
       || responseURL.indexOf('WRAP/wrap-pri/data/WX_JMA_Amedas') !== -1

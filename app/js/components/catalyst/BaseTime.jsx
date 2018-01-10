@@ -58,7 +58,8 @@ class BaseTime extends Component {
               {line.name.toUpperCase()}
             </div>
             <div className={css.base_time}>{
-              WrapUtils.dateFormat(line.basetime, 'MM/DD hh:mm', 9 * 3600)
+              line.basetime.length < 15 ?
+                line.basetime.replace('Z', '') : WrapUtils.dateFormat(line.basetime, 'MM/DD hh:mm', 9 * 3600).replace('Z', '')
             }</div>
           </div>,
         )}

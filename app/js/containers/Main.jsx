@@ -485,7 +485,7 @@ function mapStateToProps(state) {
       case 'amedas': {
         basetimeList.push({
           name: funcMasterObject.amedas.name,
-          basetime: state.amedas.tsarr[state.amedas.validtimeidx].tm,
+          basetime: state.amedas.tsarr[state.amedas.validtimeidx].validtime,
         });
         break;
       }
