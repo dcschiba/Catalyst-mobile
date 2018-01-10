@@ -40,14 +40,14 @@ class OpenLayers extends Component {
     }
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'http://localhost:50000/libs/ol/ol.js';
+    script.src = 'http://localhost:50000/WRAP/libs/ol/ol.js';
 
     document.getElementsByTagName('head')[0].appendChild(script);
 
     const ollink = document.createElement('link');
     ollink.rel = 'stylesheet';
     ollink.type = 'text/css';
-    ollink.href = 'http://localhost:50000/libs/ol/ol.css';
+    ollink.href = 'http://localhost:50000/WRAP/libs/ol/ol.css';
 
     document.getElementsByTagName('head')[0].appendChild(script);
     document.getElementsByTagName('head')[0].appendChild(ollink);

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames/bind';
 import SpreadIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
+import WrapUtils from '../../common/utils/WrapUtils';
 import css from '../../../style/baseTime.css';
-
 
 const propTypes = {
   timeList: PropTypes.array,
-  toggle: PropTypes.func.isRequired,
-  flag: PropTypes.bool.isRequired,
+  spreadtoggle: PropTypes.func.isRequired,
+  spreadFlag: PropTypes.bool.isRequired,
 };
 
 const iconStyle = {
@@ -25,7 +25,7 @@ class BaseTime extends Component {
     this.cx = ClassNames.bind(css);
   }
   render() {
-    const { timeList, flag } = this.props;
+    const { timeList, spreadFlag } = this.props;
     if (timeList.length === 0) {
       return null;
     }
@@ -48,19 +48,21 @@ class BaseTime extends Component {
 
     return (
       <button
-        onClick={() => this.props.toggle(!flag)}
+        onClick={() => this.props.spreadtoggle(!spreadFlag)}
         className={css.wrapper}
-        style={flag ? styles.spread : styles.normal}
+        style={spreadFlag ? styles.spread : styles.normal}
       >
         {timeList.map((line, index) =>
           <div className={css.line} key={index}>
             <div className={css.name}>
               {line.name.toUpperCase()}
             </div>
-            <div className={css.base_time}>{line.basetime}</div>
+            <div className={css.base_time}>{
+              WrapUtils.dateFormat(line.basetime, 'MM/DD hh:mm', 9 * 3600)
+            }</div>
           </div>,
         )}
-        {flag ? null : <SpreadIcon style={iconStyle} />}
+        {spreadFlag ? null : <SpreadIcon style={iconStyle} />}
       </button>
     );
   }

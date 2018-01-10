@@ -10,8 +10,8 @@ import css from '../../../style/legend.css';
 
 const propTypes = {
   tabList: PropTypes.array.isRequired,
-  toggle: PropTypes.func.isRequired,
-  flag: PropTypes.bool.isRequired,
+  spreadtoggle: PropTypes.func.isRequired,
+  spreadFlag: PropTypes.bool.isRequired,
   moreHidden: PropTypes.bool.isRequired,
 };
 
@@ -47,10 +47,10 @@ class Legend extends Component {
     };
   }
   render() {
-    const { toggle, flag, moreHidden } = this.props;
+    const { spreadtoggle, spreadFlag, moreHidden } = this.props;
     const wrapper = this.cx({
       wrapper: true,
-      hidden: !flag,
+      hidden: !spreadFlag,
       moreHidden,
     });
     if (this.state.legendList.length === 0) {
@@ -60,10 +60,10 @@ class Legend extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={wrapper}>
           <button
-            onClick={() => toggle(!flag)}
+            onClick={() => spreadtoggle(!spreadFlag)}
             className={css.spread_button}
           >
-            {flag ?
+            {spreadFlag ?
               <div>
                 <CloseIcon style={styles.icon} />
                 <div><FormattedMessage id="close_label" /></div>

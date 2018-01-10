@@ -10,7 +10,6 @@ import { hashHistory } from 'react-router';
 import FunctionList from '../components/catalyst/FunctionList';
 import css from '../../style/top.css';
 import * as selectFuncActions from '../actions/selectedFuncList';
-import * as onlineActions from '../actions/online';
 
 const propTypes = {
   themeColor: PropTypes.object.isRequired,
@@ -46,32 +45,8 @@ class Top extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.selectFunction = this.selectFunction.bind(this);
-    this.onOnline = this.onOnline.bind(this);
-    this.onOffline = this.onOffline.bind(this);
-  }
-  componentWillMount() {
-    if (navigator.connection.type === 'none') {
-      this.props.actions.turnOffline();
-    } else {
-      // TODO this.props.actions.turnOnline();
-      this.props.actions.turnOnline();
-    }
-
-    document.addEventListener('online', this.onOnline, false);
-    document.addEventListener('offline', this.onOffline, false);
-  }
-  componentWillUnmount() {
-    document.removeEventListener('online', this.onOnline);
-    document.removeEventListener('offline', this.onOffline);
-  }
-  onOnline() {
-    this.props.actions.turnOnline();
   }
 
-  onOffline() {
-    // TODO this.props.actions.turnOffline();
-    this.props.actions.turnOnline();
-  }
   handleChange(value) {
     this.setState({
       tabStatus: value,
@@ -153,7 +128,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign({}, selectFuncActions, onlineActions), dispatch),
+    actions: bindActionCreators(selectFuncActions, dispatch),
   };
 }
 

@@ -16,10 +16,11 @@ export default handleActions({
     ...state,
     jmawarnChecked: action.payload.checked,
   }),
-  [JMAWARN_ANNOUNCED_DATE]: (state, action) => ({
-    ...state,
-    announceddate: action.payload.data.ann,
-  }),
+  [JMAWARN_ANNOUNCED_DATE]: (state, action) => (
+    {
+      ...state,
+      announceddate: action.payload.data.ann,
+    }),
   [JMAWARN_INITIALIZE]: state => ({
     ...state,
     ...initialState,

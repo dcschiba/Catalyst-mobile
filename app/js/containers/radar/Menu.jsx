@@ -89,6 +89,7 @@ class Menu extends Component {
       const { actions, isLoading } = this.props;
       if (!isLoading) {
         actions.radarClick(true);
+        actions.radarCoverageClick(false);
         actions.jmaPrcrinExtraValidtimeChange(12);
         clearInterval(waitForMapInitialize);
       }

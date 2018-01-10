@@ -17,7 +17,7 @@ import Main from './js/containers/Main';
 import configureStore from './js/store/configureStore';
 import './style/index.css';
 import appConfig from './appConfig.json';
-import { launchLocalServer, xhrHook } from './js/utils/fileHandler';
+import { launchLocalServer } from './js/utils/fileHandler';
 
 
 function initPushNotification() {
@@ -103,7 +103,6 @@ if (process.env.NODE_ENV === 'production') {
   document.addEventListener('deviceready', () => {
     initPushNotification();
     launchLocalServer();
-    xhrHook();
     initApp();
   });
 } else {

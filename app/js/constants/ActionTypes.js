@@ -4,6 +4,7 @@ export const OFFLINE = 'OFFLINE';
 
 export const CHANGE_LOCALE = 'CHANGE_LOCALE';
 export const CHANGE_SHOW_CONTENTS = 'CHANGE_SHOW_CONTENTS';
+export const PREPARE = 'PREPARE';
 
 export const MAP_OPT_REQUEST = 'MAP_OPT_REQUEST';
 export const MAP_OPT_SUCCESS = 'MAP_OPT_SUCCESS';
