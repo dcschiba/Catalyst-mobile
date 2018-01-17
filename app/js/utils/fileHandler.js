@@ -19,23 +19,29 @@ function launchServer(landingDirEntory) {
 function copyDir(originDirEntory, landingDirEntory, cb) {
   console.error('copyDir1', originDirEntory, landingDirEntory, cb);
 
-  landingDirEntory.getDirectory('data', { create: false },
-    (dataDir) => {
-      console.error('dataDir', dataDir);
-      originDirEntory.copyTo(
-        dataDir,
-        null,
-        cb,
-        (error) => {
-          console.error(error);
-          launchServer(landingDirEntory);
-        },
-      );
-    },
-    (fail) => {
-      console.error('fail', fail);
+  originDirEntory.copyTo(landingDirEntory, null, cb,
+    (error) => {
+      console.error('copyDir3', error);
+      launchServer(landingDirEntory);
     },
   );
+  // landingDirEntory.getDirectory('data', { create: false },
+  //   (dataDir) => {
+  //     console.error('dataDir', dataDir);
+  //     originDirEntory.copyTo(
+  //       dataDir,
+  //       null,
+  //       cb,
+  //       (error) => {
+  //         console.error(error);
+  //         launchServer(landingDirEntory);
+  //       },
+  //     );
+  //   },
+  //   (fail) => {
+  //     console.error('fail', fail);
+  //   },
+  // );
   console.error('copyDir2');
 }
 
