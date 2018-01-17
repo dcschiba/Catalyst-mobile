@@ -14,6 +14,7 @@ import * as localeActions from '../actions/locale';
 import * as lightningActions from '../actions/lightning';
 import * as onlineActions from '../actions/online';
 import * as prepareActions from '../actions/prepare';
+import * as selectFuncActions from '../actions/selectedFuncList';
 import css from '../../style/app.css';
 
 const propTypes = {
@@ -80,8 +81,7 @@ class App extends Component {
     this.onOffline = this.onOffline.bind(this);
   }
   componentDidMount() {
-    console.log(navigator.connection.type);
-    if (navigator.connection.type !== 'none') {
+    if (navigator.connection && navigator.connection.type !== 'none') {
       this.onOnline();
     } else {
       this.onOffline();
@@ -101,6 +101,13 @@ class App extends Component {
     if (!this.props.isPrepared) {
       this.handleOpen();
     }
+
+    // remove select functions
+    this.props.funcMasterArray.forEach((item) => {
+      if (!item.offLine) {
+        this.props.actions.removeFunction(item.path);
+      }
+    });
   }
   prepare() {
     this.setState({ inPreparation: true });
@@ -189,6 +196,7 @@ function mapDispatchToProps(dispatch) {
         lightningActions,
         onlineActions,
         prepareActions,
+        selectFuncActions,
       ), dispatch),
   };
 }
