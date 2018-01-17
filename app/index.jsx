@@ -99,12 +99,15 @@ function initApp() {
   );
 }
 
+console.error('1111111111');
 if (process.env.NODE_ENV === 'production') {
+  console.error('33333333333333');
   document.addEventListener('deviceready', () => {
     initPushNotification();
     launchLocalServer();
     initApp();
   });
 } else {
+  console.error('222222222');
   initApp();
 }
