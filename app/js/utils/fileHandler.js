@@ -18,7 +18,7 @@ function launchServer(landingDirEntory) {
 // #init3 キャッシュディレクトリにコピー
 function copyDir(originDirEntory, landingDirEntory, cb) {
   console.error('copyDir1', originDirEntory, landingDirEntory, cb);
-  landingDirEntory.getDirectory('data', { create: true }, (dataDir) => {
+  landingDirEntory.getDirectory('data', (dataDir) => {
     console.error('dataDir', dataDir);
     originDirEntory.copyTo(
       dataDir,
@@ -30,6 +30,19 @@ function copyDir(originDirEntory, landingDirEntory, cb) {
       },
     );
   });
+
+  // landingDirEntory.getDirectory('data', { create: true }, (dataDir) => {
+  //   console.error('dataDir', dataDir);
+  //   originDirEntory.copyTo(
+  //     dataDir,
+  //     null,
+  //     cb,
+  //     (error) => {
+  //       console.error(error);
+  //       launchServer(landingDirEntory);
+  //     },
+  //   );
+  // });
   console.error('copyDir2');
 }
 
