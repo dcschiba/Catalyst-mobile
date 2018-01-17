@@ -6,7 +6,8 @@ function launchServer(landingDirEntory) {
   console.error(landingDirEntory);
   window.cordova.plugins.CorHttpd.startServer(
     {
-      www_root: '/data/data/com.wni.wrap/cache/data', // TODO
+      // www_root: '/data/data/com.wni.wrap/cache/data', // TODO
+      www_root: landingDirEntory.nativeURL,
       port: 50000,
     },
     () => console.error('server startup success'),
@@ -18,13 +19,37 @@ function launchServer(landingDirEntory) {
 // #init3 キャッシュディレクトリにコピー
 function copyDir(originDirEntory, landingDirEntory, cb) {
   console.error('copyDir1', originDirEntory, landingDirEntory, cb);
+  console.error('window.device.platform', window.device.platform);
 
-  originDirEntory.copyTo(landingDirEntory, 'data', cb,
-    (error) => {
-      console.error('copyDir3', error);
-      launchServer(landingDirEntory);
-    },
-  );
+  if (window.device.platform.toUpperCase() === 'IOS') {
+    // dataのフォルダが既存の場合、削除する
+    console.error('1111');
+    landingDirEntory.getDirectory('data', { create: true },
+      (newEntry) => {
+        newEntry.removeRecursively(
+          (parent) => {
+            // 削除成功後、コピーする
+            console.error('removeParent', parent);
+            originDirEntory.copyTo(landingDirEntory, 'data',
+              (entry) => {
+                // Success
+                console.error('copyToSuccess', entry);
+                cb(entry);
+              },
+              (error) => {
+                console.error('copyDir3', error);
+                launchServer(landingDirEntory);
+              },
+            );
+          },
+          error => console.error('removeRecursively', error),
+        );
+      },
+      error => console.error('getDirectory', error),
+    );
+    console.error('2222');
+  }
+
   // landingDirEntory.getDirectory('data', { create: false },
   //   (dataDir) => {
   //     console.error('dataDir', dataDir);
