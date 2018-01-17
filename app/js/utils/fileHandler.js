@@ -2,73 +2,97 @@ import AjaxInterceptor from 'ajax-interceptor';
 
 // #init4 ローカルサーバーを起動
 function launchServer(landingDirEntory) {
-  console.log('#4');
-  console.log(landingDirEntory.nativeURL);
+  console.error('launchServer1');
+  console.error(landingDirEntory);
   window.cordova.plugins.CorHttpd.startServer(
     {
       www_root: '/data/data/com.wni.wrap/cache/data', // TODO
       port: 50000,
     },
-    () => console.log('server startup success'),
-    error => console.log(`Launch Server Error: ${error.code}`),
+    () => console.error('server startup success'),
+    error => console.error(`Launch Server Error: ${error.code}`),
   );
+  console.error('launchServer2');
 }
 
 // #init3 キャッシュディレクトリにコピー
 function copyDir(originDirEntory, landingDirEntory, cb) {
+  console.error('copyDir1', originDirEntory, landingDirEntory, cb);
   landingDirEntory.getDirectory('data', { create: true }, (dataDir) => {
+    console.error('dataDir', dataDir);
     originDirEntory.copyTo(
       dataDir,
       null,
       cb,
       (error) => {
-        console.log(error);
+        console.error(error);
         launchServer(landingDirEntory);
       },
     );
   });
+  console.error('copyDir2');
 }
 
 // #init2 移動先(キャッシュdirectory)を取得
 export const getLandingDirEntory = (originDirEntory, cb) => {
+  console.error('getLandingDirEntory1', originDirEntory, cb);
   window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory, (landingDirEntory) => {
+    console.error('landingDirEntory', landingDirEntory);
     copyDir(originDirEntory, landingDirEntory, cb);
   });
+  console.error('getLandingDirEntory2');
 };
 
 // #init1 コピーするデータを取得
 export function launchLocalServer() {
+  console.error('launchLocalServer1');
   window.resolveLocalFileSystemURL(
     `${window.cordova.file.applicationDirectory}/www/data/pri`,
-    originDirEntory => getLandingDirEntory(originDirEntory, launchServer),
+    (originDirEntory) => {
+      console.error('originDirEntory', originDirEntory, launchServer);
+      getLandingDirEntory(originDirEntory, launchServer);
+    },
     error => console.log(error.code, 'getData failure'),
   );
+  console.error('launchLocalServer2');
 }
 
 // ## prepare1 オフライン用データを取得
 export function initOffline(cb) {
+  console.error('initOffline1', cb);
   window.resolveLocalFileSystemURL(
     `${window.cordova.file.applicationDirectory}/www/offline/WRAP`,
-    originDirEntory => getLandingDirEntory(originDirEntory, cb),
+    (originDirEntory) => {
+      console.error('originDirEntory', originDirEntory);
+      getLandingDirEntory(originDirEntory, cb);
+    },
     error => console.log(error.code, 'getData failure'),
   );
+  console.error('initOffline2');
 }
 
 // #Overwrite4 データを保存
 function writeFile(fileEntry, dataObj) {
+  console.error('writeFile1', fileEntry, dataObj);
   fileEntry.createWriter((fileWriter) => {
+    console.error('fileEntry.createWriter', fileWriter);
     fileWriter.write(dataObj);
   });
+  console.error('writeFile2');
 }
 
 // #Overwrite3 Pathに沿ってディレクトリを掘る
 function createDirectory(rootDirEntry, path, data) {
+  console.error('createDirectory1', rootDirEntry, path, data);
   if (path.length > 1) {
+    console.error('createDirectory3');
     const dirName = path.shift();
     rootDirEntry.getDirectory(dirName, { create: true }, (dirEntry) => {
+      console.error('rootDirEntry.getDirectory', dirEntry);
       createDirectory(dirEntry, path, data);
     });
   } else {
+    console.error('createDirectory4');
     switch (path[0].split('.')[1]) {
       case 'json': {
         console.log('json');
@@ -101,20 +125,27 @@ function createDirectory(rootDirEntry, path, data) {
     }
     console.log('fin');
   }
+  console.error('createDirectory2');
 }
 
 // #Overwrite2 保存先(キャッシュdirectory)を取得
 function saveLayerData(path, data) {
+  console.error('saveLayerData1', path, data);
+  console.error(window.cordova.file);
   const dirs = path.split('/');
   window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory, (dirEntry) => {
+    console.error(dirEntry);
     createDirectory(dirEntry, dirs, data);
   });
+  console.error('saveLayerData2');
 }
 
 export function xhrHook(actions) {
+  console.error('xhrHook1');
   /* eslint-disable global-require */
   // #Overwrite1 #Basetime1 通信を監視してURLで引っ掛ける。レイヤーデータおよびBaseTimeの保存をする。
   AjaxInterceptor.addResponseCallback((xhr) => {
+    console.error('addResponseCallback1', xhr);
     const responseURL = xhr.responseURL;
     if (responseURL.indexOf('wrap-pri') !== -1) {
       // basetime対応
@@ -142,5 +173,7 @@ export function xhrHook(actions) {
       saveLayerData(`data${path}`, xhr.response);
     }
   });
+  console.error('xhrHook2');
   AjaxInterceptor.wire();
+  console.error('xhrHook3');
 }
