@@ -19,7 +19,7 @@ function launchServer(landingDirEntory) {
 function copyDir(originDirEntory, landingDirEntory, cb) {
   console.error('copyDir1', originDirEntory, landingDirEntory, cb);
 
-  originDirEntory.copyTo(landingDirEntory, null, cb,
+  originDirEntory.copyTo(landingDirEntory, 'data', cb,
     (error) => {
       console.error('copyDir3', error);
       launchServer(landingDirEntory);
