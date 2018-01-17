@@ -34,6 +34,14 @@ function copyDir(originDirEntory, landingDirEntory, cb) {
               (entry) => {
                 // Success
                 console.error('copyToSuccess', entry);
+                const reader = entry.createReader();
+                reader.readEntries(
+                  (entries) => {
+                    console.error('readEntries', entries.length);
+                    entries.forEach(item => console.error('itemName', item.name));
+                  },
+                  error => console.error('readEntries', error),
+                );
                 cb(entry);
               },
               (error) => {
