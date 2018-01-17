@@ -101,16 +101,18 @@ function initApp() {
 
 console.error('1111111111');
 if (process.env.NODE_ENV === 'production') {
-  console.error('33333333333333');
-  document.addEventListener('deviceready', () => {
-    initPushNotification();
-    console.error('6666');
-    launchLocalServer();
-    console.error('7777');
-    initApp();
-    console.error('88888');
-  });
-  console.error('5555555');
+  setTimeout(() => {
+    console.error('33333333333333');
+    document.addEventListener('deviceready', () => {
+      initPushNotification();
+      console.error('6666');
+      launchLocalServer();
+      console.error('7777');
+      initApp();
+      console.error('88888');
+    });
+    console.error('5555555');
+  }, 8000);
 } else {
   console.error('222222222');
   initApp();
