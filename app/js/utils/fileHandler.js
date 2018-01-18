@@ -1,146 +1,103 @@
 import AjaxInterceptor from 'ajax-interceptor';
 
 // #init4 ローカルサーバーを起動
-function launchServer(landingDirEntory) {
-  console.error('launchServer1');
-  console.error(landingDirEntory);
-  const root = landingDirEntory.nativeURL.replace('file://', '');
-  console.error('root directory', root);
+function launchServer(landingDirEntry, error) {
+  const root = landingDirEntry.nativeURL.replace('file://', '');
+
+  console.log('root directory', root);
   window.cordova.plugins.CorHttpd.startServer(
     {
       www_root: root,
       port: 50000,
       localhost_only: true,
     },
-    (url) => {
-      console.log('server startup success', url);
-      const fetchURL = `${url}pri/conf/layer/gpv/gfs/GPVIsotach.json`;
-      console.error('server startup success1', fetchURL);
-      fetch(fetchURL)
-        .then(res => res.text())
-        .then(body => console.error(body))
-        .catch(error => console.error('server error', error));
-      console.error('server startup success2', url);
-    },
-    error => console.error(`Launch Server Error: ${error.code}`),
+    url => console.log('server startup success2', url),
+    error,
   );
-  console.error('launchServer2');
+}
+
+function copy(srcEntry, destEntry, success, error) {
+  srcEntry.copyTo(destEntry, null, (entry) => {
+    console.log('copy success', srcEntry, destEntry);
+    success(entry);
+  }, (ex) => { console.error(ex); error(ex); });
 }
 
 // #init3 キャッシュディレクトリにコピー
-function copyDir(originDirEntry, landingDirEntry, cb) {
-  console.error('copyDir1', originDirEntry, landingDirEntry, cb);
+function copyDir(orgEntry, landingDirEntry, callback, error) {
+  landingDirEntry.getDirectory('data', { create: true }, (entryDir) => {
+    console.error('entryDir', entryDir);
 
-  landingDirEntry.getDirectory('data', { create: true },
-    (entryDir) => {
-      const reader = entryDir.createReader();
+    const reader = entryDir.createReader();
 
-      console.error('entryDir', entryDir);
+    reader.readEntries(
+      (entries) => {
+        const targetEntry = entries.find(item =>
+          item.name === orgEntry.name && item.isDirectory === orgEntry.isDirectory);
+        console.error('targetEntry', targetEntry);
 
-      reader.readEntries(
-        (entries) => {
-          const targetEntry = entries.find(
-            item => item.name === originDirEntry.name && item.isDirectory);
-          console.error('targetEntry', targetEntry);
+        // 既存なしの場合、そのままコピーする
+        if (!targetEntry) {
+          console.log('既存なし');
+          copy(orgEntry, entryDir, () => callback(entryDir), error);
+          return;
+        }
+        console.log('既存あり');
 
-          // 既存なしの場合、そのままコピーする
-          if (!targetEntry) {
-            console.error('既存なし');
-            originDirEntry.copyTo(entryDir, null,
-              (entry) => {
-                // コピー成功
-                console.error('copyToSuccess', entry);
-                cb(entryDir);
-              },
-              error => console.error('copyToError', error),
-            );
-            return;
-          }
-          console.error('既存あり');
+        if (targetEntry.isDirectory) {
+          console.log('Directory');
           // 既存ありの場合、削除してからコピーする
-          targetEntry.removeRecursively(
-            () => {
-              originDirEntry.copyTo(entryDir, null,
-                (entry) => {
-                  // コピー成功
-                  console.error('copyToSuccess', entry);
-                  cb(entryDir);
-                },
-                error => console.error('copyToError', error),
-              );
-            },
-            error => console.error('removeRecursively', error),
-          );
-        },
-      );
-    },
-    fail => console.error('fail', fail),
-  );
-  console.error('copyDir2');
+          targetEntry.removeRecursively(() => {
+            copy(orgEntry, entryDir, () => callback(entryDir), error);
+          }, error);
+        } else {
+          console.log('File');
+          targetEntry.remove(() => {
+            copy(orgEntry, entryDir, () => callback(entryDir), error);
+          }, error);
+        }
+      },
+    );
+  }, error);
 }
 
 // #init2 移動先(キャッシュdirectory)を取得
-export const getLandingDirEntory = (originDirEntry, cb) => {
+export const getLandingDirEntry = (originDirEntry, callback, error) => {
   window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory,
-    (landingDirEntry) => {
-      console.error('landingDirEntory', landingDirEntry);
-      copyDir(originDirEntry, landingDirEntry, cb);
-    });
+    cacheEntry => copyDir(originDirEntry, cacheEntry, callback, error),
+    error,
+  );
 };
 
 // #init1 コピーするデータを取得
-export function launchLocalServer() {
-  console.error('launchLocalServer1');
+export function launchLocalServer(error) {
   window.resolveLocalFileSystemURL(
     `${window.cordova.file.applicationDirectory}/www/data/pri`,
-    (originDirEntory) => {
-      console.error('originDirEntory', originDirEntory, launchServer);
-      getLandingDirEntory(originDirEntory, launchServer);
+    (originDirEntry) => {
+      console.error('originDirEntory', originDirEntry, launchServer);
+      getLandingDirEntry(originDirEntry, launchServer);
     },
-    error => console.log(error.code, 'getData failure'),
+    error,
   );
-  console.error('launchLocalServer2');
-}
-
-// ## prepare1 オフライン用データを取得
-export function initOffline(cb) {
-  console.error('initOffline1', cb);
-  window.resolveLocalFileSystemURL(
-    `${window.cordova.file.applicationDirectory}/www/offline/WRAP`,
-    (originDirEntory) => {
-      console.error('originDirEntory', originDirEntory);
-      getLandingDirEntory(originDirEntory, cb);
-    },
-    error => console.log(error.code, 'getData failure'),
-  );
-  console.error('initOffline2');
 }
 
 // #Overwrite4 データを保存
 function writeFile(fileEntry, dataObj) {
-  console.error('writeFile1', fileEntry, dataObj);
   fileEntry.createWriter((fileWriter) => {
-    console.error('fileEntry.createWriter', fileWriter);
     fileWriter.write(dataObj);
   });
-  console.error('writeFile2');
 }
 
 // #Overwrite3 Pathに沿ってディレクトリを掘る
 function createDirectory(rootDirEntry, path, data) {
-  console.error('createDirectory1', rootDirEntry, path, data);
   if (path.length > 1) {
-    console.error('createDirectory3');
     const dirName = path.shift();
     rootDirEntry.getDirectory(dirName, { create: true }, (dirEntry) => {
-      console.error('rootDirEntry.getDirectory', dirEntry);
       createDirectory(dirEntry, path, data);
     });
   } else {
-    console.error('createDirectory4');
     switch (path[0].split('.')[1]) {
       case 'json': {
-        console.log('json');
         rootDirEntry.getFile(path[0], { create: true, exclusive: false }, (dirEntry) => {
           const blob = new Blob([data], { type: 'application/json' });
           writeFile(dirEntry, blob);
@@ -168,29 +125,21 @@ function createDirectory(rootDirEntry, path, data) {
         }, () => console.log('create error'));
         break;
     }
-    console.log('fin');
   }
-  console.error('createDirectory2');
 }
 
 // #Overwrite2 保存先(キャッシュdirectory)を取得
 function saveLayerData(path, data) {
-  console.error('saveLayerData1', path, data);
-  console.error(window.cordova.file);
   const dirs = path.split('/');
-  window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory, (dirEntry) => {
-    console.error(dirEntry);
-    createDirectory(dirEntry, dirs, data);
+  window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory, (cacheEntry) => {
+    createDirectory(cacheEntry, dirs, data);
   });
-  console.error('saveLayerData2');
 }
 
 export function xhrHook(actions) {
-  console.error('xhrHook1');
   /* eslint-disable global-require */
   // #Overwrite1 #Basetime1 通信を監視してURLで引っ掛ける。レイヤーデータおよびBaseTimeの保存をする。
   AjaxInterceptor.addResponseCallback((xhr) => {
-    console.error('addResponseCallback1', xhr);
     const responseURL = xhr.responseURL;
     if (responseURL.indexOf('wrap-pri') !== -1) {
       // basetime対応
@@ -218,7 +167,5 @@ export function xhrHook(actions) {
       saveLayerData(`data${path}`, xhr.response);
     }
   });
-  console.error('xhrHook2');
   AjaxInterceptor.wire();
-  console.error('xhrHook3');
 }
