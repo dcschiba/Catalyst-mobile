@@ -25,7 +25,6 @@
         <resource-file src="google-services.json" target="google-services.json" />
     </platform>
     <platform name="ios">
-        <icon src="res/icon/ios/icon-72-hdpi.png" width="180" height="180" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <resource-file src="GoogleService-Info.plist" />
@@ -44,4 +43,5 @@
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-vibration" spec="^2.1.6" />
     <plugin name="cordova-plugin-geolocation" spec="^3.0.0" />
+    <plugin name="cordova-plugin-zip" spec="^3.1.0" />
 </widget>
