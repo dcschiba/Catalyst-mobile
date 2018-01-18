@@ -6,9 +6,10 @@ import { IntlProvider } from 'react-intl';
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import LinearProgress from 'material-ui/LinearProgress';
 import SettingMenu from '../components/catalyst/SettingMenu';
-import Loading from '../components/catalyst/Loading';
-import { xhrHook, initOffline } from '../utils/fileHandler';
+// import Loading from '../components/catalyst/Loading';
+import { xhrHook, getLandingDirEntry } from '../utils/fileHandler';
 import * as Actions from '../actions/catalyst';
 import * as localeActions from '../actions/locale';
 import * as lightningActions from '../actions/lightning';
@@ -24,7 +25,7 @@ const propTypes = {
   funcMasterArray: PropTypes.array.isRequired,
   funcMasterObject: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
-  isPrepared: PropTypes.bool.isRequired,
+  // isPrepared: PropTypes.bool.isRequired,
 };
 
 const themeColor = {
@@ -72,6 +73,8 @@ class App extends Component {
     this.state = {
       dialogOpen: '',
       inPreparation: false,
+      progress: 0,
+      title: '',
     };
     xhrHook(props.actions);
     this.prepare = this.prepare.bind(this);
@@ -89,6 +92,20 @@ class App extends Component {
     document.addEventListener('online', this.onOnline, false);
     document.addEventListener('offline', this.onOffline, false);
   }
+
+  /** 再描画キャンセル */
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.progress !== this.state.progress && nextState.inPreparation) {
+      if ((nextState.progress - this.state.progress) >= 1) {
+        console.error('progress', nextState.progress);
+      }
+
+      return (nextState.progress - this.state.progress) >= 1;
+    }
+
+    return true;
+  }
+
   componentWillUnmount() {
     document.removeEventListener('online', this.onOnline);
     document.removeEventListener('offline', this.onOffline);
@@ -98,9 +115,9 @@ class App extends Component {
   }
   onOffline() {
     this.props.actions.turnOffline();
-    if (!this.props.isPrepared) {
-      this.handleOpen();
-    }
+    // if (!this.props.isPrepared) {
+    this.handleOpen();
+    // }
 
     // remove select functions
     this.props.funcMasterArray.forEach((item) => {
@@ -118,6 +135,45 @@ class App extends Component {
   handleClose() {
     this.setState({ dialogOpen: false });
   }
+
+  /** Offline初期化処理 */
+  initOffline(callback, error) {
+    window.resolveLocalFileSystemURL(`${window.cordova.file.applicationDirectory}/www/offline/WRAP.zip`,
+      (fileEntry) => {
+        // Success
+        console.error('fileEntry', fileEntry);
+        this.setState({ title: 'Copy files...' });
+        getLandingDirEntry(fileEntry, (cacheEntry) => {
+          console.error('start unzip');
+
+          const zipPath = fileEntry.nativeURL;
+          const extractDir = cacheEntry.nativeURL;
+
+          this.setState({ title: 'Extrac files...' });
+          window.zip.unzip(zipPath, extractDir, (status) => {
+            if (status !== 0) {
+              console.error('unzip error');
+              error();
+              return;
+            }
+
+            this.setState({
+              inPreparation: false,
+              title: '',
+            });
+
+            console.error('unzip success');
+            callback();
+          }, (progressEvent) => {
+            const progress = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
+            this.setState({ progress });
+          });
+        }, error);
+      },
+      error,
+    );
+  }
+
   render() {
     const { children, locale, actions, messages, funcMasterArray, funcMasterObject } = this.props;
     return (
@@ -140,6 +196,16 @@ class App extends Component {
             )}
           </div>
           <Dialog
+            title={this.state.title}
+            modal
+            open={this.state.inPreparation}
+          >
+            <LinearProgress
+              mode="determinate"
+              value={this.state.progress}
+            />
+          </Dialog>
+          <Dialog
             title={'オフライン動作準備'}
             actions={[
               <div style={styles.buttonWrapper}>
@@ -155,7 +221,10 @@ class App extends Component {
                   onClick={() => {
                     this.handleClose();
                     this.prepare();
-                    initOffline(() => actions.finishPrepare());
+                    this.initOffline(
+                      () => actions.finishPrepare(),
+                      error => console.error('initOffLineError', error),
+                    );
                   }}
                   style={styles.okButton}
                 />
@@ -169,7 +238,7 @@ class App extends Component {
             オフラインで使用する場合はオフラインセットアップを実行してください。<br />
             ※セットアップには1０分以上かかる場合があります。
           </Dialog>
-          {this.state.inPreparation && !this.props.isPrepared ? <Loading /> : null}
+          {/* {this.state.inPreparation && !this.props.isPrepared ? <Loading /> : null} */}
         </div>
       </IntlProvider>
     );
