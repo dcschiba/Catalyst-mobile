@@ -4,88 +4,88 @@ import AjaxInterceptor from 'ajax-interceptor';
 function launchServer(landingDirEntory) {
   console.error('launchServer1');
   console.error(landingDirEntory);
+  const root = landingDirEntory.nativeURL.replace('file://', '');
+  console.error('root directory', root);
   window.cordova.plugins.CorHttpd.startServer(
     {
-      // www_root: '/data/data/com.wni.wrap/cache/data', // TODO
-      www_root: landingDirEntory.nativeURL,
+      www_root: root,
       port: 50000,
+      localhost_only: true,
     },
-    () => console.error('server startup success'),
+    (url) => {
+      console.log('server startup success', url);
+      const fetchURL = `${url}pri/conf/layer/gpv/gfs/GPVIsotach.json`;
+      console.error('server startup success1', fetchURL);
+      fetch(fetchURL)
+        .then(res => res.text())
+        .then(body => console.error(body))
+        .catch(error => console.error('server error', error));
+      console.error('server startup success2', url);
+    },
     error => console.error(`Launch Server Error: ${error.code}`),
   );
   console.error('launchServer2');
 }
 
 // #init3 キャッシュディレクトリにコピー
-function copyDir(originDirEntory, landingDirEntory, cb) {
-  console.error('copyDir1', originDirEntory, landingDirEntory, cb);
-  console.error('window.device.platform', window.device.platform);
+function copyDir(originDirEntry, landingDirEntry, cb) {
+  console.error('copyDir1', originDirEntry, landingDirEntry, cb);
 
-  if (window.device.platform.toUpperCase() === 'IOS') {
-    // dataのフォルダが既存の場合、削除する
-    console.error('1111');
-    landingDirEntory.getDirectory('data', { create: true },
-      (newEntry) => {
-        newEntry.removeRecursively(
-          (parent) => {
-            // 削除成功後、コピーする
-            console.error('removeParent', parent);
-            originDirEntory.copyTo(landingDirEntory, 'data',
+  landingDirEntry.getDirectory('data', { create: true },
+    (entryDir) => {
+      const reader = entryDir.createReader();
+
+      console.error('entryDir', entryDir);
+
+      reader.readEntries(
+        (entries) => {
+          const targetEntry = entries.find(
+            item => item.name === originDirEntry.name && item.isDirectory);
+          console.error('targetEntry', targetEntry);
+
+          // 既存なしの場合、そのままコピーする
+          if (!targetEntry) {
+            console.error('既存なし');
+            originDirEntry.copyTo(entryDir, null,
               (entry) => {
-                // Success
+                // コピー成功
                 console.error('copyToSuccess', entry);
-                const reader = entry.createReader();
-                reader.readEntries(
-                  (entries) => {
-                    console.error('readEntries', entries.length);
-                    entries.forEach(item => console.error('itemName', item.name));
-                  },
-                  error => console.error('readEntries', error),
-                );
-                cb(entry);
+                cb(entryDir);
               },
-              (error) => {
-                console.error('copyDir3', error);
-                launchServer(landingDirEntory);
-              },
+              error => console.error('copyToError', error),
             );
-          },
-          error => console.error('removeRecursively', error),
-        );
-      },
-      error => console.error('getDirectory', error),
-    );
-    console.error('2222');
-  }
-
-  // landingDirEntory.getDirectory('data', { create: false },
-  //   (dataDir) => {
-  //     console.error('dataDir', dataDir);
-  //     originDirEntory.copyTo(
-  //       dataDir,
-  //       null,
-  //       cb,
-  //       (error) => {
-  //         console.error(error);
-  //         launchServer(landingDirEntory);
-  //       },
-  //     );
-  //   },
-  //   (fail) => {
-  //     console.error('fail', fail);
-  //   },
-  // );
+            return;
+          }
+          console.error('既存あり');
+          // 既存ありの場合、削除してからコピーする
+          targetEntry.removeRecursively(
+            () => {
+              originDirEntry.copyTo(entryDir, null,
+                (entry) => {
+                  // コピー成功
+                  console.error('copyToSuccess', entry);
+                  cb(entryDir);
+                },
+                error => console.error('copyToError', error),
+              );
+            },
+            error => console.error('removeRecursively', error),
+          );
+        },
+      );
+    },
+    fail => console.error('fail', fail),
+  );
   console.error('copyDir2');
 }
 
 // #init2 移動先(キャッシュdirectory)を取得
-export const getLandingDirEntory = (originDirEntory, cb) => {
-  console.error('getLandingDirEntory1', originDirEntory, cb);
-  window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory, (landingDirEntory) => {
-    console.error('landingDirEntory', landingDirEntory);
-    copyDir(originDirEntory, landingDirEntory, cb);
-  });
-  console.error('getLandingDirEntory2');
+export const getLandingDirEntory = (originDirEntry, cb) => {
+  window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory,
+    (landingDirEntry) => {
+      console.error('landingDirEntory', landingDirEntry);
+      copyDir(originDirEntry, landingDirEntry, cb);
+    });
 };
 
 // #init1 コピーするデータを取得
