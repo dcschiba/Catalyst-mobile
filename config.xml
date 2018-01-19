@@ -25,33 +25,22 @@
         <resource-file src="google-services.json" target="google-services.json" />
     </platform>
     <platform name="ios">
-        <!-- iOS 8.0+ -->
-        <!-- iPhone 6 Plus  -->
-        <icon src="res/ios/iPhone_180pt_@3x.png" width="180" height="180" />
-        <icon src="res/ios/iPhone_87pt_@3x.png" width="87" height="87" />
-        <!-- iOS 7.0+ -->
-        <!-- iPhone / iPod Touch  -->
-        <icon src="res/ios/iPhone_60pt_@1x.png" width="60" height="60" />
-        <icon src="res/ios/iPhone_120pt_@2x" width="120" height="120" />
-        <!-- iPad -->
-        <icon src="res/ios/iPad_76pt_@1x.png" width="76" height="76" />
-        <icon src="res/ios/iPad_152pt_@2x.png" width="152" height="152" />
-        <!-- iOS 6.1 -->
-        <!-- Spotlight Icon -->
-        <icon src="res/ios/iPhone_40pt_@1x.png" width="40" height="40" />
-        <icon src="res/ios/iPhone_80pt_@2x.png" width="80" height="80" />
-        <!-- iPhone / iPod Touch -->
-        <icon src="res/ios/iPhone_57pt_@1x.png" width="57" height="57" />
-        <icon src="res/ios/iPhone_114pt_@2x.png" width="114" height="114" />
-        <!-- iPad -->
-        <icon src="res/ios/iPad_72pt_@1x.png" width="72" height="72" />
-        <icon src="res/ios/iPad_144pt_@2x.png" width="144" height="144" />
-        <!-- iPhone Spotlight and Settings Icon -->
-        <icon src="res/ios/iPhone_29pt_@1x.png" width="29" height="29" />
-        <icon src="res/ios/iPhone_58pt_@2x.png" width="58" height="58" />
-        <!-- iPad Spotlight and Settings Icon -->
-        <icon src="res/ios/iPad_50pt_@1x.png" width="50" height="50" />
-        <icon src="res/ios/iPad_100pt_@2x.png" width="100" height="100" />
+        <icon height="180" src="res/icon/ios/iPhone_180pt_@3x.png" width="180" />
+        <icon height="87" src="res/icon/ios/iPhone_87pt_@3x.png" width="87" />
+        <icon height="60" src="res/icon/ios/iPhone_60pt_@1x.png" width="60" />
+        <icon height="120" src="res/icon/ios/iPhone_120pt_@2x.png" width="120" />
+        <icon height="76" src="res/icon/ios/iPad_76pt_@1x.png" width="76" />
+        <icon height="152" src="res/icon/ios/iPad_152pt_@2x.png" width="152" />
+        <icon height="40" src="res/icon/ios/iPhone_40pt_@1x.png" width="40" />
+        <icon height="80" src="res/icon/ios/iPhone_80pt_@2x.png" width="80" />
+        <icon height="57" src="res/icon/ios/iPhone_57pt_@1x.png" width="57" />
+        <icon height="114" src="res/icon/ios/iPhone_114pt_@2x.png" width="114" />
+        <icon height="72" src="res/icon/ios/iPad_72pt_@1x.png" width="72" />
+        <icon height="144" src="res/icon/ios/iPad_144pt_@2x.png" width="144" />
+        <icon height="29" src="res/icon/ios/iPhone_29pt_@1x.png" width="29" />
+        <icon height="58" src="res/icon/ios/iPhone_58pt_@2x.png" width="58" />
+        <icon height="50" src="res/icon/ios/iPad_50pt_@1x.png" width="50" />
+        <icon height="100" src="res/icon/ios/iPad_100pt_@2x.png" width="100" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <resource-file src="GoogleService-Info.plist" />
