@@ -100,13 +100,10 @@ function initApp() {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  setTimeout(() => {
-    document.addEventListener('deviceready', () => {
-      initPushNotification();
-      launchLocalServer();
-      initApp();
-    });
-  }, 8000);
+  document.addEventListener('deviceready', () => {
+    initPushNotification();
+    launchLocalServer().then(() => initApp());
+  });
 } else {
   initApp();
 }
