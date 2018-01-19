@@ -1,25 +1,7 @@
 import AjaxInterceptor from 'ajax-interceptor';
 
 export const resolveURL = filePath => new Promise((resolve, reject) => {
-  window.resolveLocalFileSystemURL(filePath,
-    fileEntry => resolve(fileEntry),
-    error => reject(error),
-  );
-});
-
-/** ローカルサーバーを起動 */
-export const startServer = rootEntry => new Promise((resolve, reject) => {
-  const root = rootEntry.nativeURL.replace('file://', '');
-
-  window.cordova.plugins.CorHttpd.startServer(
-    {
-      www_root: root,
-      port: 50000,
-      localhost_only: true,
-    },
-    (url) => { console.log('server startup success', root, url); resolve(); },
-    error => reject(error),
-  );
+  window.resolveLocalFileSystemURL(filePath, fileEntry => resolve(fileEntry), err => reject(err));
 });
 
 /** DirectoryEntry.copyのPromise化 */
@@ -55,6 +37,21 @@ const remove = entry => new Promise((resolve, reject) => {
   entry.remove(() => resolve(), error => reject(error));
 });
 
+/** ローカルサーバーを起動 */
+export const startServer = rootEntry => new Promise((resolve, reject) => {
+  const root = rootEntry.nativeURL.replace('file://', '');
+
+  window.cordova.plugins.CorHttpd.startServer(
+    {
+      www_root: root,
+      port: 50000,
+      localhost_only: true,
+    },
+    (url) => { console.log('server startup success', root, url); resolve(); },
+    error => reject(error),
+  );
+});
+
 // #init3 キャッシュディレクトリにコピー
 const copyDir = (orgEntry, destEntry) => new Promise((resolve, reject) => {
   getDirectory(destEntry, 'data', { create: true }).then((entryDir) => {
@@ -82,30 +79,6 @@ const copyDir = (orgEntry, destEntry) => new Promise((resolve, reject) => {
     });
   });
 });
-
-// const getFileSize = (entry) => {
-//   if (entry.isFile) {
-//     return new Promise((resolve, reject) => {
-//       entry.getMetadata(f => resolve(f.size), error => reject(error));
-//     });
-//   }
-
-//   if (entry.isDirectory) {
-//     return new Promise((resolve, reject) => {
-//       const dirReader = entry.createReader();
-//       dirReader.readEntries((entries) => {
-//         Promise.all(entries.map(e => getFileSize(e))).then((size) => {
-//           const dirSize = size.reduce((prev, current) => prev + current, 0);
-//           resolve(dirSize);
-//         }).catch(err => reject(err));
-//       },
-//       error => reject(error));
-//     });
-//   }
-//   return 0;
-// };
-
-// const dirSize = dirEntry => getFileSize(dirEntry);
 
 // #init2 移動先(キャッシュdirectory)を取得
 export const getLandingDirEntry = orgDirEntry =>
@@ -161,10 +134,12 @@ const checkConfig = () => new Promise((resolve, reject) => {
 /** 設定ファイル初期化 */
 const initConfig = () => {
   const filePath = `${window.cordova.file.applicationDirectory}/www/data/pri`;
+  const rootPath = `${window.cordova.file.cacheDirectory}/data`;
 
   resolveURL(filePath)
     .then(fileEntry => getLandingDirEntry(fileEntry))
-    .then(() => startServer())
+    .then(() => resolveURL(rootPath))
+    .then(fileEntry => startServer(fileEntry))
     .catch(err => console.error(err));
 };
 
