@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import SettingMenu from '../components/catalyst/SettingMenu';
 // import Loading from '../components/catalyst/Loading';
-import { xhrHook, getLandingDirEntry, checkOffline } from '../utils/fileHandler';
+import { xhrHook, getLandingDirEntry, checkOffline, resolveURL } from '../utils/fileHandler';
 import * as Actions from '../actions/catalyst';
 import * as localeActions from '../actions/locale';
 import * as lightningActions from '../actions/lightning';
@@ -116,32 +116,23 @@ class App extends Component {
     this.setState({ inPreparation: 1, title: 'Check offline files...' });
 
     // offline用データをチェックする
-    checkOffline((size) => {
-      // Offline用データ問題あり
-      if (size !== 25567447) {
-        this.setState({ inPreparation: 2 });
-        return;
-      }
-
-      // 問題なし
-      this.setState({ inPreparation: 0 });
-    });
+    checkOffline().then(success => this.setState({ inPreparation: success ? 0 : 2 }));
   }
 
   /** Offline初期化処理 */
   initOffline(callback, error) {
     const filePath = `${window.cordova.file.applicationDirectory}/www/offline/WRAP.zip`;
 
-    window.resolveLocalFileSystemURL(filePath, (fileEntry) => {
+    resolveURL(filePath).then((fileEntry) => {
       this.setState({ inPreparation: 3, title: 'Copy files...' });
 
-      getLandingDirEntry(fileEntry, (cacheEntry, copiedEntry) => {
-        console.error('start unzip', copiedEntry, cacheEntry);
-
-        const zipPath = copiedEntry.nativeURL;
-        const extractDir = cacheEntry.nativeURL;
-
+      getLandingDirEntry(fileEntry).then((entry) => {
+        console.error('start unzip', entry);
         this.setState({ inPreparation: 4, title: 'Extract files...' });
+
+        const zipPath = entry.copied.nativeURL;
+        const extractDir = entry.cache.nativeURL;
+
         window.zip.unzip(zipPath, extractDir, (status) => {
           if (status !== 0) {
             console.error('unzip error');
@@ -163,13 +154,13 @@ class App extends Component {
             this.setState({ progress });
           }
         });
-      }, error);
+      });
     });
   }
 
   render() {
     const { children, locale, actions, messages, funcMasterArray, funcMasterObject } = this.props;
-    const { inPreparation } = this.state;
+    const { inPreparation, progress, title } = this.state;
     return (
       <IntlProvider locale={locale} messages={messages}>
         <div style={{ ...themeColor.ground }} >
@@ -190,14 +181,11 @@ class App extends Component {
             )}
           </div>
           <Dialog
-            title={this.state.title}
+            title={title}
             modal
             open={inPreparation === 1 || inPreparation === 3 || inPreparation === 4}
           >
-            <LinearProgress
-              mode="determinate"
-              value={this.state.progress}
-            />
+            {inPreparation !== 1 ? <LinearProgress mode="determinate" value={progress} /> : null}
           </Dialog>
           <Dialog
             title={'オフライン動作準備'}
@@ -228,7 +216,7 @@ class App extends Component {
           >
             ネットワークがオフになっています。<br />
             オフラインで使用する場合はオフラインセットアップを実行してください。<br />
-            ※セットアップには1０分以上かかる場合があります。
+            ※セットアップには５分程かかる場合があります。
           </Dialog>
           {/* {this.state.inPreparation && !this.props.isPrepared ? <Loading /> : null} */}
         </div>

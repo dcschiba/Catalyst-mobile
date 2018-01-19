@@ -1,115 +1,116 @@
 import AjaxInterceptor from 'ajax-interceptor';
 
-const resolveURL = filePath => new Promise((resolve, reject) => {
+export const resolveURL = filePath => new Promise((resolve, reject) => {
   window.resolveLocalFileSystemURL(filePath,
     fileEntry => resolve(fileEntry),
     error => reject(error),
   );
 });
 
-// #init4 ローカルサーバーを起動
-function launchServer(landingDirEntry, error) {
-  const root = landingDirEntry.nativeURL.replace('file://', '');
+/** ローカルサーバーを起動 */
+export const startServer = rootEntry => new Promise((resolve, reject) => {
+  const root = rootEntry.nativeURL.replace('file://', '');
 
-  console.log('root directory', root);
   window.cordova.plugins.CorHttpd.startServer(
     {
       www_root: root,
       port: 50000,
       localhost_only: true,
     },
-    url => console.log('server startup success2', url),
-    error,
+    (url) => { console.log('server startup success', root, url); resolve(); },
+    error => reject(error),
   );
-}
+});
 
-function copy(srcEntry, destEntry, success, error) {
-  srcEntry.copyTo(destEntry, null, (entry) => {
-    console.log('copy success', srcEntry, destEntry);
-    success(entry);
-  }, (ex) => { console.error(ex); error(ex); });
-}
+/** DirectoryEntry.copyのPromise化 */
+const copy = (srcEntry, destEntry, newName = null) => new Promise((resolve, reject) => {
+  srcEntry.copyTo(destEntry, newName,
+    (entry) => {
+      console.log('copy success', entry);
+      resolve(entry);
+    },
+    (error) => {
+      console.error(error);
+      reject(error);
+    });
+});
+
+/** DirectoryEntry.readEntriesのPromise化 */
+const readEntries = entry => new Promise((resolve, reject) => {
+  entry.createReader().readEntries(entries => resolve(entries), error => reject(error));
+});
+
+/** DirectoryEntry.getDirectoryのPromise化 */
+const getDirectory = (entry, dirName, options) => new Promise((resolve, reject) => {
+  entry.getDirectory(dirName, options, dirEntry => resolve(dirEntry), error => reject(error));
+});
+
+/** DirectoryEntry.removeRecursivelyのPromise化 */
+const removeRecursively = entry => new Promise((resolve, reject) => {
+  entry.removeRecursively(() => resolve(), error => reject(error));
+});
+
+/** FileEntry.removeRecursivelyのPromise化 */
+const remove = entry => new Promise((resolve, reject) => {
+  entry.remove(() => resolve(), error => reject(error));
+});
 
 // #init3 キャッシュディレクトリにコピー
-function copyDir(orgEntry, landingDirEntry, callback, error) {
-  landingDirEntry.getDirectory('data', { create: true }, (entryDir) => {
-    console.error('entryDir', entryDir);
+const copyDir = (orgEntry, destEntry) => new Promise((resolve, reject) => {
+  getDirectory(destEntry, 'data', { create: true }).then((entryDir) => {
+    readEntries(entryDir).then((entries) => {
+      const targetEntry = entries.find(item =>
+        item.name === orgEntry.name && item.isDirectory === orgEntry.isDirectory);
 
-    const reader = entryDir.createReader();
+      // 既存なしの場合、そのままコピーする
+      if (!targetEntry) {
+        console.log('既存なし');
+        copy(orgEntry, entryDir)
+          .then(entry => resolve({ cache: entryDir, copied: entry }))
+          .catch(error => reject(error));
+        return;
+      }
 
-    reader.readEntries(
-      (entries) => {
-        const targetEntry = entries.find(item =>
-          item.name === orgEntry.name && item.isDirectory === orgEntry.isDirectory);
-        console.error('targetEntry', targetEntry);
+      console.log('既存あり');
+      const removeFunc = targetEntry.isDirectory ? removeRecursively : remove;
 
-        // 既存なしの場合、そのままコピーする
-        if (!targetEntry) {
-          console.log('既存なし');
-          copy(orgEntry, entryDir, entry => callback(entryDir, entry), error);
-          return;
-        }
-        console.log('既存あり');
-
-        if (targetEntry.isDirectory) {
-          console.log('Directory');
-          // 既存ありの場合、削除してからコピーする
-          targetEntry.removeRecursively(() => {
-            copy(orgEntry, entryDir, () => callback(entryDir), error);
-          }, error);
-        } else {
-          console.log('File');
-          targetEntry.remove(() => {
-            copy(orgEntry, entryDir, entry => callback(entryDir, entry), error);
-          }, error);
-        }
-      },
-    );
-  }, error);
-}
-
-const getFileSize = (entry) => {
-  if (entry.isFile) {
-    return new Promise((resolve, reject) => {
-      entry.getMetadata(f => resolve(f.size), error => reject(error));
+      // 既存ありの場合、削除してからコピーする
+      removeFunc(targetEntry)
+        .then(() => copy(orgEntry, entryDir))
+        .then(entry => resolve({ cache: entryDir, copied: entry }))
+        .catch(error => reject(error));
     });
-  }
+  });
+});
 
-  if (entry.isDirectory) {
-    return new Promise((resolve, reject) => {
-      const dirReader = entry.createReader();
-      dirReader.readEntries((entries) => {
-        Promise.all(entries.map(e => getFileSize(e))).then((size) => {
-          const dirSize = size.reduce((prev, current) => prev + current, 0);
-          resolve(dirSize);
-        }).catch(err => reject(err));
-      },
-      error => reject(error));
-    });
-  }
-  return 0;
-};
+// const getFileSize = (entry) => {
+//   if (entry.isFile) {
+//     return new Promise((resolve, reject) => {
+//       entry.getMetadata(f => resolve(f.size), error => reject(error));
+//     });
+//   }
 
-const dirSize = dirEntry => getFileSize(dirEntry);
+//   if (entry.isDirectory) {
+//     return new Promise((resolve, reject) => {
+//       const dirReader = entry.createReader();
+//       dirReader.readEntries((entries) => {
+//         Promise.all(entries.map(e => getFileSize(e))).then((size) => {
+//           const dirSize = size.reduce((prev, current) => prev + current, 0);
+//           resolve(dirSize);
+//         }).catch(err => reject(err));
+//       },
+//       error => reject(error));
+//     });
+//   }
+//   return 0;
+// };
 
-export const checkOffline = (callback) => {
-  window.resolveLocalFileSystemURL(
-    `${window.cordova.file.cacheDirectory}/data/WRAP`,
-    dirEntry => dirSize(dirEntry).then((size) => {
-      console.error('size', size);
-      callback(size);
-    }),
-    (error) => { console.error('resolveLocalFileSystemURL error', error); callback(0); },
-  );
-};
+// const dirSize = dirEntry => getFileSize(dirEntry);
 
 // #init2 移動先(キャッシュdirectory)を取得
-export const getLandingDirEntry = (originDirEntry, callback, error) => {
-  window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory,
-    cacheEntry => copyDir(originDirEntry, cacheEntry, callback, error),
-    error,
-  );
-};
+export const getLandingDirEntry = orgDirEntry =>
+  resolveURL(window.cordova.file.cacheDirectory)
+    .then(cacheEntry => copyDir(orgDirEntry, cacheEntry));
 
 const countFiles = entry => new Promise((resolve, reject) => {
   if (entry.isDirectory) {
@@ -129,45 +130,72 @@ const countFiles = entry => new Promise((resolve, reject) => {
 
     return;
   }
+  // isFile
   resolve(1);
 });
 
 const checkFiles = dirEntry => countFiles(dirEntry);
 
+/** 設定ファイルの数量をチェックする */
 const checkConfig = () => new Promise((resolve, reject) => {
   const filePath = `${window.cordova.file.cacheDirectory}/data/pri`;
+  const rootPath = `${window.cordova.file.cacheDirectory}/data`;
 
   resolveURL(filePath)
     .then(fileEntry => checkFiles(fileEntry))
     .then((fileCount) => {
-      console.error('Total file count', fileCount);
-      resolve(fileCount !== 0);
+      // 設定ファイル数チェック
+      if (fileCount === 108) {
+        resolveURL(rootPath)
+          .then(fileEntry => startServer(fileEntry))
+          .then(() => resolve(true))
+          .catch(error => reject(error));
+      }
     })
-    .catch(err => reject(err));
+    .catch(() => {
+      console.error('checkConfig file 0');
+      resolve(false);
+    });
 });
 
-const initConfig = () => new Promise((resolve, reject) => {
+/** 設定ファイル初期化 */
+const initConfig = () => {
   const filePath = `${window.cordova.file.applicationDirectory}/www/data/pri`;
 
   resolveURL(filePath)
-    .then((fileEntry) => {
-      getLandingDirEntry(fileEntry, launchServer);
-    })
-    .catch(err => reject(err));
-});
+    .then(fileEntry => getLandingDirEntry(fileEntry))
+    .then(() => startServer())
+    .catch(err => console.error(err));
+};
 
 // #init1 コピーするデータを取得
 export function launchLocalServer() {
-  checkConfig()
-    .then((success) => {
-      if (success) {
-        return;
-      }
-
+  return checkConfig().then((success) => {
+    if (!success) {
       initConfig();
-    })
-    .catch((err) => { console.log('launchLocalServer', err); });
+    }
+  }).catch((err) => { console.log('launchLocalServer', err); });
 }
+
+/** offlineファイル数カウント */
+export const checkOffline = () => new Promise((resolve) => {
+  const libPath = `${window.cordova.file.cacheDirectory}/data/WRAP/libs`;
+  const mapPath = `${window.cordova.file.cacheDirectory}/data/WRAP/wrap-pri/data/Map_OpenStreetMap`;
+  const startTime = Date.now();
+
+  Promise.all([
+    resolveURL(libPath)
+      .then(fileEntry => checkFiles(fileEntry))
+      .catch(() => Promise.resolve(0)),
+    resolveURL(mapPath)
+      .then(fileEntry => checkFiles(fileEntry))
+      .catch(() => Promise.resolve(0)),
+  ]).then((fileCount) => {
+    const endTime = Date.now();
+    console.error('checkOffline', endTime - startTime, fileCount);
+    resolve((fileCount[0] + fileCount[1]) === 5458);
+  }).catch(error => console.error('checkoffline', error));
+});
 
 // #Overwrite4 データを保存
 function writeFile(fileEntry, dataObj) {
