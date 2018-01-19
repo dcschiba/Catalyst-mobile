@@ -39,7 +39,7 @@ function copyDir(orgEntry, landingDirEntry, callback, error) {
         // 既存なしの場合、そのままコピーする
         if (!targetEntry) {
           console.log('既存なし');
-          copy(orgEntry, entryDir, () => callback(entryDir), error);
+          copy(orgEntry, entryDir, entry => callback(entryDir, entry), error);
           return;
         }
         console.log('既存あり');
@@ -53,13 +53,48 @@ function copyDir(orgEntry, landingDirEntry, callback, error) {
         } else {
           console.log('File');
           targetEntry.remove(() => {
-            copy(orgEntry, entryDir, () => callback(entryDir), error);
+            copy(orgEntry, entryDir, entry => callback(entryDir, entry), error);
           }, error);
         }
       },
     );
   }, error);
 }
+
+const getFileSize = (entry) => {
+  if (entry.isFile) {
+    return new Promise((resolve, reject) => {
+      entry.getMetadata(f => resolve(f.size), error => reject(error));
+    });
+  }
+
+  if (entry.isDirectory) {
+    return new Promise((resolve, reject) => {
+      const dirReader = entry.createReader();
+      dirReader.readEntries((entries) => {
+        Promise.all(entries.map(e => getFileSize(e))).then((size) => {
+          const dirSize = size.reduce((prev, current) => prev + current, 0);
+          resolve(dirSize);
+        }).catch(err => reject(err));
+      },
+      error => reject(error));
+    });
+  }
+  return 0;
+};
+
+const dirSize = dirEntry => getFileSize(dirEntry);
+
+export const checkOffline = (callback) => {
+  window.resolveLocalFileSystemURL(
+    `${window.cordova.file.cacheDirectory}/data/WRAP`,
+    dirEntry => dirSize(dirEntry).then((size) => {
+      console.error('size', size);
+      callback(size);
+    }),
+    (error) => { console.error('resolveLocalFileSystemURL error', error); callback(0); },
+  );
+};
 
 // #init2 移動先(キャッシュdirectory)を取得
 export const getLandingDirEntry = (originDirEntry, callback, error) => {

@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import SettingMenu from '../components/catalyst/SettingMenu';
 // import Loading from '../components/catalyst/Loading';
-import { xhrHook, getLandingDirEntry } from '../utils/fileHandler';
+import { xhrHook, getLandingDirEntry, checkOffline } from '../utils/fileHandler';
 import * as Actions from '../actions/catalyst';
 import * as localeActions from '../actions/locale';
 import * as lightningActions from '../actions/lightning';
@@ -93,19 +93,6 @@ class App extends Component {
     document.addEventListener('offline', this.onOffline, false);
   }
 
-  /** 再描画キャンセル */
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.progress !== this.state.progress && nextState.inPreparation) {
-      if ((nextState.progress - this.state.progress) >= 1) {
-        console.error('progress', nextState.progress);
-      }
-
-      return (nextState.progress - this.state.progress) >= 1;
-    }
-
-    return true;
-  }
-
   componentWillUnmount() {
     document.removeEventListener('online', this.onOnline);
     document.removeEventListener('offline', this.onOffline);
@@ -115,9 +102,6 @@ class App extends Component {
   }
   onOffline() {
     this.props.actions.turnOffline();
-    // if (!this.props.isPrepared) {
-    this.handleOpen();
-    // }
 
     // remove select functions
     this.props.funcMasterArray.forEach((item) => {
@@ -125,9 +109,20 @@ class App extends Component {
         this.props.actions.removeFunction(item.path);
       }
     });
+
+    this.setState({ inPreparation: 0, title: 'Check offline files...' });
+    // offline用データをチェックする
+    checkOffline((size) => {
+      // Offline用データなし
+      if (size === 0) {
+        this.handleOpen();
+        return;
+      }
+      this.prepare();
+    });
   }
   prepare() {
-    this.setState({ inPreparation: true });
+    this.setState({ inPreparation: 0 });
   }
   handleOpen() {
     this.setState({ dialogOpen: true });
@@ -138,18 +133,32 @@ class App extends Component {
 
   /** Offline初期化処理 */
   initOffline(callback, error) {
-    window.resolveLocalFileSystemURL(`${window.cordova.file.applicationDirectory}/www/offline/WRAP.zip`,
-      (fileEntry) => {
-        // Success
+    const filePath = `${window.cordova.file.applicationDirectory}/www/offline/WRAP.zip`;
+
+    window.resolveLocalFileSystemURL(filePath, (fileEntry) => {
+      this.setState({ title: 'Check offline files...' });
+
+      checkOffline((size) => {
+        if (size === 0) {
+          this.handleOpen();
+        }
+
+        if (size === 25567447) {
+          console.log('初期化問題なし');
+          this.setState({ inPreparation: false, title: '' });
+          callback();
+          return;
+        }
+
         console.error('fileEntry', fileEntry);
         this.setState({ title: 'Copy files...' });
-        getLandingDirEntry(fileEntry, (cacheEntry) => {
-          console.error('start unzip');
+        getLandingDirEntry(fileEntry, (cacheEntry, copiedEntry) => {
+          console.error('start unzip', copiedEntry, cacheEntry);
 
-          const zipPath = fileEntry.nativeURL;
+          const zipPath = copiedEntry.nativeURL;
           const extractDir = cacheEntry.nativeURL;
 
-          this.setState({ title: 'Extrac files...' });
+          this.setState({ title: 'Extract files...' });
           window.zip.unzip(zipPath, extractDir, (status) => {
             if (status !== 0) {
               console.error('unzip error');
@@ -157,20 +166,24 @@ class App extends Component {
               return;
             }
 
-            this.setState({
-              inPreparation: false,
-              title: '',
-            });
+            // progress 100%を表示できるように、１秒待つ
+            setTimeout(() => {
+              this.setState({ inPreparation: false, title: '' });
 
-            console.error('unzip success');
-            callback();
+              console.error('unzip success');
+              callback();
+            }, 1000);
           }, (progressEvent) => {
             const progress = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
-            this.setState({ progress });
+
+            if ((progress - this.state.progress) >= 2) {
+              this.setState({ progress });
+            }
           });
         }, error);
-      },
-      error,
+      });
+    },
+    error,
     );
   }
 
