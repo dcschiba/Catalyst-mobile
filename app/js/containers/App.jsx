@@ -72,14 +72,11 @@ class App extends Component {
     super();
     this.state = {
       dialogOpen: '',
-      inPreparation: false,
+      inPreparation: 0,
       progress: 0,
       title: '',
     };
     xhrHook(props.actions);
-    this.prepare = this.prepare.bind(this);
-    this.handleOpen = this.handleOpen.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.onOnline = this.onOnline.bind(this);
     this.onOffline = this.onOffline.bind(this);
   }
@@ -110,25 +107,25 @@ class App extends Component {
       }
     });
 
-    this.setState({ inPreparation: 0, title: 'Check offline files...' });
+    // inPreparation
+    // 1: check file
+    // 2: offline copy confirm
+    // 3: copy zip file
+    // 4: extract zip file
+    // 0: finish
+    this.setState({ inPreparation: 1, title: 'Check offline files...' });
+
     // offline用データをチェックする
     checkOffline((size) => {
-      // Offline用データなし
-      if (size === 0) {
-        this.handleOpen();
+      // Offline用データ問題あり
+      if (size !== 25567447) {
+        this.setState({ inPreparation: 2 });
         return;
       }
-      this.prepare();
+
+      // 問題なし
+      this.setState({ inPreparation: 0 });
     });
-  }
-  prepare() {
-    this.setState({ inPreparation: 0 });
-  }
-  handleOpen() {
-    this.setState({ dialogOpen: true });
-  }
-  handleClose() {
-    this.setState({ dialogOpen: false });
   }
 
   /** Offline初期化処理 */
@@ -136,59 +133,43 @@ class App extends Component {
     const filePath = `${window.cordova.file.applicationDirectory}/www/offline/WRAP.zip`;
 
     window.resolveLocalFileSystemURL(filePath, (fileEntry) => {
-      this.setState({ title: 'Check offline files...' });
+      this.setState({ inPreparation: 3, title: 'Copy files...' });
 
-      checkOffline((size) => {
-        if (size === 0) {
-          this.handleOpen();
-        }
+      getLandingDirEntry(fileEntry, (cacheEntry, copiedEntry) => {
+        console.error('start unzip', copiedEntry, cacheEntry);
 
-        if (size === 25567447) {
-          console.log('初期化問題なし');
-          this.setState({ inPreparation: false, title: '' });
-          callback();
-          return;
-        }
+        const zipPath = copiedEntry.nativeURL;
+        const extractDir = cacheEntry.nativeURL;
 
-        console.error('fileEntry', fileEntry);
-        this.setState({ title: 'Copy files...' });
-        getLandingDirEntry(fileEntry, (cacheEntry, copiedEntry) => {
-          console.error('start unzip', copiedEntry, cacheEntry);
+        this.setState({ inPreparation: 4, title: 'Extract files...' });
+        window.zip.unzip(zipPath, extractDir, (status) => {
+          if (status !== 0) {
+            console.error('unzip error');
+            error();
+            return;
+          }
 
-          const zipPath = copiedEntry.nativeURL;
-          const extractDir = cacheEntry.nativeURL;
+          // progress 100%を表示できるように、１秒待つ
+          setTimeout(() => {
+            this.setState({ inPreparation: false, title: '' });
 
-          this.setState({ title: 'Extract files...' });
-          window.zip.unzip(zipPath, extractDir, (status) => {
-            if (status !== 0) {
-              console.error('unzip error');
-              error();
-              return;
-            }
+            console.error('unzip success');
+            callback();
+          }, 1000);
+        }, (progressEvent) => {
+          const progress = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
 
-            // progress 100%を表示できるように、１秒待つ
-            setTimeout(() => {
-              this.setState({ inPreparation: false, title: '' });
-
-              console.error('unzip success');
-              callback();
-            }, 1000);
-          }, (progressEvent) => {
-            const progress = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
-
-            if ((progress - this.state.progress) >= 2) {
-              this.setState({ progress });
-            }
-          });
-        }, error);
-      });
-    },
-    error,
-    );
+          if ((progress - this.state.progress) >= 2) {
+            this.setState({ progress });
+          }
+        });
+      }, error);
+    });
   }
 
   render() {
     const { children, locale, actions, messages, funcMasterArray, funcMasterObject } = this.props;
+    const { inPreparation } = this.state;
     return (
       <IntlProvider locale={locale} messages={messages}>
         <div style={{ ...themeColor.ground }} >
@@ -211,7 +192,7 @@ class App extends Component {
           <Dialog
             title={this.state.title}
             modal
-            open={this.state.inPreparation}
+            open={inPreparation === 1 || inPreparation === 3 || inPreparation === 4}
           >
             <LinearProgress
               mode="determinate"
@@ -232,8 +213,6 @@ class App extends Component {
                 <FlatButton
                   label="実行"
                   onClick={() => {
-                    this.handleClose();
-                    this.prepare();
                     this.initOffline(
                       () => actions.finishPrepare(),
                       error => console.error('initOffLineError', error),
@@ -244,7 +223,7 @@ class App extends Component {
               </div>,
             ]}
             modal={false}
-            open={this.state.dialogOpen}
+            open={inPreparation === 2}
             onRequestClose={this.handleClose}
           >
             ネットワークがオフになっています。<br />

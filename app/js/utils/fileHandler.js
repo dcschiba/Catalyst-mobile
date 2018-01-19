@@ -1,5 +1,12 @@
 import AjaxInterceptor from 'ajax-interceptor';
 
+const resolveURL = filePath => new Promise((resolve, reject) => {
+  window.resolveLocalFileSystemURL(filePath,
+    fileEntry => resolve(fileEntry),
+    error => reject(error),
+  );
+});
+
 // #init4 ローカルサーバーを起動
 function launchServer(landingDirEntry, error) {
   const root = landingDirEntry.nativeURL.replace('file://', '');
@@ -104,16 +111,62 @@ export const getLandingDirEntry = (originDirEntry, callback, error) => {
   );
 };
 
+const countFiles = entry => new Promise((resolve, reject) => {
+  if (entry.isDirectory) {
+    entry.createReader().readEntries((entries) => {
+      if (entries.length === 0) {
+        resolve(0);
+        return;
+      }
+
+      Promise.all(entries.map(item => countFiles(item)))
+        .then((files) => {
+          const count = files.reduce((prev, current) => prev + current, 0);
+          resolve(count);
+        })
+        .catch(err => reject(err));
+    });
+
+    return;
+  }
+  resolve(1);
+});
+
+const checkFiles = dirEntry => countFiles(dirEntry);
+
+const checkConfig = () => new Promise((resolve, reject) => {
+  const filePath = `${window.cordova.file.cacheDirectory}/data/pri`;
+
+  resolveURL(filePath)
+    .then(fileEntry => checkFiles(fileEntry))
+    .then((fileCount) => {
+      console.error('Total file count', fileCount);
+      resolve(fileCount !== 0);
+    })
+    .catch(err => reject(err));
+});
+
+const initConfig = () => new Promise((resolve, reject) => {
+  const filePath = `${window.cordova.file.applicationDirectory}/www/data/pri`;
+
+  resolveURL(filePath)
+    .then((fileEntry) => {
+      getLandingDirEntry(fileEntry, launchServer);
+    })
+    .catch(err => reject(err));
+});
+
 // #init1 コピーするデータを取得
-export function launchLocalServer(error) {
-  window.resolveLocalFileSystemURL(
-    `${window.cordova.file.applicationDirectory}/www/data/pri`,
-    (originDirEntry) => {
-      console.error('originDirEntory', originDirEntry, launchServer);
-      getLandingDirEntry(originDirEntry, launchServer);
-    },
-    error,
-  );
+export function launchLocalServer() {
+  checkConfig()
+    .then((success) => {
+      if (success) {
+        return;
+      }
+
+      initConfig();
+    })
+    .catch((err) => { console.log('launchLocalServer', err); });
 }
 
 // #Overwrite4 データを保存
