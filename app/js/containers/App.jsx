@@ -8,7 +8,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import SettingMenu from '../components/catalyst/SettingMenu';
-// import Loading from '../components/catalyst/Loading';
 import { xhrHook, getLandingDirEntry, checkOffline, resolveURL } from '../utils/fileHandler';
 import * as Actions from '../actions/catalyst';
 import * as localeActions from '../actions/locale';
@@ -25,7 +24,6 @@ const propTypes = {
   funcMasterArray: PropTypes.array.isRequired,
   funcMasterObject: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
-  // isPrepared: PropTypes.bool.isRequired,
 };
 
 const themeColor = {
@@ -54,12 +52,12 @@ const styles = {
   okButton: {
     backgroundColor: '#707070',
     color: 'white',
-    margin: '0 16px 8px 16px',
+    margin: '0px 8px 8px 8px',
   },
   cancelButton: {
     backgroundColor: '#cccccc',
     color: 'white',
-    margin: '0 16px 8px 16px',
+    margin: '0px 8px 8px 8px',
   },
   buttonWrapper: {
     width: '100%',
@@ -127,7 +125,6 @@ class App extends Component {
       this.setState({ inPreparation: 3, title: 'Copy files...' });
 
       getLandingDirEntry(fileEntry).then((entry) => {
-        console.error('start unzip', entry);
         this.setState({ inPreparation: 4, title: 'Extract files...' });
 
         const zipPath = entry.copied.nativeURL;
@@ -135,16 +132,17 @@ class App extends Component {
 
         window.zip.unzip(zipPath, extractDir, (status) => {
           if (status !== 0) {
-            console.error('unzip error');
             error();
             return;
           }
 
+          // iosの場合、100%まで表示し切れないので、もう一回応答させる
+          this.setState({ progress: 100 });
+
           // progress 100%を表示できるように、１秒待つ
           setTimeout(() => {
-            this.setState({ inPreparation: false, title: '' });
+            this.setState({ inPreparation: 0, title: '' });
 
-            console.error('unzip success');
             callback();
           }, 1000);
         }, (progressEvent) => {
@@ -190,35 +188,29 @@ class App extends Component {
           <Dialog
             title={'オフライン動作準備'}
             actions={[
-              <div style={styles.buttonWrapper}>
-                <FlatButton
-                  label="キャンセル"
-                  onClick={this.handleClose}
-                  style={styles.cancelButton}
-                />
-              </div>,
-              <div style={styles.buttonWrapper}>
-                <FlatButton
-                  label="実行"
-                  onClick={() => {
-                    this.initOffline(
-                      () => actions.finishPrepare(),
-                      error => console.error('initOffLineError', error),
-                    );
-                  }}
-                  style={styles.okButton}
-                />
-              </div>,
+              <FlatButton
+                label="キャンセル"
+                onClick={this.handleClose}
+                style={styles.cancelButton}
+              />,
+              <FlatButton
+                label="実行"
+                onClick={() => {
+                  this.initOffline(
+                    () => actions.finishPrepare(),
+                    error => console.error('initOffLineError', error),
+                  );
+                }}
+                style={styles.okButton}
+              />,
             ]}
-            modal={false}
+            modal
             open={inPreparation === 2}
-            onRequestClose={this.handleClose}
           >
             ネットワークがオフになっています。<br />
             オフラインで使用する場合はオフラインセットアップを実行してください。<br />
-            ※セットアップには５分程かかる場合があります。
+            ※セットアップには最大５分程度かかる場合があります。
           </Dialog>
-          {/* {this.state.inPreparation && !this.props.isPrepared ? <Loading /> : null} */}
         </div>
       </IntlProvider>
     );
@@ -228,11 +220,9 @@ class App extends Component {
 function mapStateToProps(state) {
   const locale = state.locale;
   const title = state.catalyst.title;
-  const isPrepared = state.prepare.prepared;
   return {
     ...locale, // locale = { locale, messages, funcMasterArray, funcMasterObject }
     title,
-    isPrepared,
   };
 }
 
