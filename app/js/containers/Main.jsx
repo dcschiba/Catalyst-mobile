@@ -6,7 +6,7 @@ import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import WrapController from 'WRAP/UI/WrapController';
 import ArrowIcon from 'material-ui/svg-icons/navigation/arrow-back';
-import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
+// import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
 import { FormattedMessage } from 'react-intl';
 import LocationIcon from 'material-ui/svg-icons/maps/my-location';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -122,8 +122,7 @@ class Main extends Component {
 
   componentDidUpdate() {
     const { selectedFuncList, initflags, actions } = this.props;
-    if (this.props.isLoading
-      && this.state.mapInitFlg
+    if (this.props.isLoading && this.state.mapInitFlg
       && selectedFuncList.filter(func => !initflags[func]).length === 0) {
       actions.stopLoading();
       WRAP.Geo.waitLayerDraw(() => {
@@ -233,11 +232,11 @@ class Main extends Component {
               onClick={() => hashHistory.push('app/top')}
             />
           </div>
-          <div className={css.top_item_center}>
+          {/* <div className={css.top_item_center}>
             <button className={css.refresh_button}>
               <RefreshIcon style={styles.refresh_icon} />
             </button>
-          </div>
+          </div> */}
           <div className={css.top_item}>
             <BaseTime
               timeList={basetimeList}
