@@ -19,7 +19,6 @@ import './style/index.css';
 import appConfig from './appConfig.json';
 import { launchLocalServer } from './js/utils/fileHandler';
 
-
 function initPushNotification() {
   const push = window.PushNotification.init({
     android: { vibrate: true, forceShow: true },
@@ -102,7 +101,9 @@ function initApp() {
 if (process.env.NODE_ENV === 'production') {
   document.addEventListener('deviceready', () => {
     initPushNotification();
-    launchLocalServer().then(() => initApp());
+    launchLocalServer()
+      .then(() => initApp())
+      .catch(error => console.error('launchlocalserver', error));
   });
 } else {
   initApp();
