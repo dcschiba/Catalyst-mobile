@@ -77,6 +77,7 @@ class App extends Component {
     xhrHook(props.actions);
     this.onOnline = this.onOnline.bind(this);
     this.onOffline = this.onOffline.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   componentDidMount() {
     if (navigator.connection && navigator.connection.type !== 'none') {
@@ -141,7 +142,7 @@ class App extends Component {
 
           // progress 100%を表示できるように、１秒待つ
           setTimeout(() => {
-            this.setState({ inPreparation: 0, title: '' });
+            this.handleClose();
 
             callback();
           }, 1000);
@@ -154,6 +155,10 @@ class App extends Component {
         });
       });
     });
+  }
+
+  handleClose() {
+    this.setState({ inPreparation: 0, title: '' });
   }
 
   render() {
