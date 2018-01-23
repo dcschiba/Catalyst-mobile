@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
@@ -190,6 +189,7 @@ class Menu extends Component {
             onClick={e => actions.jmaPrcrinExtraClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !jmaprcrinextraChecked}
@@ -210,6 +210,7 @@ class Menu extends Component {
             onClick={e => actions.usAkRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !usAkChecked}
@@ -230,6 +231,7 @@ class Menu extends Component {
             onClick={e => actions.usGuRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !usGuChecked}
@@ -250,6 +252,7 @@ class Menu extends Component {
             onClick={e => actions.usHiRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !usHiChecked}
@@ -270,6 +273,7 @@ class Menu extends Component {
             onClick={e => actions.usNaRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !usNaChecked}
@@ -290,6 +294,7 @@ class Menu extends Component {
             onClick={e => actions.usPrRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !usPrChecked}
@@ -310,6 +315,7 @@ class Menu extends Component {
             onClick={e => actions.euRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !euChecked}
@@ -330,6 +336,7 @@ class Menu extends Component {
             onClick={e => actions.auRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !auChecked}
@@ -350,6 +357,7 @@ class Menu extends Component {
             onClick={e => actions.krRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !krChecked}
@@ -370,6 +378,7 @@ class Menu extends Component {
             onClick={e => actions.twRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !twChecked}
@@ -390,6 +399,7 @@ class Menu extends Component {
             onClick={e => actions.jpICDBRadarClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !jpicdbChecked}
@@ -414,10 +424,11 @@ class Menu extends Component {
           <Checkbox
             label="OBS_RADAR_CA"
             checked={ecobsradarechintcaChecked}
-            disables={!radarChecked}
+            disabled={!radarChecked}
             onClick={e => actions.ecObsRadarEchintCaClick(e.target.checked)}
             iconStyle={styles.checkbox.leftPosition.icon}
             labelStyle={styles.checkbox.leftPosition.label}
+            style={styles.checkbox.lineMenu}
           />
           <SelectField
             disabled={!radarChecked || !ecobsradarechintcaChecked}
@@ -437,7 +448,7 @@ class Menu extends Component {
               className={jpActivitySelect[key] === 0 || jpActivitySelect[key] === 3
                 ? css.graycolor : css.bluecolor} key={i}
             >
-              <label htmlFor className={css.labelwidth}>{Menu.getJpRadarName(key)}</label>
+              <span className={css.labelwidth}>{Menu.getJpRadarName(key)}</span>
               ： {JpRadarActivityStatus[jpActivitySelect[key]]}
             </div>,
           )}

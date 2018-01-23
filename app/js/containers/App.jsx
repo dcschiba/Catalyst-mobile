@@ -80,6 +80,7 @@ class App extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.onCheckOffline = this.onCheckOffline.bind(this);
     this.initOffline = this.initOffline.bind(this);
+    this.initOfflineFailed = this.initOfflineFailed.bind(this);
   }
   componentDidMount() {
     if (navigator.connection && navigator.connection.type !== 'none') {

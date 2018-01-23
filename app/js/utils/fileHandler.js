@@ -131,6 +131,7 @@ export const checkConfig = () =>
 
 // #init1 コピーするデータを取得
 export function launchLocalServer() {
+  if (!window.cordova) return Promise.resolve();
   const rootPath = `${window.cordova.file.cacheDirectory}/data`;
 
   // 1.Config File初期化
