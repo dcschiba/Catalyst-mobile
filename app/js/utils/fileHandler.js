@@ -78,7 +78,7 @@ export const getLandingDirEntry = orgDirEntry =>
     .then(cacheEntry => copyDir(orgDirEntry, cacheEntry));
 
 /** サブフォルダも含め、ファイル数をカウントする */
-const countFiles = entry => new Promise((resolve, reject) => {
+const cntFiles = entry => new Promise((resolve, reject) => {
   if (entry.isDirectory) {
     entry.createReader().readEntries((entries) => {
       if (entries.length === 0) {
@@ -86,7 +86,7 @@ const countFiles = entry => new Promise((resolve, reject) => {
         return;
       }
 
-      Promise.all(entries.map(item => countFiles(item)))
+      Promise.all(entries.map(item => cntFiles(item)))
         .then((files) => {
           const count = files.reduce((prev, current) => prev + current, 0);
           resolve(count);
@@ -101,69 +101,61 @@ const countFiles = entry => new Promise((resolve, reject) => {
 });
 
 /** ファイル数チェック */
-const checkFiles = dirEntry => countFiles(dirEntry);
-
-/** 設定ファイルの数量をチェックする */
-const checkConfig = () => new Promise((resolve, reject) => {
-  const filePath = `${window.cordova.file.cacheDirectory}/data/pri`;
-  const rootPath = `${window.cordova.file.cacheDirectory}/data`;
-
-  resolveURL(filePath)
-    .then(fileEntry => checkFiles(fileEntry))
-    .then((fileCount) => {
-      // 設定ファイル数チェック
-      if (fileCount === 108) {
-        resolveURL(rootPath)
-          .then(fileEntry => startServer(fileEntry))
-          .then(() => resolve(true))
-          .catch(error => reject(error));
-      }
-    })
-    .catch((error) => {
-      console.error('checkConfig file', error);
-      resolve(false);
-    });
-});
+const countFiles = dirEntry => cntFiles(dirEntry);
 
 /** 設定ファイル初期化 */
 const initConfig = () => {
   const filePath = `${window.cordova.file.applicationDirectory}/www/data/pri`;
-  const rootPath = `${window.cordova.file.cacheDirectory}/data`;
 
   // 1.LocalPath解析
   // 2.Cacheに移動
-  // 3.RootPath解析
-  // 4.サーバ起動
   return resolveURL(filePath)
-    .then(fileEntry => getLandingDirEntry(fileEntry))
-    .then(() => resolveURL(rootPath))
-    .then(fileEntry => startServer(fileEntry));
+    .then(fileEntry => getLandingDirEntry(fileEntry));
 };
+
+/**
+ * true: 設定ファイル数問題なし、false：設定ファイル数問題あり
+ */
+const checkPath = () => new Promise((resolve) => {
+  const filePath = `${window.cordova.file.cacheDirectory}/data/pri`;
+
+  resolveURL(filePath)
+    .then(fileEntry => countFiles(fileEntry))
+    .then(fileCount => resolve(fileCount === 108))
+    .catch(() => resolve(false));
+});
+
+/** 設定ファイルチェック */
+export const checkConfig = () =>
+  checkPath().then(success => (success ? Promise.resolve() : initConfig()));
 
 // #init1 コピーするデータを取得
 export function launchLocalServer() {
+  const rootPath = `${window.cordova.file.cacheDirectory}/data`;
+
+  // 1.Config File初期化
+  // 3.RootPath解析
+  // 4.サーバ起動
   return checkConfig()
-    .then(success => (success ? Promise.resolve : initConfig()));
+    .then(() => resolveURL(rootPath))
+    .then(fileEntry => startServer(fileEntry));
     // .catch(err => console.log('launchLocalServer', err));
 }
 
 /** offlineファイル数カウント */
 export const checkOffline = () => new Promise((resolve) => {
-  console.log(window.cordova);
   const libPath = `${window.cordova.file.cacheDirectory}/data/WRAP/libs`;
   const mapPath = `${window.cordova.file.cacheDirectory}/data/WRAP/wrap-pri/data/Map_OpenStreetMap`;
-  const startTime = Date.now();
 
   Promise.all([
     resolveURL(libPath)
-      .then(fileEntry => checkFiles(fileEntry))
+      .then(fileEntry => countFiles(fileEntry))
       .catch(() => Promise.resolve(0)),
     resolveURL(mapPath)
-      .then(fileEntry => checkFiles(fileEntry))
+      .then(fileEntry => countFiles(fileEntry))
       .catch(() => Promise.resolve(0)),
   ]).then((fileCount) => {
-    const endTime = Date.now();
-    console.error('checkOffline', endTime - startTime, fileCount);
+    console.error('fileCount', fileCount);
     resolve((fileCount[0] + fileCount[1]) === 5458);
   });
 });

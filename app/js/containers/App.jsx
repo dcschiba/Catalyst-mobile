@@ -8,7 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import SettingMenu from '../components/catalyst/SettingMenu';
-import { xhrHook, getLandingDirEntry, checkOffline, resolveURL } from '../utils/fileHandler';
+import { xhrHook, getLandingDirEntry, checkOffline, checkConfig, resolveURL } from '../utils/fileHandler';
 import * as Actions from '../actions/catalyst';
 import * as localeActions from '../actions/locale';
 import * as lightningActions from '../actions/lightning';
@@ -79,6 +79,7 @@ class App extends Component {
     this.onResume = this.onResume.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.onCheckOffline = this.onCheckOffline.bind(this);
+    this.initOffline = this.initOffline.bind(this);
   }
   componentDidMount() {
     if (navigator.connection && navigator.connection.type !== 'none') {
@@ -128,6 +129,9 @@ class App extends Component {
   onCheckOffline() {
     // dialog
     this.setState({ inPreparation: 1, title: 'Check offline files...' });
+    // 設定ファイル数チェック
+    checkConfig();
+    // オフライン用データチェック
     checkOffline()
       .then(success => this.setState({ inPreparation: success ? 0 : 2 }))
       .catch(error => this.initOfflineFailed(error));
@@ -135,7 +139,6 @@ class App extends Component {
 
   /** Appがバックグラウンドから取得されるときに発生する */
   onResume() {
-    console.log('resume');
     if (!navigator.onLine) {
       this.onCheckOffline();
     }
@@ -190,7 +193,12 @@ class App extends Component {
   }
 
   handleClose() {
-    this.setState({ inPreparation: 0, title: '', offlineOpen: false });
+    this.setState({
+      inPreparation: 0,
+      title: '',
+      offlineOpen: false,
+      progress: 0,
+    });
   }
 
   render() {
@@ -228,7 +236,7 @@ class App extends Component {
               <div style={styles.buttonWrapper}>
                 <FlatButton
                   label="OK"
-                  onClick={this.handleClose}
+                  onClick={this.initOfflineFailed}
                   style={styles.okButton}
                 />
               </div>,

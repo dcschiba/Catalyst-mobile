@@ -53,7 +53,11 @@ function initPushNotification() {
   });
 
   push.on('error', (e) => {
-    alert('push receive error');
+    window.navigator.notification.alert(
+      'push receive error',
+      () => {},
+      '',
+    );
     console.error(e);
   });
 }
