@@ -120,6 +120,19 @@ class Main extends Component {
     this.ready = this.ready.bind(this);
   }
 
+  /** 初回描画後 */
+  componentDidMount() {
+    setTimeout(() => {
+      if (this.props.isLoading) {
+        window.navigator.notification.alert(
+          '地図の読み込みが失敗しました',
+          () => hashHistory.push('app/top'),
+          '',
+        );
+      }
+    }, 10000);
+  }
+
   componentDidUpdate() {
     const { selectedFuncList, initflags, actions } = this.props;
     if (this.props.isLoading && this.state.mapInitFlg

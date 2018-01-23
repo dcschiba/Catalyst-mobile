@@ -95,15 +95,6 @@ class Menu extends Component {
         clearInterval(waitForMapInitialize);
       }
     }, 1000);
-    setTimeout(() => {
-      if (this.props.isLoading) {
-        window.navigator.notification.alert(
-          '地図の読み込みが失敗しました',
-          () => hashHistory.push('app/top'),
-          '',
-        );
-      }
-    }, 10000);
   }
   render() {
     const {
