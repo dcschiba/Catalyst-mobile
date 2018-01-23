@@ -130,7 +130,7 @@ class Main extends Component {
           '',
         );
       }
-    }, 10000);
+    }, 30000);
   }
 
   componentDidUpdate() {
