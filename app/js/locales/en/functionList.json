@@ -23,7 +23,7 @@
             "LAND",
             "SKY"
         ],
-        "offLine": true
+        "offLine": false
     },
     {
         "name": "WX_WNI_JP_10Ten_Report",

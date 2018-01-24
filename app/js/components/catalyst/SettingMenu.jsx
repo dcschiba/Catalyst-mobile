@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import SettingIcon from 'material-ui/svg-icons/action/settings';
 import Dialog from 'material-ui/Dialog';
+import appConfig from '../../../appConfig.json';
 
 
 const propTypes = {
@@ -135,6 +136,7 @@ class SettingMenu extends Component {
             primaryText="Language" onClick={() => this.handleOpen('language')}
           />
           <MenuItem primaryText="UUID" onClick={() => this.handleOpen('uuid')} />
+          <MenuItem primaryText="SendPush" onClick={() => window.open(appConfig.pushPage, '_system')} />
         </IconMenu>
         <Dialog
           title={dialogTitle}

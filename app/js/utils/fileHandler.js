@@ -238,11 +238,11 @@ export function xhrHook(actions) {
     element.href = responseURL;
     const path = element.pathname;
     if (
-      responseURL.indexOf('WRAP/wrap-pri/data/JMA_Warn') !== -1
-      || responseURL.indexOf('WarnRankMaster') !== -1
-      || responseURL.indexOf('JMA_ANLSIS_PRCINT') !== -1
+      responseURL.indexOf('WRAP/wrap-pri/data/WX_JMA_Warn') !== -1
+      // || responseURL.indexOf('gpv/JMA_ANLSIS_PRCINT_HRES') !== -1
+      // || responseURL.indexOf('gpv/JMA_NOWCAS_PRCINT_HRES') !== -1
       || responseURL.indexOf('WRAP/wrap-pri/data/WX_JMA_Amedas') !== -1
-      || responseURL.indexOf('catalyst/contents/WX_WNI_COMPASS_HOUR') !== -1
+      || responseURL.indexOf('wrap-ea-contents/WX_WNI_COMPASS_HOUR') !== -1
     ) {
       saveLayerData(`data${path}`, xhr.response);
     }

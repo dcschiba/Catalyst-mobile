@@ -62,4 +62,5 @@
     <plugin name="cordova-plugin-geolocation" spec="^3.0.0" />
     <plugin name="cordova-plugin-zip" spec="^3.1.0" />
     <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^2.0.1" />
 </widget>

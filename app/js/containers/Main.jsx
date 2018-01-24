@@ -24,6 +24,7 @@ import * as LayerActions from '../actions/layer';
 import * as RadarActions from '../actions/radar';
 import * as InitActions from '../actions/layerInit';
 import * as LoadingActions from '../actions/loading';
+import * as selectFuncActions from '../actions/selectedFuncList';
 import { OPEN_STREET_MAP } from '../constants/map/mapSource';
 import css from '../../style/main.css';
 import GPVLayer from '../layers/gpv/GPVLayer';
@@ -41,6 +42,7 @@ const propTypes = {
   initflags: PropTypes.object.isRequired,
   showLayerFlags: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  location: PropTypes.object,
   locale: PropTypes.string.isRequired,
   messages: PropTypes.object.isRequired,
   networkInfo: PropTypes.object.isRequired,
@@ -119,6 +121,13 @@ class Main extends Component {
     this.baseTimeToggle = this.baseTimeToggle.bind(this);
     this.ready = this.ready.bind(this);
   }
+  componentWillMount() {
+    const { actions } = this.props;
+    const { contents } = this.props.location.query;
+    if (contents) {
+      actions.addFunction(contents);
+    }
+  }
 
   /** 初回描画後 */
   componentDidMount() {
@@ -176,6 +185,7 @@ class Main extends Component {
       dhkeyoption.baseurl_ea = 'https://pt-wrap.wni.com';
       dhkeyoption.icdburl = 'https://wni-icdb.wni.com';
       dhkeyoption.pdburl = 'https://wni-pdb.wni.com';
+      dhkeyoption.apppath = 'https://pt-wrap01.wni.co.jp/Catalyst';
       map.setOptions({ passiveLogo: true });
       WrapController.initGoogleMap(map); // Geoにmapオブジェクトをセット
     } else {
@@ -183,6 +193,7 @@ class Main extends Component {
       dhkeyoption.baseurl_ea = 'http://localhost:50000';
       dhkeyoption.icdburl = 'http://localhost:50000';
       dhkeyoption.pdburl = 'http://localhost:50000';
+      dhkeyoption.apppath = 'http://localhost:50000';
       WrapController.initOpenLayers(map); // Geoにmapオブジェクトをセット
     }
     WrapController.initWRAP(confDataPath, dhkeyoption);  // DHが参照するデータの設定ファイルの格納先をセット
@@ -528,6 +539,7 @@ function mapDispatchToProps(dispatch) {
       RadarActions,
       InitActions,
       LoadingActions,
+      selectFuncActions,
     ), dispatch),
   };
 }

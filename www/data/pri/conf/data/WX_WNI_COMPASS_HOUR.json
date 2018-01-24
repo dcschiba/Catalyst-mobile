@@ -2,8 +2,8 @@
 	"Name": "WX_WNI_COMPASS_HOUR",
 	"DataHandler": "GeoTiff",
 	"Attributes": {
-		"TimeList": "%baseurl_ea%/catalyst/contents/WX_WNI_COMPASS_HOUR/index.json",
-		"File": "%baseurl_ea%/catalyst/contents/WX_WNI_COMPASS_HOUR/%element%/%level%/%basetime%/%validtime%/%z%/%y%/%x%.tiff",
+		"TimeList": "%baseurl_ea%/wrap-ea-contents/WX_WNI_COMPASS_HOUR/index.json",
+		"File": "%baseurl_ea%/wrap-ea-contents/WX_WNI_COMPASS_HOUR/%element%/%level%/%basetime%/%validtime%/%z%/%y%/%x%.tiff",
 		"DataGrid": {
 			"Width" : 7200,
 			"Height" : 3597,
