@@ -61,6 +61,9 @@ export const styles = {
         padding: '10px 6px 10px 6px',
       },
     },
+    lineMenu: {
+      width: '50%',
+    },
   },
   select: {
     wrapper: {

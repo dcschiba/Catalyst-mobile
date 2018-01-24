@@ -1,7 +1,5 @@
 import WrapLayer from 'WRAP/UI/WrapLayer';
-import AjaxInterceptor from 'ajax-interceptor';
 import { LIGHTNING_JP_CLICK, LIGHTNING_KMA_CLICK } from '../constants/lightning/ActionTypes';
-import { getFile } from '../utils/fileHandler';
 
 class LightningLayer extends WrapLayer {
   constructor(conf) {
@@ -60,24 +58,16 @@ class LightningLayer extends WrapLayer {
 
   ctrlLayer(type, state) {
     const { lightning } = state;
-    AjaxInterceptor.addResponseCallback((xhr) => {
-      console.log(xhr);
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaa');
-    });
-    AjaxInterceptor.wire();
     switch (type) {
       case LIGHTNING_JP_CLICK:
-        getFile('/WRAP/wrap-pri/data/WX_JP_Lightning_Latest/latest70min.json');
         this.setVisible(lightning.lightningJpChecked);
         break;
       case LIGHTNING_KMA_CLICK:
-        getFile('/WRAP/wrap-pri/data/WX_KMA_Lightning_Latest/latest70min.json');
         this.setVisible(lightning.lightningKmaChecked);
         break;
       default:
         break;
     }
-    AjaxInterceptor.unwire();
   }
 }
 

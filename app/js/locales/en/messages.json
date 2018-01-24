@@ -93,5 +93,10 @@
     "analysisasia.rhum": "Humidity",
     "analysisasia.wndspd": "WindSpeed",
     "analysisglobal.analysisglobal": "Analysis Global",
-    "analysisglobal.precipitation": "Precipitation"
+    "analysisglobal.precipitation": "Precipitation",
+    "back_button_label": "back",
+    "legend_label": "Legend",
+    "close_label": "close",
+    "getLocationFailed": "Failed to get the current location.",
+    "ok_button_label": "OK"
 }

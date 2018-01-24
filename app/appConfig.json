@@ -1,3 +1,4 @@
 {
-  "pushServer": "https://catalyst-push.glitch.me"
+  "pushServer": "https://catalyst-push.glitch.me",
+  "pushPage": "https://catalyst-push.glitch.me/client/"
 }

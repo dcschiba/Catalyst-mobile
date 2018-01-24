@@ -19,7 +19,6 @@ import './style/index.css';
 import appConfig from './appConfig.json';
 import { launchLocalServer } from './js/utils/fileHandler';
 
-
 function initPushNotification() {
   const push = window.PushNotification.init({
     android: { vibrate: true },
@@ -51,7 +50,11 @@ function initPushNotification() {
     const { path, contents, foreground } = additionalData;
 
     if (foreground) {
-      alert(`Push通知を受信しました。\nTitle:${title}\nMessage:${message}`);
+      window.navigator.notification.alert(
+        `Push通知を受信しました。\nTitle:${title}\nMessage:${message}`,
+        null,
+        '',
+      );
     }
 
     if (path) {
@@ -59,12 +62,15 @@ function initPushNotification() {
         pathname: path,
         query: { contents },
       });
-      window.location.reload();
     }
   });
 
   push.on('error', (e) => {
-    alert('push receive error');
+    window.navigator.notification.alert(
+      'push receive error',
+      () => { },
+      '',
+    );
     console.error(e);
   });
 }
@@ -112,8 +118,9 @@ function initApp() {
 if (process.env.NODE_ENV === 'production') {
   document.addEventListener('deviceready', () => {
     initPushNotification();
-    launchLocalServer();
-    initApp();
+    launchLocalServer()
+      .then(() => initApp())
+      .catch(error => console.error('launchlocalserver', error));
   });
 } else {
   initApp();

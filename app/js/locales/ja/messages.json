@@ -93,5 +93,10 @@
     "analysisasia.rhum": "相対湿度",
     "analysisasia.wndspd": "風速",
     "analysisglobal.analysisglobal": "実況解析(グローバル)",
-    "analysisglobal.precipitation": "降水量"
+    "analysisglobal.precipitation": "降水量",
+    "back_button_label": "戻る",
+    "legend_label": "凡例",
+    "close_label": "閉じる",
+    "getLocationFailed": "現在地を取得できませんでした。 通信設定を確認してください。",
+    "ok_button_label": "決定"    
 }

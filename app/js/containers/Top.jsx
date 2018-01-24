@@ -16,6 +16,8 @@ const propTypes = {
   funcMasterArray: PropTypes.array.isRequired,
   selectedFuncList: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
+  isOnline: PropTypes.bool.isRequired,
+  messages: PropTypes.object.isRequired,
 };
 
 const styles = {
@@ -44,6 +46,7 @@ class Top extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.selectFunction = this.selectFunction.bind(this);
   }
+
   handleChange(value) {
     this.setState({
       tabStatus: value,
@@ -57,7 +60,7 @@ class Top extends Component {
     }
   }
   render() {
-    const { themeColor, selectedFuncList, funcMasterArray } = this.props;
+    const { themeColor, selectedFuncList, funcMasterArray, isOnline, messages } = this.props;
     const { targetList } = this.state;
     return (
       <div className={css.wrapper}>
@@ -90,6 +93,7 @@ class Top extends Component {
                     funcMasterArray.filter(func => func.target.indexOf(target) !== -1)}
                   selectedFuncList={selectedFuncList}
                   itemClickAction={this.selectFunction}
+                  isOnline={isOnline}
                 />
               </div>
             ))}
@@ -97,7 +101,7 @@ class Top extends Component {
         </div>
         <div className={css.button}>
           <FlatButton
-            label="決定"
+            label={messages.ok_button_label}
             style={{
               ...styles.button,
               ...themeColor.second,
@@ -115,8 +119,10 @@ class Top extends Component {
 
 function mapStateToProps(state) {
   const selectedFuncList = state.selectedFuncList.list;
+  const isOnline = state.online.isOnline;
   return {
     selectedFuncList,
+    isOnline,
   };
 }
 

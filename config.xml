@@ -25,6 +25,23 @@
         <resource-file src="google-services.json" target="google-services.json" />
     </platform>
     <platform name="ios">
+        <icon height="180" src="res/icon/ios/iPhone_180pt_@3x.png" width="180" />
+        <icon height="87" src="res/icon/ios/iPhone_87pt_@3x.png" width="87" />
+        <icon height="60" src="res/icon/ios/iPhone_60pt_@1x.png" width="60" />
+        <icon height="120" src="res/icon/ios/iPhone_120pt_@2x.png" width="120" />
+        <icon height="76" src="res/icon/ios/iPad_76pt_@1x.png" width="76" />
+        <icon height="152" src="res/icon/ios/iPad_152pt_@2x.png" width="152" />
+        <icon height="40" src="res/icon/ios/iPhone_40pt_@1x.png" width="40" />
+        <icon height="80" src="res/icon/ios/iPhone_80pt_@2x.png" width="80" />
+        <icon height="57" src="res/icon/ios/iPhone_57pt_@1x.png" width="57" />
+        <icon height="114" src="res/icon/ios/iPhone_114pt_@2x.png" width="114" />
+        <icon height="72" src="res/icon/ios/iPad_72pt_@1x.png" width="72" />
+        <icon height="144" src="res/icon/ios/iPad_144pt_@2x.png" width="144" />
+        <icon height="29" src="res/icon/ios/iPhone_29pt_@1x.png" width="29" />
+        <icon height="58" src="res/icon/ios/iPhone_58pt_@2x.png" width="58" />
+        <icon height="50" src="res/icon/ios/iPad_50pt_@1x.png" width="50" />
+        <icon height="100" src="res/icon/ios/iPad_100pt_@2x.png" width="100" />
+        <splash height="1334" src="res/icon/ios/splash_iphone.png" width="750" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <resource-file src="GoogleService-Info.plist" />
@@ -43,4 +60,7 @@
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-vibration" spec="^2.1.6" />
     <plugin name="cordova-plugin-geolocation" spec="^3.0.0" />
+    <plugin name="cordova-plugin-zip" spec="^3.1.0" />
+    <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^2.0.1" />
 </widget>
