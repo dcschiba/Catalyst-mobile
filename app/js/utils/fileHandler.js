@@ -217,8 +217,10 @@ function saveLayerData(path, data) {
 }
 
 export function xhrHook(actions) {
-  /* eslint-disable global-require */
   // #Overwrite1 #Basetime1 通信を監視してURLで引っ掛ける。レイヤーデータおよびBaseTimeの保存をする。
+  if (AjaxInterceptor.isWired()) {
+    return;
+  }
   AjaxInterceptor.addResponseCallback((xhr) => {
     const responseURL = xhr.responseURL;
     if (responseURL.indexOf('wrap-pri') !== -1) {
